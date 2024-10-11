@@ -1,5 +1,6 @@
-import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import './App.css';
+import Footer from './layout/footer/Footer';
 import TravelHeader from './layout/header/TravelHeader';
 
 function Header() {
@@ -12,6 +13,7 @@ function App() {
   return (
     <BrowserRouter>
      <Header/>
+     <Footer/>
     </BrowserRouter>
   );
 }

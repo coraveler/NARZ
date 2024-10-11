@@ -1,0 +1,115 @@
+.footer {
+    justify-content: center;
+    align-items: flex-start;
+    align-content: flex-start;
+    align-self: stretch;
+    flex-wrap: wrap;
+    border-top: 1px solid var(--color-grey-8480, rgba(214, 214, 214, 0.8));
+    background-color: #fff;
+    display: flex;
+    padding: 32px 0;
+    gap: 0 29px;
+    overflow: hidden;
+  }
+  
+  .logoContainer {
+    display: flex;
+    flex-direction: column;
+    width: 240px;
+  }
+  
+  .logo {
+    display: flex;
+    min-width: 240px;
+    width: 100%;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  
+  .logoImage {
+    display: flex;
+    width: 23px;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .logoIcon {
+    aspect-ratio: 0.66;
+    object-fit: contain;
+    object-position: center;
+    width: 23px;
+    align-self: stretch;
+    margin: auto 0;
+  }
+  
+  .socialIcons {
+    display: flex;
+    margin-top: 24px;
+    width: 100%;
+    align-items: center;
+    gap: 16px;
+    justify-content: flex-start;
+  }
+  
+  .socialIcon {
+    aspect-ratio: 1;
+    object-fit: contain;
+    object-position: center;
+    width: 24px;
+    align-self: stretch;
+    margin: auto 0;
+  }
+  
+  .footerColumn {
+    display: flex;
+    min-width: 240px;
+    flex-direction: column;
+    align-items: flex-start;
+    color: var(--sds-color-text-default-default);
+    justify-content: flex-start;
+    width: 262px;
+    font: var(--sds-typography-body-font-weight-regular) var(--sds-typography-body-size-medium) / 1.4 var(--sds-typography-body-font-family);
+  }
+  
+  .columnTitle {
+    align-self: stretch;
+    display: flex;
+    width: 100%;
+    padding-bottom: 16px;
+    flex-direction: column;
+    font-weight: var(--sds-typography-body-font-weight-strong);
+    justify-content: flex-start;
+  }
+  
+  .columnList {
+    width: 100%;
+  }
+  
+  .listItem {
+    margin-top: 12px;
+    width: 89px;
+  }
+  
+  .listItemWrap {
+    margin-top: 12px;
+    width: 89px;
+    white-space: nowrap;
+  }
+  
+  @media (max-width: 991px) {
+    .listItemWrap {
+      white-space: initial;
+    }
+  }
+  
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
