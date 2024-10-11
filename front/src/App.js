@@ -1,19 +1,21 @@
-import { BrowserRouter } from 'react-router-dom';
-import './App.css';
-import Footer from './layout/footer/Footer';
-import TravelHeader from './layout/header/TravelHeader';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "./App.css";
+import Footer from "./layout/footer/Footer";
+import TravelHeader from "./layout/header/TravelHeader";
+import HomePage from "./pages/HomePage";
 
 function Header() {
-  return (
-    <TravelHeader/>
-  );
+  return <TravelHeader />;
 }
 
 function App() {
   return (
     <BrowserRouter>
-     <Header/>
-     <Footer/>
+      <Header />
+      <Routes>
+        <Route path="/" element={<HomePage />}></Route>
+      </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }
