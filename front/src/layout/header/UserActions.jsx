@@ -39,7 +39,7 @@ const PointsDisplay = styled.div`
   white-space: nowrap;
   text-align: center;
   letter-spacing: -1px;
-  line-height: 4.5;
+  line-height: 0.5;
   padding: 0 10px;
   
   @media (max-width: 991px) {
