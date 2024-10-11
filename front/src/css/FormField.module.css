@@ -1,0 +1,24 @@
+.formField {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .labelWrapper {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+  }
+  
+  .label {
+    color: #000;
+    font-size: 16px;
+    font-weight: 400;
+    font-family: Inter, sans-serif;
+  }
+  
+  .requiredAsterisk {
+    color: #d19675;
+    font-size: 18px;
+    font-weight: 700;
+  }
