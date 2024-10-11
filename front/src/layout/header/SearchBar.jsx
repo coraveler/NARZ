@@ -13,7 +13,8 @@ const SearchBar = () => {
         placeholder="어디로, 어떤 여행을 떠날 예정인가요?"
       />
       <SearchButton type="submit" aria-label="Search">
-        <SearchIcon src="https://cdn.builder.io/api/v1/image/assets/TEMP/d3d0b10c021ae5b658c9777a314a48078e66b82e7c53bbca628055f42fda7c9b?placeholderIfAbsent=true&apiKey=c7f1d91a917e4e2ba5370da6919a77db" alt="" />
+      <SearchIcon src="../images/search.jpg" alt="" />
+
       </SearchButton>
     </SearchForm>
   );
@@ -43,14 +44,16 @@ const Label = styled.label`
 
 const SearchInput = styled.input`
   flex-grow: 1;
-  padding: 13px 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  padding: 10px 10px;
+  border: none; /* 전체 테두리 제거 */
+  border-bottom: 1px solid #ccc; /* 밑줄 추가 */
+  border-radius: 0; /* 테두리 반경을 0으로 설정 */
   font-size: 16px;
   @media (max-width: 991px) {
     padding-right: 20px;
   }
 `;
+
 
 const SearchButton = styled.button`
   background: none;
