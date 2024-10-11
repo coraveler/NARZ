@@ -1,14 +1,20 @@
 import React from "react";
 import styled from "styled-components";
 import { CgProfile } from "react-icons/cg";
+import { Link } from "react-router-dom";
 
-const UserActions = () => {
+const UserActions = ({ isLoggedIn }) => {
   return (
     <StyledUserActions>
       <NotificationIcon src="https://cdn.builder.io/api/v1/image/assets/TEMP/d3d0b10c021ae5b658c9777a314a48078e66b82e7c53bbca628055f42fda7c9b?placeholderIfAbsent=true&apiKey=c7f1d91a917e4e2ba5370da6919a77db" alt="Notifications" />
-      <StyledCgProfile />
-      {/* <MileageIcon src="https://cdn.builder.io/api/v1/image/assets/TEMP/8ede8e5ea61e98385137929506d6a9e8edc27135db52515903d78bebf71a8b2a?placeholderIfAbsent=true&apiKey=c7f1d91a917e4e2ba5370da6919a77db" alt="User Profile" />
-      <PointsDisplay>1,000</PointsDisplay> */}
+      {isLoggedIn ? (
+        <StyledCgProfile />
+      ) : (
+        <Link to="/login">
+          <StyledCgProfile />
+        </Link>
+      )}
+      
       <Container>
         <MileageIcon src="https://cdn.builder.io/api/v1/image/assets/TEMP/8ede8e5ea61e98385137929506d6a9e8edc27135db52515903d78bebf71a8b2a?placeholderIfAbsent=true&apiKey=c7f1d91a917e4e2ba5370da6919a77db" alt="User Profile" />
         <PointsDisplay>1,000</PointsDisplay>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom'; // Link를 올바르게 import
+import { useNavigate, Link } from 'react-router-dom'; 
+import styles from '../css/Login.module.css'; 
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -20,7 +21,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="login-page">
+    <div className={styles.loginPage}> {/* styles.loginPage로 클래스 적용 */}
       <h2>NARZ</h2>
       <form onSubmit={handleSubmit}>
         <label>Email</label>
@@ -40,6 +41,7 @@ const LoginPage = () => {
         <button type="submit">Sign In</button>
       </form>
       <Link to="/forgot-password">Forgot password?</Link>
+      <Link to="/register">회원가입</Link>
     </div>
   ); 
 };
