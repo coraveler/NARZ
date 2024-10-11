@@ -1,0 +1,58 @@
+.travelForm {
+    max-width: none !important;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 0 180px;
+  }
+  
+  .formHeader {
+    margin-bottom: 20px;
+  }
+  
+  .requiredNote {
+    color: #6b6b6b;
+    font: 400 14px/25px Inter, -apple-system, Roboto, Helvetica, sans-serif;
+  }
+  
+  .requiredAsterisk {
+    color: #d19675;
+    font-weight: 700;
+  }
+  
+  .formContent {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+  
+  .titleInput,
+  .contentTextarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 15px;
+  }
+  
+  .contentTextarea {
+    min-height: 200px;
+    resize: vertical;
+  }
+  
+  .imageUploadWrapper {
+    display: flex;
+    align-items: center;
+  }
+  
+  .privacyToggle {
+    align-self: flex-end;
+    margin-top: 20px;
+  }
+  
+  @media (max-width: 991px) {
+    .travelForm {
+      padding: 0 20px;
+    }
+  }
