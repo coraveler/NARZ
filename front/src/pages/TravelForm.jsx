@@ -1,10 +1,10 @@
 import React from 'react';
-import FormField from '../FormComponents/FormField';
-import SelectField from '../FormComponents/SelectField';
-import ImageUpload from '../FormComponents/ImageUpload';
-import ToggleSwitch from '../FormComponents/ToggleSwitch';
-import StarRating from '../FormComponents/StarRating';
-import styles from '../../css/TravelForm.module.css';
+import FormField from '../Includes/FormComponents/FormField';
+import SelectField from '../Includes/FormComponents/SelectField';
+import ImageUpload from '../Includes/FormComponents/ImageUpload';
+import ToggleSwitch from '../Includes/FormComponents/ToggleSwitch';
+import StarRating from '../Includes/FormComponents/StarRating';
+import styles from '../css/TravelForm.module.css';
 
 const TravelForm = () => {
   return (
