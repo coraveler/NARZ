@@ -3,6 +3,7 @@ import styled from "styled-components";
 import NavigationLink from "./NavigationLink";
 import SearchBar from "./SearchBar";
 import UserActions from "./UserActions";
+import { useNavigate } from 'react-router-dom';
 
 const TravelHeader = () => {
   const navLinks = [
@@ -12,11 +13,13 @@ const TravelHeader = () => {
     { text: "개인페이지", href: "#" },
   ];
 
+  const navigate = useNavigate();
+
   return (
     <Header>
       <Container>
         <Nav>
-          <Logo src="https://cdn.builder.io/api/v1/image/assets/TEMP/776247c9bbc02598406bd3e931ee9dbc12289c2fba1447e805ade00b73f87025?placeholderIfAbsent=true&apiKey=c7f1d91a917e4e2ba5370da6919a77db" alt="Travel Logo" />
+          <Logo src="https://cdn.builder.io/api/v1/image/assets/TEMP/776247c9bbc02598406bd3e931ee9dbc12289c2fba1447e805ade00b73f87025?placeholderIfAbsent=true&apiKey=c7f1d91a917e4e2ba5370da6919a77db" alt="Travel Logo" onClick={() => navigate('/')}/>
           {navLinks.map((link, index) => (
             <NavigationLink key={index} {...link} />
           ))}
@@ -82,6 +85,7 @@ const Logo = styled.img`
   align-self: stretch;
   z-index: 0;
   margin: auto 0;
+  cursor: pointer;
 `;
 
 const ActiveIndicator = styled.div`
