@@ -5,9 +5,7 @@ import TravelHeader from './layout/header/TravelHeader';
 import TravelForm from './layout/TravelForm/TravelForm';
 
 function Header() {
-  return (
-    <TravelHeader/>
-  );
+  return <TravelHeader />;
 }
 
 function App() {

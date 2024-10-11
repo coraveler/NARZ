@@ -1,12 +1,18 @@
 import React from "react";
 import styled from "styled-components";
+import { CgProfile } from "react-icons/cg";
 
 const UserActions = () => {
   return (
     <StyledUserActions>
       <NotificationIcon src="https://cdn.builder.io/api/v1/image/assets/TEMP/d3d0b10c021ae5b658c9777a314a48078e66b82e7c53bbca628055f42fda7c9b?placeholderIfAbsent=true&apiKey=c7f1d91a917e4e2ba5370da6919a77db" alt="Notifications" />
-      <ProfileIcon src="https://cdn.builder.io/api/v1/image/assets/TEMP/8ede8e5ea61e98385137929506d6a9e8edc27135db52515903d78bebf71a8b2a?placeholderIfAbsent=true&apiKey=c7f1d91a917e4e2ba5370da6919a77db" alt="User Profile" />
-      <PointsDisplay>1,000</PointsDisplay>
+      <StyledCgProfile />
+      {/* <MileageIcon src="https://cdn.builder.io/api/v1/image/assets/TEMP/8ede8e5ea61e98385137929506d6a9e8edc27135db52515903d78bebf71a8b2a?placeholderIfAbsent=true&apiKey=c7f1d91a917e4e2ba5370da6919a77db" alt="User Profile" />
+      <PointsDisplay>1,000</PointsDisplay> */}
+      <Container>
+        <MileageIcon src="https://cdn.builder.io/api/v1/image/assets/TEMP/8ede8e5ea61e98385137929506d6a9e8edc27135db52515903d78bebf71a8b2a?placeholderIfAbsent=true&apiKey=c7f1d91a917e4e2ba5370da6919a77db" alt="User Profile" />
+        <PointsDisplay>1,000</PointsDisplay>
+      </Container>
     </StyledUserActions>
   );
 };
@@ -27,11 +33,11 @@ const NotificationIcon = styled.img`
   cursor: pointer;
 `;
 
-const ProfileIcon = styled.img`
+const MileageIcon = styled.img`
   aspect-ratio: 1;
   object-fit: contain;
   object-position: center;
-  width: 32px;
+  width: 22px;
   cursor: pointer;
 `;
 
@@ -45,4 +51,14 @@ const PointsDisplay = styled.div`
   @media (max-width: 991px) {
     white-space: initial;
   }
+`;
+
+const StyledCgProfile = styled(CgProfile)`
+  width: 30px; /* 아이콘 너비 */
+  height: 30px; /* 아이콘 높이 */
+`;
+
+const Container = styled.div`
+  display: flex; /* Flexbox 사용 */
+  align-items: center; /* 수직 중앙 정렬 */
 `;
