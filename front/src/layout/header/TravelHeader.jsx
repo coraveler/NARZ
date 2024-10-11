@@ -41,27 +41,28 @@ const Container = styled.div`
   display: flex;
   width: 100%;
   align-items: center;
-  gap: 17px;
-  justify-content: flex-start; // 'center'에서 'flex-start'로 변경
+  gap: 5px;
+  justify-content: flex-start;
   flex-wrap: wrap;
-  padding: 0 20px; // 기존 padding 값을 줄임
+  padding: 0 20px; // padding 설정
+  box-sizing: border-box; // 추가
   @media (max-width: 991px) {
-    max-width: 100%;
-    padding: 0 10px; // 모바일에서 padding 추가 조정
+    padding: 0 10px; // 모바일에서도 padding 설정
   }
 `;
+
 
 const Nav = styled.nav`
   align-self: stretch;
   position: relative;
   display: flex;
-  min-width: 200px; // 필요에 따라 조정
+  min-width: 00px; // 필요에 따라 조정
   padding-right: 20px; // 여백 줄이기
   align-items: center;
   white-space: nowrap;
   text-align: center;
   letter-spacing: -1px;
-  line-height: 4.5;
+  line-height: 0.2;
   justify-content: start;
   flex: 1;
   flex-basis: auto; // '0%'에서 'auto'로 변경
