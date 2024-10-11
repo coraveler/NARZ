@@ -1,0 +1,25 @@
+.travelCardGrid {
+    max-width: 955px;
+    display: flex;
+    gap: 20px;
+  }
+  
+  .travelCardColumn {
+    display: flex;
+    flex-direction: column;
+    line-height: normal;
+    width: 25%;
+    margin-left: 0;
+  }
+  
+  @media (max-width: 991px) {
+    .travelCardGrid {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+    }
+  
+    .travelCardColumn {
+      width: 100%;
+    }
+  }
