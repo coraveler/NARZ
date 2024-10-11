@@ -1,0 +1,43 @@
+.toggleSwitch {
+    display: flex;
+    align-items: center;
+  }
+  
+  .switchLabel {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .switchInput {
+    display: none;
+  }
+  
+  .slider {
+    position: relative;
+    width: 40px;
+    height: 24px;
+    background-color: #ccc;
+    border-radius: 34px;
+    transition: 0.4s;
+  }
+  
+  .slider:before {
+    content: "";
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    border-radius: 50%;
+    transition: 0.4s;
+  }
+  
+  .switchInput:checked + .slider {
+    background-color: #2196F3;
+  }
+  
+  .switchInput:checked + .slider:before {
+    transform: translateX(16px);
+  }
