@@ -8,7 +8,7 @@ const NavigationLink = ({ text, href }) => {
 const StyledLink = styled.a`
   align-self: stretch;
   color: #000;
-  font-weight: 700;
+  font-weight: 500;
   width: 100px;
   margin: auto 0;
   padding: 36px 0px;
