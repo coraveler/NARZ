@@ -9,6 +9,7 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import ProfileIcon from './layout/header/ProfileIcon';  
 import TravelForm from "./pages/TravelForm";
+import SignUpForm from "./pages/SignUpForm";
 
 
 function Header() {
@@ -23,7 +24,7 @@ function App() {
         <Route path="/" element={<HomePage />}></Route>
         <Route path="/calendar" element={<CalendarPage />}></Route>
         <Route path="/localboard" element={<LocalBoard />}></Route>
-
+        <Route path="/SignUpForm" element={<SignUpForm />}></Route>
         <Route path="/login" element={<LoginPage />}></Route>
         <Route path="/register" element={<RegisterPage />} />
         {/* <Route path="/localboard" element={<TravelForm />}></Route> */}
