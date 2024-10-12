@@ -5,8 +5,12 @@ import TravelHeader from "./layout/header/TravelHeader";
 import CalendarPage from "./pages/CalendarPage";
 import HomePage from "./pages/HomePage";
 import LocalBoard from "./pages/LocalBoard";
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
+import ProfileIcon from './layout/header/ProfileIcon';  
 import TravelForm from "./pages/TravelForm";
 import SignUpForm from "./pages/SignUpForm";
+
 
 function Header() {
   return <TravelHeader />;
@@ -21,7 +25,10 @@ function App() {
         <Route path="/calendar" element={<CalendarPage />}></Route>
         <Route path="/localboard" element={<LocalBoard />}></Route>
         <Route path="/SignUpForm" element={<SignUpForm />}></Route>
+        <Route path="/login" element={<LoginPage />}></Route>
+        <Route path="/register" element={<RegisterPage />} />
         {/* <Route path="/localboard" element={<TravelForm />}></Route> */}
+
       </Routes>
       <Footer />
     </BrowserRouter>
@@ -29,3 +36,4 @@ function App() {
 }
 
 export default App;
+ 
