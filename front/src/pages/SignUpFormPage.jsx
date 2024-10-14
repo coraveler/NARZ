@@ -1,7 +1,7 @@
 import React from "react";
-import styles from '../css/SignUpForm.module.css';
+import styles from '../css/SignUpFormPage.module.css';
 
-function SignUpForm({ ...props }) {
+function SignUpFormPage({ ...props }) {
   const formFields = [
     { label: "Nickname", type: "text", hasButton: true },
     { label: "ID", type: "text", hasButton: true },
@@ -38,4 +38,4 @@ function SignUpForm({ ...props }) {
 }
 
 
-export default SignUpForm;
+export default SignUpFormPage;
