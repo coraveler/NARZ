@@ -5,12 +5,9 @@ import TravelHeader from "./layout/header/TravelHeader";
 import CalendarPage from "./pages/CalendarPage";
 import HomePage from "./pages/HomePage";
 import LocalBoard from "./pages/LocalBoard";
-import LoginPage from './pages/LoginPage';
-import RegisterPage from './pages/RegisterPage';
-import ProfileIcon from './layout/header/ProfileIcon';  
-import TravelForm from "./pages/TravelForm";
 import SignUpFormPage from "./pages/SignUpFormPage";
 import PasswordResetPage from "./pages/PasswordResetPage";
+import PersonalPage from "./pages/PersonalPage";
 
 
 
@@ -28,8 +25,7 @@ function App() {
         <Route path="/localboard" element={<LocalBoard />}></Route>
         <Route path="/SignUpFormPage" element={<SignUpFormPage />}></Route>
         <Route path="/PasswordResetPage" element={<PasswordResetPage />}></Route>
-        <Route path="/login" element={<LoginPage />}></Route>
-        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/personal" element={<PersonalPage />} />
     
 
         {/* <Route path="/localboard" element={<TravelForm />}></Route> */}
