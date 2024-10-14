@@ -7,8 +7,6 @@ import HomePage from "./pages/HomePage";
 import LocalBoard from "./pages/LocalBoard";
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
-import ProfileIcon from './layout/header/ProfileIcon';  
-import TravelForm from "./pages/TravelForm";
 import SignUpFormPage from "./pages/SignUpFormPage";
 import PasswordResetPage from "./pages/PasswordResetPage";
 import PersonalPage from "./pages/PersonalPage";
