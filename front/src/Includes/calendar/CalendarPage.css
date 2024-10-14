@@ -1,0 +1,32 @@
+/* CalendarPage.css */
+
+/* 일요일 날짜: 빨간색 */
+.fc-day-sun a {
+    color: red;
+}
+  
+/* 토요일 날짜: 파란색 */
+.fc-day-sat a {
+    color: blue;
+}
+
+/* Calendar.css */
+.fc {
+    font-family: Arial, sans-serif; /* 폰트 변경 */
+}
+
+.fc-daygrid-event {
+    border-radius: 5px; /* 이벤트의 모서리 둥글게 */
+}
+
+.ReactModal__Overlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ReactModal__Content {
+    color: black;
+}
+
+
