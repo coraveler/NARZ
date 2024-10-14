@@ -11,6 +11,7 @@ import ProfileIcon from './layout/header/ProfileIcon';
 import TravelForm from "./pages/TravelForm";
 import SignUpFormPage from "./pages/SignUpFormPage";
 import PasswordResetPage from "./pages/PasswordResetPage";
+import PersonalPage from "./pages/PersonalPage";
 
 
 
@@ -30,6 +31,7 @@ function App() {
         <Route path="/PasswordResetPage" element={<PasswordResetPage />}></Route>
         <Route path="/login" element={<LoginPage />}></Route>
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/personal" element={<PersonalPage />} />
     
 
         {/* <Route path="/localboard" element={<TravelForm />}></Route> */}
