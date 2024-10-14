@@ -15,6 +15,7 @@ function HomePage() {
                     </h1>
                 </section>
             </div>
+            <br/>
             <div>
                 <RegionSelector />
             </div>
@@ -23,6 +24,19 @@ function HomePage() {
 
                 <TravelCardGrid />
             </div>
+            <br/>
+            <h3 style={{ marginLeft: 150 }}>주간 활동 랭킹</h3>
+            <div align="center">
+
+                <TravelCardGrid />
+            </div>
+            <br/><h3 style={{ marginLeft: 150 }}>팔로우 게시판</h3>
+            <div align="center">
+
+                <TravelCardGrid />
+            </div>
+            <br/>
+            <br/>
         </div>
     );
 }
