@@ -4,7 +4,8 @@ import styled from "styled-components";
 const ImageOverlay = () => {
   const [uploadedImage, setUploadedImage] = useState(null);
   const canvasRef = useRef(null);
-  const mapImage = "https://cdn.builder.io/api/v1/image/assets/TEMP/3919a1a9b29a027e3701c2c3103ea5719cb1d9a801750dffbfaae280e0affd2c?placeholderIfAbsent=true&apiKey=c7f1d91a917e4e2ba5370da6919a77db"; // 지도 이미지 URL
+  const chungbuk = "/img/map/chungbuk.png";
+  const chungnam = "/img/map/chungnam.png";
   const [isHovered, setIsHovered] = useState(false); // 마우스 호버 상태
 
   const handleImageUpload = (event) => {
@@ -18,46 +19,55 @@ const ImageOverlay = () => {
     }
   };
 
-  const drawImage = (imgSrc) => {
+  const drawImages = (imgSrc1, imgSrc2) => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
 
-    const mapImg = new Image();
-    mapImg.src = imgSrc;
-    mapImg.onload = () => {
+    const mapImg1 = new Image();
+    mapImg1.src = imgSrc1;
+    mapImg1.onload = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height); // 캔버스 초기화
-      ctx.drawImage(mapImg, 0, 0, canvas.width, canvas.height);
+      ctx.drawImage(mapImg1, 100, 100, canvas.width, canvas.height);
 
-      if (uploadedImage) {
-        const overlayImg = new Image();
-        overlayImg.src = uploadedImage;
-        overlayImg.onload = () => {
-          ctx.globalCompositeOperation = "source-atop"; // 비트 연산 설정
-          ctx.drawImage(overlayImg, 0, 0, canvas.width, canvas.height);
-        };
-      }
+      const mapImg2 = new Image();
+      mapImg2.src = imgSrc2;
+      mapImg2.onload = () => {
+        ctx.globalCompositeOperation = "source-atop"; // 비트 연산 설정
+        ctx.drawImage(mapImg2, 0, 0, canvas.width, canvas.height);
+      };
     };
   };
 
   useEffect(() => {
-    drawImage(mapImage); // 컴포넌트가 마운트될 때 초기 이미지 그리기
-  }, [mapImage]);
+    drawImages(chungbuk, chungnam); // 기본 이미지 그리기
+  }, []);
 
   useEffect(() => {
     if (uploadedImage) {
-      drawImage(mapImage); // 업로드한 이미지가 변경될 때 다시 그리기
+      drawImages(chungbuk, uploadedImage); // 업로드한 이미지가 변경될 때 다시 그리기
     }
   }, [uploadedImage]);
+
+  const handleCanvasClick = (event) => {
+    const rect = canvasRef.current.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+
+    // 클릭한 위치에 따라 어떤 이미지가 클릭되었는지 판단
+    console.log(`Clicked at: ${x}, ${y}`);
+    // 예시: 특정 영역을 클릭했을 때의 로직 추가 가능
+  };
 
   return (
     <Container>
       <Canvas
         ref={canvasRef}
-        width={400}
-        height={300}
+        width={600}
+        height={1500}
         isHovered={isHovered}
         onMouseEnter={() => setIsHovered(true)} // 마우스 진입 시
         onMouseLeave={() => setIsHovered(false)} // 마우스 이탈 시
+        onClick={handleCanvasClick} // 캔버스 클릭 이벤트
       />
       <input type="file" accept="image/*" onChange={handleImageUpload} />
     </Container>
