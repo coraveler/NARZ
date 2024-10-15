@@ -5,7 +5,7 @@ function ImageUpload() {
   return (
     <div className={styles.imageUpload}>
       <label htmlFor="image-upload" className={styles.label}>
-        이미지첨부 <span className={styles.asterisk}>*</span>
+        이미지첨부 <span className={styles.asterisk}></span>
       </label>
       <button type="button" className={styles.uploadButton} onClick={() => document.getElementById('image-upload').click()}>
         이미지 첨부

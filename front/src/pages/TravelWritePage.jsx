@@ -6,9 +6,9 @@ import styles from "../css/TravelWritePage.module.css";
 function TravelWritePage() {
   return (
     <div className={styles.travelWritePage}>
-      <p>dddd</p>
       <TitleSection />
       <FormSection />
+      <br/>
     </div>
   );
 }
