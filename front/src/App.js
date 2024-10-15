@@ -31,7 +31,7 @@ function App() {
         <Route path="/personal" element={<PersonalPage />} />
         <Route path="/EditProfilePage" element={<EditProfilePage />} />
         <Route path="/LoginFormPage" element={<LoginFormPage />} />
-        <Route path="/TravelWritePage" element={<TravelWritePage />}></Route>
+        <Route path="/TravelWritePage" element={<TravelWritePage />} />
 
       </Routes>
       <Footer />
