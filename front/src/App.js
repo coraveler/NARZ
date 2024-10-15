@@ -16,8 +16,7 @@ import PostPage from "./pages/PostPage";
 import RankingPage from "./pages/RankingPage";
 import ShopPage from "./pages/ShopPage";
 import TravelWritePage from "./pages/TravelWritePage";
-import ShopPage from "./pages/ShopPage";
-import RankingPage from "./pages/RankingPage";
+
 
 
 
@@ -46,9 +45,7 @@ function App() {
         <Route path="/shop" element={<ShopPage />} />
 
         <Route path="/TravelWritePage" element={<TravelWritePage />} />
-        <Route path="/shop" element={<ShopPage />} />
-        <Route path="/ranking" element={<RankingPage />} />
-
+       
       </Routes>
       <Footer />
     </BrowserRouter>
