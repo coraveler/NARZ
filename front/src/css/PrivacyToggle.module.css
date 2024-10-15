@@ -1,0 +1,45 @@
+.privacyToggle {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .label {
+    margin-right: 10px;
+    font-size: 16px;
+    color: #000;
+  }
+  
+  .toggleInput {
+    display: none;
+  }
+  
+  .toggleSwitch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    background-color: #ccc;
+    border-radius: 34px;
+    cursor: pointer;
+  }
+  
+  .toggleSlider {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+  }
+  
+  .toggleInput:checked + .toggleSwitch .toggleSlider {
+    transform: translateX(26px);
+  }
+  
+  .toggleInput:checked + .toggleSwitch {
+    background-color: #2196F3;
+  }

@@ -1,0 +1,20 @@
+.ratingField {
+    margin-bottom: 20px;
+  }
+  
+  .label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 16px;
+    color: #000;
+  }
+  
+  .required {
+    color: #d19675;
+    font-weight: 700;
+  }
+  
+  .ratingStars {
+    width: 206px;
+    height: auto;
+  }

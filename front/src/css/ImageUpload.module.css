@@ -1,20 +1,29 @@
 .imageUpload {
-    display: flex;
-    align-items: center;
-  }
-  
-  .uploadLabel {
-    display: inline-block;
-    padding: 8px 16px;
-    background-color: #f3f3f3;
-    color: #000;
-    border: 1px solid #767676;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
-    font-family: var(--sds-typography-body-font-family);
-  }
-  
-  .uploadInput {
-    display: none;
-  }
+  margin-bottom: 20px;
+}
+
+.label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 16px;
+  color: #000;
+}
+
+.required {
+  color: #d19675;
+  font-weight: 700;
+}
+
+.fileInput {
+  display: none;
+}
+
+.uploadButton {
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: #f3f3f3;
+  border: 1px solid #767676;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+}
