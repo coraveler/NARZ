@@ -8,7 +8,8 @@ import LocalBoard from "./pages/LocalBoard";
 import SignUpFormPage from "./pages/SignUpFormPage";
 import PasswordResetPage from "./pages/PasswordResetPage";
 import PersonalPage from "./pages/PersonalPage";
-
+import EditProfilePage from "./pages/EditProfilePage";
+import LoginFormPage from "./pages/LoginFormPage";
 
 
 function Header() {
@@ -26,7 +27,8 @@ function App() {
         <Route path="/SignUpFormPage" element={<SignUpFormPage />}></Route>
         <Route path="/PasswordResetPage" element={<PasswordResetPage />}></Route>
         <Route path="/personal" element={<PersonalPage />} />
-    
+        <Route path="/EditProfilePage" element={<EditProfilePage />} />
+        <Route path="/LoginFormPage" element={<LoginFormPage />} />
 
         {/* <Route path="/localboard" element={<TravelForm />}></Route> */}
 
