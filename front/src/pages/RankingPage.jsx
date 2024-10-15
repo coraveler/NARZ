@@ -6,7 +6,7 @@ import LeaderboardTable from "../Includes/Ranking/LeaderboardTable"; // Leaderbo
 const RankingPage = () => {
   return (
     <StyledSection className="ranking-section">
-        <br/>
+       
       <h2 className="ranking-title">랭킹</h2>
       <p className="ranking-note">*1~3등은 마일리지가 지급됩니다.</p>
       <br/><br/>
