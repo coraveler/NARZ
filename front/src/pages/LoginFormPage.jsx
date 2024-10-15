@@ -1,7 +1,9 @@
 import React from 'react';
 import styles from '../css/LoginFormPage.module.css';
+import { useNavigate } from "react-router-dom"; // useNavigate 임포트
 
 const LoginFormPage = () => {
+  const navigate = useNavigate();
   return (
     <main className={styles.container}>
       <form className={styles.loginForm}>
@@ -29,7 +31,7 @@ const LoginFormPage = () => {
         <div className={styles.buttonGroup}>
           <button type="submit" className={styles.button}>Sign In</button>
         </div>
-        <a href="#" className={styles.forgotPassword}>Forgot password?</a>
+        <a onClick={() => navigate('/PasswordResetPage')} className={styles.forgotPassword}>Forgot password?</a>
       </form>
     </main>
   );
