@@ -89,8 +89,9 @@
     width: 100%;
     max-width: 1000px;
     min-width: 240px;
-    min-height: 818px;
+    min-height: 600px;
     margin: auto 0;
+    padding: 20px 0px;
   }
   
   @media (max-width: 991px) {
@@ -109,7 +110,7 @@
     overflow: hidden;
     justify-content: center;
     flex-wrap: wrap;
-    padding: 28px 0px;
+    padding: 0px 0px;
   }
   
   @media (max-width: 991px) {
@@ -122,13 +123,13 @@
   .ratingSection {
     background-color: #fff;
     display: flex;
-    margin-top: 0px;
-    width: 100%;
+    /* margin-top: 0px; */
+    /* width: 100%; */
     flex-direction: column;
-    overflow: hidden;
+    /* overflow: hidden; */
     color: #000;
-    text-align: center;
-    justify-content: start;
+    /* text-align: center; */
+    /* justify-content: start; */
     font: 600 40px/20px Inter, -apple-system, Roboto, Helvetica, sans-serif;
   }
   
@@ -142,13 +143,13 @@
   .ratingWrapper {
     background-color: #fff;
     display: flex;
-    min-height: 98px;
+    min-height: 0px;
     width: 100%;
     align-items: center;
     gap: 10px;
     overflow: hidden;
     justify-content: center;
-    padding: 13px 180px;
+    /* padding: 0px 140px; */
   }
   
   @media (max-width: 991px) {
@@ -160,20 +161,21 @@
   }
   
   .ratingBar {
-    border-color: rgba(0, 0, 0, 0.3);
-    border-bottom-width: 1px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3); /* 아래쪽 테두리만 설정 */
     align-self: stretch;
     position: relative;
     display: flex;
     min-width: 240px;
     min-height: 50px;
-    width: 1241px;
+    width: 100%;
     align-items: center;
     gap: 10px;
     justify-content: start;
-    /* flex-wrap: wrap; */
-    /* margin: auto 0; */
-  }
+    margin: 0px 300px;
+    padding: 0px 170px;
+}
+
+
   
   @media (max-width: 991px) {
     .ratingBar {
@@ -214,6 +216,7 @@
     padding: 50px 270px;
     font: 400 20px/20px Inter, -apple-system, Roboto, Helvetica, sans-serif;
     text-align: left;
+    margin: 0px 200px;
   }
   
   @media (max-width: 991px) {
@@ -224,7 +227,7 @@
     }
   }
   
-  .visually-hidden {
+  /* .visually-hidden {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -234,4 +237,4 @@
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border: 0;
-  }
+  } */
