@@ -1,15 +1,14 @@
 import React from "react";
-import TitleSection from "./TitleSection";
-import FormSection from "../../FormComponents/FormSection";
-import styles from "../../css/TravelWritePage.module.css";
+import TitleSection from "../Includes/FormComponents/TitleSection";
+import FormSection from "../Includes/FormComponents/FormSection";
+import styles from "../css/TravelWritePage.module.css";
 
 function TravelWritePage() {
   return (
     <div className={styles.travelWritePage}>
-      <Header />
+      <p>dddd</p>
       <TitleSection />
       <FormSection />
-      <Footer />
     </div>
   );
 }

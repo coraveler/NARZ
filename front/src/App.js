@@ -10,6 +10,7 @@ import PasswordResetPage from "./pages/PasswordResetPage";
 import PersonalPage from "./pages/PersonalPage";
 import EditProfilePage from "./pages/EditProfilePage";
 import LoginFormPage from "./pages/LoginFormPage";
+import TravelWritePage from "./pages/TravelWritePage";
 
 
 
@@ -30,8 +31,7 @@ function App() {
         <Route path="/personal" element={<PersonalPage />} />
         <Route path="/EditProfilePage" element={<EditProfilePage />} />
         <Route path="/LoginFormPage" element={<LoginFormPage />} />
-
-        {/* <Route path="/localboard" element={<TravelForm />}></Route> */}
+        <Route path="/localboard" element={<TravelWritePage />}></Route>
 
       </Routes>
       <Footer />

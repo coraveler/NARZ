@@ -1,29 +1,31 @@
 .imageUpload {
-  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
 }
 
 .label {
-  display: block;
-  margin-bottom: 5px;
-  font-size: 16px;
   color: #000;
+  font-size: 16px;
+  font-weight: 400;
+  margin-right: 10px;
 }
 
-.required {
+.asterisk {
   color: #d19675;
+  font-size: 18px;
   font-weight: 700;
+}
+
+.uploadButton {
+  border-radius: 8px;
+  background-color: #f3f3f3;
+  padding: 8px 16px;
+  font: inherit;
+  border: 1px solid #767676;
+  cursor: pointer;
 }
 
 .fileInput {
   display: none;
-}
-
-.uploadButton {
-  display: inline-block;
-  padding: 8px 16px;
-  background-color: #f3f3f3;
-  border: 1px solid #767676;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 16px;
 }
