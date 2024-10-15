@@ -39,27 +39,23 @@
   
   .profileInfo {
     background-color: #fff;
-    /* border-bottom: 1px solid rgba(0, 0, 0, 0.3); */
     display: flex;
-    width: 100%;
-    max-width: 1000px;
-    align-items: left;
+    align-items: flex-start; /* 'left'는 잘못된 값입니다. 'center' 또는 'flex-start'로 수정 */
     overflow: hidden;
     font-size: 30px;
     font-weight: 200;
-    justify-content: center;
-    flex-wrap: wrap;
-    padding: 10px 0;
-  }
-  
-  .profileDate {
+    justify-content: space-between; /* 요소 사이에 공간을 두어 버튼을 오른쪽으로 이동 */
+    /* flex-wrap: wrap; */
+}
+
+.profileDate {
     align-self: stretch;
-    width: 200px;
+    width: 150px;
     margin: auto 0;
-    font-size: 21px;
-  }
-  
-  .followButton {
+    font-size: 20px;
+}
+
+.followButton {
     align-self: stretch;
     width: 80px;
     border-radius: 10px;
@@ -68,10 +64,10 @@
     font-size: 17px;
     line-height: 1;
     margin: auto 0;
-    /* border: 1px solid #000; */
     cursor: pointer;
-    margin-left: 500px;
-  }
+    margin-left: 400px
+}
+
 
   .container {
     width: 100%;
@@ -169,7 +165,7 @@
     gap: 10px;
     /* justify-content: start; */
     margin: 0px 22%;
-    padding: 10px 0px;
+    padding: 0px 0px;
 }
 
 
@@ -180,19 +176,10 @@
     }
   }
   
-  /* .ratingIcon {
-    aspect-ratio: 1;
-    object-fit: contain;
-    object-position: center;
-    width: 45px;
-    align-self: start;
-    position: absolute;
-    z-index: 0;
-    left: 40px;
-    bottom: 13px;
-    height: 45px;
+  .ratingIcon {
+    width: 30px;
   }
-   */
+  
   /* .ratingValue {
     align-self: stretch;
     z-index: 0;
@@ -211,19 +198,19 @@
     overflow: hidden;
     color: #000;
     white-space: nowrap;
-    padding: 50px 270px;
+    padding: 3% 20%;
     font: 400 20px/20px Inter, -apple-system, Roboto, Helvetica, sans-serif;
     text-align: center;
     /* margin: 0px 200px; */
   }
   
-  @media (max-width: 991px) {
+  /* @media (max-width: 991px) {
     .contentSection {
       max-width: 100%;
       white-space: initial;
       padding: 0 20px;
     }
-  }
+  } */
   
   /* .visually-hidden {
     position: absolute;

@@ -22,15 +22,15 @@
     width: 100%;
     flex-direction: column;
     justify-content: flex-start;
-    padding: 10px 250px 18px;
+    padding: 1% 20% 2%;
   }
   
-  @media (max-width: 991px) {
+  /* @media (max-width: 991px) {
     .commentContent {
       padding: 0 20px;
     }
   }
-  
+   */
   .commentorInfo {
     background-color: #fff;
     display: flex;
