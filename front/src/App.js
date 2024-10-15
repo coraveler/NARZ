@@ -10,7 +10,7 @@ import PasswordResetPage from "./pages/PasswordResetPage";
 import PersonalPage from "./pages/PersonalPage";
 import EditProfilePage from "./pages/EditProfilePage";
 import LoginFormPage from "./pages/LoginFormPage";
-
+import ShopPage from "./pages/ShopPage";
 
 
 function Header() {
@@ -30,6 +30,7 @@ function App() {
         <Route path="/personal" element={<PersonalPage />} />
         <Route path="/EditProfilePage" element={<EditProfilePage />} />
         <Route path="/LoginFormPage" element={<LoginFormPage />} />
+        <Route path="/shop" element={<ShopPage />} />
 
         {/* <Route path="/localboard" element={<TravelForm />}></Route> */}
 
