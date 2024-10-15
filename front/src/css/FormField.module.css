@@ -1,24 +1,42 @@
 .formField {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .labelWrapper {
-    display: flex;
-    gap: 5px;
-    align-items: center;
-  }
-  
-  .label {
-    color: #000;
-    font-size: 16px;
-    font-weight: 400;
-    font-family: Inter, sans-serif;
-  }
-  
-  .requiredAsterisk {
-    color: #d19675;
-    font-size: 18px;
-    font-weight: 700;
-  }
+  margin-bottom: 20px;
+}
+
+.label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 16px;
+  color: #000;
+}
+
+.required {
+  color: #d19675;
+  font-weight: 700;
+}
+
+.input,
+.select,
+.textarea {
+  width: 100%;
+  padding: 8px;
+  font-size: 15px;
+  border: 1px solid #ababab;
+  border-radius: 4px;
+}
+
+.textarea {
+  min-height: 150px;
+}
+
+.selectWrapper {
+  position: relative;
+}
+
+.selectWrapper::after {
+  content: '▼';
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}

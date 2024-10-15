@@ -1,0 +1,31 @@
+.titleSection {
+    background-color: #fff;
+    padding: 16px 180px;
+    color: #000;
+  }
+  
+  .mainTitle {
+    font: 400 64px/77px Inter, -apple-system, Roboto, Helvetica, sans-serif;
+    letter-spacing: -1px;
+  }
+  
+  .requiredFieldsNote {
+    color: #6b6b6b;
+    font: 400 14px/25px Inter, -apple-system, Roboto, Helvetica, sans-serif;
+  }
+  
+  .asterisk {
+    color: #d19675;
+    font-weight: 700;
+  }
+  
+  @media (max-width: 991px) {
+    .titleSection {
+      padding: 16px 20px;
+    }
+  
+    .mainTitle {
+      font-size: 40px;
+      line-height: 53px;
+    }
+  }
