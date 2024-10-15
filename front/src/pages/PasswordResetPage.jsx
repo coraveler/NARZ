@@ -1,8 +1,9 @@
 import React from "react";
 import styles from '../css/PasswordResetPage.module.css';
-
+import { useNavigate } from "react-router-dom";
 
 function PasswordResetPage() {
+  const navigate = useNavigate();
   return (
     <div className={styles.PageWrapper}>
     
@@ -34,7 +35,7 @@ function PasswordResetPage() {
           <input className={styles.Input} id="confirmPassword" type="password" placeholder="Confirm new password" />
         </div>
         <div className={styles.ButtonGroup}>
-          <button className={styles.CancelButton}type="button">Cancel</button>
+          <button onClick={() => navigate('/LoginFormPage')}  className={styles.CancelButton}type="button">Cancel</button>
           <button className={styles.ResetButton} type="submit">Reset Password</button>
         </div>
       </form>

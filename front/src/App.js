@@ -23,15 +23,15 @@ function App() {
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route path="/" element={<HomePage />}></Route>
-        <Route path="/calendar" element={<CalendarPage />}></Route>
-        <Route path="/localboard" element={<LocalBoard />}></Route>
-        <Route path="/SignUpFormPage" element={<SignUpFormPage />}></Route>
-        <Route path="/PasswordResetPage" element={<PasswordResetPage />}></Route>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/calendar" element={<CalendarPage />} />
+        <Route path="/localboard" element={<LocalBoard />} />
+        <Route path="/SignUpFormPage" element={<SignUpFormPage />} />
+        <Route path="/PasswordResetPage" element={<PasswordResetPage />} />
         <Route path="/personal" element={<PersonalPage />} />
         <Route path="/EditProfilePage" element={<EditProfilePage />} />
         <Route path="/LoginFormPage" element={<LoginFormPage />} />
-        <Route path="/localboard" element={<TravelWritePage />}></Route>
+        <Route path="/TravelWritePage" element={<TravelWritePage />}></Route>
 
       </Routes>
       <Footer />
@@ -40,4 +40,3 @@ function App() {
 }
 
 export default App;
- 
