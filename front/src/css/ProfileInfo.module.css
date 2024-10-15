@@ -1,0 +1,16 @@
+.profileImage {
+    aspect-ratio: 1;
+    object-fit: contain;
+    object-position: center;
+    width: 80px;
+    border-radius: 50%;
+    align-self: stretch;
+    margin: auto 0;
+  }
+  
+  .profileName {
+    font-weight: 700;
+    align-self: stretch;
+    width: 140px;
+    margin: auto 0;
+  }

@@ -1,0 +1,240 @@
+.profileContainer {
+    max-width: none !important;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Inter, sans-serif;
+    color: #000;
+    text-align: center;
+    justify-content: start;
+    padding: 0 200px;
+  }
+  
+  @media (max-width: 991px) {
+    .profileContainer {
+      padding: 0 20px;
+    }
+  }
+  
+  .profileTitle {
+    text-align: left;
+    background-color: #fff;
+    height: 50px;
+    width: 100%;
+    max-width: 1366px;
+    font-size: 82px;
+    font-weight: 700;
+    white-space: nowrap;
+    line-height: 1;
+    margin-left: 15px;
+  }
+  
+  @media (max-width: 991px) {
+    .profileTitle {
+      font-size: 40px;
+      white-space: initial;
+    }
+  }
+  
+  .profileInfo {
+    background-color: #fff;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    display: flex;
+    min-height: 100px;
+    width: 100%;
+    max-width: 1247px;
+    align-items: center;
+    gap: 8px;
+    overflow: hidden;
+    font-size: 33px;
+    font-weight: 200;
+    line-height: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 22px 0;
+  }
+  
+  .profileDate {
+    align-self: stretch;
+    width: 200px;
+    margin: auto 0;
+    font-size: 25px;
+  }
+  
+  .followButton {
+    align-self: stretch;
+    width: 80px;
+    border-radius: 10px;
+    background-color: #fff;
+    min-height: 39px;
+    font-size: 19px;
+    line-height: 1;
+    margin: auto 0;
+    border: 1px solid #000;
+    cursor: pointer;
+    margin-left: 500px;
+  }
+
+  .container {
+    width: 100%;
+    text-align: center; /* 텍스트 중앙 정렬 */
+}
+
+
+  .productImage {
+    aspect-ratio: 1.45;
+    object-fit: contain;
+    object-position: center;
+    width: 100%;
+    max-width: 1000px;
+    min-width: 240px;
+    min-height: 600px;
+    margin: auto 0;
+    padding: 20px 0px;
+  }
+  
+  @media (max-width: 991px) {
+    .productImage {
+      max-width: 100%;
+    }
+  }
+  
+  .productWrapper {
+    background-color: #fff;
+    display: flex;
+    min-height: 400px;
+    width: 100%;
+    align-items: center;
+    gap: 10px;
+    overflow: hidden;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 0px 0px;
+  }
+  
+  @media (max-width: 991px) {
+    .productWrapper {
+      max-width: 100%;
+      padding: 0 20px;
+    }
+  }
+  
+  .ratingSection {
+    background-color: #fff;
+    display: flex;
+    /* margin-top: 0px; */
+    /* width: 100%; */
+    flex-direction: column;
+    /* overflow: hidden; */
+    color: #000;
+    /* text-align: center; */
+    /* justify-content: start; */
+    font: 600 40px/20px Inter, -apple-system, Roboto, Helvetica, sans-serif;
+  }
+  
+  @media (max-width: 991px) {
+    .ratingSection {
+      max-width: 100%;
+      white-space: initial;
+    }
+  }
+  
+  .ratingWrapper {
+    background-color: #fff;
+    display: flex;
+    min-height: 0px;
+    width: 100%;
+    align-items: center;
+    gap: 10px;
+    overflow: hidden;
+    justify-content: center;
+    /* padding: 0px 140px; */
+  }
+  
+  @media (max-width: 991px) {
+    .ratingWrapper {
+      max-width: 100%;
+      white-space: initial;
+      padding: 0 20px;
+    }
+  }
+  
+  .ratingBar {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3); /* 아래쪽 테두리만 설정 */
+    align-self: stretch;
+    position: relative;
+    display: flex;
+    min-width: 240px;
+    min-height: 50px;
+    width: 100%;
+    align-items: center;
+    gap: 10px;
+    justify-content: start;
+    margin: 0px 300px;
+    padding: 0px 170px;
+}
+
+
+  
+  @media (max-width: 991px) {
+    .ratingBar {
+      white-space: initial;
+    }
+  }
+  
+  /* .ratingIcon {
+    aspect-ratio: 1;
+    object-fit: contain;
+    object-position: center;
+    width: 45px;
+    align-self: start;
+    position: absolute;
+    z-index: 0;
+    left: 40px;
+    bottom: 13px;
+    height: 45px;
+  }
+   */
+  /* .ratingValue {
+    align-self: stretch;
+    z-index: 0;
+    margin: auto 0;
+  } */
+  
+  .contentSection {
+    align-self: stretch;
+    width: 100%;
+    background-color: #fff;
+    border-color: rgba(0, 0, 0, 0.3);
+    border-bottom-width: 1px;
+    margin-top: 10px;
+    gap: 10px;
+    overflow: hidden;
+    color: #000;
+    white-space: nowrap;
+    padding: 50px 270px;
+    font: 400 20px/20px Inter, -apple-system, Roboto, Helvetica, sans-serif;
+    text-align: left;
+    margin: 0px 200px;
+  }
+  
+  @media (max-width: 991px) {
+    .contentSection {
+      max-width: 100%;
+      white-space: initial;
+      padding: 0 20px;
+    }
+  }
+  
+  /* .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  } */
