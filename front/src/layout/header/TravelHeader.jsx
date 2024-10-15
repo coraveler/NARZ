@@ -9,8 +9,8 @@ const TravelHeader = () => {
   const navLinks = [
     { text: "지역", href: "/localboard" },
     { text: "랭킹", href: "#" },
-    { text: "쿠폰", href: "#" },
-    { text: "개인페이지", href: "#" },
+    { text: "상점", href: "#" },
+    { text: "개인페이지", href: "/personal" },
   ];
 
   const navigate = useNavigate();
