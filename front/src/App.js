@@ -11,6 +11,7 @@ import PersonalPage from "./pages/PersonalPage";
 import EditProfilePage from "./pages/EditProfilePage";
 import LoginFormPage from "./pages/LoginFormPage";
 import RankingPage from "./pages/RankingPage";
+import ShopPage from "./pages/ShopPage";
 
 function Header() {
   return <TravelHeader />;
@@ -30,6 +31,9 @@ function App() {
         <Route path="/EditProfilePage" element={<EditProfilePage />} />
         <Route path="/LoginFormPage" element={<LoginFormPage />} />
         <Route path="/ranking" element={<RankingPage />} /> {/* 랭킹 페이지 라우트 추가 */}
+        <Route path="/shop" element={<ShopPage />} />
+
+
       </Routes>
       <Footer />
     </BrowserRouter>
