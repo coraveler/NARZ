@@ -14,6 +14,7 @@ import PostPage from "./pages/PostPage";
 
 
 import RankingPage from "./pages/RankingPage";
+import ShopPage from "./pages/ShopPage";
 
 function Header() {
   return <TravelHeader />;
@@ -37,6 +38,9 @@ function App() {
         {/* <Route path="/localboard" element={<TravelForm />}></Route> */}
 
         <Route path="/ranking" element={<RankingPage />} /> {/* 랭킹 페이지 라우트 추가 */}
+        <Route path="/shop" element={<ShopPage />} />
+
+
       </Routes>
       <Footer />
     </BrowserRouter>
