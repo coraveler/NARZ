@@ -31,6 +31,8 @@ function App() {
         <Route path="/personal" element={<PersonalPage />} />
         <Route path="/EditProfilePage" element={<EditProfilePage />} />
         <Route path="/LoginFormPage" element={<LoginFormPage />} />
+        <Route path="/shop" element={<ShopPage />} />
+        <Route path="/ranking" element={<RankingPage />} />
 
         {/* <Route path="/localboard" element={<TravelForm />}></Route> */}
 
