@@ -1,8 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom'; // Link 임포트
 import styles from '../../css/ReviewSection.module.css';
 
 const ReviewSection = () => {
-  const filterOptions = ['인기순', '최신순', '평점순'];
+  const filterOptions = ['인기순', '최신순', '평점순']; 
 
   return (
     <section className={styles.reviewSection}>
@@ -20,9 +21,13 @@ const ReviewSection = () => {
             </div>
           </div>
         ))}
+        {/* "작성" 버튼 추가 */}
+        <Link to="/travelform" className={styles.writeButton}>
+          글 작성
+        </Link>
       </div>
     </section>
   );
 };
 
-export default ReviewSection;
+export default ReviewSection; 
