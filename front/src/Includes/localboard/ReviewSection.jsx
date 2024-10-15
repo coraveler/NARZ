@@ -22,7 +22,7 @@ const ReviewSection = () => {
           </div>
         ))}
         {/* "작성" 버튼 추가 */}
-        <Link to="/travelform" className={styles.writeButton}>
+        <Link to="/TravelWritePage" className={styles.writeButton}>
           글 작성
         </Link>
       </div>
