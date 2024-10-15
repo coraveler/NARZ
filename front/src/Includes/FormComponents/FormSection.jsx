@@ -13,7 +13,6 @@ function FormSection() {
       </p>
       <FormField label="제목" type="text" required placeholder="제목을 입력하세요." />
       <FormField label="지역" type="select" required options={["지역을 선택하세요"]} />
-      <FormField label="Budget" type="select" required options={["여행 예산"]} />
       <RatingField />
       <ImageUpload />
       <PrivacyToggle />
