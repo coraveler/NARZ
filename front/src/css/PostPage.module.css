@@ -23,9 +23,9 @@
     height: 50px;
     width: 100%;
     max-width: 1366px;
-    font-size: 82px;
+    font-size: 70px;
     font-weight: 700;
-    white-space: nowrap;
+    /* white-space: nowrap; */
     line-height: 1;
     margin-left: 15px;
   }
@@ -39,27 +39,24 @@
   
   .profileInfo {
     background-color: #fff;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    /* border-bottom: 1px solid rgba(0, 0, 0, 0.3); */
     display: flex;
-    min-height: 100px;
     width: 100%;
-    max-width: 1247px;
-    align-items: center;
-    gap: 8px;
+    max-width: 1000px;
+    align-items: left;
     overflow: hidden;
-    font-size: 33px;
+    font-size: 30px;
     font-weight: 200;
-    line-height: 20px;
     justify-content: center;
     flex-wrap: wrap;
-    padding: 22px 0;
+    padding: 10px 0;
   }
   
   .profileDate {
     align-self: stretch;
     width: 200px;
     margin: auto 0;
-    font-size: 25px;
+    font-size: 21px;
   }
   
   .followButton {
@@ -68,17 +65,17 @@
     border-radius: 10px;
     background-color: #fff;
     min-height: 39px;
-    font-size: 19px;
+    font-size: 17px;
     line-height: 1;
     margin: auto 0;
-    border: 1px solid #000;
+    /* border: 1px solid #000; */
     cursor: pointer;
     margin-left: 500px;
   }
 
   .container {
     width: 100%;
-    text-align: center; /* 텍스트 중앙 정렬 */
+    text-align: left; /* 텍스트 중앙 정렬 */
 }
 
 
@@ -86,10 +83,10 @@
     aspect-ratio: 1.45;
     object-fit: contain;
     object-position: center;
-    width: 100%;
-    max-width: 1000px;
-    min-width: 240px;
-    min-height: 600px;
+    width: 700px;
+    /* max-width: 1000px; */
+    /* min-width: 240px; */
+    /* min-height: 600px; */
     margin: auto 0;
     padding: 20px 0px;
   }
@@ -124,13 +121,13 @@
     background-color: #fff;
     display: flex;
     /* margin-top: 0px; */
-    /* width: 100%; */
-    flex-direction: column;
+    width: 100%;
+    /* flex-direction: column; */
     /* overflow: hidden; */
     color: #000;
     /* text-align: center; */
     /* justify-content: start; */
-    font: 600 40px/20px Inter, -apple-system, Roboto, Helvetica, sans-serif;
+    font: 600 30px/20px Inter, -apple-system, Roboto, Helvetica, sans-serif;
   }
   
   @media (max-width: 991px) {
@@ -144,11 +141,11 @@
     background-color: #fff;
     display: flex;
     min-height: 0px;
-    width: 100%;
+    max-width: 1366px;
     align-items: center;
-    gap: 10px;
+    /* gap: 10px; */
     overflow: hidden;
-    justify-content: center;
+    /* justify-content: center; */
     /* padding: 0px 140px; */
   }
   
@@ -161,18 +158,18 @@
   }
   
   .ratingBar {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.3); /* 아래쪽 테두리만 설정 */
+    /* border-bottom: 1px solid rgba(0, 0, 0, 0.3); */
     align-self: stretch;
     position: relative;
     display: flex;
-    min-width: 240px;
+    min-width: 1000px;
     min-height: 50px;
-    width: 100%;
+    width: 2000px;
     align-items: center;
     gap: 10px;
-    justify-content: start;
-    margin: 0px 300px;
-    padding: 0px 170px;
+    /* justify-content: start; */
+    margin: 0px 22%;
+    padding: 10px 0px;
 }
 
 
@@ -203,20 +200,21 @@
   } */
   
   .contentSection {
+    display: flex;
     align-self: stretch;
     width: 100%;
     background-color: #fff;
     border-color: rgba(0, 0, 0, 0.3);
     border-bottom-width: 1px;
-    margin-top: 10px;
+    margin-top: 0px;
     gap: 10px;
     overflow: hidden;
     color: #000;
     white-space: nowrap;
     padding: 50px 270px;
     font: 400 20px/20px Inter, -apple-system, Roboto, Helvetica, sans-serif;
-    text-align: left;
-    margin: 0px 200px;
+    text-align: center;
+    /* margin: 0px 200px; */
   }
   
   @media (max-width: 991px) {
