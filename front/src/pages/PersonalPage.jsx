@@ -3,7 +3,7 @@ import MapOverlay from '../Includes/personalPage/MapOverlay';
 
 function PersonalPage() {
     return (
-        <div>
+        <div align="center">
             <MapOverlay/>
         </div>
     );
