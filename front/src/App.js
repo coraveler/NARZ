@@ -42,9 +42,7 @@ function App() {
         <Route path="/shop" element={<ShopPage />} />
 
         <Route path="/TravelWritePage" element={<TravelWritePage />} />
-        <Route path="/shop" element={<ShopPage />} />
-        <Route path="/ranking" element={<RankingPage />} />
-
+       
       </Routes>
       <Footer />
     </BrowserRouter>
