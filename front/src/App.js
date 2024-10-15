@@ -31,12 +31,9 @@ function App() {
         <Route path="/personal" element={<PersonalPage />} />
         <Route path="/EditProfilePage" element={<EditProfilePage />} />
         <Route path="/LoginFormPage" element={<LoginFormPage />} />
-        <Route path="/shop" element={<ShopPage />} />
-        <Route path="/ranking" element={<RankingPage />} />
 
         {/* <Route path="/localboard" element={<TravelForm />}></Route> */}
 
-        <Route path="/ranking" element={<RankingPage />} /> {/* 랭킹 페이지 라우트 추가 */}
       </Routes>
       <Footer />
     </BrowserRouter>
