@@ -16,7 +16,7 @@ const UserActions = ({ isLoggedIn }) => {
       {isLoggedIn ? (
         <StyledCgProfile />
       ) : (
-        <Link to="/login">
+        <Link to="/LoginFormPage">
           <StyledCgProfile />
         </Link>
       )}
