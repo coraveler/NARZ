@@ -6,7 +6,6 @@ const regions = [
   { name: '전국', iconSrc: 'https://cdn.builder.io/api/v1/image/assets/TEMP/f7b6ed17f7fe4942cc720681729a7fca7644688c3e5ade50c4f48ab57ab16199?placeholderIfAbsent=true&apiKey=c7f1d91a917e4e2ba5370da6919a77db' },
   { name: '수도권', iconSrc: 'https://cdn.builder.io/api/v1/image/assets/TEMP/8c567af33bcf919c57484e7fec42cdfac62908b2b7e9b3fddd9686e7aaef4b51?placeholderIfAbsent=true&apiKey=c7f1d91a917e4e2ba5370da6919a77db' },
   { name: '강원', iconSrc: 'https://cdn.builder.io/api/v1/image/assets/TEMP/af8f2fdba3b6a716e48cd36007ce2bd221011931f247d23be601a6a95531900e?placeholderIfAbsent=true&apiKey=c7f1d91a917e4e2ba5370da6919a77db' },
-  { name: '경남', iconSrc: 'https://cdn.builder.io/api/v1/image/assets/TEMP/79973ff78b499a96132f7a8347155cba5bfba6bdf5e387fd598629ee95f14d1c?placeholderIfAbsent=true&apiKey=c7f1d91a917e4e2ba5370da6919a77db' },
   { name: '충북', iconSrc: 'https://cdn.builder.io/api/v1/image/assets/TEMP/0410f9002458f8d1fe48bbf3e9b264ad0b1270516788f12102ae957b4f35f1ad?placeholderIfAbsent=true&apiKey=c7f1d91a917e4e2ba5370da6919a77db' },
   { name: '충남', iconSrc: 'https://cdn.builder.io/api/v1/image/assets/TEMP/8a58ac7f1781887325902755f43f5ebdfa71d0506757d7c34f347b35f6251874?placeholderIfAbsent=true&apiKey=c7f1d91a917e4e2ba5370da6919a77db' },
   { name: '대전', iconSrc: 'https://cdn.builder.io/api/v1/image/assets/TEMP/e698ba26d283a0be26616156285bf89d4c3b837d87abbbac0dc4188f100c59a3?placeholderIfAbsent=true&apiKey=c7f1d91a917e4e2ba5370da6919a77db' },

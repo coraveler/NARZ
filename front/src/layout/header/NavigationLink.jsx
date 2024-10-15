@@ -14,7 +14,7 @@ const NavigationLink = ({ text, href }) => {
 const StyledLink = styled(Link)`
   text-decoration: none;
   color: inherit;
-  padding: 10px;
+  margin-right : 30px;
   &:hover {
     color: #0073e6;
   }

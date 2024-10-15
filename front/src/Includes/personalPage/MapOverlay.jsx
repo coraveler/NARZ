@@ -195,7 +195,7 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     position: relative;
-    height: 1000px; /* 고정된 높이 설정 */
+    height: 900px; /* 고정된 높이 설정 */
     width: 800px; /* 고정된 너비 설정 */
     overflow: hidden; /* 넘치는 내용 숨기기 */
 `;
@@ -214,8 +214,8 @@ const Image = styled.img`
 
 
 const ImageSudo = styled(Image)`
-    top: 170px; /* 픽셀 단위로 위치 설정 */
-    left: 35%; 
+    top: 100px; /* 픽셀 단위로 위치 설정 */
+    left: 40%; 
     width: 167px;
     height: 196px;
     transform: translate(-50%, 0); /* 수평 중앙 정렬 */
@@ -223,8 +223,8 @@ const ImageSudo = styled(Image)`
 `;
 
 const ImageGangwon = styled(Image)`
-    top: 113px; /* 픽셀 단위로 위치 설정 */
-    left: 50.1%;
+    top: 43px; /* 픽셀 단위로 위치 설정 */
+    left: 55.1%;
     width: 280px;
     height: 231px;
     transform: translate(-50%, 0); /* 수평 중앙 정렬 */
@@ -232,8 +232,8 @@ const ImageGangwon = styled(Image)`
 `;
 
 const ImageChungbuk = styled(Image)`
-    top: 312px; /* 픽셀 단위로 위치 설정 */
-    left: 47.3%;
+    top: 242px; /* 픽셀 단위로 위치 설정 */
+    left: 52.3%;
     width: 152px;
     height: 180px;
     transform: translate(-50%, 0); /* 수평 중앙 정렬 */
@@ -241,8 +241,8 @@ const ImageChungbuk = styled(Image)`
 `;
 
 const ImageChungnam = styled(Image)`
-    top: 350px; /* 픽셀 단위로 위치 설정 */
-    left: 32%;
+    top: 280px; /* 픽셀 단위로 위치 설정 */
+    left: 37%;
     width: 180px;
     height : 153px;
     transform: translate(-50%, 0); /* 수평 중앙 정렬 */
@@ -250,8 +250,8 @@ const ImageChungnam = styled(Image)`
 `;
 
 const ImageDaejeon = styled(Image)`
-    top: 425px; /* 픽셀 단위로 위치 설정 */
-    left: 40%;
+    top: 355px; /* 픽셀 단위로 위치 설정 */
+    left: 45%;
     width: 34px;
     height: 45px;
     transform: translate(-50%, 0); /* 수평 중앙 정렬 */
@@ -259,8 +259,8 @@ const ImageDaejeon = styled(Image)`
 `;
 
 const ImageGyeonbuk = styled(Image)`
-    top: 308px; /* 픽셀 단위로 위치 설정 */
-    left: 58.9%;
+    top: 238px; /* 픽셀 단위로 위치 설정 */
+    left: 63.8%;
     width: 198px;
     height: 245px;
     transform: translate(-50%, 0); /* 수평 중앙 정렬 */
@@ -268,8 +268,8 @@ const ImageGyeonbuk = styled(Image)`
 `;
 
 const ImageJeonbuk = styled(Image)`
-    top: 477px; /* 픽셀 단위로 위치 설정 */
-    left: 36.4%;
+    top: 407px; /* 픽셀 단위로 위치 설정 */
+    left: 41.4%;
     width: 170px;
     height: 125px;
     transform: translate(-50%, 0); /* 수평 중앙 정렬 */
@@ -277,8 +277,8 @@ const ImageJeonbuk = styled(Image)`
 `;
 
 const ImageGyeongnam = styled(Image)`
-    top: 510px; /* 픽셀 단위로 위치 설정 */
-    left: 56.2%;
+    top: 440px; /* 픽셀 단위로 위치 설정 */
+    left: 61.2%;
     width: 215px;
     height: 180px;
     transform: translate(-50%, 0); /* 수평 중앙 정렬 */
@@ -286,8 +286,8 @@ const ImageGyeongnam = styled(Image)`
 `;
 
 const ImageJeonnam = styled(Image)`
-    top: 576px; /* 픽셀 단위로 위치 설정 */
-    left: 34.7%;
+    top: 506px; /* 픽셀 단위로 위치 설정 */
+    left: 39.7%;
     width: 190px;
     height: 180px;
     transform: translate(-50%, 0); /* 수평 중앙 정렬 */
@@ -295,8 +295,8 @@ const ImageJeonnam = styled(Image)`
 `;
 
 const ImageJeju = styled(Image)`
-    top: 800px; /* 픽셀 단위로 위치 설정 */
-    left: 34%;
+    top: 730px; /* 픽셀 단위로 위치 설정 */
+    left: 39%;
     width: 100px;
     height : 70px;
     transform: translate(-50%, 0); /* 수평 중앙 정렬 */

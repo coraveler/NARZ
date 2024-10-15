@@ -23,7 +23,7 @@ const TravelHeader = () => {
           {navLinks.map((link, index) => (
             <NavigationLink key={index} {...link} />
           ))}
-          <ActiveIndicator />
+          {/* <ActiveIndicator /> */}
         </Nav>
         <SearchBar />
         <UserActions />
@@ -59,20 +59,12 @@ const Nav = styled.nav`
   align-self: stretch;
   position: relative;
   display: flex;
-  min-width: 00px; // 필요에 따라 조정
-  padding-right: 20px; // 여백 줄이기
   align-items: center;
-  white-space: nowrap;
   text-align: center;
-  letter-spacing: -1px;
-  line-height: 0.2;
   justify-content: start;
   flex: 1;
-  flex-basis: auto; // '0%'에서 'auto'로 변경
-  margin: auto 0;
   @media (max-width: 991px) {
     max-width: 100%;
-    white-space: initial;
   }
 `;
 
@@ -88,14 +80,14 @@ const Logo = styled.img`
   cursor: pointer;
 `;
 
-const ActiveIndicator = styled.div`
-  position: absolute;
-  z-index: 0;
-  width: 70px;
-  height: 90px;
-  left: 50%;
-  bottom: 0;
-  transform: translateX(-50%);
-`;
+// const ActiveIndicator = styled.div`
+//   position: absolute;
+//   z-index: 0;
+//   width: 70px;
+//   height: 90px;
+//   left: 50%;
+//   bottom: 0;
+//   transform: translateX(-50%);
+// `;
 
 export default TravelHeader;
