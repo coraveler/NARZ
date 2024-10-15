@@ -11,12 +11,9 @@ import PersonalPage from "./pages/PersonalPage";
 import EditProfilePage from "./pages/EditProfilePage";
 import LoginFormPage from "./pages/LoginFormPage";
 import PostPage from "./pages/PostPage";
-
-
 import RankingPage from "./pages/RankingPage";
 import ShopPage from "./pages/ShopPage";
 import TravelWritePage from "./pages/TravelWritePage";
-
 
 
 
