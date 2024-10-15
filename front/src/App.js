@@ -11,6 +11,8 @@ import PersonalPage from "./pages/PersonalPage";
 import EditProfilePage from "./pages/EditProfilePage";
 import LoginFormPage from "./pages/LoginFormPage";
 import TravelWritePage from "./pages/TravelWritePage";
+import ShopPage from "./pages/ShopPage";
+import RankingPage from "./pages/RankingPage";
 
 
 
@@ -32,6 +34,8 @@ function App() {
         <Route path="/EditProfilePage" element={<EditProfilePage />} />
         <Route path="/LoginFormPage" element={<LoginFormPage />} />
         <Route path="/TravelWritePage" element={<TravelWritePage />} />
+        <Route path="/shop" element={<ShopPage />} />
+        <Route path="/ranking" element={<RankingPage />} />
 
       </Routes>
       <Footer />
