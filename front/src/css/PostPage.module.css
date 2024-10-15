@@ -8,7 +8,7 @@
     color: #000;
     text-align: center;
     justify-content: start;
-    padding: 0 100px;
+    padding: 0 150px;
   }
   
   @media (max-width: 991px) {
@@ -18,15 +18,16 @@
   }
   
   .profileTitle {
-    align-self: stretch;
+    text-align: left;
     background-color: #fff;
-    min-height: 193px;
+    height: 50px;
     width: 100%;
     max-width: 1366px;
     font-size: 82px;
     font-weight: 700;
     white-space: nowrap;
     line-height: 1;
+    margin-left: 15px;
   }
   
   @media (max-width: 991px) {
@@ -40,7 +41,7 @@
     background-color: #fff;
     border-bottom: 1px solid rgba(0, 0, 0, 0.3);
     display: flex;
-    min-height: 164px;
+    min-height: 100px;
     width: 100%;
     max-width: 1247px;
     align-items: center;
@@ -56,19 +57,21 @@
   
   .profileDate {
     align-self: stretch;
-    width: 241px;
+    width: 200px;
     margin: auto 0;
+    font-size: 25px;
   }
   
   .followButton {
     align-self: stretch;
-    width: 114px;
+    width: 80px;
     border-radius: 10px;
     background-color: #fff;
     min-height: 39px;
-    font-size: 27px;
+    font-size: 19px;
     line-height: 1;
     margin: auto 0;
     border: 1px solid #000;
     cursor: pointer;
+    margin-left: 500px;
   }
