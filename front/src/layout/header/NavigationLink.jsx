@@ -1,21 +1,22 @@
-import React from "react";
-import styled from "styled-components";
+// src/components/NavigationLink.jsx
+import React from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 const NavigationLink = ({ text, href }) => {
-  return <StyledLink href={href}>{text}</StyledLink>;
+  return (
+    <StyledLink to={href}>
+      {text}
+    </StyledLink>
+  );
 };
 
-const StyledLink = styled.a`
-  align-self: stretch;
-  color: #000;
-  font-weight: 500;
-  width: 100px;
-  margin: auto 0;
-  padding: 36px 0px;
+const StyledLink = styled(Link)`
   text-decoration: none;
-  @media (max-width: 991px) {
-    white-space: initial;
-    padding: 0 10px;
+  color: inherit;
+  padding: 10px;
+  &:hover {
+    color: #0073e6;
   }
 `;
 
