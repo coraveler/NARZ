@@ -6,7 +6,7 @@ import PaginationComponent from '../Includes/common/PaginationComponent';
 
 function LocalBoard() {
     return (
-        <div>
+        <div> 
             <div>
                 <RegionSelector />
             </div>
