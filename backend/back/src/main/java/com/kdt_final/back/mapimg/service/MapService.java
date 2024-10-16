@@ -41,8 +41,7 @@ public class MapService {
     }
 
     public List<String> loadFiles(int id_no) {
-        // 예: 사용자 ID에 해당하는 이미지 파일 경로 리스트를 반환
-        List<String> imagePaths = new ArrayList<>();
+        List<String> imageUrls = new ArrayList<>();
         String userDirectory = "/Users/kang-geonhan/Documents/kdt-workspace/final-pjt/backend/back/src/main/resources/static/images/map/" + id_no + "/";
         
         File userDir = new File(userDirectory);
@@ -51,12 +50,15 @@ public class MapService {
             if (files != null) {
                 for (File file : files) {
                     if (file.isFile()) {
-                        imagePaths.add(file.getAbsolutePath());
+                        // 파일의 이름을 가져와서 URL 형식으로 변환
+                        String fileName = file.getName();
+                        String imageUrl = "http://localhost:7777/map/img/" + id_no + "/" + fileName; // URL 생성
+                        imageUrls.add(imageUrl); // URL을 리스트에 추가
                     }
                 }
             }
         }
-        return imagePaths;
+        return imageUrls;
     }
     
 }

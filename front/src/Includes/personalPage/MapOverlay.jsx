@@ -25,15 +25,45 @@ const ImageOverlay = () => {
 
     useEffect(() => {
         fetchImages();
+        
     }, []);
+
+    useEffect(() => {
+        console.log(images[0]);
+        userMap(images);
+    }, [images]);
+
+
+    const userMap = (images) => {
+        // 이미지 URL을 이름으로 매핑하여 업데이트
+        const updatedImageUrls = { ...imageUrls };
+    
+        // 이미지 이름을 추출하여 비교
+        const imageNamesFromUrls = Object.keys(imageUrls);
+    
+        images.forEach((image) => {
+            const fullImageName = image.split('/').pop(); // 예: "daejeon.png"
+        const imageName = fullImageName.substring(0, fullImageName.lastIndexOf('.'));
+
+            // imageUrls의 키와 비교하여 겹치는 경우 업데이트
+            if (imageNamesFromUrls.includes(imageName)) {
+                
+                updatedImageUrls[imageName] = image; // 새로운 URL로 업데이트
+            }
+        });
+    
+        console.log(updatedImageUrls);
+        setImageUrls(updatedImageUrls); // 상태 업데이트
+    };
 
     const fetchImages = async () => {
         try {
             const response = await api.get(`map/load/${id_no}`);
+            console.log("Fetched images:", response.data);
             setImages(response.data); // 이미지 경로 리스트 설정
-
         } catch (error) {
             console.error("Error loading images:", error);
+            alert("이미지를 불러오는 데 실패했습니다.");
         }
     };
 
@@ -126,12 +156,14 @@ const ImageOverlay = () => {
 
                 imgUploaded.onerror = () => {
                     console.error("Error loading uploaded image.");
+                    alert("업로드된 이미지를 불러오는 데 실패했습니다.");
                     resolve(null); // 에러 시 null 반환
                 };
             };
 
             imgToReplace.onerror = () => {
                 console.error("Error loading image to replace.");
+                alert("대체 이미지를 불러오는 데 실패했습니다.");
                 resolve(null); // 에러 시 null 반환
             };
         });
@@ -202,7 +234,7 @@ const ImageOverlay = () => {
                 images.map((fileName) => (
                     <img
                         key={fileName}
-                        src={`http://localhost:7777/map/${id_no}/${fileName}`} // 이미지 URL 생성
+                        src={`${fileName}`} // 이미지 URL 생성
                         alt={fileName}
                         style={{ width: '200px', height: 'auto', margin: '5px' }}
                     />
