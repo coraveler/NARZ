@@ -1,0 +1,20 @@
+.titleSection {
+  background-color: #fff;
+  padding: 16px 180px;
+  color: #000;
+}
+
+.mainTitle {
+  font: 400 48px/60px Inter, -apple-system, Roboto, Helvetica, sans-serif; /* 글씨 크기를 48px로 줄임 */
+  letter-spacing: -1px;
+}
+
+.requiredFieldsNote {
+  color: #6b6b6b;
+  font: 400 12px/20px Inter, -apple-system, Roboto, Helvetica, sans-serif; /* 글씨 크기를 12px로 줄임 */
+}
+
+.asterisk {
+  color: #d19675;
+  font-weight: 700;
+}

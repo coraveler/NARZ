@@ -33,10 +33,14 @@ function App() {
         <Route path="/personal" element={<PersonalPage />} />
         <Route path="/EditProfilePage" element={<EditProfilePage />} />
         <Route path="/LoginFormPage" element={<LoginFormPage />} />
+        <Route path="/TravelWritePage" element={<TravelWritePage />} />
         <Route path="/ranking" element={<RankingPage />} /> {/* 랭킹 페이지 라우트 추가 */}
         <Route path="/postpage" element={<PostPage />} />
         <Route path="/shop" element={<ShopPage />} />
         <Route path="/TravelWritePage" element={<TravelWritePage />} />
+        <Route path="/shop" element={<ShopPage />} /> 
+        <Route path="/travelwrite" element={<TravelWritePage />} />
+        <Route path="/post/:postId" element={<PostPage />} />
       </Routes>
       <Footer />
     </BrowserRouter>

@@ -1,0 +1,42 @@
+.formField {
+  margin-bottom: 20px;
+}
+
+.label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 16px;
+  color: #000;
+}
+
+.asterisk { /* .required 대신 .asterisk 스타일 추가 */
+  color: #d19675; /* 별표 색상 */
+  font-weight: 700; /* 굵은 글씨 */
+  margin-left: 5px; /* 필요 시 간격 추가 */
+}
+
+.input,
+.select,
+.textarea {
+  width: 80%; /* 너비를 80%로 설정 */
+  padding: 8px;
+  font-size: 15px;
+  border: 1px solid #ababab;
+  border-radius: 4px;
+}
+
+.textarea {
+  min-height: 150px;
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+  border-color: #4a90e2;
+  outline: none;
+  box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+}
+
+.selectWrapper {
+  position: relative;
+}

@@ -1,5 +1,5 @@
 import React from "react";
-import styles from '../../css/TitleSection.module.css';
+import styles from '../../css/TrevalWrite/TitleSection.module.css';
 function TitleSection() {
   return (
     <section className={styles.titleSection}>
