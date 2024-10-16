@@ -1,7 +1,7 @@
 import React from "react";
-import styles from '../../css/FormField.module.css';
+import styles from '../../css/TrevalWrite/FormField.module.css';
 
-function FormField({ label, type, placeholder, required }) {
+function FormField({ label, type, placeholder, required, options }) {
   const id = `${label.toLowerCase()}-input`;
 
   return (
@@ -14,8 +14,13 @@ function FormField({ label, type, placeholder, required }) {
         <div className={styles.selectWrapper}>
           <select id={id} className={styles.select} required={required}>
             <option value="">{placeholder}</option>
+            {/* options 배열을 통해 드롭다운 항목을 렌더링 */}
+            {options && options.map((option, index) => (
+              <option key={index} value={option}>
+                {option}
+              </option>
+            ))}
           </select>
-          <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/219ac29619a73d336226963603fa45db0dbd3e7c8d709e0fe78f4f5a593cbaba?placeholderIfAbsent=true&apiKey=48204828aedf4b3e9d1bc563b87457c6" alt="" className={styles.selectArrow} />
         </div>
       ) : type === 'textarea' ? (
         <textarea id={id} className={styles.textarea} required={required} />
