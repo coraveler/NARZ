@@ -10,10 +10,11 @@ import PasswordResetPage from "./pages/PasswordResetPage";
 import PersonalPage from "./pages/PersonalPage";
 import EditProfilePage from "./pages/EditProfilePage";
 import LoginFormPage from "./pages/LoginFormPage";
+import PostPage from "./pages/PostPage";
 import RankingPage from "./pages/RankingPage";
 import ShopPage from "./pages/ShopPage";
 import TravelWritePage from "./pages/TravelWritePage";
-import PostPage from "./pages/PostPage";
+
 
 function Header() {
   return <TravelHeader />;
@@ -34,6 +35,9 @@ function App() {
         <Route path="/LoginFormPage" element={<LoginFormPage />} />
         <Route path="/TravelWritePage" element={<TravelWritePage />} />
         <Route path="/ranking" element={<RankingPage />} /> {/* 랭킹 페이지 라우트 추가 */}
+        <Route path="/postpage" element={<PostPage />} />
+        <Route path="/shop" element={<ShopPage />} />
+        <Route path="/TravelWritePage" element={<TravelWritePage />} />
         <Route path="/shop" element={<ShopPage />} /> 
         <Route path="/travelwrite" element={<TravelWritePage />} />
         <Route path="/post/:postId" element={<PostPage />} />
