@@ -1,10 +1,14 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
 import api from '../../api/axios';
 
 const ImageOverlay = () => {
     const canvasRef = useRef(null);
     const fileInputRef = useRef(null);
+    const [images, setImages] = useState([]);
+    const id_no = 0;
+
+
 
     const [imageUrls, setImageUrls] = useState({
         sudo: "/img/map/sudo.png",
@@ -19,6 +23,20 @@ const ImageOverlay = () => {
         jeju: "/img/map/jeju.png",
     });
 
+    useEffect(() => {
+        fetchImages();
+    }, []);
+
+    const fetchImages = async () => {
+        try {
+            const response = await api.get(`map/load/${id_no}`);
+            setImages(response.data); // 이미지 경로 리스트 설정
+
+        } catch (error) {
+            console.error("Error loading images:", error);
+        }
+    };
+
     const handleImageClick = (key) => {
         if (fileInputRef.current) {
             fileInputRef.current.setAttribute("data-key", key); // 클릭한 이미지의 키를 저장
@@ -26,111 +44,140 @@ const ImageOverlay = () => {
         }
     };
 
-    // const handleFileChange = (event) => {
-    //     const file = event.target.files[0];
-    //     if (file) {
-    //         const newImageUrl = URL.createObjectURL(file);
-    //         processImage(fileInputRef.current.getAttribute("data-key"), newImageUrl);
-    //     }
-    // };
 
     const handleFileChange = async (event) => {
         const file = event.target.files[0];
         if (file) {
             const newImageUrl = URL.createObjectURL(file);
             const key = fileInputRef.current.getAttribute("data-key");
-    
-            // 새로 생성된 이미지를 서버에 전송
-            const formData = new FormData();
-            formData.append("id", 0);
-            formData.append("file", file); // 파일 추가
-            formData.append("local", key); // 키 추가 (필요시)
-            console.log(key);
-            try {
-                const response = await api.post(`map/upload`,formData, {
-                    headers: {
-                        "Content-Type": "multipart/form-data", // 헤더 설정
-                    },
-                });
-                processImage(key, newImageUrl);
-                if (response.ok) {
-                    // 파일 업로드 성공 후 처리
-                    // processImage(key, newImageUrl);
-                } else {
-                    console.error("File upload failed.");
-                }
-            } catch (error) {
-                console.error("Error uploading file:", error);
-            }
+
+            // 비트 연산 후 이미지 처리
+            const processedImageUrl = await processImage(key, newImageUrl);
+
+            // 최종 비트 연산 후 이미지를 서버에 전송
+            await uploadProcessedImage(processedImageUrl, key);
         }
     };
-    
 
     const processImage = (key, newImageUrl) => {
-        const imgToReplace = new window.Image();
-        imgToReplace.src = imageUrls[key];
-    
-        const imgUploaded = new window.Image();
-        imgUploaded.src = newImageUrl;
-    
-        imgToReplace.onload = () => {
-            const canvas = canvasRef.current;
-            if (!canvas) {
-                console.error("Canvas is not available.");
-                return;
-            }
-            const ctx = canvas.getContext("2d", { willReadFrequently: true });
-    
-            // 기존 이미지를 캔버스에 그립니다.
-            ctx.clearRect(0, 0, canvas.width, canvas.height); // 캔버스 초기화
-            ctx.drawImage(imgToReplace, 0, 0, canvas.width, canvas.height);
-    
-            // 기존 이미지의 그려진 크기 가져오기
-            const imgWidth = canvas.width; // 캔버스 너비
-            const imgHeight = canvas.height; // 캔버스 높이
-            // console.log(imageUrls[key]);
-    
-            imgUploaded.onload = () => {
-                const overlayCanvas = document.createElement("canvas");
-                const overlayCtx = overlayCanvas.getContext("2d");
-                overlayCanvas.width = imgWidth; // 기존 이미지 크기와 동일하게 설정
-                overlayCanvas.height = imgHeight; // 기존 이미지 크기와 동일하게 설정
-    
-                // 업로드한 이미지를 기존 이미지의 크기로 그립니다.
-                overlayCtx.drawImage(imgUploaded, 0, 0, imgWidth, imgHeight);
-                const overlayData = overlayCtx.getImageData(0, 0, overlayCanvas.width, overlayCanvas.height);
-                const overlayPixels = overlayData.data;
-    
-                const originalData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                const originalPixels = originalData.data;
-    
-                // 픽셀 데이터를 처리하여 흰색이 아닌 부분만 대체합니다.
-                for (let i = 0; i < originalPixels.length; i += 4) {
-                    const r = originalPixels[i];
-                    const g = originalPixels[i + 1];
-                    const b = originalPixels[i + 2];
-    
-                    if (r <= 200 || g <= 200 || b <= 200) {
-                        originalPixels[i] = overlayPixels[i];
-                        originalPixels[i + 1] = overlayPixels[i + 1];
-                        originalPixels[i + 2] = overlayPixels[i + 2];
-                    }
+        return new Promise((resolve) => {
+            const imgToReplace = new window.Image();
+            imgToReplace.src = imageUrls[key];
+
+            const imgUploaded = new window.Image();
+            imgUploaded.src = newImageUrl;
+
+            imgToReplace.onload = () => {
+                const canvas = canvasRef.current;
+                if (!canvas) {
+                    console.error("Canvas is not available.");
+                    return;
                 }
-    
-                ctx.putImageData(originalData, 0, 0);
-    
-                const processedImageUrl = canvas.toDataURL();
-                setImageUrls((prev) => ({
-                    ...prev,
-                    [key]: processedImageUrl, // 해당 이미지 업데이트
-                }));
+                const ctx = canvas.getContext("2d", { willReadFrequently: true });
+
+                // 기존 이미지를 캔버스에 그립니다.
+                ctx.clearRect(0, 0, canvas.width, canvas.height); // 캔버스 초기화
+                ctx.drawImage(imgToReplace, 0, 0, canvas.width, canvas.height);
+
+                const imgWidth = canvas.width; // 캔버스 너비
+                const imgHeight = canvas.height; // 캔버스 높이
+
+                imgUploaded.onload = () => {
+                    const overlayCanvas = document.createElement("canvas");
+                    const overlayCtx = overlayCanvas.getContext("2d");
+                    overlayCanvas.width = imgWidth; // 기존 이미지 크기와 동일하게 설정
+                    overlayCanvas.height = imgHeight; // 기존 이미지 크기와 동일하게 설정
+
+                    // 업로드한 이미지를 기존 이미지의 크기로 그립니다.
+                    overlayCtx.drawImage(imgUploaded, 0, 0, imgWidth, imgHeight);
+                    const overlayData = overlayCtx.getImageData(0, 0, overlayCanvas.width, overlayCanvas.height);
+                    const overlayPixels = overlayData.data;
+
+                    const originalData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    const originalPixels = originalData.data;
+
+                    // 픽셀 데이터를 처리하여 흰색이 아닌 부분만 대체합니다.
+                    for (let i = 0; i < originalPixels.length; i += 4) {
+                        const r = originalPixels[i];
+                        const g = originalPixels[i + 1];
+                        const b = originalPixels[i + 2];
+
+                        // 조건에 맞는 픽셀만 대체
+                        if (r <= 200 || g <= 200 || b <= 200) {
+                            originalPixels[i] = overlayPixels[i];        // R
+                            originalPixels[i + 1] = overlayPixels[i + 1]; // G
+                            originalPixels[i + 2] = overlayPixels[i + 2]; // B
+                        }
+                    }
+
+                    ctx.putImageData(originalData, 0, 0);
+
+                    // 최종 이미지를 URL로 변환
+                    const processedImageUrl = canvas.toDataURL();
+
+                    setImageUrls((prev) => ({
+                        ...prev,
+                        [key]: processedImageUrl, // 해당 이미지 업데이트
+                    }));
+
+                    // 비트 연산 후 최종 이미지 URL을 반환
+                    resolve(processedImageUrl);
+                };
+
+                imgUploaded.onerror = () => {
+                    console.error("Error loading uploaded image.");
+                    resolve(null); // 에러 시 null 반환
+                };
             };
-        };
+
+            imgToReplace.onerror = () => {
+                console.error("Error loading image to replace.");
+                resolve(null); // 에러 시 null 반환
+            };
+        });
     };
-    
-           
+
+    // 최종 이미지를 서버에 전송하는 함수
+    const uploadProcessedImage = async (processedImageUrl, key) => {
+        if (!processedImageUrl) {
+            console.error("No processed image to upload.");
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append("id_no", 0);
+        formData.append("file", dataURItoBlob(processedImageUrl)); // 데이터 URL을 Blob으로 변환
+        formData.append("local", key);
+
+        try {
+            const response = await api.post(`map/upload`, formData); // 적절한 URL로 변경
+            if (response.status === 200) {
+                console.log("Processed image uploaded successfully.");
+            } else {
+                console.error("Processed image upload failed.");
+            }
+        } catch (error) {
+            console.error("Error uploading processed image:", error);
+        }
+    };
+
+
+    // 데이터 URL을 Blob으로 변환하는 함수
+    const dataURItoBlob = (dataURI) => {
+        const byteString = atob(dataURI.split(',')[1]);
+        const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+        const ab = new ArrayBuffer(byteString.length);
+        const ia = new Uint8Array(ab);
+        for (let i = 0; i < byteString.length; i++) {
+            ia[i] = byteString.charCodeAt(i);
+        }
+        return new Blob([ab], { type: mimeString });
+    };
+
+
 
     return (
+        <div>
         <Container>
             <HiddenFileInput
                 type="file"
@@ -150,9 +197,23 @@ const ImageOverlay = () => {
             <ImageJeju onClick={() => handleImageClick("jeju")} src={imageUrls.jeju} alt="Jeju" />
             <Canvas ref={canvasRef} width={800} height={600} />
         </Container>
-      
+        <div>
+            {images.length > 0 ? (
+                images.map((fileName) => (
+                    <img
+                        key={fileName}
+                        src={`http://localhost:7777/map/${id_no}/${fileName}`} // 이미지 URL 생성
+                        alt={fileName}
+                        style={{ width: '200px', height: 'auto', margin: '5px' }}
+                    />
+                ))
+            ) : (
+                <p>No images found.</p>
+            )}
+        </div>
+     </div>
     );
-};
+}
 
 const Canvas = styled.canvas`
     display: none;
