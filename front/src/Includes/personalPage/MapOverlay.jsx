@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
+import api from '../../api/axios';
 
 const ImageOverlay = () => {
     const canvasRef = useRef(null);
@@ -25,14 +26,44 @@ const ImageOverlay = () => {
         }
     };
 
-    const handleFileChange = (event) => {
+    // const handleFileChange = (event) => {
+    //     const file = event.target.files[0];
+    //     if (file) {
+    //         const newImageUrl = URL.createObjectURL(file);
+    //         processImage(fileInputRef.current.getAttribute("data-key"), newImageUrl);
+    //     }
+    // };
+
+    const handleFileChange = async (event) => {
         const file = event.target.files[0];
         if (file) {
             const newImageUrl = URL.createObjectURL(file);
-            processImage(fileInputRef.current.getAttribute("data-key"), newImageUrl);
+            const key = fileInputRef.current.getAttribute("data-key");
+    
+            // 새로 생성된 이미지를 서버에 전송
+            const formData = new FormData();
+            formData.append("id", 0);
+            formData.append("file", file); // 파일 추가
+            formData.append("local", key); // 키 추가 (필요시)
+            console.log(key);
+            try {
+                const response = await api.post(`map/upload`,formData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data", // 헤더 설정
+                    },
+                });
+                processImage(key, newImageUrl);
+                if (response.ok) {
+                    // 파일 업로드 성공 후 처리
+                    // processImage(key, newImageUrl);
+                } else {
+                    console.error("File upload failed.");
+                }
+            } catch (error) {
+                console.error("Error uploading file:", error);
+            }
         }
     };
-
     
 
     const processImage = (key, newImageUrl) => {
@@ -57,7 +88,7 @@ const ImageOverlay = () => {
             // 기존 이미지의 그려진 크기 가져오기
             const imgWidth = canvas.width; // 캔버스 너비
             const imgHeight = canvas.height; // 캔버스 높이
-            console.log(imageUrls[key]);
+            // console.log(imageUrls[key]);
     
             imgUploaded.onload = () => {
                 const overlayCanvas = document.createElement("canvas");
@@ -98,64 +129,6 @@ const ImageOverlay = () => {
     };
     
            
-    // const processImage = (key, newImageUrl) => {
-    //     const imgToReplace = new window.Image();
-    //     imgToReplace.src = imageUrls[key];
-
-    //     const imgUploaded = new window.Image();
-    //     imgUploaded.src = newImageUrl;
-
-    //     imgToReplace.onload = () => {
-    //         const canvas = canvasRef.current;
-    //         if (!canvas) {
-    //             console.error("Canvas is not available.");
-    //             return;
-    //         }
-    //         const ctx = canvas.getContext("2d");
-
-    //         // 기존 이미지를 캔버스에 그립니다.
-    //         ctx.clearRect(0, 0, canvas.width, canvas.height); // 캔버스 초기화
-    //         ctx.drawImage(imgToReplace, 0, 0, canvas.width, canvas.height);
-
-    //         imgUploaded.onload = () => {
-    //             const overlayCanvas = document.createElement("canvas");
-    //             const overlayCtx = overlayCanvas.getContext("2d");
-    //             overlayCanvas.width = canvas.width;
-    //             overlayCanvas.height = canvas.height;
-
-    //             overlayCtx.drawImage(imgUploaded, 0, 0, overlayCanvas.width, overlayCanvas.height);
-    //             const overlayData = overlayCtx.getImageData(0, 0, overlayCanvas.width, overlayCanvas.height);
-    //             const overlayPixels = overlayData.data;
-
-    //             const originalData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    //             const originalPixels = originalData.data;
-
-    //             // 픽셀 데이터를 처리하여 흰색이 아닌 부분만 대체합니다.
-    //             for (let i = 0; i < originalPixels.length; i += 4) {
-    //                 const r = originalPixels[i];
-    //                 const g = originalPixels[i + 1];
-    //                 const b = originalPixels[i + 2];
-
-    //                 if (r <= 200 || g <= 200 || b <= 200) {
-    //                     originalPixels[i] = overlayPixels[i];
-    //                     originalPixels[i + 1] = overlayPixels[i + 1];
-    //                     originalPixels[i + 2] = overlayPixels[i + 2];
-    //                     // originalPixels[i + 3] = 255; // Opaque
-    //                 } 
-    //             }
-
-    //             ctx.putImageData(originalData, 0, 0);
-
-    //             const processedImageUrl = canvas.toDataURL();
-    //             setImageUrls((prev) => ({
-    //                 ...prev,
-    //                 [key]: processedImageUrl, // 해당 이미지 업데이트
-    //             }));
-    //         };
-
-     
-    //     };
-    // };
 
     return (
         <Container>
