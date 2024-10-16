@@ -13,6 +13,7 @@ import LoginFormPage from "./pages/LoginFormPage";
 import PostPage from "./pages/PostPage";
 import RankingPage from "./pages/RankingPage";
 import ShopPage from "./pages/ShopPage";
+import ShopPurchase from "./pages/ShopPurchase";
 import TravelWritePage from "./pages/TravelWritePage";
 
 
@@ -34,13 +35,11 @@ function App() {
         <Route path="/EditProfilePage" element={<EditProfilePage />} />
         <Route path="/LoginFormPage" element={<LoginFormPage />} />
         <Route path="/TravelWritePage" element={<TravelWritePage />} />
-        <Route path="/ranking" element={<RankingPage />} /> {/* 랭킹 페이지 라우트 추가 */}
+        <Route path="/ranking" element={<RankingPage />} /> 
         <Route path="/postpage" element={<PostPage />} />
         <Route path="/shop" element={<ShopPage />} />
-        <Route path="/TravelWritePage" element={<TravelWritePage />} />
-        <Route path="/shop" element={<ShopPage />} /> 
-        <Route path="/travelwrite" element={<TravelWritePage />} />
-        <Route path="/post/:postId" element={<PostPage />} />
+        <Route path="/purchase" element={<ShopPurchase />} />
+        
       </Routes>
       <Footer />
     </BrowserRouter>
