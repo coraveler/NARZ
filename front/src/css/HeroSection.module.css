@@ -22,11 +22,15 @@
   }
   
   .subtitle {
-    font-size: 46px;
+    font-size: 35px;
     line-height: 55px;
     letter-spacing: -1.38px;
     color: rgba(243, 243, 243, 1);
+    
+    position: relative; /* 위치 조정을 위한 relative 설정 */
+    top: 85px; /* 위에서부터 20px 아래로 이동 */
   }
+  
   
   @media (max-width: 991px) {
     .heroActions {
