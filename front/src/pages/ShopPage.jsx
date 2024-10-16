@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import styles from "../css/Shop.module.css"; 
+import { Link } from "react-router-dom"; // Link를 react-router-dom에서 import
+import styles from "../css/Shop/Shop.module.css"; // 스타일시트 import
 
 function Navbar() {
   return (
     <nav className={styles.navbar}> 
       <ul>
-        <li><a href="#">마일리지 쿠폰</a></li>
-        <li><a href="#">마일리지 사용</a></li>
-        <li><a href="#">마일리지 내역</a></li>
+        <li><Link to="#">마일리지 쿠폰</Link></li> 
+        <li><Link to="/purchase">마일리지 사용</Link></li> 
+        <li><Link to="/history">마일리지 내역</Link></li>
       </ul>
     </nav>
   );
@@ -58,7 +59,6 @@ function CouponRegister() {
     </div>
   );
 }
-
 
 function ShopPage() {  
   return (

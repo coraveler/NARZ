@@ -1,0 +1,33 @@
+.shop-purchase {
+  font-family: Arial, sans-serif;
+  background-color: #f1f1f1;
+  color: black;
+  padding: 2rem;
+}
+
+.options-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem; /* 카드 간격 */
+}
+
+.option-card {
+  background-color: white;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px; /* 카드 모서리 둥글게 */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+}
+
+.purchase-button {
+  padding: 0.5rem 1rem;
+  background-color: black;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s; /* 버튼 효과 */
+}
+
+.purchase-button:hover {
+  background-color: #444; /* 버튼 호버 색상 */
+}
