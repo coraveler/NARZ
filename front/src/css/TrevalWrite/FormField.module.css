@@ -9,15 +9,16 @@
   color: #000;
 }
 
-.required {
-  color: #d19675;
-  font-weight: 700;
+.asterisk { /* .required 대신 .asterisk 스타일 추가 */
+  color: #d19675; /* 별표 색상 */
+  font-weight: 700; /* 굵은 글씨 */
+  margin-left: 5px; /* 필요 시 간격 추가 */
 }
 
 .input,
 .select,
 .textarea {
-  width: 80%; /* 100%에서 80%로 줄임 */
+  width: 80%; /* 너비를 80%로 설정 */
   padding: 8px;
   font-size: 15px;
   border: 1px solid #ababab;
