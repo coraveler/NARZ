@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../../css/SelectField.module.css';
+import styles from '../../css/TrevalWrite/SelectField.module.css';
 
 const SelectField = ({ placeholder, icon }) => (
   <div className={styles.selectWrapper}>

@@ -17,7 +17,7 @@
 .input,
 .select,
 .textarea {
-  width: 100%;
+  width: 80%; /* 100%에서 80%로 줄임 */
   padding: 8px;
   font-size: 15px;
   border: 1px solid #ababab;
@@ -28,15 +28,14 @@
   min-height: 150px;
 }
 
-.selectWrapper {
-  position: relative;
+.input:focus,
+.select:focus,
+.textarea:focus {
+  border-color: #4a90e2;
+  outline: none;
+  box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
 }
 
-.selectWrapper::after {
-  content: '▼';
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  transform: translateY(-50%);
-  pointer-events: none;
+.selectWrapper {
+  position: relative;
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import styles from '../../css/ImageUpload.module.css';
+import styles from '../../css/TrevalWrite/ImageUpload.module.css';
 
 function ImageUpload() {
   return (

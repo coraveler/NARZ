@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../../css/RatingField.module.css";
+import styles from "../../css/TrevalWrite/RatingField.module.css";
 
 function RatingField() {
   return (
