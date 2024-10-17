@@ -1,9 +1,9 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import api from '../../api/axios';
 
 const ImageOverlay = () => {
-
+const [isUploading, setIsUploading] = useState(false); // 상태 추가
 const canvasRef = useRef(null);
 const fileInputRef = useRef(null);
 const [images, setImages] = useState([]);
@@ -35,6 +35,19 @@ useEffect(() => {
     userMap(images);
 }, [images]);
 
+// const userMap = (images) => {
+//     const updatedImageUrls = { ...imageUrls };
+
+//     images.forEach((image) => {
+//         const imageName = image.split('/').pop().split('.')[0]; // 파일 이름 추출
+//         if (defaultImageUrls[imageName]) {
+//             updatedImageUrls[imageName] = image; // 새로운 URL로 업데이트
+//         }
+//     });
+
+//     setImageUrls(updatedImageUrls);
+// };
+
 const userMap = (images) => {
     const updatedImageUrls = { ...imageUrls };
 
@@ -45,6 +58,7 @@ const userMap = (images) => {
         }
     });
 
+    // 모든 업데이트가 완료된 후 한 번만 상태를 업데이트
     setImageUrls(updatedImageUrls);
 };
 
@@ -58,43 +72,83 @@ const fetchImages = async () => {
     }
 };
 
-const handleFileChange = async (event) => {
-    const file = event.target.files[0];
-    if (file) {
-        const newImageUrl = URL.createObjectURL(file);
-        const key = fileInputRef.current.getAttribute("data-key");
-        const processedImageUrl = await processImage(key, newImageUrl);
+// const handleFileChange = async (event) => {
+//     const file = event.target.files[0];
+//     console.log("File selected:", file); 
+//     if (file) {
+//         console.log("bbbbbbb");
+//         const newImageUrl = URL.createObjectURL(file);
+//         const key = fileInputRef.current.getAttribute("data-key");
+//         const processedImageUrl = await processImage(key, newImageUrl);
+//         console.log("Processed image URL:", processedImageUrl);
+
         
-        // 서버에 최종 이미지 업로드
-        await uploadProcessedImage(processedImageUrl, key);
+//         // 서버에 최종 이미지 업로드
+//         await uploadProcessedImage(processedImageUrl, key);
         
-        // 파일 입력을 초기화하여 같은 파일을 다시 선택할 수 있도록 설정
-        fileInputRef.current.value = null;
-    }
-};
+//         // 파일 입력을 초기화하여 같은 파일을 다시 선택할 수 있도록 설정
+//         fileInputRef.current.value = null;
+//     }
+// };
 
 const handleImageClick = (key) => {
     if (fileInputRef.current) {
         fileInputRef.current.setAttribute("data-key", key);
         fileInputRef.current.click();
+        console.log(key);
     }
 };
 
+const handleFileChange = async (event) => {
+    const file = event.target.files[0];
+    console.log("File selected:", file); 
+    if (file) {
+        console.log("file is ture");
+        const newImageUrl = URL.createObjectURL(file);
+        const key = fileInputRef.current.getAttribute("data-key");
+        
+        setIsUploading(true);
+
+        try {
+            console.log("try is run");
+            const processedImageUrl = await processImage(key, newImageUrl);
+            console.log("processImage run");
+            await uploadProcessedImage(processedImageUrl, key);
+            console.log("Processed image URL:", processedImageUrl);
+        } catch (error) {
+            console.error("Error processing or uploading image:", error);
+        } 
+        finally {
+            fileInputRef.current.value = null; // 파일 입력 초기화
+            setIsUploading(false);
+        }
+    }
+};
+
+
+
 const processImage = (key, newImageUrl) => {
-    return new Promise((resolve) => {
+    console.log("Starting image processing..."); 
+    return new Promise((resolve, reject) => {
         const imgToReplace = new window.Image();
         imgToReplace.src = defaultImageUrls[key];
 
         const imgUploaded = new window.Image();
-        imgUploaded.src = newImageUrl;
+        // imgUploaded.src = newImageUrl;
+
+        console.log("New image URL:", newImageUrl);
 
         imgToReplace.onload = () => {
+            console.log("start ToReplace image loaded.");
             const canvas = canvasRef.current;
             const ctx = canvas.getContext("2d");
+            console.log("step1");
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.drawImage(imgToReplace, 0, 0, canvas.width, canvas.height);
+            console.log("step2");
 
             imgUploaded.onload = () => {
+                console.log("Uploaded image loaded.");
                 const overlayCanvas = document.createElement("canvas");
                 overlayCanvas.width = canvas.width;
                 overlayCanvas.height = canvas.height;
@@ -126,18 +180,17 @@ const processImage = (key, newImageUrl) => {
 
                 resolve(processedImageUrl);
             };
-
+            imgUploaded.src = newImageUrl;
             imgUploaded.onerror = () => {
                 console.error("Error loading uploaded image.");
-                alert("업로드된 이미지를 불러오는 데 실패했습니다.");
-                resolve(null);
+                reject("Error loading uploaded image.");
+                // resolve(null);
             };
         };
 
         imgToReplace.onerror = () => {
             console.error("Error loading image to replace.");
-            alert("대체 이미지를 불러오는 데 실패했습니다.");
-            resolve(null);
+            reject("Error loading uploaded image.");;
         };
     });
 };
@@ -179,14 +232,15 @@ const dataURItoBlob = (dataURI) => {
     return (
         <div>
         <Container>
-            <Canvas ref={canvasRef} width={800} height={600} />
-            <HiddenFileInput
+             <HiddenFileInput
                 type="file"
                 accept="image/*"
                 ref={fileInputRef}
                 onChange={handleFileChange}
-            />
-            
+                />
+          
+           
+              <Canvas ref={canvasRef}  />
             <ImageSudo onClick={() => handleImageClick("sudo")} src={imageUrls.sudo} alt="Sudo" />
             <ImageGangwon onClick={() => handleImageClick("gangwon")} src={imageUrls.gangwon} alt="Gangwon" />
             <ImageChungbuk onClick={() => handleImageClick("chungbuk")} src={imageUrls.chungbuk} alt="Chungbuk" />
@@ -199,7 +253,7 @@ const dataURItoBlob = (dataURI) => {
             <ImageJeju onClick={() => handleImageClick("jeju")} src={imageUrls.jeju} alt="Jeju" />
             
         </Container>
-       
+        
      </div>
     );
 }
@@ -211,6 +265,7 @@ const Canvas = styled.canvas`
 
 const HiddenFileInput = styled.input`
     display: none; /* 파일 입력 숨기기 */
+    z-index : 11
 `;
 
 const Container = styled.div`
