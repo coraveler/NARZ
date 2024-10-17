@@ -40,3 +40,11 @@
 .selectWrapper {
   position: relative;
 }
+
+.select {
+  width: 770px; /* 드롭박스의 너비 */
+  padding: 8px; /* 내부 여백 */
+  font-size: 15px; /* 텍스트 크기 */
+  border: 1px solid #ababab; /* 테두리 설정 */
+  border-radius: 4px; /* 모서리 둥글게 설정 */
+}
