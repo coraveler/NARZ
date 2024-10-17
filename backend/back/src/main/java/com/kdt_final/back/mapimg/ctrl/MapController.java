@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.kdt_final.back.mapimg.service.MapService;
 
@@ -44,13 +43,15 @@ public class MapController {
         return new ResponseEntity<>(imagePaths, HttpStatus.OK);
     }
     
-    
     @GetMapping("img/{id_no}/{fileName:.+}")
     @ResponseBody
     public ResponseEntity<Resource> loadImage(@PathVariable("id_no") int id_no, @PathVariable("fileName") String fileName) {
-        String filePath = "/Users/kang-geonhan/Documents/kdt-workspace/final-pjt/backend/back/src/main/resources/static/images/map/" + id_no + "/" + fileName;
+        // 상대 경로를 사용하여 파일 경로 설정
+        String filePath = System.getProperty("user.dir") + "/uploads/images/map/" + id_no + "/" + fileName;
         File file = new File(filePath);
+
         System.out.println("File path: " + filePath); // 경로 로그 출력
+
         if (!file.exists()) {
             return ResponseEntity.notFound().build();
         }
@@ -59,8 +60,26 @@ public class MapController {
         return ResponseEntity.ok()
                 .contentType(MediaType.IMAGE_PNG) // 또는 적절한 MIME 타입
                 .body(resource);
+    }
+
+
+
+//     @GetMapping("img/{id_no}/{fileName:.+}")
+//     @ResponseBody
+//     public ResponseEntity<Resource> loadImage(@PathVariable("id_no") int id_no, @PathVariable("fileName") String fileName) {
+//         String filePath = "/Users/kang-geonhan/Documents/kdt-workspace/final-pjt/backend/back/src/main/resources/static/images/map/" + id_no + "/" + fileName;
+//         File file = new File(filePath);
+//         System.out.println("File path: " + filePath); // 경로 로그 출력
+//         if (!file.exists()) {
+//             return ResponseEntity.notFound().build();
+//         }
+
+//         Resource resource = new FileSystemResource(file);
+//         return ResponseEntity.ok()
+//                 .contentType(MediaType.IMAGE_PNG) // 또는 적절한 MIME 타입
+//                 .body(resource);
 
                 
-}
+// }
 
 }
