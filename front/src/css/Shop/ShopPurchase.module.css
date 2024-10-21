@@ -1,13 +1,14 @@
 .shop-purchase {
   font-family: Arial, sans-serif;
-  background-color: #f1f1f1;
+  background-color: white;
   color: black;
   padding: 2rem;
 }
 
 .options-container {
-  display: flex;
-  flex-direction: column;
+  display: flex; /* flexbox 사용 */
+  flex-direction: row; /* 카드가 가로로 나열되도록 설정 */
+  flex-wrap: wrap; /* 줄바꿈을 허용 */
   gap: 1rem; /* 카드 간격 */
 }
 
@@ -17,6 +18,8 @@
   border: 1px solid #ccc;
   border-radius: 5px; /* 카드 모서리 둥글게 */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+  flex: 1; /* 각 카드가 같은 비율로 공간을 차지하도록 설정 */
+  min-width: 200px; /* 카드 최소 너비 설정 (조정 가능) */
 }
 
 .purchase-button {
@@ -30,4 +33,30 @@
 
 .purchase-button:hover {
   background-color: #444; /* 버튼 호버 색상 */
+}
+/* Navbar.module.css */
+.navbar {
+  background-color: white; /* 배경색 */
+  padding: 1rem; /* 패딩 */
+}
+
+.navbar ul {
+  display: flex; /* 수평으로 정렬 */
+  list-style-type: none; /* 기본 리스트 스타일 제거 */
+  padding: 0; /* 기본 패딩 제거 */
+  margin: 0; /* 기본 마진 제거 */
+  justify-content: center; /* 중앙 정렬 */
+}
+
+.navbar li {
+  margin-right: 1rem; /* 링크 간의 간격 */
+}
+
+.navbar a {
+  text-decoration: none; /* 링크의 밑줄 제거 */
+  color: black; /* 링크 텍스트 색상 */
+}
+
+.navbar a:hover {
+  color: #444; /* 호버 시 색상 변경 */
 }
