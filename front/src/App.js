@@ -12,8 +12,9 @@ import EditProfilePage from "./pages/EditProfilePage";
 import LoginFormPage from "./pages/LoginFormPage";
 import PostPage from "./pages/PostPage";
 import RankingPage from "./pages/RankingPage";
-import ShopPage from "./pages/ShopPage";
-import ShopPurchase from "./pages/ShopPurchase";
+import ShopPage from "./pages/ShopPage/ShopPage";
+import ShopPurchase from "./pages/ShopPage/ShopPurchase";
+import ShopHistory from './pages/ShopPage/ShopHistory';
 import TravelWritePage from "./pages/TravelWritePage";
 
 
@@ -39,7 +40,7 @@ function App() {
         <Route path="/postpage" element={<PostPage />} />
         <Route path="/shop" element={<ShopPage />} />
         <Route path="/purchase" element={<ShopPurchase />} />
-        
+        <Route path="/history" element={<ShopHistory />} />
       </Routes>
       <Footer />
     </BrowserRouter>
