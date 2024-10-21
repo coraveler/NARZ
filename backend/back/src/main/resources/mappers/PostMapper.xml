@@ -6,7 +6,7 @@
 
     <insert id="saveRow"
             parameterType="com.kdt_final.back.post.domain.PostRequestDTO"
-            useGeneratedKeys="true" keyProperty="post_id">
+            useGeneratedKeys="true" keyProperty="postId">
         INSERT INTO POST(USERID, LOCAL, TITLE, CONTENT, RATING, SECRET, HEADERIMG)
         VALUES( #{userId}, #{local}, #{title}, #{content}, #{rating}, #{secret}, #{headerImg})
     </insert>
@@ -15,7 +15,16 @@
 
     <insert id="savePostImage"
             parameterType="com.kdt_final.back.post.domain.postImage.PostImageRequestDTO">
-        INSERT INTO POSTIMAGES(POST_ID, IMAGEPATH)
-        VALUES( #{post_id}, #{imagePath})
+        INSERT INTO POSTIMAGES(POSTID, IMAGEPATH)
+        VALUES( #{postId}, #{imagePath})
     </insert>
+
+    <!-- getPost --> 
+
+    <select id="getPost"
+            resultType="com.kdt_final.back.post.domain.PostResponseDTO">
+        SELECT POSTID, USERID, LOCAL, TITLE, RATING, SECRET, HEADERIMG
+        FROM POST
+        WHERE SECRET = 0
+    </select>
 </mapper>

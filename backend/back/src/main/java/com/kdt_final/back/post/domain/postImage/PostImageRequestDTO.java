@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class PostImageRequestDTO {
-    private Integer post_id;
+    private Integer postId;
     private String imagePath;
 }

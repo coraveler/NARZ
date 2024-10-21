@@ -1,10 +1,9 @@
 package com.kdt_final.back.post.domain;
 
-
 import lombok.Data;
 
 @Data
-public class PostRequestDTO {
+public class PostResponseDTO {
     private Integer postId;
     private String userId;
     private String local;
