@@ -1,0 +1,34 @@
+/* 슬라이더 영역 */
+.slider {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    transition: background-image 1s ease-in-out;
+  }
+  
+  /* 화살표 버튼 */
+  .prevButton, .nextButton {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 1;
+    font-size: 24px;
+  }
+  
+  .prevButton {
+    left: 10px;
+  }
+  
+  .nextButton {
+    right: 10px;
+  }
+  
+  .prevButton:hover, .nextButton:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+  
