@@ -7,13 +7,10 @@ import styles from '../css/HeroSection.module.css';
 function HomePage() {
   return (
     <div>
-      {/* 배경 슬라이더가 적용될 섹션 */}
-      <section className={styles.heroActions}>
+      {/* 배경 슬라이더가 섹션의 배경으로 설정 */}
+     
         <BackgroundSlider /> {/* 배경 슬라이더 컴포넌트를 여기 추가 */}
-        <h1 className={styles.title}>
-          <span className={styles.subtitle}>나만 알고싶은 지역, 나알지</span>
-        </h1>
-      </section>
+     <br/>
 
       <RegionSelector />
 
@@ -28,3 +25,6 @@ function HomePage() {
 }
 
 export default HomePage;
+
+
+
