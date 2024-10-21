@@ -1,32 +1,59 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from '../../css/ProfileCard.module.css';
 import ProfileInfo from '../common/ProfileInfo';
 
-function ProfileCard() {
+function ProfileCard({ selectedBadge }) {
+  const navigate = useNavigate();
+
   const profileData = {
     name: 'name',
-    title: '칭호',
+    map: '지도',
     followers: 0,
-    following: 0
+    following: 0,
+    achievement: '업적' // profileData에 업적 정보 추가
+  };
+
+  // 지도 클릭 시 PersonalPage로 이동하는 함수
+  const handleMapClick = () => {
+    navigate('/personal');
+  };
+
+  // 업적 페이지로 이동하는 함수
+  const handleAchievementClick = () => {
+    navigate('/AchievementPage');
   };
 
   return (
     <section className={styles.profileCard}>
-      {/* <img
-        loading="lazy"
-        src="https://cdn.builder.io/api/v1/image/assets/TEMP/b27a83d8c5cb2603bbe525f37e40638c4662ab944e1735d12e70886d6fa4e375?placeholderIfAbsent=true&apiKey=c7f1d91a917e4e2ba5370da6919a77db"
-        className={styles.profileImage}
-        alt="Profile picture"
-      />
-      <h2 className={styles.profileName}>{profileData.name}</h2> */}
-        <ProfileInfo/>
-      <div className={styles.profileInfo}>{profileData.title}</div>
+      {/* 선택된 칭호를 ProfileInfo에 전달 */}
+      <ProfileInfo rank={selectedBadge} />
+
+      {/* '지도' 항목 클릭 시 PersonalPage로 이동 */}
+      <div className={styles.profileInfo} onClick={handleMapClick} style={{ cursor: 'pointer', color: 'black' }}>
+        {profileData.map}
+      </div>
+
+      {/* profileData 내에 있는 achievement를 클릭 가능한 <div>로 구현 */}
+      <div 
+        className={styles.achievementLink} 
+        onClick={handleAchievementClick} 
+        style={{ cursor: 'pointer', marginTop: '10px', color: 'black' }}
+      >
+        {profileData.achievement}
+      </div>
+
+      {/* 팔로워, 팔로잉 정보를 표시 */}
       <div className={styles.profileInfo}>팔로워 {profileData.followers}</div>
       <div className={styles.profileInfo}>팔로잉 {profileData.following}</div>
-      <button className={styles.followButton}>
+
+      {/* 팔로우 버튼 */}
+      <button className={styles.followButton}> 
         <span className={styles['visually-hidden']}>Follow user</span>
         + 팔로우
       </button>
+
+      
     </section>
   );
 }
