@@ -4,6 +4,7 @@ import FormSection from "../Includes/FormComponents/FormSection";
 import styles from "../css/TrevalWrite/TravelWritePage.module.css";
 
 function TravelWritePage() {
+
   return (
     <div className={styles.travelWritePage}>
       <TitleSection />

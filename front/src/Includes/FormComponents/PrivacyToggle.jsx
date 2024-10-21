@@ -1,14 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from '../../css/TrevalWrite/PrivacyToggle.module.css';
 
-function PrivacyToggle() {
+function PrivacyToggle({ onChange }) {
   // 토글 상태를 관리하는 useState 훅
   const [isPrivate, setIsPrivate] = useState(false);
 
   // 토글 버튼을 클릭했을 때 상태를 변경하는 함수
   const handleToggle = () => {
-    setIsPrivate(!isPrivate); // 현재 상태의 반대로 변경
+    const newValue = !isPrivate; // 현재 상태의 반대로 변경
+    setIsPrivate(newValue);
+    onChange(newValue ? 1 : 0); // 1 또는 0으로 부모에게 전달
   };
+
+  // 초기 상태를 부모로부터 받아오는 경우
+  useEffect(() => {
+    onChange(isPrivate ? 1 : 0); // 컴포넌트가 처음 렌더링될 때 상태를 전달
+  }, []);
 
   return (
     <div className={styles.privacyToggle} onClick={handleToggle}>

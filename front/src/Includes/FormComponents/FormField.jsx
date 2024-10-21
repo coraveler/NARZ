@@ -1,7 +1,7 @@
 import React from "react";
 import styles from '../../css/TrevalWrite/FormField.module.css';
 
-function FormField({ label, type, placeholder, required, options }) {
+function FormField({ label, type, placeholder, required, options, value, onChange }) {
   const id = `${label.toLowerCase()}-input`;
 
   return (
@@ -12,9 +12,14 @@ function FormField({ label, type, placeholder, required, options }) {
       </label>
       {type === 'select' ? (
         <div className={styles.selectWrapper}>
-          <select id={id} className={styles.select} required={required}>
-            <option value="">{placeholder}</option>
-            {/* options 배열을 통해 드롭다운 항목을 렌더링 */}
+          <select 
+            id={id} 
+            className={styles.select} 
+            required={required} 
+            value={value}         // 부모 컴포넌트에서 전달된 value 사용
+            onChange={onChange}   // 선택 변경 시 호출되는 함수
+          >
+            <option value="" disabled>{placeholder}</option> {/* 기본 선택 옵션 */}
             {options && options.map((option, index) => (
               <option key={index} value={option}>
                 {option}
@@ -23,7 +28,14 @@ function FormField({ label, type, placeholder, required, options }) {
           </select>
         </div>
       ) : type === 'textarea' ? (
-        <textarea id={id} className={styles.textarea} required={required} />
+        <textarea 
+          id={id} 
+          className={styles.textarea} 
+          placeholder={placeholder} 
+          required={required} 
+          value={value}         // 부모 컴포넌트에서 전달된 value 사용
+          onChange={onChange}
+        />
       ) : (
         <input
           type={type}
@@ -31,6 +43,8 @@ function FormField({ label, type, placeholder, required, options }) {
           className={styles.input}
           placeholder={placeholder}
           required={required}
+          value={value}          // 부모에서 전달된 value 사용
+          onChange={onChange}
         />
       )}
     </div>
