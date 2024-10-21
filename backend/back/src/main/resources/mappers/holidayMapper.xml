@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kdt_final.back.schedule.dao.HolidayMapper">
+
+    <insert id="saveHoliday" 
+            parameterType="java.util.List">
+        INSERT INTO holiday (title, date, color)
+        VALUES 
+        <foreach collection="list" item="item" separator=",">
+            (#{item.dateName}, #{item.locdate}, '#F2921D')
+        </foreach>
+    </insert>
+
+    <delete id="deleteAllHoliday">
+        DELETE FROM holiday
+    </delete>
+
+    <select id="getHoliday"
+            resultType="com.kdt_final.back.schedule.domain.HolidayResponseDTO">
+        SELECT id, title, date, color
+        FROM holiday
+    </select>
+
+</mapper>

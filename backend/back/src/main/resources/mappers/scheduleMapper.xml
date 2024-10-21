@@ -3,6 +3,45 @@
 
 <mapper namespace="com.kdt_final.back.schedule.dao.ScheduleMapper">
 
-    
+     <insert id="saveSchedule"
+            parameterType="com.kdt_final.back.schedule.domain.ScheduleRequestDTO">
+        INSERT INTO schedule(title, content, startDate, endDate, startTime, endTime, userId, color)
+        VALUES (#{title}, #{content}, #{startDate}, #{endDate}, #{startTime}, #{endTime}, #{userId}, #{color})
+    </insert>
+
+    <select id="getSchedule"
+            parameterType="String"
+            resultType="com.kdt_final.back.schedule.domain.ScheduleResponseDTO">
+        SELECT *
+        FROM schedule
+        WHERE userId = #{userId}
+    </select>
+
+    <delete id="deleteSchedule"
+            parameterType="int">
+        DELETE FROM schedule
+        WHERE id=#{id}
+    </delete>
+
+    <select id="getScheduleInfo"
+            parameterType="int"
+            resultType="com.kdt_final.back.schedule.domain.ScheduleResponseDTO">
+        SELECT *
+        FROM schedule
+        WHERE id = #{id}
+    </select>
+
+    <update id="updateSchedule"
+            parameterType="com.kdt_final.back.schedule.domain.ScheduleRequestDTO">
+        UPDATE schedule
+        SET title = #{title},
+            content = #{content},
+            startDate = #{startDate},
+            endDate = #{endDate},
+            startTime = #{startTime},
+            endTime = #{endTime},
+            color = #{color}
+        WHERE id = #{id} 
+    </update>
 
 </mapper>
