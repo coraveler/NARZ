@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from '../../css/ProfileInfo.module.css';
 
-const ProfileInfo = () => {
+const ProfileInfo = ({ rank }) => {
   return (
     <>
       <img
@@ -10,6 +10,8 @@ const ProfileInfo = () => {
         className={styles.profileImage}
         alt="Profile"
       />
+      {/* 선택된 칭호만 표시 */}
+      <p className={styles.profileRank}>{rank}</p>
       <p className={styles.profileName}>name</p>
     </>
   );

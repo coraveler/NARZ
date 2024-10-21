@@ -1,0 +1,222 @@
+.achievementPage {
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  
+  .navigation {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo {
+    width: 150px; /* 로고 크기 축소 */
+    height: auto;
+  }
+  
+  .navList {
+    display: flex;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .navLink {
+    color: #333;
+    text-decoration: none;
+    padding: 0 10px; /* 좌우 간격 축소 */
+    font-weight: 700;
+  }
+  
+  .searchBar {
+    display: flex;
+    align-items: center;
+  }
+  
+  .searchInput {
+    padding: 8px; /* 패딩 축소 */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .searchButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .searchIcon {
+    width: 20px; /* 아이콘 크기 축소 */
+    height: 20px;
+  }
+  
+  .userInfo {
+    display: flex;
+    align-items: center;
+  }
+  
+  .userAvatar {
+    width: 28px; /* 아바타 크기 축소 */
+    height: 28px;
+    border-radius: 50%;
+    margin-right: 8px;
+  }
+  
+  .userPoints {
+    font-weight: bold;
+  }
+  
+  .userProfile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 0; /* 패딩 축소 */
+    border-bottom: 1px solid #d6d6d6;
+  }
+  
+  .profileImage {
+    width: 100px; /* 이미지 크기 축소 */
+    height: 100px;
+    border-radius: 50%;
+    margin-right: 16px;
+  }
+  
+  .userName {
+    font-size: 28px; /* 폰트 크기 축소 */
+    font-weight: 700;
+    margin-right: 16px;
+  }
+  
+  .userStats {
+    display: flex;
+  }
+  
+  .statItem {
+    margin-right: 16px;
+    font-size: 28px; /* 폰트 크기 축소 */
+  }
+  
+  .editProfileButton {
+    background-color: #f5f5f5;
+    border: none;
+    padding: 8px 16px; /* 패딩 축소 */
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px; /* 폰트 크기 축소 */
+  }
+  
+  .achievementSection {
+    padding: 30px; /* 패딩 축소 */
+  }
+  
+  .sectionTitle {
+    font-size: 32px; /* 폰트 크기 축소 */
+    margin-bottom: 16px;
+  }
+  
+  .achievementHeaders {
+    display: flex;
+    justify-content: space-between;
+    font-size: 32px; /* 폰트 크기 축소 */
+    margin-bottom: 16px;
+  }
+  
+  .achievementList {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .achievementItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    font-size: 32px; /* 폰트 크기 축소 */
+  }
+  
+  .selectButton {
+    background-color: #2c2c2c;
+    color: #f5f5f5;
+    border: none;
+    padding: 8px 16px; /* 패딩 축소 */
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 24px; /* 폰트 크기 축소 */
+  }
+  
+  .footer {
+    background-color: #fff;
+    border-top: 1px solid rgba(214, 214, 214, 0.8);
+    padding: 24px 0 40px; /* 패딩 축소 */
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+  
+  .socialLinks {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .socialIconGroup {
+    display: flex;
+    margin-top: 20px; /* 간격 축소 */
+  }
+  
+  .socialIcon {
+    width: 20px; /* 아이콘 크기 축소 */
+    height: 20px;
+    margin-right: 12px;
+  }
+  
+  .footerSection {
+    margin-bottom: 16px; /* 간격 축소 */
+  }
+  
+  .footerTitle {
+    font-weight: bold;
+    margin-bottom: 12px;
+  }
+  
+  .footerList {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .footerItem {
+    margin-bottom: 8px; /* 간격 축소 */
+  }
+  
+  .visuallyHidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  
+  @media (max-width: 991px) {
+    .userProfile,
+    .achievementSection,
+    .footer {
+      padding: 15px; /* 작은 화면에서 패딩 축소 */
+    }
+  
+    .navLink,
+    .statItem,
+    .achievementItem,
+    .selectButton {
+      font-size: 14px; /* 작은 화면에서 폰트 크기 축소 */
+    }
+  
+    .sectionTitle,
+    .achievementHeaders {
+      font-size: 20px; /* 작은 화면에서 폰트 크기 축소 */
+    }
+  }

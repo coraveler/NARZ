@@ -1,0 +1,59 @@
+.achievementSection {
+    padding: 40px;
+  }
+  
+  .sectionTitle {
+    font-size: 40px;
+    margin-bottom: 20px;
+  }
+  
+  .achievementHeaders {
+    display: flex;
+    justify-content: space-between;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .achievementList {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .achievementItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+  }
+  
+  .achievementTitle {
+    flex: 2; /* 제목은 칭호보다 더 넓게 설정 */
+  }
+  
+  .achievementBadge {
+    flex: 1; /* 칭호 */
+    text-align: center;
+  }
+  
+  .achievementStatus {
+    flex: 1; /* 성공여부 및 선택 */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .selectButton {
+    background-color: #2c2c2c;
+    color: #f5f5f5;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .selectButton:hover {
+    background-color: #1f1f1f; /* 호버 시 배경색 어둡게 */
+  }
+  
