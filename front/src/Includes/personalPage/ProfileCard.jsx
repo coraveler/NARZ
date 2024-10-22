@@ -17,7 +17,7 @@ function ProfileCard() {
         src="https://cdn.builder.io/api/v1/image/assets/TEMP/b27a83d8c5cb2603bbe525f37e40638c4662ab944e1735d12e70886d6fa4e375?placeholderIfAbsent=true&apiKey=c7f1d91a917e4e2ba5370da6919a77db"
         className={styles.profileImage}
         alt="Profile picture"
-      />
+      />ㄹ
       <h2 className={styles.profileName}>{profileData.name}</h2> */}
         <ProfileInfo/>
       <div className={styles.profileInfo}>{profileData.title}</div>

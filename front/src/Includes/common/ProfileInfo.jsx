@@ -10,7 +10,12 @@ const ProfileInfo = (props) => {
         className={styles.profileImage}
         alt="Profile"
       />
-      <p className={styles.profileName}>{props.data.userId}</p>
+       {/* <p className={styles.profileName}>
+        {props.data.userId ? props.data.userId : 'name'}
+      </p> */}
+      <p className={styles.profileName}>
+        name
+      </p>
     </>
   );
 };

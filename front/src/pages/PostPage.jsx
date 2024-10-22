@@ -1,10 +1,10 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useState, useEffect } from 'react';
 import styles from '../css/PostPage.module.css';
 import ProfileInfo from '../Includes/common/ProfileInfo';
 import Comment from '../Includes/comment/Comment';
 import api from '../api/axios';
 import { useParams } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import Carousel from 'react-bootstrap/Carousel';
 
 const PostPage = () => {
@@ -52,32 +52,36 @@ const PostPage = () => {
     return (
         <div>
             <section className={styles.profileContainer}>
+            <br/>
                 <h1 className={styles.profileTitle}>{post.title}</h1>
+                <br/><br/>
                 <div className={styles.profileInfo}>
                     <ProfileInfo data={post} />
                     <time className={styles.profileDate}>{post.createdDate}</time>
                     <button className={styles.followButton} aria-label="Follow">
                         + 팔로우
                     </button>
-                </div>
+                </div><br/>
             </section>
-            <hr style={{ width: "70%" }} />
+           
             <div align="center">
                 <main className={styles.container}>
                     <section className={styles.productWrapper}>
-                    {error ? (<div>{error}</div>):(
-                        <Carousel>
-                            <Carousel.Item>
-                                <div className='slidercontents'>
-                                <img src={postImgUrl[0].imagePath} class="d-block w-100" alt="..."/>
-                                </div>
-                            </Carousel.Item>
-                            
-                        </Carousel>
-                       ) }
+                    {/* <hr style={{ width: "70%" }} /> */}
+                        {error ? (
+                            <div>{error}</div>
+                        ) : (
+                            <Carousel>
+                                {postImgUrl.length > 0 && postImgUrl.map((img, index) => (
+                                    <Carousel.Item key={index}>
+                                        <div className='slidercontents'>
+                                            <img style={{ width: "600px", height: "400px" }} src={img.imagePath} alt={`Slide ${index + 1}`} />
+                                        </div>
+                                    </Carousel.Item>
+                                ))}
+                            </Carousel>
+                        )}
                     </section>
-
-
                     <section className={styles.ratingSection}>
                         <div className={styles.ratingWrapper}>
                             <div className={styles.ratingBar}>
@@ -88,14 +92,17 @@ const PostPage = () => {
                                     </React.Fragment>
                                 ))}
                             </div>
-
                         </div>
                     </section>
-                    <hr style={{ width: "70%" }} />
+                    
+                    <div align="center">
+                        {/* <hr style={{ width: "850px" }} /> */}
+                    </div>
                     <section className={styles.contentSection}>{post.content}</section>
                 </main>
 
-                <hr style={{ width: "70%" }} /><Comment />  {/* 반복 */}
+                {/* <hr style={{ width: "850px" }} /> */}
+                <Comment />  {/* 반복 */}
 
 
             </div>
