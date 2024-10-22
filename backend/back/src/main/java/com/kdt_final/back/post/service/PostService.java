@@ -16,6 +16,7 @@ import com.kdt_final.back.post.domain.postImage.PostImageRequestDTO;
 @Service
 public class PostService {
 
+    
     @Autowired
     private PostMapper postMapper;
 
