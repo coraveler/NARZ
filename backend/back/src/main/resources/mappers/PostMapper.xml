@@ -21,10 +21,30 @@
 
     <!-- getPost --> 
 
-    <select id="getPost"
+    <select id="getAllPost"
             resultType="com.kdt_final.back.post.domain.PostResponseDTO">
-        SELECT POSTID, USERID, LOCAL, TITLE, RATING, SECRET, HEADERIMG
+        SELECT POSTID, USERID, LOCAL, TITLE, RATING, SECRET, HEADERIMG, CONTENT, CREATEDDATE
         FROM POST
         WHERE SECRET = 0
     </select>
-</mapper>
+
+    <!-- getPostImages --> 
+
+    <select id="getPost"
+            parameterType="int"
+            resultType="com.kdt_final.back.post.domain.PostResponseDTO">
+        SELECT POSTID, USERID, LOCAL, TITLE, RATING, SECRET, HEADERIMG, CONTENT, CREATEDDATE
+        FROM POST
+        WHERE POSTID = #{postId}
+    </select>
+
+    <!-- getPostImages --> 
+
+    <select id="getPostImages"
+            parameterType="int"
+            resultType="com.kdt_final.back.post.domain.postImage.PostImageResponseDTO">
+        SELECT IMAGEPATH
+        FROM POSTIMAGES
+        WHERE POSTID = #{postId}
+    </select>    
+    </mapper>

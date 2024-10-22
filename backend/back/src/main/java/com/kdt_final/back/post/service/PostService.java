@@ -5,6 +5,7 @@ import java.util.UUID;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -12,6 +13,7 @@ import com.kdt_final.back.post.dao.PostMapper;
 import com.kdt_final.back.post.domain.PostRequestDTO;
 import com.kdt_final.back.post.domain.PostResponseDTO;
 import com.kdt_final.back.post.domain.postImage.PostImageRequestDTO;
+import com.kdt_final.back.post.domain.postImage.PostImageResponseDTO;
 
 @Service
 public class PostService {
@@ -20,7 +22,7 @@ public class PostService {
     @Autowired
     private PostMapper postMapper;
 
-    public void save(PostRequestDTO params, MultipartFile[] images) {
+    public Integer save(PostRequestDTO params, MultipartFile[] images) {
         System.out.println("Debug >>>> service save() - PostMapper: " + postMapper);
         
         // 이미지 업로드 처리
@@ -30,6 +32,7 @@ public class PostService {
         } else {
             System.out.println("No images uploaded.");
         }
+        return params.getPostId();
     }
 
     private void uploadImages(MultipartFile[] images, PostRequestDTO params) {
@@ -76,12 +79,39 @@ public class PostService {
         imgParams.setImagePath(relativePath);
         postMapper.savePostImage(imgParams);
     }
+    
+    String baseUrl = "http://localhost:7777/post/";
 
-
-    public List<PostResponseDTO> getPost(){
+    public List<PostResponseDTO> getAllPost(){
         System.out.println("debug >>>> service list()" + postMapper); 
-        List<PostResponseDTO> lst = postMapper.getPost();
+        List<PostResponseDTO> lst = postMapper.getAllPost();
         System.out.println("lst : " +lst);
-        return postMapper.getPost();
+        for(int i=0; i<lst.size(); i++){
+            String imgPath = lst.get(i).getHeaderImg();
+            if (imgPath != null) {
+                // imgPath에 baseUrl을 추가하여 전체 경로를 생성
+                lst.get(i).setHeaderImg(baseUrl + imgPath);
+            }
+        }
+       
+        return lst;
+    }
+
+    public PostResponseDTO getPost(int postId){
+        System.out.println("debug >>>> service list()" + postMapper); 
+        return postMapper.getPost(postId);
+    }
+
+    public List<PostImageResponseDTO> getPostImages(int postId){    
+        List<PostImageResponseDTO> lst = postMapper.getPostImages(postId);
+        System.out.println("lst : " +lst);
+        for(int i=0; i<lst.size(); i++){
+            String imgPath = lst.get(i).getImagePath();
+            if (imgPath != null) {
+                // imgPath에 baseUrl을 추가하여 전체 경로를 생성
+                lst.get(i).setImagePath(baseUrl + imgPath);
+            }
+        }
+        return lst;
     }
 }

@@ -15,6 +15,7 @@ function FormSection() {
   const [rating, setRating] = useState();
   const [secret, setSecret] = useState();
   const [images, setImages] = useState([]);
+  // const [postId, setPostId] = useState();
 
   // 취소 버튼을 클릭했을 때 실행되는 함수
   const handleCancel = () => {
@@ -27,6 +28,7 @@ function FormSection() {
 
 
   const postSave = async () => {
+    
     const formData = new FormData();
     formData.append('userId', 'user');
     formData.append('local', local);
@@ -46,7 +48,9 @@ function FormSection() {
                 
             }
         });
-        console.log(response);
+        console.log(response.data);
+        alert("글작성 완료");
+        navigate(`/postpage/${response.data}`)
     } catch (err) {
         console.error(err);
     }
@@ -78,6 +82,7 @@ function FormSection() {
   const handleSubmit = async (event) => {
     event.preventDefault(); // 기본 제출 동작 방지
     await postSave(); // 데이터 저장 함수 호출
+  
   };
 
 
