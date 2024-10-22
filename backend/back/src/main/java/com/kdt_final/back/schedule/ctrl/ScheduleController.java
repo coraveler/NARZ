@@ -37,7 +37,7 @@ public class ScheduleController {
     }
 
     @GetMapping("/schedule")
-    public ResponseEntity<List<ScheduleResponseDTO>> getSchedule(@RequestParam String userId) {
+    public ResponseEntity<List<ScheduleResponseDTO>> getSchedule(@RequestParam("userId") String userId) {
 
         List<ScheduleResponseDTO> result = scheduleService.getSchedule(userId);
 
@@ -45,7 +45,7 @@ public class ScheduleController {
     }
 
     @DeleteMapping("/schedule")
-    public ResponseEntity<Void> deleteSchedule(@RequestParam int id){
+    public ResponseEntity<Void> deleteSchedule(@RequestParam("id") int id){
 
         scheduleService.deleteSchedule(id);
 
@@ -53,7 +53,7 @@ public class ScheduleController {
     }
     
     @GetMapping("/schedule/{id}")
-    public ResponseEntity<ScheduleResponseDTO> getScheduleInfo(@PathVariable int id) {
+    public ResponseEntity<ScheduleResponseDTO> getScheduleInfo(@PathVariable("id") int id) {
 
         ScheduleResponseDTO obj = scheduleService.getScheduleInfo(id);
 

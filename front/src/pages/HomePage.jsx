@@ -2,7 +2,6 @@ import React from 'react';
 import BackgroundSlider from '../Includes/common/BackgroundSlider'; 
 import RegionSelector from '../Includes/common/region/RegionSelector';
 import TravelCardGrid from '../Includes/common/card/TravelCardGrid';
-import styles from '../css/HeroSection.module.css';
 
 function HomePage() {
   return (
