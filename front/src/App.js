@@ -3,18 +3,18 @@ import "./App.css";
 import Footer from "./layout/footer/Footer";
 import TravelHeader from "./layout/header/TravelHeader";
 import CalendarPage from "./pages/CalendarPage";
+import EditProfilePage from "./pages/EditProfilePage";
 import HomePage from "./pages/HomePage";
 import LocalBoard from "./pages/LocalBoard";
-import SignUpFormPage from "./pages/SignUpFormPage";
+import LoginFormPage from "./pages/LoginFormPage";
 import PasswordResetPage from "./pages/PasswordResetPage";
 import PersonalPage from "./pages/PersonalPage";
-import EditProfilePage from "./pages/EditProfilePage";
-import LoginFormPage from "./pages/LoginFormPage";
 import PostPage from "./pages/PostPage";
 import RankingPage from "./pages/RankingPage";
+import ShopHistory from './pages/ShopPage/ShopHistory';
 import ShopPage from "./pages/ShopPage/ShopPage";
 import ShopPurchase from "./pages/ShopPage/ShopPurchase";
-import ShopHistory from './pages/ShopPage/ShopHistory';
+import SignUpFormPage from "./pages/SignUpFormPage";
 import TravelWritePage from "./pages/TravelWritePage";
 
 
