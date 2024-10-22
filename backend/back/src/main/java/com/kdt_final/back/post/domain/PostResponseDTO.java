@@ -12,4 +12,5 @@ public class PostResponseDTO {
     private Double rating;
     private Integer secret;
     private String headerImg;
+    private String createdDate;
 }

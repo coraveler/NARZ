@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState,useEffect} from 'react';
 import styles from '../../../css/TravelCard.module.css';
 import { useNavigate } from "react-router-dom";
 import { FaRegStar, FaStar } from "react-icons/fa"; // 빈 별과 채워진 별 아이콘
@@ -6,9 +6,29 @@ import { FaRegStarHalfStroke } from "react-icons/fa6"; // 반 별 아이콘
 
 const TravelCard = (props) => {
   const navigate = useNavigate();
+  const [imageUrls, setImageUrls] = useState('');
+
+  const getImageUrls = () => {
+    // props.data.headerImg가 배열일 경우 첫 번째 이미지를 사용
+    if (Array.isArray(props.data.headerImg) && props.data.headerImg.length > 0) {
+      setImageUrls(props.data.headerImg[0]); // 첫 번째 이미지 URL을 설정
+    } else {
+      setImageUrls(props.data.headerImg); // 단일 이미지 URL일 경우
+    }
+  }
+
+  useEffect(() => {
+    getImageUrls();
+  }, [props.data]);
+
+  useEffect(() => {
+    console.log(imageUrls);
+}, [imageUrls]);
+
   return (
-    <article className={styles.travelCard} onClick={() => navigate('/postpage')}>
-      <img src={"#"} alt={`${props.data.title} view`} className={styles.cardImage} />
+    <article className={styles.travelCard} 
+             onClick={() => navigate(`/postpage/${props.data.postId}`)}>
+      <img src={imageUrls} alt={`${props.data.title} view`} className={styles.cardImage} />
       <h2 className={styles.cardTitle}>{props.data.title}</h2>
       <p className={styles.cardLocation}>{props.data.userId}</p>
       <div className={styles.ratingField}>

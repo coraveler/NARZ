@@ -37,7 +37,7 @@ function App() {
         <Route path="/LoginFormPage" element={<LoginFormPage />} />
         <Route path="/TravelWritePage" element={<TravelWritePage />} />
         <Route path="/ranking" element={<RankingPage />} /> 
-        <Route path="/postpage" element={<PostPage />} />
+        <Route path="/postpage/:postId" element={<PostPage />} />
         <Route path="/shop" element={<ShopPage />} />
         <Route path="/purchase" element={<ShopPurchase />} />
         <Route path="/history" element={<ShopHistory />} />

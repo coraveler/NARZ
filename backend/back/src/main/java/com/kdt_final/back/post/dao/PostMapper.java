@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Options;
 import com.kdt_final.back.post.domain.PostRequestDTO;
 import com.kdt_final.back.post.domain.PostResponseDTO;
 import com.kdt_final.back.post.domain.postImage.PostImageRequestDTO;
+import com.kdt_final.back.post.domain.postImage.PostImageResponseDTO;
 
 @Mapper
 public interface PostMapper {
@@ -17,5 +18,8 @@ public interface PostMapper {
 
     public void savePostImage(PostImageRequestDTO params);
 
-    public List<PostResponseDTO> getPost();
+    public List<PostResponseDTO> getAllPost();
+    public PostResponseDTO getPost(int postId);
+
+    public List<PostImageResponseDTO> getPostImages(int postId);
 }

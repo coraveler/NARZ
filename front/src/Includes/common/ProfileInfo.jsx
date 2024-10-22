@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from '../../css/ProfileInfo.module.css';
 
-const ProfileInfo = () => {
+const ProfileInfo = (props) => {
   return (
     <>
       <img
@@ -10,7 +10,7 @@ const ProfileInfo = () => {
         className={styles.profileImage}
         alt="Profile"
       />
-      <p className={styles.profileName}>name</p>
+      <p className={styles.profileName}>{props.data.userId}</p>
     </>
   );
 };
