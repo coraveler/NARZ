@@ -1,7 +1,9 @@
 import React from "react";
 import styles from '../css/SignUpFormPage.module.css';
+import { useNavigate } from "react-router-dom"; // useNavigate 임포트
 
 function SignUpFormPage({ ...props }) {
+  const navigate = useNavigate();
   const formFields = [
     { label: "Nickname", type: "text", hasButton: true },
     { label: "ID", type: "text", hasButton: true },
@@ -28,9 +30,8 @@ function SignUpFormPage({ ...props }) {
           ))}
           <div className={styles.ButtonGroup}>
             <button className={styles.StyledButton} {...props}> 회원가입</button>
-            <button className={styles.StyledButton} {...props}> 취소</button>
-
           </div>
+          <button onClick={() => navigate('/LoginFormPage')} className={styles.StyledCancleButton} {...props}> 취소 </button>
         </form>
       </section>
     </main>
