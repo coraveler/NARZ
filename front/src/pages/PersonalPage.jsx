@@ -4,10 +4,10 @@ import ProfileCard from '../Includes/personalPage/ProfileCard';
 import PaginationComponent from '../Includes/common/PaginationComponent';
 import TravelCardGrid from '../Includes/common/card/TravelCardGrid';
 
-function PersonalPage() {
+function PersonalPage({ selectedBadge }) {
     return (
         <div align="center">
-            <ProfileCard/>
+            <ProfileCard selectedBadge={selectedBadge} />
             <div align="center" style={{marginTop: "50px", fontSize:"40px" }}>
                 ooo's Map
             </div>

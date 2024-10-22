@@ -32,6 +32,7 @@ const LoginFormPage = () => {
           <button type="submit" className={styles.button}>Sign In</button>
         </div>
         <a onClick={() => navigate('/PasswordResetPage')} className={styles.forgotPassword}>Forgot password?</a>
+        <a onClick={() => navigate('/SignUPFormPage')} className={styles.signUp}>아직 회원이 아니신가요? </a>
       </form>
     </main>
   );
