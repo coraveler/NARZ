@@ -1,10 +1,29 @@
-import React, { useState } from "react";
-import { FaRegStar, FaStar } from "react-icons/fa"; // 빈 별과 채워진 별 아이콘
 import styles from "../../css/TrevalWrite/RatingField.module.css";
+import React, { useState,useEffect } from "react";
+import { FaRegStar, FaStar } from "react-icons/fa"; // 빈 별과 채워진 별 아이콘
+import { FaRegStarHalfStroke } from "react-icons/fa6"; // 반 별 아이콘
 
-function RatingField() {
+function RatingField({onChange}) {
   const [rating, setRating] = useState(0); // 선택된 별점 저장
-  const [hover, setHover] = useState(null); // 사용자가 마우스로 호버한 별 저장
+
+  const handleClick = (currentRating) => {
+    let newRating;
+
+    if (rating === currentRating) {
+      // 현재 별점이 클릭된 별점과 같으면 반별로 설정
+      newRating = currentRating + 0.5;
+    } else if (rating === currentRating + 0.5) {
+      // 반별에서 꽉 찬 별로 변경
+      newRating = currentRating;
+    } else {
+      // 다른 별 클릭 시 해당 별점으로 설정
+      newRating = currentRating;
+    }
+
+    setRating(newRating);
+    onChange(newRating); // 업데이트된 별점 전달
+  };
+
 
   return (
     <div className={styles.ratingField}>
@@ -12,27 +31,30 @@ function RatingField() {
         별점 <span className={styles.required}>*</span>
       </label>
       <div className={styles.starContainer}>
-        {/* 별을 5개 렌더링, 사용자가 클릭하거나 호버했을 때 상태 변경 */}
-        {[...Array(5)].map((star, index) => {
-          const currentRating = index + 1; // 1부터 5까지의 별점
+        {/* 5개의 별을 렌더링 */}
+        {[...Array(5)].map((_, index) => {
+          const currentRating = index + 0.5; // 1부터 5까지의 별점
 
           return (
             <button
               type="button"
               key={index}
               className={styles.starButton}
-              onClick={() => setRating(currentRating)} // 별을 클릭하면 해당 별점으로 설정
-              onMouseEnter={() => setHover(currentRating)} // 마우스를 올리면 호버 상태
-              onMouseLeave={() => setHover(null)} // 마우스가 떠나면 호버 해제
+              onClick={() => handleClick(currentRating)} // 클릭 시 별점 설정
             >
-              {currentRating <= (hover || rating) ? (
+              {rating > currentRating ? (
                 <FaStar className={styles.star} /> // 채워진 별 아이콘
+              ) : rating === currentRating ? (
+                <FaRegStarHalfStroke className={styles.star} /> // 반 별 아이콘
               ) : (
                 <FaRegStar className={styles.star} /> // 빈 별 아이콘
               )}
             </button>
           );
         })}
+      </div>
+      <div className={styles.ratingDisplay}>
+        선택된 점수: {rating.toFixed(1)}
       </div>
     </div>
   );

@@ -1,9 +1,16 @@
 import React from 'react';
-import { Link } from 'react-router-dom'; // Link 임포트
+import { useNavigate } from 'react-router-dom'; 
 import styles from '../../css/ReviewSection.module.css';
 
 const ReviewSection = () => {
-  const filterOptions = ['인기순', '최신순', '평점순']; 
+  const navigate = useNavigate();
+
+  const filterOptions = [
+    { text: '인기순', action: () => {} },
+    { text: '최신순', action: () => {} },
+    { text: '평점순', action: () => {} },
+    { text: '글작성', action: () => navigate("/TravelWritePage") }
+  ];
 
   return (
     <section className={styles.reviewSection}>
@@ -14,17 +21,23 @@ const ReviewSection = () => {
         <div className={styles.dividerContainer}>
           <div className={styles.verticalDivider} />
         </div>
-        {filterOptions.map((option, index) => (
-          <div key={index} className={styles.filterButton}>
-            <div className={styles.filterButtonInner}>
-              <div className={styles.filterButtonText}>{option}</div>
+        
+        {filterOptions.map((option, index) => {
+          const isLastButton = index === filterOptions.length - 1;
+          return (
+            <div
+              key={index}
+              className={styles.filterButton}
+              style={isLastButton ? { marginLeft:"auto" } : {}}
+              onClick={option.action}
+            >
+              <div className={styles.filterButtonInner}>
+                <div className={styles.filterButtonText}>{option.text}</div>
+              </div>
             </div>
-          </div>
-        ))}
-        {/* "작성" 버튼 추가 */}
-        <Link to="/TravelWritePage" className={styles.writeButton}>
-          글 작성
-        </Link>
+          );
+        })}
+       
       </div>
     </section>
   );
