@@ -57,3 +57,8 @@
       margin-top: 5px;
     }
   }
+
+  .star {
+    color: #ffc107; /* 별점 색상 */
+    display: inline-block; /* 인라인 블록으로 설정 */
+  }

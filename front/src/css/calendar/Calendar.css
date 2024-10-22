@@ -1,0 +1,175 @@
+/* 풀캘린더 */
+
+/* 일요일 날짜: 빨간색 */
+.fc-day-sun a {
+    color: red;
+}
+/* 토요일 날짜: 파란색 */
+.fc-day-sat a {
+    color: blue;
+}
+/* 폰트 변경 */
+.fc {
+    font-family: Arial, sans-serif; 
+}
+/* 이벤트의 모서리 둥글게 */
+.fc-daygrid-event {
+    border-radius: 5px; 
+}
+
+
+/* 풀캘린더 헤더 버튼 스타일 */
+.fc-button {
+    background-color: transparent !important; /* 배경을 투명하게 */
+    color: #6B6B6B !important; /* 텍스트 색상 */
+    border: 0px solid #a9a3a3 !important; /* 어두운 테두리 */
+    padding: 7px 15px !important; /* 패딩 조정 */
+    font-weight: 700 !important; /* 글자 두께 */
+    border-radius: 10px !important; /* 약간 둥글게 */
+    transition: background-color 0.5s, color 0.5s; /* 부드러운 전환 효과 */
+}
+.fc-button:hover {
+    background-color: #a9a3a3 !important; /* 마우스 오버시 배경 색상 변화 */
+    color: #fff !important; /* 마우스 오버시 텍스트 색상 변화 */
+}
+
+/* 일정 추가 버튼 */
+.fc-addEvent-button{
+    background-color: transparent !important; /* 배경을 투명하게 */
+    color: #343232 !important; /* 텍스트 색상 */
+    border: 2px solid #4B4B4B !important; /* 어두운 테두리 */
+    padding: 7px 15px !important; /* 패딩 조정 */
+    font-weight: 700 !important; /* 글자 크기 */
+    border-radius: 10px !important; /* 약간 둥글게 */
+    transition: background-color 0.5s, color 0.5s; /* 부드러운 전환 효과 */
+}
+.fc-addEvent-button:hover {
+    background-color: #4B4B4B !important; /* 마우스 오버시 배경 색상 변화 */
+    color: #fff !important; /* 마우스 오버시 텍스트 색상 변화 */
+}
+
+/* 오늘 버튼 */
+.fc-today-button{
+    background-color: transparent !important; /* 배경을 투명하게 */
+    color: #343232 !important; /* 텍스트 색상 */
+    border: 2px solid #4B4B4B !important; /* 어두운 테두리 */
+    padding: 7px 15px !important; /* 패딩 조정 */
+    font-weight: 700 !important; /* 글자 크기 */
+    border-radius: 10px !important; /* 약간 둥글게 */
+    transition: background-color 0.5s, color 0.5s; /* 부드러운 전환 효과 */
+}
+.fc-today-button:hover {
+    background-color: #4B4B4B !important; /* 마우스 오버시 배경 색상 변화 */
+    color: #fff !important; /* 마우스 오버시 텍스트 색상 변화 */
+}
+
+/* 페이지 이동 버튼 */
+.fc-prevYear-button{
+    font-size: 20px !important;
+    color: black !important;
+}
+.fc-prev-button{
+    font-size: 20px !important;
+    color: black !important;
+}
+.fc-next-button{
+    font-size: 20px !important;
+    color: black !important;
+}
+.fc-nextYear-button{
+    font-size: 20px !important;
+    color: black !important;
+}
+
+
+/* 툴바 */
+.fc-toolbar {
+    padding: 0 10px; /* 적절한 패딩 추가 */
+}
+.fc-toolbar-chunk {
+    align-items: center; /* 수직 중앙 정렬 */
+    display: inline-flex; /* 인라인 블록으로 유지 */
+}
+
+
+/* 달력 헤더(요일) 스타일 */
+.fc-col-header-cell{
+    background-color: #a29999;
+    color: #fff;
+    font-size: 14px;
+}
+
+/* 달력 내 이벤트 스타일 */
+.fc-event{
+    cursor: pointer;
+}
+.fc-event:hover{
+    opacity: 0.5;
+}
+
+/* 달력에서 more 일정 일 표시 제거 */
+.fc-more-popover-misc {
+    display: none; /* 해당 요소를 숨김 */
+}
+
+/* 달력 more z-index 조정(모달창과 우선순위 비교) */
+.fc-popover{
+    z-index: 999 !important;
+}
+
+/* 달력 more 색상 */
+.fc-more-link{
+    color: black !important;
+}
+
+
+/* 리액트 모달 */
+.ReactModal__Overlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* 버튼 */
+.button {
+    font-weight: 700;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.5s, color 0.5s;
+  }
+  
+  .color-button {
+    border: 2px solid #ccc; /* 네이비 색 아웃라인 */
+    background-color: transparent;
+    color: #4B4B4B;
+  }
+  .color-button:hover {
+    background-color: #4B4B4B;
+    color: white;
+  }
+
+  .select-button {
+    border: 2px solid #ccc; /* 네이비 색 아웃라인 */
+    background-color: transparent;
+    color: #4B4B4B;
+  }
+  .select-button:hover {
+    background-color: #4B4B4B;
+    color: white;
+  }
+  
+
+  /* 리액트 컬러 스타일 */
+  .swatches-picker{
+    width: 50vw !important;
+  }
+
+
+  /* 상세 일정 모달창 close button hover */
+  .close-button:hover{
+    opacity: 0.5;
+  }
+
+

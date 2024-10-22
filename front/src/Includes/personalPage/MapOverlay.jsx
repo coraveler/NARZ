@@ -3,7 +3,7 @@ import styled from "styled-components";
 import api from '../../api/axios';
 
 const ImageOverlay = () => {
-const [isUploading, setIsUploading] = useState(false); // 상태 추가
+// const [isUploading, setIsUploading] = useState(false); // 상태 추가
 const canvasRef = useRef(null);
 const fileInputRef = useRef(null);
 const [images, setImages] = useState([]);
@@ -107,7 +107,7 @@ const handleFileChange = async (event) => {
         const newImageUrl = URL.createObjectURL(file);
         const key = fileInputRef.current.getAttribute("data-key");
         
-        setIsUploading(true);
+        // setIsUploading(true);
 
         try {
             console.log("try is run");
@@ -120,7 +120,7 @@ const handleFileChange = async (event) => {
         } 
         finally {
             fileInputRef.current.value = null; // 파일 입력 초기화
-            setIsUploading(false);
+            // setIsUploading(false);
         }
     }
 };
