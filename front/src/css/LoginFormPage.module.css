@@ -148,6 +148,15 @@
     line-height: 1.4;
     cursor: pointer;
   }
+
+  .signUp {
+    text-decoration-line: underline;
+    margin-top: 50px;
+    width: 100%;
+    color: var(--sds-color-text-default-default);
+    line-height: 1.4;
+    cursor: pointer;
+  }
   
   @media (max-width: 991px) {
     .forgotPassword {
