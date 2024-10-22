@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter as BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Footer from "./layout/footer/Footer";
 import TravelHeader from "./layout/header/TravelHeader";
@@ -16,13 +16,16 @@ import ShopPage from "./pages/ShopPage/ShopPage";
 import ShopPurchase from "./pages/ShopPage/ShopPurchase";
 import SignUpFormPage from "./pages/SignUpFormPage";
 import TravelWritePage from "./pages/TravelWritePage";
-
+import AchievementPage from "./pages/AchievementPage";
+import React, { useState } from "react";
+import ProfileCard from "./Includes/personalPage/ProfileCard";
 
 function Header() {
   return <TravelHeader />;
 }
 
 function App() {
+  const [selectedBadge, setSelectedBadge] = useState('기본 칭호');
   return (
     <BrowserRouter>
       <Header />
@@ -40,6 +43,9 @@ function App() {
         <Route path="/postpage/:postId" element={<PostPage />} />
         <Route path="/shop" element={<ShopPage />} />
         <Route path="/purchase" element={<ShopPurchase />} />
+        <Route path="/profile" element={<ProfileCard selectedBadge={selectedBadge} />} />
+        <Route path="/AchievementPage" element={<AchievementPage selectedBadge={selectedBadge} onBadgeSelect={setSelectedBadge} />} />
+        
         <Route path="/history" element={<ShopHistory />} />
       </Routes>
       <Footer />

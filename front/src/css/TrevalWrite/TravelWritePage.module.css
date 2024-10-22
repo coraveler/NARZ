@@ -1,6 +1,14 @@
-.travelWritePage {
-    background-color: #fff;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
+  .travelWritePage {
+    margin: 0 auto; /* 가운데 정렬 */
+    padding: 10px; /* 좌우와 상하에 여백 추가 */
+    max-width: 1300px; /* 페이지의 최대 너비를 900px로 설정 */
+    background-color: #fff; /* 배경색 설정 (원하는 색상으로 변경 가능) */
+    border-radius: 8px; /* 모서리를 둥글게 설정 */
+  }
+  
+  @media (max-width: 768px) {
+    .travelWritePage {
+      padding: 15px; /* 작은 화면에서 패딩을 줄임 */
+      max-width: 100%; /* 작은 화면에서는 전체 너비로 설정 */
+    }
   }
