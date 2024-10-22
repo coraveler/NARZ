@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kdt_final.back.festival.dao.FestivalMapper">
+
+    <insert id="saveFestival"
+            parameterType="java.util.List">
+        INSERT INTO festival(title, place, roadAddress, landAddress, startDate, endDate, lat, lon)
+        VALUES 
+        <foreach collection="list" item="item" separator=",">
+            (#{item.fstvlNm}, #{item.opar}, #{item.rdnmadr}, #{item.lnmadr}, #{item.fstvlStartDate}, #{item.fstvlEndDate}, #{item.latitude}, #{item.longitude})
+        </foreach>
+    </insert>
+
+    <delete id="deleteAllFestival">
+        DELETE FROM festival;
+    </delete>
+
+    <select id="getFestival"
+            resultType="com.kdt_final.back.festival.domain.FestivalResponseDTO">
+        SELECT id, title, place, roadAddress, landAddress, startDate, endDate, lat, lon
+        FROM festival
+    </select>
+
+</mapper>
