@@ -69,11 +69,11 @@ function ScheduleInfoModal({
                         right: 'auto',
                         bottom: 'auto',
                         borderRadius: '20px',
-                        padding: '20px',
+                        padding: '30px',
                         width: '30vw'}}}>
 
                 <div style={{textAlign:'left'}}>
-                    <div style={{textAlign:'right', marginBottom: '0'}}>
+                    <div style={{textAlign:'right'}}>
                         <button 
                             style={{backgroundColor:'transparent', border:'none', fontSize:'25px', cursor:'pointer', }}
                             onClick={scheduleInfoModalClose}>
@@ -81,7 +81,7 @@ function ScheduleInfoModal({
                         </button>
                     </div>
                     
-                    <h3 style={{ marginTop: '0'}}>{schTitle}</h3><hr/><br/>
+                    <h3 style={{ wordBreak: 'break-word', width:'22vw'}}>{schTitle}</h3><hr/><br/>
 
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <div style={{ flex: 1 }}>
