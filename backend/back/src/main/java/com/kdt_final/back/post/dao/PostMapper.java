@@ -9,6 +9,8 @@ import com.kdt_final.back.post.domain.PostRequestDTO;
 import com.kdt_final.back.post.domain.PostResponseDTO;
 import com.kdt_final.back.post.domain.postImage.PostImageRequestDTO;
 import com.kdt_final.back.post.domain.postImage.PostImageResponseDTO;
+import com.kdt_final.back.post.domain.postLike.PostLikeRequestDTO;
+import com.kdt_final.back.post.domain.postLike.PostLikeResponseDTO;
 
 @Mapper
 public interface PostMapper {
@@ -25,4 +27,12 @@ public interface PostMapper {
     public PostResponseDTO viewPost(int postId);
 
     public List<PostImageResponseDTO> getPostImages(int postId);
+
+    public void likeSave (PostLikeRequestDTO params);
+
+    public void likeDelete (PostLikeRequestDTO params);
+
+    public Integer likeCheck (PostLikeRequestDTO params);
+
+    public Integer countLike(Integer postId );
 }
