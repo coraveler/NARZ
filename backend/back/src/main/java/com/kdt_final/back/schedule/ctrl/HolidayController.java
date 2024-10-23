@@ -38,7 +38,7 @@ public class HolidayController {
 
     
     // 초,분,시,일,월,요일
-    @Scheduled(cron="0 20 10 22 * ?")
+    @Scheduled(cron="0 50 9 23 * ?")
     public void saveHoliday() {
 
         // 기존 일정을 전부 삭제
