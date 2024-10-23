@@ -18,17 +18,17 @@ const HeaderRow = styled.div`
   display: flex;
   color: #1e1e1e;
   letter-spacing: -0.45px;
-  font: 700 14px/3 Inter, sans-serif;
-  background-color: #e6eaf3; // 헤더 배경색 추가
-  padding: 16px; // 상하 좌우 여백을 모두 추가
-  justify-content: center; // 셀들을 가운데 정렬
+  font: 700 14px/2 Inter, sans-serif; // 글꼴 크기를 줄임
+  background-color: #e6eaf3;
+  padding: 8px; // 상하 여백을 줄임
+  justify-content: center;
 `;
 
 const HeaderCell = styled.div`
-  flex: 1; // 모든 셀에 같은 비율 부여
-  padding: 8px; // 셀 내부 여백
-  min-width: 100px; // 최소 너비 설정
-  text-align: center; // 각 셀 내용을 가운데 정렬
+  flex: 1;
+  padding: 4px; // 셀 내부 여백을 줄임
+  min-width: 100px;
+  text-align: center;
 `;
 
 export default LeaderboardHeader;

@@ -6,19 +6,19 @@ import LeaderboardRow from './LeaderboardRow';
 const LeaderboardTable = ({ rankType }) => {
   const leaderboardDataByRankType = {
     "인기 게시글 랭킹": [
-      { rank: 1, name: 'name1', level: 'Lv.298', score: '569,455,421,386,483', views: '28,808', likes: '루나' },
-      { rank: 2, name: 'name2', level: 'Lv.297', score: '763,361,194,209,058', views: '395', likes: 'BOSS' },
-      // ...
+      { rank: 1, name: "User A", board: "게시판 A", score: 95, views: 150, likes: 30 },
+      { rank: 2, name: "User B", board: "게시판 B", score: 90, views: 120, likes: 25 },
+      { rank: 3, name: "User C", board: "게시판 C", score: 85, views: 100, likes: 20 },
     ],
     "유저 활동 랭킹": [
-      { rank: 1, name: 'user1', level: 'Lv.298', score: '123,456', views: '28,808', likes: '코드매니아' },
-      { rank: 2, name: 'user2', level: 'Lv.297', score: '654,321', views: '395', likes: '포트폴리오' },
-      // ...
+      { rank: 1, name: "User D", board: "게시판 D", score: 100, views: 200, likes: 40 },
+      { rank: 2, name: "User E", board: "게시판 E", score: 80, views: 180, likes: 35 },
+      { rank: 3, name: "User F", board: "게시판 F", score: 70, views: 160, likes: 30 },
     ],
     "명예의 전당": [
-      { rank: 1, name: 'hall1', level: 'Lv.300', score: '999,999', views: '88,888', likes: '레전드' },
-      { rank: 2, name: 'hall2', level: 'Lv.299', score: '888,888', views: '77,777', likes: '킹' },
-      // ...
+      { rank: 1, name: "User G", board: "게시판 G", score: 75, views: 50, likes: 15 },
+      { rank: 2, name: "User H", board: "게시판 H", score: 60, views: 45, likes: 10 },
+      { rank: 3, name: "User I", board: "게시판 I", score: 55, views: 40, likes: 5 },
     ],
   };
 
