@@ -13,4 +13,6 @@ public class PostResponseDTO {
     private Integer secret;
     private String headerImg;
     private String createdDate;
+
+    private int likeCount;
 }

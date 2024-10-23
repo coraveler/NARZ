@@ -58,4 +58,40 @@
         WHERE (SECRET = 0) AND (LOCAL = #{local})
     </select>    
     
+    <!-- likeSave --> 
+
+    <insert id="likeSave"
+            parameterType="com.kdt_final.back.post.domain.postLike.PostLikeRequestDTO">
+        INSERT INTO POSTLIKE(USERID, POSTID)
+        VALUES( #{userId}, #{postId})
+    </insert>
+
+    <!-- likeDelete --> 
+
+    <delete id="likeDelete"
+            parameterType="com.kdt_final.back.post.domain.postLike.PostLikeRequestDTO">
+        DELETE FROM POSTLIKE
+        WHERE USERID = #{userId} AND POSTID = #{postId};
+    </delete>    
+
+    <!-- likeCheck --> 
+
+    <select id="likeCheck"
+            parameterType="com.kdt_final.back.post.domain.postLike.PostLikeRequestDTO"
+            resultType="int">
+        SELECT LIKENO
+        FROM POSTLIKE
+        WHERE USERID = #{userId} AND POSTID = #{postId};
+    </select>    
+
+    <!-- countLike --> 
+
+    <select id="countLike"
+            parameterType="int"
+            resultType="int">
+        SELECT count(*)
+        FROM POSTLIKE
+        WHERE POSTID = #{postId};
+    </select>
+
     </mapper>
