@@ -37,7 +37,7 @@ public class FestivalController {
     
 
     // 페스티벌 일정 db 저장
-    @Scheduled(cron="0 50 9 23 * ?")
+    @Scheduled(cron="0 40 * * * ?")
     public void saveFestival() {
         
         // 페스티벌 기존 데이터 삭제

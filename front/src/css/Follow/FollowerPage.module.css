@@ -1,0 +1,12 @@
+.followerPage {
+    /* 팔로워 페이지의 전체 컨테이너 */
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    color: #000;
+    justify-content: start;
+    font: 200 27px/1 Inter, sans-serif; /* 폰트 설정 */
+}
+
+

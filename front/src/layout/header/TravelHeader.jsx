@@ -1,9 +1,9 @@
 import React from "react";
+import { useNavigate } from 'react-router-dom';
 import styled from "styled-components";
 import NavigationLink from "./NavigationLink";
 import SearchBar from "./SearchBar";
 import UserActions from "./UserActions";
-import { useNavigate } from 'react-router-dom';
 
 const TravelHeader = () => {
   const navLinks = [
@@ -11,6 +11,7 @@ const TravelHeader = () => {
     { text: "랭킹", href: "/ranking" },
     { text: "상점", href: "/shop" },
     { text: "개인페이지", href: "/personal" },
+    { text: "축제", href: "/festival" }
   ];
 
   const navigate = useNavigate();
