@@ -1,7 +1,9 @@
 .travelCardGrid {
     max-width: 955px;
     display: flex;
-    gap: 20px;
+    gap: 12px;
+    flex-wrap: wrap; /* 카드가 줄 바꿈을 할 수 있도록 설정 */
+    justify-content: space-between; /* 카드 간의 간격을 조정 */
   }
   
   .travelCardColumn {
@@ -10,6 +12,8 @@
     line-height: normal;
     width: 25%;
     margin-left: 0;
+    flex: 0 0 calc(20% - 10px); /* 한 줄에 5개 (100% / 5 = 20%) */
+    margin-bottom: 20px; /* 카드 간의 세로 간격 */
   }
   
   @media (max-width: 991px) {
