@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from '../../css/PaginationComponent.module.css';
 
 const PaginationButton = ({ children, isActive, onClick }) => {
@@ -29,11 +29,8 @@ const PaginationNavButton = ({ children, onClick, direction, disabled }) => {
   );
 };
 
-const PaginationComponent = ({ totalPages = 5, onPageChange }) => {
-  const [currentPage, setCurrentPage] = useState(1);
-
+const PaginationComponent = ({ totalPages = 5, currentPage, onPageChange }) => {
   const handlePageChange = (page) => {
-    setCurrentPage(page);
     if (onPageChange) {
       onPageChange(page); // 부모 컴포넌트에 페이지 번호 전달
     }
