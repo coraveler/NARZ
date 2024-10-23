@@ -1,25 +1,27 @@
 .travelCardGrid {
-    max-width: 955px;
-    display: flex;
-    gap: 20px;
-  }
-  
-  .travelCardColumn {
-    display: flex;
-    flex-direction: column;
-    line-height: normal;
-    width: 25%;
-    margin-left: 0;
-  }
-  
-  @media (max-width: 991px) {
-    .travelCardGrid {
+  max-width: 955px;
+  display: flex;
+  gap: 10px; /* 카드 간의 간격 */
+  flex-wrap: wrap; /* 카드가 줄 바꿈을 할 수 있도록 설정 */
+  justify-content: flex-start; /* 카드가 왼쪽으로 정렬되도록 설정 */
+}
+
+.travelCardColumn {
+  display: flex;
+  flex-direction: column;
+  line-height: normal;
+  width: calc(20% - 10px); /* 한 줄에 5개 (100% / 5 = 20%) */
+  margin-bottom: 20px; /* 카드 간의 세로 간격 */
+}
+
+@media (max-width: 991px) {
+  .travelCardGrid {
       flex-direction: column;
       align-items: stretch;
       gap: 0;
-    }
-  
-    .travelCardColumn {
-      width: 100%;
-    }
   }
+
+  .travelCardColumn {
+      width: 100%;
+  }
+}

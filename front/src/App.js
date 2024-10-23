@@ -32,7 +32,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/calendar" element={<CalendarPage />} />
-        <Route path="/localboard" element={<LocalBoard />} />
+        <Route path="/localboard/:local" element={<LocalBoard />} />
         <Route path="/SignUpFormPage" element={<SignUpFormPage />} />
         <Route path="/PasswordResetPage" element={<PasswordResetPage />} />
         <Route path="/personal" element={<PersonalPage selectedBadge={selectedBadge} />} />

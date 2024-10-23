@@ -19,7 +19,9 @@ public interface PostMapper {
     public void savePostImage(PostImageRequestDTO params);
 
     public List<PostResponseDTO> getAllPost();
-    public PostResponseDTO getPost(int postId);
+
+    public List<PostResponseDTO> getPost(String local);
+    public PostResponseDTO viewPost(int postId);
 
     public List<PostImageResponseDTO> getPostImages(int postId);
 }

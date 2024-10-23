@@ -1,4 +1,5 @@
 import { useEffect, useState }from 'react';
+import { useParams } from 'react-router-dom'; // 추가
 import RegionSelector from '../Includes/common/region/RegionSelector';
 import ReviewSection from '../Includes/localboard/ReviewSection';
 import TravelCardGrid from '../Includes/common/card/TravelCardGrid';
@@ -6,11 +7,16 @@ import PaginationComponent from '../Includes/common/PaginationComponent';
 import api from '../api/axios';
 
 function LocalBoard() {
+    const { local } = useParams();
     const [post, setPost] = useState([]);
-
+    const [page, setPage] = useState();
+    const [totalCount, setTotalCount] = useState(0);
+    const [totalPages, setTotalPages] = useState(0);
+    const itemsPerPage = 10;
+    
     const getPost = async () => {
         try {
-            const response = await api.get(`post/view`);
+            const response = await api.get(`post/get/${local}`);
             console.log("debug >>> response, ", response.data);
             setPost(response.data);
             // console.log("debug >>> response, ", response.data.comments);
@@ -25,6 +31,19 @@ function LocalBoard() {
         // getComments();
     }, []);
 
+    const handlePageChange = (page) => {
+        console.log('현재 페이지:', page); // 현재 페이지 번호를 출력
+        setPage(page);
+      };
+
+      const handleTotalCountChange = (count) => {
+        console.log("게시글 수 : ", count)
+        setTotalCount(count);
+        setTotalPages(Math.ceil(totalCount/itemsPerPage));
+        console.log("페이지 수 : ", totalPages)
+      };
+    
+
     return (
         <div> 
             <div>
@@ -34,8 +53,8 @@ function LocalBoard() {
                 <ReviewSection/>
             </div>
             <div align="center">
-                <TravelCardGrid data={post}/>
-                <PaginationComponent/>
+                <TravelCardGrid data={post} page={page} onTotalCountChange={handleTotalCountChange} itemsPerPage={itemsPerPage}/>
+                <PaginationComponent totalPages={totalPages} onPageChange={handlePageChange} totalCount={totalCount} />
             </div>
         </div>
     );
