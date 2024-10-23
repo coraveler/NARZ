@@ -1,7 +1,10 @@
-import { BrowserRouter as BrowserRouter, Route, Routes } from "react-router-dom";
+import React, { useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
+import ProfileCard from "./Includes/personalPage/ProfileCard";
 import Footer from "./layout/footer/Footer";
 import TravelHeader from "./layout/header/TravelHeader";
+import AchievementPage from "./pages/AchievementPage";
 import CalendarPage from "./pages/CalendarPage";
 import EditProfilePage from "./pages/EditProfilePage";
 import HomePage from "./pages/HomePage";
@@ -16,12 +19,6 @@ import ShopPage from "./pages/ShopPage/ShopPage";
 import ShopPurchase from "./pages/ShopPage/ShopPurchase";
 import SignUpFormPage from "./pages/SignUpFormPage";
 import TravelWritePage from "./pages/TravelWritePage";
-import AchievementPage from "./pages/AchievementPage";
-import React, { useState } from "react";
-import ProfileCard from "./Includes/personalPage/ProfileCard";
-import MapPage from "./pages/MapPage";
-import FollowingPage from "./pages/FollowPages/FollowingPage";
-import FollowerPage from "./pages/FollowPages/FollowerPage";
 
 function Header() {
   return <TravelHeader />;
@@ -51,10 +48,8 @@ function App() {
         <Route path="/EditProfilePage" element={<EditProfilePage selectedBadge={selectedBadge} />} />
         <Route path="/profile" element={<ProfileCard selectedBadge={selectedBadge} />} />
         <Route path="/AchievementPage" element={<AchievementPage selectedBadge={selectedBadge} onBadgeSelect={setSelectedBadge} />} />
-        <Route path="/map" element={<MapPage selectedBadge={selectedBadge} />} />
-        <Route path="/follower" element={<FollowerPage selectedBadge={selectedBadge} />} />
-        <Route path="/following" element={<FollowingPage selectedBadge={selectedBadge} />} />
-
+        
+        <Route path="/history" element={<ShopHistory />} />
       </Routes>
       <Footer />
     </BrowserRouter>
