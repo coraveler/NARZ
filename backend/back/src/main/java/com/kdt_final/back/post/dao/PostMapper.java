@@ -21,6 +21,7 @@ public interface PostMapper {
     public List<PostResponseDTO> getAllPost();
 
     public List<PostResponseDTO> getPost(String local);
+    
     public PostResponseDTO viewPost(int postId);
 
     public List<PostImageResponseDTO> getPostImages(int postId);

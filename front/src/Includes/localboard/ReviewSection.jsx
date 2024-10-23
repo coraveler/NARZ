@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import styles from '../../css/ReviewSection.module.css';
 
-const ReviewSection = () => {
+const ReviewSection = ({ratingAvg, kLocal}) => {
   const navigate = useNavigate();
 
   const filterOptions = [
@@ -16,7 +16,7 @@ const ReviewSection = () => {
     <section className={styles.reviewSection}>
       <div className={styles.reviewContainer}>
         <h2 className={styles.reviewScore}>
-          서울 후기 평점 : <span className={styles.scoreHighlight}>4.6</span>
+          {kLocal} 후기 평점 : <span className={styles.scoreHighlight}>{ratingAvg}</span>
         </h2>
         <div className={styles.dividerContainer}>
           <div className={styles.verticalDivider} />
