@@ -19,6 +19,9 @@ import TravelWritePage from "./pages/TravelWritePage";
 import AchievementPage from "./pages/AchievementPage";
 import React, { useState } from "react";
 import ProfileCard from "./Includes/personalPage/ProfileCard";
+import MapPage from "./pages/MapPage";
+import FollowingPage from "./pages/FollowPages/FollowingPage";
+import FollowerPage from "./pages/FollowPages/FollowerPage";
 
 function Header() {
   return <TravelHeader />;
@@ -35,18 +38,23 @@ function App() {
         <Route path="/localboard/:local" element={<LocalBoard />} />
         <Route path="/SignUpFormPage" element={<SignUpFormPage />} />
         <Route path="/PasswordResetPage" element={<PasswordResetPage />} />
-        <Route path="/personal" element={<PersonalPage selectedBadge={selectedBadge} />} />
-        <Route path="/EditProfilePage" element={<EditProfilePage selectedBadge={selectedBadge} />} />
         <Route path="/LoginFormPage" element={<LoginFormPage />} />
         <Route path="/TravelWritePage" element={<TravelWritePage />} />
         <Route path="/ranking" element={<RankingPage />} /> 
         <Route path="/postpage/:postId" element={<PostPage />} />
+        {/*쇼핑관련*/}
         <Route path="/shop" element={<ShopPage />} />
         <Route path="/purchase" element={<ShopPurchase />} />
+        <Route path="/history" element={<ShopHistory />} />
+        {/*개인페이지관련*/}
+        <Route path="/personal" element={<PersonalPage selectedBadge={selectedBadge} />} />
+        <Route path="/EditProfilePage" element={<EditProfilePage selectedBadge={selectedBadge} />} />
         <Route path="/profile" element={<ProfileCard selectedBadge={selectedBadge} />} />
         <Route path="/AchievementPage" element={<AchievementPage selectedBadge={selectedBadge} onBadgeSelect={setSelectedBadge} />} />
-        
-        <Route path="/history" element={<ShopHistory />} />
+        <Route path="/map" element={<MapPage selectedBadge={selectedBadge} />} />
+        <Route path="/follower" element={<FollowerPage selectedBadge={selectedBadge} />} />
+        <Route path="/following" element={<FollowingPage selectedBadge={selectedBadge} />} />
+
       </Routes>
       <Footer />
     </BrowserRouter>
