@@ -13,6 +13,7 @@ const TravelCardGrid = (props) => {
           <div key={index} className={styles.travelCardColumn}>
             <TravelCard data = {data} />
           </div>
+          
         ))
       ) : (
         <p>No posts available.</p> // 데이터가 없을 때 표시할 메시지
