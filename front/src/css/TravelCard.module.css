@@ -23,16 +23,17 @@
     letter-spacing: -0.6px;
     text-align: center;
     margin-top: 15px;
-    font: 700 18px/1 'Noto Sans KR', -apple-system, Roboto, Helvetica, sans-serif;
-  }
-  
-  .cardLocation {
+    font: 600 14px/1 'Noto Sans KR', -apple-system, Roboto, Helvetica, sans-serif; /* 크기를 줄임 */
+}
+
+.cardLocation {
     color: #666;
     letter-spacing: -0.5px;
     text-align: center;
     margin-top: 9px;
-    font: 350 15px/1 'Noto Sans KR', -apple-system, Roboto, Helvetica, sans-serif;
-  }
+    font: 350 14px/1 'Noto Sans KR', -apple-system, Roboto, Helvetica, sans-serif; /* 크기를 줄임 */
+}
+
   
   .ratingContainer {
     display: flex;

@@ -14,6 +14,7 @@ function HomePage() {
       <RegionSelector />
 
       <div>
+        <br/>
         <h3 style={{ marginLeft: 150 }}>주간 인기 게시글 랭킹</h3>
         <div align="center">
           <TravelCardGrid />
@@ -21,14 +22,14 @@ function HomePage() {
       </div>
       <br/>
       <div>
-        <h3 style={{ marginLeft: 150 }}>주간 인기 게시글 랭킹</h3>
+        <h3 style={{ marginLeft: 150 }}>주간 활동 랭킹</h3>
         <div align="center">
           <TravelCardGrid />
         </div>
       </div>
       <br/>
       <div>
-        <h3 style={{ marginLeft: 150 }}>주간 인기 게시글 랭킹</h3>
+        <h3 style={{ marginLeft: 150 }}>팔로잉 게시판</h3>
         <div align="center">
           <TravelCardGrid />
         </div>
