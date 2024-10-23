@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import styles from '../css/EditProfilePage.module.css';
+import ProfileCard from "../Includes/personalPage/ProfileCard";
 
-const EditProfilePage = () => {
+const EditProfilePage = ({ selectedBadge }) => {
     // 초기 이미지 URL 저장
     const initialProfileImage = "https://cdn.builder.io/api/v1/image/assets/TEMP/723a88e5c32d2472fefd9718f746254edeeadb446fa9ca56fed96b0d6b55d900?placeholderIfAbsent=true&apiKey=5069901003e646878c4e6740ca1b07b5";
 
@@ -27,11 +28,12 @@ const EditProfilePage = () => {
 
     return (
         <div className={styles.ProfileContainer}>
+            {/* ProfileCard에 selectedBadge 전달 */}
+            <ProfileCard selectedBadge={selectedBadge} />
             <main className="profile-content">
                 <div className={styles.ImageContainer}>
                     <img src={profileImage} alt="Profile" />
                     <div className={styles.ButtonGroup}>
-                        {/* 파일 입력 버튼 */}
                         <label className={styles.AutoButton}>
                             이미지 변경
                             <input
@@ -39,7 +41,7 @@ const EditProfilePage = () => {
                                 accept="image/*"
                                 style={{ display: "none" }}
                                 onChange={handleImageChange}
-                                onClick={resetFileInput} // 파일 선택할 때마다 초기화
+                                onClick={resetFileInput}
                             />
                         </label>
                         <button
