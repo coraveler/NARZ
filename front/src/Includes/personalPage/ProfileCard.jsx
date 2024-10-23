@@ -14,17 +14,29 @@ function ProfileCard({ selectedBadge }) {
     achievement: '업적'
   };
 
+  //지도를 클릭하면 MapPage로 이동
   const handleMapClick = () => {
-    navigate('/personal');
+    navigate('/map');
   };
 
+  //업적을 AcheveivemetPage 페이지로 이동
   const handleAchievementClick = () => {
     navigate('/AchievementPage');
   };
 
-  // name을 클릭하면 EditProfilePage로 이동
+  // 회원정보를 클릭하면 EditProfilePage로 이동
   const handleNameClick = () => {
     navigate('/EditProfilePage');
+  };
+
+  //팔로우를 클릭하면 followerPage로 이동
+  const followerClick = () => {
+    navigate('/follower');
+  };
+
+  //팔로잉을 클릭하면 FollowignPage로 이동
+  const followingClick = () => {
+    navigate('/following');
   };
 
   return (
@@ -48,8 +60,8 @@ function ProfileCard({ selectedBadge }) {
       </div>
 
       {/* 팔로워, 팔로잉 정보 */}
-      <div className={styles.profileInfo}>팔로워 {profileData.followers}</div>
-      <div className={styles.profileInfo}>팔로잉 {profileData.following}</div>
+      <div className={styles.profileInfo} onClick={followerClick} >팔로워 {profileData.followers}</div>
+      <div className={styles.profileInfo} onClick={followingClick}>팔로잉 {profileData.following}</div>
     </section>
   );
 }

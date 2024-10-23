@@ -7,7 +7,6 @@ import TravelHeader from "./layout/header/TravelHeader";
 import AchievementPage from "./pages/AchievementPage";
 import CalendarPage from "./pages/CalendarPage";
 import EditProfilePage from "./pages/EditProfilePage";
-import FestivalPage from "./pages/FestivalPage";
 import HomePage from "./pages/HomePage";
 import LocalBoard from "./pages/LocalBoard";
 import LoginFormPage from "./pages/LoginFormPage";
@@ -36,17 +35,19 @@ function App() {
         <Route path="/localboard/:local" element={<LocalBoard />} />
         <Route path="/SignUpFormPage" element={<SignUpFormPage />} />
         <Route path="/PasswordResetPage" element={<PasswordResetPage />} />
-        <Route path="/personal" element={<PersonalPage selectedBadge={selectedBadge} />} />
-        <Route path="/EditProfilePage" element={<EditProfilePage selectedBadge={selectedBadge} />} />
         <Route path="/LoginFormPage" element={<LoginFormPage />} />
         <Route path="/TravelWritePage" element={<TravelWritePage />} />
         <Route path="/ranking" element={<RankingPage />} /> 
         <Route path="/postpage/:postId" element={<PostPage />} />
+        {/*쇼핑관련*/}
         <Route path="/shop" element={<ShopPage />} />
         <Route path="/purchase" element={<ShopPurchase />} />
+        <Route path="/history" element={<ShopHistory />} />
+        {/*개인페이지관련*/}
+        <Route path="/personal" element={<PersonalPage selectedBadge={selectedBadge} />} />
+        <Route path="/EditProfilePage" element={<EditProfilePage selectedBadge={selectedBadge} />} />
         <Route path="/profile" element={<ProfileCard selectedBadge={selectedBadge} />} />
         <Route path="/AchievementPage" element={<AchievementPage selectedBadge={selectedBadge} onBadgeSelect={setSelectedBadge} />} />
-        <Route path="/festival" element={<FestivalPage/>}/>
         
         <Route path="/history" element={<ShopHistory />} />
       </Routes>
