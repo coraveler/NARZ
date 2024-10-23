@@ -105,7 +105,7 @@ const Calendar = () => {
 
     return (
         <div>
-            <div  style={{ width:'65%', margin: 'auto'}}><br/>
+            <div className='' style={{ width:'65%', margin: 'auto'}}><br/>
                 
                 {/* 캘린더 */}
                 <FullCalendar
