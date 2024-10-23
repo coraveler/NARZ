@@ -35,8 +35,8 @@ function App() {
         <Route path="/localboard" element={<LocalBoard />} />
         <Route path="/SignUpFormPage" element={<SignUpFormPage />} />
         <Route path="/PasswordResetPage" element={<PasswordResetPage />} />
-        <Route path="/personal" element={<PersonalPage />} />
-        <Route path="/EditProfilePage" element={<EditProfilePage />} />
+        <Route path="/personal" element={<PersonalPage selectedBadge={selectedBadge} />} />
+        <Route path="/EditProfilePage" element={<EditProfilePage selectedBadge={selectedBadge} />} />
         <Route path="/LoginFormPage" element={<LoginFormPage />} />
         <Route path="/TravelWritePage" element={<TravelWritePage />} />
         <Route path="/ranking" element={<RankingPage />} /> 
