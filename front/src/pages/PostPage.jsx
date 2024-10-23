@@ -33,7 +33,7 @@ const PostPage = () => {
     };
 
     const getPostImages = async (postId) => {
-        try {
+        try {   
             const response = await api.get(`post/view/images/${postId}`);
             console.log("debug >>> response imgUrls >>>>>>>>>>>>>>>> ", response.data);
             setPostImgUrl(response.data);
