@@ -11,6 +11,7 @@ function LocalBoard() {
     const [totalCount, setTotalCount] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
     const itemsPerPage = 10;
+    
     const getPost = async () => {
         try {
             const response = await api.get(`post/view`);
