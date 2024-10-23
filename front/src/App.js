@@ -1,9 +1,13 @@
-import { BrowserRouter as BrowserRouter, Route, Routes } from "react-router-dom";
+import React, { useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
+import ProfileCard from "./Includes/personalPage/ProfileCard";
 import Footer from "./layout/footer/Footer";
 import TravelHeader from "./layout/header/TravelHeader";
+import AchievementPage from "./pages/AchievementPage";
 import CalendarPage from "./pages/CalendarPage";
 import EditProfilePage from "./pages/EditProfilePage";
+import FestivalPage from "./pages/FestivalPage";
 import HomePage from "./pages/HomePage";
 import LocalBoard from "./pages/LocalBoard";
 import LoginFormPage from "./pages/LoginFormPage";
@@ -16,9 +20,6 @@ import ShopPage from "./pages/ShopPage/ShopPage";
 import ShopPurchase from "./pages/ShopPage/ShopPurchase";
 import SignUpFormPage from "./pages/SignUpFormPage";
 import TravelWritePage from "./pages/TravelWritePage";
-import AchievementPage from "./pages/AchievementPage";
-import React, { useState } from "react";
-import ProfileCard from "./Includes/personalPage/ProfileCard";
 
 function Header() {
   return <TravelHeader />;
@@ -45,6 +46,7 @@ function App() {
         <Route path="/purchase" element={<ShopPurchase />} />
         <Route path="/profile" element={<ProfileCard selectedBadge={selectedBadge} />} />
         <Route path="/AchievementPage" element={<AchievementPage selectedBadge={selectedBadge} onBadgeSelect={setSelectedBadge} />} />
+        <Route path="/festival" element={<FestivalPage/>}/>
         
         <Route path="/history" element={<ShopHistory />} />
       </Routes>
