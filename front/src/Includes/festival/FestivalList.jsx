@@ -25,8 +25,8 @@ function FestivalList({el}){
 
     return(
         <div>
-            <div class="card">
-                <div class="card-body">
+            <div className="card">
+                <div className="card-body">
                     <h5 className="text-hidden" style={{fontSize:'18px'}}><MdFestival style={{marginBottom:'3px', color:'#FFB74D'}}/> {el.title}</h5><hr/>
                     <div >
                         <div style={{marginBottom:'10px'}}>
@@ -38,7 +38,7 @@ function FestivalList({el}){
                             <div className='text-hidden'>{el.place}</div>
                         </div>
                     </div><hr />
-                    <div style={{textAlign:'center', marginBottom:'5px', display:'inline-block'}}>
+                    <div style={{textAlign:'center', marginBottom:'5px'}}>
                         <button className="btn btn-outline-orange" style={{width:'100px'}} onClick={()=>setFestivalInfoModalStatus(true)}>자세히</button> &nbsp;
                         <button className="btn btn-outline-orange" style={{width:'100px'}} onClick={()=>setFestivalMapModalStatus(true)}><FaMapMarkerAlt style={{marginBottom:'3px', color:'#FFB74D'}}/>지도</button>
                     </div>
