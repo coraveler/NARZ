@@ -1,4 +1,5 @@
 import { useEffect, useState }from 'react';
+import { useParams } from 'react-router-dom'; // 추가
 import RegionSelector from '../Includes/common/region/RegionSelector';
 import ReviewSection from '../Includes/localboard/ReviewSection';
 import TravelCardGrid from '../Includes/common/card/TravelCardGrid';
@@ -6,6 +7,7 @@ import PaginationComponent from '../Includes/common/PaginationComponent';
 import api from '../api/axios';
 
 function LocalBoard() {
+    const { local } = useParams();
     const [post, setPost] = useState([]);
     const [page, setPage] = useState();
     const [totalCount, setTotalCount] = useState(0);
@@ -14,7 +16,7 @@ function LocalBoard() {
     
     const getPost = async () => {
         try {
-            const response = await api.get(`post/view`);
+            const response = await api.get(`post/get/${local}`);
             console.log("debug >>> response, ", response.data);
             setPost(response.data);
             // console.log("debug >>> response, ", response.data.comments);

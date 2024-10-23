@@ -82,9 +82,14 @@ public class PostService {
     
     String baseUrl = "http://localhost:7777/post/";
 
-    public List<PostResponseDTO> getAllPost(){
+    public List<PostResponseDTO> getAllPost(String local){
         System.out.println("debug >>>> service list()" + postMapper); 
-        List<PostResponseDTO> lst = postMapper.getAllPost();
+        List<PostResponseDTO> lst ;
+        if(local.equals("all")){
+            lst = postMapper.getAllPost();
+        }else{
+            lst = postMapper.getPost(local);
+        }
         System.out.println("lst : " +lst);
         for(int i=0; i<lst.size(); i++){
             String imgPath = lst.get(i).getHeaderImg();
@@ -97,9 +102,9 @@ public class PostService {
         return lst;
     }
 
-    public PostResponseDTO getPost(int postId){
+    public PostResponseDTO viewPost(int postId){
         System.out.println("debug >>>> service list()" + postMapper); 
-        return postMapper.getPost(postId);
+        return postMapper.viewPost(postId);
     }
 
     public List<PostImageResponseDTO> getPostImages(int postId){    

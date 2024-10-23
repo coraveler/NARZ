@@ -30,7 +30,7 @@
 
     <!-- getPostImages --> 
 
-    <select id="getPost"
+    <select id="viewPost"
             parameterType="int"
             resultType="com.kdt_final.back.post.domain.PostResponseDTO">
         SELECT POSTID, USERID, LOCAL, TITLE, RATING, SECRET, HEADERIMG, CONTENT, CREATEDDATE
