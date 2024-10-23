@@ -30,7 +30,7 @@ const EditProfilePage = ({ selectedBadge }) => {
         <div className={styles.ProfileContainer}>
             {/* ProfileCard에 selectedBadge 전달 */}
             <ProfileCard selectedBadge={selectedBadge} />
-            <main className="profile-content">
+            <main className={styles.mainContainer}>
                 <div className={styles.ImageContainer}>
                     <img src={profileImage} alt="Profile" />
                     <div className={styles.ButtonGroup}>
