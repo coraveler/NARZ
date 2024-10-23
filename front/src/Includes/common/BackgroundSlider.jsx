@@ -25,6 +25,12 @@ function BackgroundSlider() {
     );
   };
 
+  const prevSlide = () => {
+    setCurrentImageIndex((prevIndex) =>
+      prevIndex === 0 ? images.length - 1 : prevIndex - 1
+    );
+  };
+
   return (
     <div
       className={styles.slider}
@@ -33,23 +39,39 @@ function BackgroundSlider() {
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         width: '100%',
-        height: '500px', // 원하는 높이로 조정
+        height: '500px',
         position: 'relative',
         transition: 'background-image 1s ease-in-out',
       }}
     >
+      {/* 왼쪽 화살표 버튼 */}
+      <div className={`${styles.arrow} ${styles.leftArrow}`} onClick={prevSlide}>
+        &lt; {/* 왼쪽 화살표 */}
+      </div>
+
       {/* 오른쪽 화살표 버튼 */}
-      <div className={styles.arrow} onClick={nextSlide}>
+      <div className={`${styles.arrow} ${styles.rightArrow}`} onClick={nextSlide}>
         &gt; {/* 오른쪽 화살표 */}
+      </div>
+
+      {/* 슬라이드 인디케이터 (작은 동그라미) */}
+      <div className={styles.indicators}>
+        {images.map((_, index) => (
+          <div
+            key={index}
+            className={`${styles.indicator} ${index === currentImageIndex ? styles.active : ''}`}
+          />
+        ))}
       </div>
 
       {/* 첫 번째 이미지일 때만 텍스트 표시 */}
       {currentImageIndex === 0 && (
         <div className={styles.textContainer}>
-          <h1 className={styles.title}>
-            나만 알고싶은 지역, 나알지
-          </h1>
-        </div>
+        <h1 className={styles.title}>
+          나만 알고싶은 지역, 나알지
+        </h1>
+      </div>
+      
       )}
     </div>
   );
