@@ -13,7 +13,7 @@ function ColorChoiceModal({
     }
 
     return(
-        <div style={{textAlign:'cetner', }}>
+        <div style={{textAlign:'cetner'}}>
             <ReactModal
                 isOpen={colorChoiceVisible}
                 style={{

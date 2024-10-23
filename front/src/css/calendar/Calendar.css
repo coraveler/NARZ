@@ -17,6 +17,18 @@
     border-radius: 5px; 
 }
 
+/* 풀캘린더 일-숫자 스타일 */
+.fc-daygrid-day-number {
+    color: black;
+    text-decoration: none;
+}
+/* 풀캘린더 요일 스타일 */
+.fc-col-header-cell-cushion{
+    text-decoration: none;
+    color: white ;
+}
+
+
 
 /* 풀캘린더 헤더 버튼 스타일 */
 .fc-button {
@@ -123,6 +135,8 @@
 }
 
 
+
+
 /* 리액트 모달 */
 .ReactModal__Overlay {
     display: flex;
@@ -138,38 +152,45 @@
     border-radius: 10px;
     cursor: pointer;
     transition: background-color 0.5s, color 0.5s;
-  }
-  
-  .color-button {
+}
+
+.color-button {
     border: 2px solid #ccc; /* 네이비 색 아웃라인 */
     background-color: transparent;
     color: #4B4B4B;
-  }
-  .color-button:hover {
+}
+.color-button:hover {
     background-color: #4B4B4B;
     color: white;
-  }
+}
 
-  .select-button {
+.select-button {
     border: 2px solid #ccc; /* 네이비 색 아웃라인 */
     background-color: transparent;
     color: #4B4B4B;
-  }
-  .select-button:hover {
+}
+.select-button:hover {
     background-color: #4B4B4B;
     color: white;
-  }
-  
-
-  /* 리액트 컬러 스타일 */
-  .swatches-picker{
-    width: 50vw !important;
-  }
+}
 
 
-  /* 상세 일정 모달창 close button hover */
-  .close-button:hover{
+/* 리액트 컬러 스타일 */
+.swatches-picker{
+    width: 40vw !important;
+}
+
+
+/* 상세 일정 모달창 close button hover */
+.close-button:hover{
     opacity: 0.5;
-  }
+}
 
 
+/* 텍스트 overflow 시 숨김 */
+.text-hidden{
+    white-space: nowrap; /* 한 줄로 제한 */
+    overflow: hidden; /* 넘치는 내용 숨김 */
+    text-overflow: ellipsis; /* 넘치는 부분을 ...으로 표시 */
+    max-width: 100%; /* 부모 요소의 너비를 초과하지 않도록 설정 */
+}

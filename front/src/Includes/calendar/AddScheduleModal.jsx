@@ -111,11 +111,11 @@ function AddScheduleModal({
                         bottom: 'auto',
                         borderRadius: '20px',
                         padding: '20px',
-                        width: '35vw'}}}>
+                        width: '30vw'}}}>
 
                 <div style={{textAlign:'center'}}>
                     <RiCalendarScheduleLine style={{fontSize:'40px', marginTop:'5px'}}/>
-                    <h2 style={{marginTop:'10px'}}>나의 일정을 추가해 주세요</h2>
+                    <h3 style={{marginTop:'10px'}}>나의 일정을 추가해 주세요</h3>
 
                     {/* 일정 제목 */}
                     <div>
@@ -125,7 +125,7 @@ function AddScheduleModal({
                             value={scheduleTitle}
                             onChange={(e) => setScheduleTitle(e.target.value)}
                             style={{
-                                width: '30vw',
+                                width: '25vw',
                                 padding: '10px',
                                 marginBottom: '10px',
                                 border: '1px solid #ccc',
@@ -139,8 +139,8 @@ function AddScheduleModal({
                             value={scheduleContent}
                             onChange={(e) => setScheduleContent(e.target.value)}
                             style={{
-                                width: '30vw',
-                                height:'150px',
+                                width: '25vw',
+                                height:'170px',
                                 padding: '10px',
                                 marginBottom: '10px',
                                 border: '1px solid #ccc',
