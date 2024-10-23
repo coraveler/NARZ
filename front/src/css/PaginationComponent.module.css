@@ -21,8 +21,8 @@
   .paginationButton,
   .paginationButtonActive,
   .paginationNavButton {
-    border-radius: 8px;
-    padding: 8px 12px;
+    border-radius: 10px;
+    padding: 5px 15px;
     cursor: pointer;
     border: none;
     font-size: inherit;
@@ -41,7 +41,8 @@
   
   .paginationButtonActive {
     background-color: #333;
-    color: var(--sds-color-text-brand-on-brand);
+    color : white; 
+    /* color: var(--sds-color-text-brand-on-brand); */
   }
   
   .paginationNavButton {
