@@ -17,7 +17,7 @@ function RankingNavigation({ onRankChange }) {
         </VerticalDividerWrapper>
         <NavigationList>
           {navItems.map((item, index) => (
-            <NavItem key={index} text={item.text} onClick={() => onRankChange(item.text)} /> 
+            <NavItem key={index} text={item.text} onClick={() => onRankChange(item.text)} />
           ))}
         </NavigationList>
       </NavigationContainer>

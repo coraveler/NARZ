@@ -42,10 +42,10 @@ public class PostController {
         return new ResponseEntity<Integer>(postId,HttpStatus.OK);
     }
     
-    @GetMapping("/view")
-    public ResponseEntity<List<PostResponseDTO>> getAllPost() {
+    @GetMapping("/get/{local}")
+    public ResponseEntity<List<PostResponseDTO>> getAllPost(@PathVariable("local") String local) {
         System.out.println("debug >>>> post controller client path /view");
-        List<PostResponseDTO> lst = postService.getAllPost();  
+            List<PostResponseDTO> lst = postService.getAllPost(local);  
         return new ResponseEntity<List<PostResponseDTO>>(lst, HttpStatus.OK);
     }
     
@@ -68,9 +68,9 @@ public class PostController {
     }
 
     @GetMapping("/view/{postId}")
-    public ResponseEntity<PostResponseDTO> getPost(@PathVariable("postId") Integer postId) {
+    public ResponseEntity<PostResponseDTO> viewPost(@PathVariable("postId") Integer postId) {
         System.out.println("debug >>>> post controller client path /view");
-        PostResponseDTO params = postService.getPost(postId);  
+        PostResponseDTO params = postService.viewPost(postId);  
         System.out.println(">>>>>>>>>>>>>>>>>"+params);
         return new ResponseEntity<PostResponseDTO>(params, HttpStatus.OK);
     }

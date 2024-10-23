@@ -42,11 +42,8 @@ function AchievementSection({ onBadgeSelect }) {
           <li key={index} className={styles.achievementItem}>
             <span className={styles.achievementTitle}>{achievement.title}</span>
             <span className={styles.achievementBadge}>{achievement.badge}</span>
-            <button 
-              className={`
-                ${styles.selectButton} 
-                ${clickedIndex === index ? styles.clicked : ''}
-              `}
+            <button
+              className={`${styles.selectButton} ${clickedIndex === index ? styles.clicked : ''}`}
               onClick={() => handleClick(index, achievement.badge)}
             >
               선택

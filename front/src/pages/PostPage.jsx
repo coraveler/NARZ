@@ -5,7 +5,8 @@ import ProfileInfo from '../Includes/common/ProfileInfo';
 import Comment from '../Includes/comment/Comment';
 import api from '../api/axios';
 import { useParams } from 'react-router-dom';
-import Carousel from 'react-bootstrap/Carousel';
+// import  Carousel  from 'react-bootstrap/Carousel';
+import { Carousel } from 'react-bootstrap';
 
 const PostPage = () => {
     const { postId } = useParams();
@@ -71,7 +72,7 @@ const PostPage = () => {
                         {error ? (
                             <div>{error}</div>
                         ) : (
-                            <Carousel>
+                            <Carousel interval={null}>
                                 {postImgUrl.length > 0 && postImgUrl.map((img, index) => (
                                     <Carousel.Item key={index}>
                                         <div className='slidercontents'>
