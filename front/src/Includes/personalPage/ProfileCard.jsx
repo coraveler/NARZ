@@ -29,23 +29,10 @@ function ProfileCard({ selectedBadge }) {
 
   return (
     <section className={styles.profileCard}>
-      {/* <img
-        loading="lazy"
-        src="https://cdn.builder.io/api/v1/image/assets/TEMP/b27a83d8c5cb2603bbe525f37e40638c4662ab944e1735d12e70886d6fa4e375?placeholderIfAbsent=true&apiKey=c7f1d91a917e4e2ba5370da6919a77db"
-        className={styles.profileImage}
-        alt="Profile picture"
-      />ㄹ
-      <h2 className={styles.profileName}>{profileData.name}</h2> */}
+      {/* selectedBadge를 rank로 전달 */}
+      <ProfileInfo rank={selectedBadge} data={profileData} />
 
-
-        {/* <ProfileInfo/>
-      <div className={styles.profileInfo}>{profileData.title}</div> */}
-
-
-      
-      <ProfileInfo rank={selectedBadge} />
-
-      {/* 이름을 클릭하면 EditProfilePage로 이동 */}
+      {/* 회원정보 클릭 시 EditProfilePage로 이동 */}
       <div className={styles.profileName} onClick={handleNameClick} style={{ cursor: 'pointer', color: 'black' }}>
         {profileData.name}
       </div>
