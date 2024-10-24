@@ -4,13 +4,13 @@ import { useNavigate } from "react-router-dom"; // useNavigate 임포트
 
 function SignUpFormPage({ ...props }) {
   const navigate = useNavigate();
-  
+
   // formFields 배열 정의
   const formFields = [
     { label: "Nickname", type: "text", hasButton: true },
     { label: "ID", type: "text", hasButton: true },
     { label: "Password", type: "password" },
-    { label: "Confirm Password", type: "password" },
+    { label: "Confirm_Password", type: "password" },
     { label: "Name", type: "text" },
     { label: "Email", type: "email" },
     { label: "Phone", type: "tel" }
@@ -21,7 +21,7 @@ function SignUpFormPage({ ...props }) {
     Nickname: "",
     ID: "",
     Password: "",
-    ConfirmPassword: "",
+    Confirm_Password: "",
     Name: "",
     Email: "",
     Phone: ""
@@ -35,13 +35,13 @@ function SignUpFormPage({ ...props }) {
       [id]: value
     });
     console.log(e.target.value)
-    console.log( [id],e.target.value)
+    console.log([id], e.target.value)
   };
 
   // 폼 제출 핸들러
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form Submitted", formData);
+    console.log("보내야할객체", formData);
     // 추가적인 로직 처리
   };
 
@@ -49,7 +49,7 @@ function SignUpFormPage({ ...props }) {
     <main>
       <section className={styles.FormContainer}>
         <h1 className={styles.FormTitle}>회원정보를 입력해주세요</h1>
-        
+
         <form onSubmit={handleSubmit}>
           {formFields.map((field, index) => (
             <div key={index} className={styles.FieldWrapper}>
@@ -69,12 +69,24 @@ function SignUpFormPage({ ...props }) {
                 {field.hasButton && (
                   <button
                     onClick={(event) => {
-                      event.preventDefault(); // 기본 동작 방지
-                      let 보내야할객체 = {
-                        id: `input-${field.label}`, // 중복확인할 ID 전송
-                      };
-                      console.log("보내야할객체", 보내야할객체); // 콘솔에 출력
-                    }}
+                      event.preventDefault();
+
+                      let 보내야할객체 = {};
+
+                      if (field.label === "Nickname") {
+                        보내야할객체 = {
+                          Nickname: formData.Nickname
+                        }
+                      }
+                      else if (field.label === "ID") {
+                        보내야할객체 = {
+                          ID: formData.ID
+                        }
+
+                      }
+                      console.log("보내야할객체", 보내야할객체)
+                    }
+                    }
                     className={styles.StyledButton}
                     {...props}
                   >
