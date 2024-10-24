@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styles from '../../css/Achievement/AchievementSection.module.css';
+import styles from '../../css/Personal/AchievementSection.module.css';
 
 function AchievementSection({ onBadgeSelect }) {
   // 페이지가 로드될 때 localStorage에서 선택된 인덱스를 불러옴

@@ -29,7 +29,7 @@ function Header() {
 }
 
 function App() {
-  const [selectedBadge, setSelectedBadge] = useState('기본 칭호');
+  const [selectedBadge, setSelectedBadge] = useState('여행 초보자');
   return (
     <BrowserRouter>
       <Header />
