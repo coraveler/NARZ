@@ -14,6 +14,18 @@ public class RankingService {
     @Autowired
     private RankingMapper rankingMapper;
 
+    public List<RankingResponseDTO> getPopularPostRankings() {
+        return rankingMapper.getPopularPostRankings();
+    }
+
+    public List<RankingResponseDTO> getUserActivityRankings() {
+        return rankingMapper.getUserActivityRankings();
+    }
+
+    public List<RankingResponseDTO> getHallOfFame() {
+        return rankingMapper.getHallOfFame();
+    }
+
     public void addRanking(RankingRequestDTO rankingRequestDTO) {
         rankingMapper.addRanking(rankingRequestDTO);
     }

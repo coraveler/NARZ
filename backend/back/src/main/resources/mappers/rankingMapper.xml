@@ -3,27 +3,32 @@
 
 <mapper namespace="com.kdt_final.back.ranking.dao.RankingMapper">
 
+    <!-- 랭킹 추가 -->
     <insert id="addRanking" parameterType="com.kdt_final.back.ranking.domain.RankingRequestDTO">
         INSERT INTO ranking (author, board, rating, views, likes)
         VALUES (#{author}, #{board}, #{rating}, #{views}, #{likes})
     </insert>
 
+    <!-- 모든 랭킹 가져오기 -->
     <select id="getRankings" resultType="com.kdt_final.back.ranking.domain.RankingResponseDTO">
         SELECT rank, author, board, rating, views, likes
         FROM ranking
         ORDER BY likes DESC
     </select>
 
+    <!-- 특정 랭킹 삭제 -->
     <delete id="deleteRanking" parameterType="int">
         DELETE FROM ranking WHERE rank = #{rank}
     </delete>
 
+    <!-- 특정 랭킹 정보 가져오기 -->
     <select id="getRankingInfo" parameterType="int" resultType="com.kdt_final.back.ranking.domain.RankingResponseDTO">
         SELECT *
         FROM ranking
         WHERE rank = #{rank}
     </select>
 
+    <!-- 랭킹 수정 -->
     <update id="updateRanking" parameterType="com.kdt_final.back.ranking.domain.RankingRequestDTO">
         UPDATE ranking
         SET author = #{author},
@@ -33,5 +38,30 @@
             likes = #{likes}
         WHERE rank = #{rank}
     </update>
+
+    <!-- 인기 게시글 랭킹 가져오기 -->
+    <select id="getPopularPostRankings" resultType="com.kdt_final.back.ranking.domain.RankingResponseDTO">
+        SELECT rank, author, board, rating, views, likes
+        FROM ranking
+        ORDER BY likes DESC
+        LIMIT 10
+    </select>
+
+    <!-- 유저 활동 랭킹 가져오기 -->
+    <select id="getUserActivityRankings" resultType="com.kdt_final.back.ranking.domain.RankingResponseDTO">
+        SELECT rank, author, board, rating, views, likes
+        FROM ranking
+        ORDER BY views DESC
+        LIMIT 10
+    </select>
+
+    <!-- 명예의 전당 가져오기 -->
+    <select id="getHallOfFame" resultType="com.kdt_final.back.ranking.domain.RankingResponseDTO">
+        SELECT rank, author, board, rating, views, likes
+        FROM ranking
+        WHERE rating > 4.5
+        ORDER BY rating DESC
+        LIMIT 3
+    </select>
 
 </mapper>
