@@ -38,7 +38,8 @@ const RankingPage = ({ initialRank }) => {
       <br />
       <h2 className="ranking-title" style={{ fontSize: '30px', fontWeight: 'bold' }}>랭킹</h2>
       <p className="ranking-note" style={{ fontSize: '12px', marginBottom: '20px' }}>*1~3등은 마일리지가 지급됩니다.</p>
-      <RankingNavigation onRankChange={handleRankChange} />
+      <RankingNavigation onRankChange={handleRankChange} activeRank={activeRank} />
+
       {loading ? <p>Loading...</p> : <LeaderboardTable leaderboardData={leaderboardData} />}
     </div>
   );
