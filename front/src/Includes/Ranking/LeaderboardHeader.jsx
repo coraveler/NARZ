@@ -18,15 +18,15 @@ const HeaderRow = styled.div`
   display: flex;
   color: #1e1e1e;
   letter-spacing: -0.45px;
-  font: 700 14px/2 Inter, sans-serif; // 글꼴 크기를 줄임
+  font: 700 14px/2 Inter, sans-serif; 
   background-color: #e6eaf3;
-  padding: 8px; // 상하 여백을 줄임
+  padding: 8px; 
   justify-content: center;
 `;
 
 const HeaderCell = styled.div`
   flex: 1;
-  padding: 4px; // 셀 내부 여백을 줄임
+  padding: 4px; 
   min-width: 100px;
   text-align: center;
 `;

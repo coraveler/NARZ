@@ -1,51 +1,48 @@
-import React, { useState } from "react";
-import styled from "styled-components";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import RankingNavigation from "../Includes/Ranking/RankingNavigation";
-import LeaderboardTable from "../Includes/Ranking/LeaderboardTable"; 
+import LeaderboardTable from "../Includes/Ranking/LeaderboardTable";
 
-const RankingPage = () => {
-  const [activeRank, setActiveRank] = useState("인기 게시글 랭킹"); // 초기값 설정
+const RankingPage = ({ initialRank }) => {
+  const [activeRank, setActiveRank] = useState(initialRank); // 초기값을 props로 받음
+  const [leaderboardData, setLeaderboardData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // 네비게이션 버튼 클릭 시 호출될 함수
+  // initialRank가 제대로 전달되었는지 로그로 확인
+  useEffect(() => {
+    console.log("Initial Rank:", initialRank);
+  }, [initialRank]);
+
   const handleRankChange = (rank) => {
     setActiveRank(rank);
   };
 
+  const fetchLeaderboardData = async (rankType) => {
+    try {
+      const response = await axios.get(`/api/rankings?rankType=${rankType}`);
+      setLeaderboardData(response.data);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching leaderboard data:", error);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    console.log("Active Rank:", activeRank); // activeRank 상태를 로그로 확인
+    setLoading(true);
+    fetchLeaderboardData(activeRank);
+  }, [activeRank]);
+
   return (
-    <StyledSection className="ranking-section">
-      <h2 className="ranking-title">랭킹</h2>
-      <p className="ranking-note">*1~3등은 마일리지가 지급됩니다.</p>
-      <br /><br />
-      <RankingNavigation onRankChange={handleRankChange} /> {/* 핸들러 전달 */}
-      <LeaderboardTable rankType={activeRank} /> {/* activeRank 전달 */}
-    </StyledSection>
+    <div className="ranking-section" style={{ marginLeft: '40px', marginTop: '20px' }}>
+      <br />
+      <h2 className="ranking-title" style={{ fontSize: '30px', fontWeight: 'bold' }}>랭킹</h2>
+      <p className="ranking-note" style={{ fontSize: '12px', marginBottom: '20px' }}>*1~3등은 마일리지가 지급됩니다.</p>
+      <RankingNavigation onRankChange={handleRankChange} />
+      {loading ? <p>Loading...</p> : <LeaderboardTable leaderboardData={leaderboardData} />}
+    </div>
   );
 };
 
 export default RankingPage;
-
-const StyledSection = styled.section`
-  align-self: stretch;
-  background-color: #fff;
-  color: #000;
-  padding: 31px 77px;
-  font: 200 33px/1 Inter, sans-serif;
-
-  @media (max-width: 991px) {
-    padding: 0 20px;
-  }
-
-  .ranking-title {
-    display: inline;
-    font-weight: 700;
-    font-size: 24px;
-  }
-
-  .ranking-note {
-    display: inline;
-    font-family: NanumGothic, sans-serif;
-    font-weight: 400;
-    font-size: 16px;
-    margin-left: 10px;
-  }
-`;
