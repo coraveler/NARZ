@@ -118,8 +118,42 @@ const PostPage = () => {
         }
     }
     
+    const saveBookMark = async () => {
+        const data = {
+            postId: postId,
+            userId: userId,
+        };
+        try {
+            const response = await api.post(`post/bookmmark/save`,data);
+            console.log("debug >>> response saveLike >>>>>>>>>>>>>>>> ", response.data);
+            setBookMarkState(!bookMarkState);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    const deleteBookMark = async () => {
+        try {
+            const response = await api.delete(`post/bookbmark/delete`, {
+                params: {
+                    postId: postId,
+                    userId: userId,
+                }
+            });
+            console.log("debug >>> response deleteLike >>>>>>>>>>>>>>>> ", response.data);
+            setBookMarkState(!bookMarkState);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
     const clickBookMark = () =>{
         setBookMarkState(!bookMarkState);
+        if(likeState){
+            deleteBookMark();
+        }else{
+            saveBookMark();
+        }
     }
 
     return (

@@ -94,4 +94,11 @@
         WHERE POSTID = #{postId};
     </select>
 
+    <!-- bookMarkSave --> 
+
+    <insert id="bookMarkSave"
+            parameterType="com.kdt_final.back.post.domain.postBookMark.PostBookMarkRequestDTO">
+        INSERT INTO POSTLIKE(USERID, POSTID)
+        VALUES( #{userId}, #{postId})
+    </insert>
     </mapper>

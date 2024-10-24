@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kdt_final.back.post.dao.PostMapper;
 import com.kdt_final.back.post.domain.PostRequestDTO;
 import com.kdt_final.back.post.domain.PostResponseDTO;
+import com.kdt_final.back.post.domain.bookMark.PostBookMarkRequestDTO;
 import com.kdt_final.back.post.domain.postImage.PostImageRequestDTO;
 import com.kdt_final.back.post.domain.postImage.PostImageResponseDTO;
 import com.kdt_final.back.post.domain.postLike.PostLikeRequestDTO;
@@ -164,5 +165,9 @@ public class PostService {
 
     public Integer countLike(Integer postId){
         return postMapper.countLike(postId);
+    }
+
+    public void bookMarkSave(PostBookMarkRequestDTO params){
+        postMapper.bookMarkSave(params);
     }
 }

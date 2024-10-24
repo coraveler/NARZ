@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.kdt_final.back.post.domain.PostRequestDTO;
 import com.kdt_final.back.post.domain.PostResponseDTO;
+import com.kdt_final.back.post.domain.bookMark.PostBookMarkRequestDTO;
 import com.kdt_final.back.post.domain.postImage.PostImageResponseDTO;
 import com.kdt_final.back.post.domain.postLike.PostLikeRequestDTO;
 import com.kdt_final.back.post.service.PostService;
@@ -119,5 +120,10 @@ public class PostController {
         return new ResponseEntity<Integer>(result,HttpStatus.OK);
     }
     
+    @PostMapping("/bookmark/save")
+    public ResponseEntity<Void> bookMarkSave(@RequestBody PostBookMarkRequestDTO params) {
+        postService.bookMarkSave(params);
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    }
 
 }
