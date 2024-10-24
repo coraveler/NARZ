@@ -29,7 +29,7 @@ function Header() {
 }
 
 function App() {
-  const [selectedBadge, setSelectedBadge] = useState('기본 칭호');
+  const [selectedBadge, setSelectedBadge] = useState('여행 초보자');
   return (
     <BrowserRouter>
       <Header />
@@ -56,6 +56,10 @@ function App() {
         <Route path="/map" element={<MapPage selectedBadge={selectedBadge} />} />
         <Route path="/follower" element={<FollowerPage selectedBadge={selectedBadge} />} />
         <Route path="/following" element={<FollowingPage selectedBadge={selectedBadge} />} />
+        {/* 랭킹페이지 관련 */}
+        <Route path="/ranking/popular" element={<RankingPage initialRank="인기 게시글 랭킹" />} />
+        <Route path="/ranking/user-activity" element={<RankingPage initialRank="유저 활동 랭킹" />} />
+        <Route path="/ranking/hall-of-fame" element={<RankingPage initialRank="명예의 전당" />} />
 
       </Routes>
       <Footer />
