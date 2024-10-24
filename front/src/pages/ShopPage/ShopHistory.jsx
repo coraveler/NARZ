@@ -61,36 +61,8 @@ function ShopHistory() {
                 <td>{item.description}</td>
                 <td>{item.amount}</td>
               </tr>
-<<<<<<< HEAD
             ))}
-=======
-            ))} */}
-            <tr>
-              <td>2024.10.20</td>
-              <td>물품 구매</td>
-              <td>-10000</td>
-            </tr>
-            <tr>
-              <td>2024.10.21</td>
-              <td>포인트 적립</td>
-              <td>+20000</td>
-            </tr>
-            <tr>
-              <td>2024.10.21</td>
-              <td>포인트 적립</td>
-              <td>+20000</td>
-            </tr>
-            <tr>
-              <td>2024.10.21</td>
-              <td>포인트 적립</td>
-              <td>+20000</td>
-            </tr>
-            <tr>
-              <td>2024.10.21</td>
-              <td>포인트 적립</td>
-              <td>+20000</td>
-            </tr>
->>>>>>> main
+
           </tbody>
         </table>
       </div>
