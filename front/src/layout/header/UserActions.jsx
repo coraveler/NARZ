@@ -1,33 +1,48 @@
-import React from "react";
+import React, { useState } from "react";
+import { BsCoin } from "react-icons/bs";
 import { CgProfile } from "react-icons/cg";
+import { FaRegCalendarAlt } from "react-icons/fa";
+import { MdNotificationsNone } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom"; // useNavigate 임포트
 import styled from "styled-components";
+import NotificationModal from "../../Includes/nofification/NotificationModal";
+
 
 const UserActions = ({ isLoggedIn }) => {
   const navigate = useNavigate(); // useNavigate 사용
+  const [notificationModalStatus, setNotificationModalStatus] = useState(false);
+
+  const notificationModalClose = () => {
+    setNotificationModalStatus(false);
+  }
 
   return (
-    <StyledUserActions>
-      <NotificationIcon
-        src="https://cdn.builder.io/api/v1/image/assets/TEMP/d3d0b10c021ae5b658c9777a314a48078e66b82e7c53bbca628055f42fda7c9b?placeholderIfAbsent=true&apiKey=c7f1d91a917e4e2ba5370da6919a77db"
-        alt="Notifications"
-        onClick={() => { navigate('/calendar'); }} // 캘린더 페이지로 이동
-      />
-      {isLoggedIn ? (
-        <StyledCgProfile />
-      ) : (
-        <Link to="/LoginFormPage">
-          <StyledCgProfile />
-        </Link>
-      )}
-      <Container>
-        <MileageIcon
-          src="https://cdn.builder.io/api/v1/image/assets/TEMP/8ede8e5ea61e98385137929506d6a9e8edc27135db52515903d78bebf71a8b2a?placeholderIfAbsent=true&apiKey=c7f1d91a917e4e2ba5370da6919a77db"
-          alt="User Profile"
-        />
-        <PointsDisplay>1,000</PointsDisplay>
-      </Container>
-    </StyledUserActions>
+    <>
+      <StyledUserActions>
+        {/* 알림 아이콘 */}
+        <NotificationIcon onClick={()=>setNotificationModalStatus(true)}>
+          <MdNotificationsNone/>
+        </NotificationIcon>
+        {/* 캘린더 아이콘 */}
+        <CalendarIcon onClick={() => { navigate('/calendar'); }}>
+          <FaRegCalendarAlt/> 
+        </CalendarIcon>
+        {/* 사용자 아이콘 */}
+        {isLoggedIn 
+          ? (<StyledCgProfile />) 
+          : (<Link to="/LoginFormPage"><StyledCgProfile /></Link>)
+        }
+        {/* 마일리지 */}
+        <Container>
+          <MileageIcon ><BsCoin/></MileageIcon>
+          <PointsDisplay >1,000 <span style={{fontSize:'10px'}}>포인트</span></PointsDisplay>
+        </Container>
+      </StyledUserActions>
+
+      <NotificationModal
+        notificationModalStatus={notificationModalStatus}
+        notificationModalClose={notificationModalClose}/>
+    </>
   );
 };
 
@@ -36,31 +51,52 @@ export default UserActions;
 const StyledUserActions = styled.div`
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 11px;
 `;
 
-const NotificationIcon = styled.img`
+
+const NotificationIcon = styled.div`
   aspect-ratio: 1;
   object-fit: contain;
   object-position: center;
-  width: 31px;
   cursor: pointer;
+  font-size: 34px;
+
+  &:hover {
+    color: #555; // 호버 시 텍스트 색상 변경
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); // 호버 시 그림자 변경
 `;
 
-const MileageIcon = styled.img`
+const CalendarIcon = styled.div`
   aspect-ratio: 1;
   object-fit: contain;
   object-position: center;
-  width: 22px;
   cursor: pointer;
+  font-size: 28px;
+  margin-bottom: 2px;
+
+  &:hover {
+    color: #555; // 호버 시 텍스트 색상 변경
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); // 호버 시 그림자 변경
+`;
+
+
+const MileageIcon = styled.div`
+  width: 24px;
+  font-size: 20px;
+  cursor: pointer;
+  color: orange;
+  margin-left: 3px;
+  margin-bottom: 1px;
 `;
 
 const PointsDisplay = styled.div`
-  white-space: nowrap;
   text-align: center;
   letter-spacing: -1px;
-  line-height: 0.5;
-  padding: 0 10px;
+  margin-right: 5px;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: right; /* 텍스트를 오른쪽 정렬 */
 
   @media (max-width: 991px) {
     white-space: initial;
@@ -68,11 +104,21 @@ const PointsDisplay = styled.div`
 `;
 
 const StyledCgProfile = styled(CgProfile)`
-  width: 30px; /* 아이콘 너비 */
-  height: 30px; /* 아이콘 높이 */
+  width: 32px; /* 아이콘 너비 */
+  height: 32px; /* 아이콘 높이 */
+
+  &:hover {
+    color: #555; // 호버 시 텍스트 색상 변경
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); // 호버 시 그림자 변경
 `;
 
 const Container = styled.div`
   display: flex; /* Flexbox 사용 */
   align-items: center; /* 수직 중앙 정렬 */
+  border: 2px solid black;
+  border-radius: 15px;
+  padding: 4px;
+  justify-content: space-between;
+  width: 130px;
+  border-color: #555555;
 `;

@@ -1,9 +1,10 @@
 import React from "react";
 import { useNavigate } from 'react-router-dom';
-import styled from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 import NavigationLink from "./NavigationLink";
 import SearchBar from "./SearchBar";
 import UserActions from "./UserActions";
+
 
 const TravelHeader = () => {
   const navLinks = [
@@ -17,10 +18,17 @@ const TravelHeader = () => {
   const navigate = useNavigate();
 
   return (
+
+    <>
+    <GlobalStyle /> {/* 글로벌 스타일 적용 */}
     <Header>
       <Container>
         <Nav>
-          <Logo src="https://cdn.builder.io/api/v1/image/assets/TEMP/776247c9bbc02598406bd3e931ee9dbc12289c2fba1447e805ade00b73f87025?placeholderIfAbsent=true&apiKey=c7f1d91a917e4e2ba5370da6919a77db" alt="Travel Logo" onClick={() => navigate('/')}/>
+          <div style={{flexDirection: 'column', marginRight:'50px', marginBottom:'7px', marginLeft:'3px'}}>
+            <Logo onClick={() => navigate('/')}>NARZ</Logo>
+            <div style={{fontSize:'10px'}}>나만 알고 싶은 지역</div>
+          </div>
+          
           {navLinks.map((link, index) => (
             <NavigationLink key={index} {...link} />
           ))}
@@ -30,6 +38,7 @@ const TravelHeader = () => {
         <UserActions />
       </Container>
     </Header>
+  </>
   );
 };
 
@@ -40,7 +49,10 @@ const Header = styled.header`
   font: 350 20px 'Noto Sans KR', sans-serif;
   width: 100%; // 추가
   overflow: hidden; // 추가
+  height: 80px;
+  display: flex;
 `;
+
 const Container = styled.div`
   display: flex;
   width: 100%;
@@ -70,16 +82,18 @@ const Nav = styled.nav`
 `;
 
 
-const Logo = styled.img`
-  aspect-ratio: 2.43;
-  object-fit: contain;
-  object-position: center;
-  width: 185px;
-  align-self: stretch;
-  z-index: 0;
-  margin: auto 0;
-  cursor: pointer;
+const Logo = styled.div`
+  font-size: 35px; // 로고 텍스트 크기
+  font-weight: bold; // 텍스트 두께
+  cursor: pointer; // 클릭 가능하게
+  font-family: 'HSSanTokki20-Regular'; // 폰트 적용
+
+   &:hover {
+    color: #555; // 호버 시 텍스트 색상 변경
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); // 호버 시 그림자 변경
 `;
+
+
 
 // const ActiveIndicator = styled.div`
 //   position: absolute;
@@ -90,5 +104,15 @@ const Logo = styled.img`
 //   bottom: 0;
 //   transform: translateX(-50%);
 // `;
+
+// @font-face 선언
+const GlobalStyle = createGlobalStyle`
+  @font-face {
+    font-family: 'HSSanTokki20-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405@1.0/HSSanTokki20-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+  }
+`;
 
 export default TravelHeader;
