@@ -26,15 +26,20 @@ const ReviewSection = ({ ratingAvg, kLocal, handleArray }) => {
     { text: '최신순', action: () => handleArray(0) },
     { text: '인기순', action: () => handleArray(1) },
     { text: '평점순', action: () => handleArray(2) },
+    // { text: '팔로잉', action: () => undefined },
+    // { text: '북마크', action: () => undefined },
     { text: '글작성', action: () => navigate("/TravelWritePage") }
   ];
 
   return (
     <section className={styles.reviewSection}>
       <div className={styles.reviewContainer}>
-        <h2 className={styles.reviewScore}>
-          {kLocal} 후기 평점 : <span className={styles.scoreHighlight}>{ratingAvg}</span>
-        </h2>
+        {kLocal ? 
+          (<h2 className={styles.reviewScore}>
+            {kLocal} 후기 평점 : <span className={styles.scoreHighlight}>{ratingAvg}</span>
+          </h2>):
+            <h2>none</h2>}
+        
         <div className={styles.dividerContainer}>
           <div className={styles.verticalDivider} />
         </div>
@@ -57,6 +62,7 @@ const ReviewSection = ({ ratingAvg, kLocal, handleArray }) => {
         })}
       </div>
     </section>
+   
   );
 };
 

@@ -3,9 +3,9 @@ import TravelCard from './TravelCard';
 import styles from '../../../css/TravelCardGrid.module.css';
 
 const TravelCardGrid = (props) => {
-  const data = props.data || []; // props.data가 undefined일 경우 빈 배열로 설정
+  const data = Array.isArray(props.data) ? props.data : []; // props.data가 배열인지 확인
   const { page = 1, onTotalCountChange } = props; // 페이지 번호와 콜백 함수를 props에서 가져옴
-  const itemsPerPage = props.itemsPerPage; // 한 페이지당 게시글 수
+  const itemsPerPage = props.itemsPerPage || 1; // 기본값 설정
 
   // 시작 인덱스와 끝 인덱스 계산
   const startIndex = (page - 1) * itemsPerPage;

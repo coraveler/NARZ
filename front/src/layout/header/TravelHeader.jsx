@@ -8,7 +8,7 @@ import UserActions from "./UserActions";
 
 const TravelHeader = () => {
   const navLinks = [
-    { text: "지역", href: "/localboard/all" },
+    { text: "지역", href: "/board/localboard/all" },
     { text: "랭킹", href: "/ranking" },
     { text: "상점", href: "/shop" },
     { text: "개인페이지", href: "/personal" },

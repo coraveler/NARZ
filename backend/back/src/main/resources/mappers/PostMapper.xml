@@ -94,4 +94,54 @@
         WHERE POSTID = #{postId};
     </select>
 
+    <!-- bookMarkSave --> 
+
+    <insert id="bookMarkSave"
+            parameterType="com.kdt_final.back.post.domain.postBookMark.PostBookMarkRequestDTO">
+        INSERT INTO POSTBOOKMARK(USERID, POSTID)
+        VALUES( #{userId}, #{postId})
+    </insert>
+
+    <!-- bookMarkDelete --> 
+
+    <delete id="bookMarkDelete"
+            parameterType="com.kdt_final.back.post.domain.postBookMark.PostBookMarkRequestDTO">
+        DELETE FROM POSTBOOKMARK
+        WHERE USERID = #{userId} AND POSTID = #{postId};
+    </delete>   
+    
+    <!-- bookMarkCheck --> 
+
+    <select id="bookMarkCheck"
+            parameterType="com.kdt_final.back.post.domain.postBookMark.PostBookMarkRequestDTO"
+            resultType="int">
+        SELECT BOOKMARKNO
+        FROM POSTBOOKMARK
+        WHERE USERID = #{userId} AND POSTID = #{postId};
+    </select>   
+
+    <!-- getBookMark --> 
+
+    <select id="getBookMark"
+            parameterType="String"
+            resultType="com.kdt_final.back.post.domain.PostResponseDTO">
+       SELECT 
+            p.postId,
+            p.userId,
+            p.local,
+            p.title,
+            p.content,
+            p.headerImg,
+            p.rating,
+            pb.createdDate,
+            p.updatedDate,
+            p.secret
+        FROM 
+            post p
+        JOIN 
+            postBookMark pb ON p.postId = pb.postId
+        WHERE 
+            pb.userId = #{userId}
+    </select>   
+
     </mapper>
