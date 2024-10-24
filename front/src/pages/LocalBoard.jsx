@@ -74,14 +74,14 @@ function LocalBoard() {
                 setkLocal("제주");
                 break;
             default:
-                alert("지역설정이 잘못되었습니다.");
+                alert("문제발생");
                 return;
         }
     };
 
     const changeArray = () => {
         let sortedPosts = [...originalPost];
-    
+
         switch (arrayState) {
             case 0: // 최신순
                 sortedPosts.sort((a, b) => {
@@ -112,10 +112,10 @@ function LocalBoard() {
             default:
                 return;
         }
-    
+
         setPost(sortedPosts);
     };
-    
+
     useEffect(() => {
         // 로컬 스토리지에서 arrayState를 가져옵니다.
         const storedArrayState = localStorage.getItem('arrayState');
@@ -157,6 +157,7 @@ function LocalBoard() {
             <div>
                 <RegionSelector />
             </div>
+
             <div>
                 <ReviewSection ratingAvg={ratingAvg} kLocal={kLocal} handleArray={handleArray} />
             </div>

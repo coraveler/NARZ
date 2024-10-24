@@ -4,8 +4,10 @@ import TravelCardGrid from '../Includes/common/card/TravelCardGrid';
 import RegionSelector from '../Includes/common/region/RegionSelector';
 import api from '../api/axios';
 import { IoMdArrowDropright } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
 
 function HomePage() {
+  const navigate = useNavigate();
   const [bookMarkPost, setBookMarkPost] = useState({});
   const userId = 'userB';
   
@@ -32,9 +34,9 @@ function HomePage() {
   }, []);
 
   const sections = [
-    { title: '주간 인기 게시글 랭킹', data: [] }, // 데이터는 필요에 따라 설정합니다.
-    { title: '팔로잉 게시판', data: [] }, // 데이터는 필요에 따라 설정합니다.
-    { title: '북마크 게시판', data: bookMarkPost } // 북마크 게시판 데이터
+    { title: '주간 인기 게시글 랭킹', data: [], action: undefined}, // 데이터는 필요에 따라 설정합니다.
+    { title: '팔로잉 게시판', data: [], action: undefined}, // 데이터는 필요에 따라 설정합니다.
+    { title: '북마크 게시판', data: bookMarkPost, action: ()=>navigate("/personalboard/bookmark") } // 북마크 게시판 데이터
   ];
   
   return (
@@ -60,7 +62,7 @@ function HomePage() {
       {sections.map((section, index) => (
         <div key={index}>
           <h3 style={{width:'950px', textAlign:"left", marginLeft:"auto", marginRight:"auto"}}>{section.title}</h3>
-          <div style={{ cursor: "pointer" }} onClick={undefined}>
+          <div style={{ cursor: "pointer" }} onClick={section.action}>
             {section.data.length > 5 &&
                 <p style={{ width: '920px', textAlign: "right", marginLeft: "auto", marginRight: "auto" }}>
                   더보기 <IoMdArrowDropright style={{ fontSize: "25px", marginBottom: "3px" }} />
