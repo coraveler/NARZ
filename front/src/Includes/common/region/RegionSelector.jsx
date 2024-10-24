@@ -17,6 +17,8 @@ const regions = [
 ];
 
 const RegionSelector = () => {
+  
+
   return (
     <nav className={styles.container}>
       <h2 className={styles['visually-hidden']}>지역 선택</h2>
