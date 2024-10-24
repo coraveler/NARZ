@@ -2,19 +2,22 @@ import React, { useState } from 'react';
 import styles from '../../css/Follow/FollowingItem.module.css';
 
 const FollowerCard = ({ imageUrl, name }) => {
-  // 버튼 상태 관리: true면 '팔로잉', false면 '팔로우'
-  const [isFollowing, setIsFollowing] = useState(true);
+  const [isFollowing, setIsFollowing] = useState(true); // 버튼 상태 관리
 
-  // 버튼 클릭 시 상태 변경
-  const toggleFollow = () => {
-    setIsFollowing(!isFollowing);
+  const handleFollowClick = () => {
+    setIsFollowing(!isFollowing); // 버튼 클릭 시 상태 변경
   };
 
   return (
     <article className={styles.followerCard}>
       <img loading="lazy" src={imageUrl} alt={`Profile picture of ${name}`} className={styles.profileImage} />
       <h2 className={styles.userName}>{name}</h2>
-      <button className={styles.followButton} onClick={toggleFollow}>
+      
+      {/* 팔로우/언팔로잉 상태에 따라 버튼 텍스트 및 스타일 변경 */}
+      <button 
+        className={`${styles.followButton} ${!isFollowing ? styles.unfollowButton : ''}`} 
+        onClick={handleFollowClick}
+      >
         {isFollowing ? '팔로잉' : '팔로우'}
       </button>
     </article>
