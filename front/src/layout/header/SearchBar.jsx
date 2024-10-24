@@ -1,6 +1,6 @@
 import React from "react";
-import styled from "styled-components";
 import { FaSearch } from "react-icons/fa";
+import styled from "styled-components";
 
 const SearchBar = () => {
   return (
@@ -23,7 +23,7 @@ const SearchBar = () => {
 const SearchForm = styled.form`
   display: flex;
   align-items: center;
-  min-width: 240px;
+  min-width: 265px;
   font-size: 16px;
   color: #767676;
   font-weight: 300;
@@ -45,6 +45,7 @@ const SearchForm = styled.form`
 const InputWrapper = styled.div`
   position: relative; /* 아이콘을 입력창에 절대 위치시키기 위해 relative 설정 */
   flex-grow: 1;
+  margin-right: 10px
 `;
 
 const SearchInput = styled.input`
@@ -53,7 +54,12 @@ const SearchInput = styled.input`
   border: none; /* 전체 테두리 제거 */
   border-bottom: 1px solid #ccc; /* 밑줄 추가 */
   border-radius: 0; /* 테두리 반경을 0으로 설정 */
+  padding-left: 10px; /* 왼쪽 여백 */
+  padding-right: 35px;
+  padding-bottom: 7px;
   font-size: 16px;
+  
+
   
   @media (max-width: 991px) {
     padding-right: 20px;
