@@ -16,10 +16,34 @@ function Navbar() {
 
 const ShopPurchase = () => {
   const options = [
-    { name: "닉네임 이름 변경", price: "10000M" },
-    { name: "닉네임 컬러 변경", price: "10000M" },
-    { name: "프로필 사진 변경", price: "10000M" },
+    { name: "닉네임 이름 변경", price: 10000 },
+    { name: "닉네임 컬러 변경", price: 10000 },
+    { name: "프로필 사진 변경", price: 10000 },
   ];
+
+  const handlePurchase = async (option) => {
+    const userId = 'user123'; // 더미 사용자 ID
+    const mileagePoints = option.price; // 옵션에 따라 포인트 비용 설정
+    const description = `구매한 옵션: ${option.name}`;
+
+    const response = await fetch('/api/mileage-history', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        user_id: userId,
+        mileage_points: mileagePoints,
+        description: description,
+      }),
+    });
+
+    if (response.ok) {
+      alert('구매가 완료되었습니다!');
+    } else {
+      alert('구매에 실패했습니다.');
+    }
+  };
 
   return (
     <div className={styles['shop-purchase']}>
@@ -29,8 +53,8 @@ const ShopPurchase = () => {
         {options.map((option, index) => (
           <div key={index} className={styles['option-card']}>
             <h3>{option.name}</h3>
-            <p>가격: {option.price}</p>
-            <button className={styles['purchase-button']}>구매</button>
+            <p>가격: {option.price}M</p>
+            <button className={styles['purchase-button']} onClick={() => handlePurchase(option)}>구매</button>
           </div>
         ))}
       </div>

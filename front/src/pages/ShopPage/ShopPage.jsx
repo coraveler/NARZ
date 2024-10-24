@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom"; // Link를 react-router-dom에서 import
-import styles from "../../css/Shop/Shop.module.css"; // 스타일시트 import
+import { Link } from "react-router-dom"; 
+import styles from "../../css/Shop/Shop.module.css"; 
 
 function Navbar() {
   return (
