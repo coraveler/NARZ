@@ -4,11 +4,10 @@ import RankingNavigation from "../Includes/Ranking/RankingNavigation";
 import LeaderboardTable from "../Includes/Ranking/LeaderboardTable";
 
 const RankingPage = ({ initialRank }) => {
-  const [activeRank, setActiveRank] = useState(initialRank); // 초기값을 props로 받음
+  const [activeRank, setActiveRank] = useState(initialRank);
   const [leaderboardData, setLeaderboardData] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // initialRank가 제대로 전달되었는지 로그로 확인
   useEffect(() => {
     console.log("Initial Rank:", initialRank);
   }, [initialRank]);
@@ -21,15 +20,15 @@ const RankingPage = ({ initialRank }) => {
     try {
       const response = await axios.get(`/api/rankings?rankType=${rankType}`);
       setLeaderboardData(response.data);
-      setLoading(false);
     } catch (error) {
       console.error("Error fetching leaderboard data:", error);
+    } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    console.log("Active Rank:", activeRank); // activeRank 상태를 로그로 확인
+    console.log("Active Rank:", activeRank);
     setLoading(true);
     fetchLeaderboardData(activeRank);
   }, [activeRank]);
