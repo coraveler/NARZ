@@ -36,7 +36,7 @@ function HomePage() {
   const sections = [
     { title: '주간 인기 게시글 랭킹', data: [], action: undefined}, // 데이터는 필요에 따라 설정합니다.
     { title: '팔로잉 게시판', data: [], action: undefined}, // 데이터는 필요에 따라 설정합니다.
-    { title: '북마크 게시판', data: bookMarkPost, action: ()=>navigate("/personalboard/bookmark") } // 북마크 게시판 데이터
+    { title: '북마크 게시판', data: bookMarkPost, action: ()=>navigate("/board/bookmark/all") } // 북마크 게시판 데이터
   ];
   
   return (

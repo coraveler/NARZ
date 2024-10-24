@@ -37,7 +37,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/calendar" element={<CalendarPage />} />
-        <Route path="/board/localboard/:local" element={<LocalBoard />} />
+        <Route path="/board/:board/:local" element={<LocalBoard />} />
         <Route path="/SignUpFormPage" element={<SignUpFormPage />} />
         <Route path="/PasswordResetPage" element={<PasswordResetPage />} />
         <Route path="/LoginFormPage" element={<LoginFormPage />} />
@@ -62,7 +62,7 @@ function App() {
         <Route path="/ranking/user-activity" element={<RankingPage initialRank="유저 활동 랭킹" />} />
         <Route path="/ranking/hall-of-fame" element={<RankingPage initialRank="명예의 전당" />} />
 
-        <Route path="/board/personalboard/bookmark/:local" element={<LocalBoard />}/>
+        {/* <Route path="/board/bookmark/:local" element={<LocalBoard />}/> */}
       </Routes>
       <Footer />
     </BrowserRouter>

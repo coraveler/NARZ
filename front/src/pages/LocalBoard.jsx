@@ -7,7 +7,7 @@ import PaginationComponent from '../Includes/common/PaginationComponent';
 import api from '../api/axios';
 
 function LocalBoard() {
-    const { local } = useParams();
+    const { board ,local } = useParams();
     const [post, setPost] = useState([]);
     const [page, setPage] = useState(1); // 기본값을 1로 설정
     const [totalCount, setTotalCount] = useState(0);
@@ -17,6 +17,7 @@ function LocalBoard() {
     const [kLocal, setkLocal] = useState('');
     const [arrayState, setArrayState] = useState(0); // 기본값을 0으로 설정
     const [originalPost, setOriginalPost] = useState([]);
+    // const [board, setBoard] = useState();
 
     const getPost = async () => {
         try {
@@ -145,7 +146,17 @@ function LocalBoard() {
     };
 
     useEffect(() => {
-        getPost();
+        switch(board){
+            case "bookmark":
+                // setBoard(pageInfo);
+                break;
+            default:
+                // setBoard(pageInfo);
+                getPost();
+                return;   
+        }
+        
+        
     }, [local]);
 
     const handleArray = (value) => {
@@ -155,7 +166,7 @@ function LocalBoard() {
     return (
         <div>
             <div>
-                <RegionSelector />
+                <RegionSelector board={board}/>
             </div>
 
             <div>
