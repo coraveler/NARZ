@@ -27,7 +27,7 @@ function NotificationModal({
                 <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', margin:'auto 10px auto 10px'}}>
                     <h3 style={{fontWeight:'bold'}}>알림</h3>
                     <div style={{}}>
-                        <button class="btn-close"
+                        <button className="btn-close"
                                 style={{fontSize:'25px', marginBottom:'25px'}}
                                 onClick={notificationModalClose}/>
                     </div>
