@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from '../css/PasswordResetPage.module.css';
 import { useNavigate } from "react-router-dom";
 
 function PasswordResetPage() {
   const navigate = useNavigate();
+  const[newPassword, setNewPassword]=useState('');
+  const[confirmPassword,setConfirmPassword]=useState('');
+
   return (
     <div className={styles.PageWrapper}>
     
@@ -28,15 +31,51 @@ function PasswordResetPage() {
         </div>
         <div className={styles.InputGroup}>
           <label className={styles.Label} htmlFor="newPassword">새 비밀번호</label>
-          <input className={styles.Input} id="newPassword" type="password" placeholder="Enter new password" />
+          <input 
+          className={styles.Input} 
+          id="newPassword" 
+          type="password" 
+          placeholder="Enter new password"
+          value={newPassword}
+          onChange={(event)=>{
+            event.preventDefault();
+            console.log(event.target.value)
+            setNewPassword(event.target.value)
+            console.debug("newPassword",newPassword)
+
+          }}
+
+           />
         </div>
         <div className={styles.InputGroup}>
           <label className={styles.Label} htmlFor="confirmPassword">비밀번호 확인</label>
-          <input className={styles.Input} id="confirmPassword" type="password" placeholder="Confirm new password" />
+          <input 
+          className={styles.Input} 
+          id="confirmPassword" 
+          type="password" 
+          placeholder="Confirm new password"
+          value={confirmPassword}
+          onChange={(event)=>{
+            event.preventDefault();
+            console.log(event.target.value)
+            setConfirmPassword(event.target.value)
+            console.debug("confirmPassword",confirmPassword)
+
+          }}
+
+           />
         </div>
         <div className={styles.ButtonGroup}>
           <button onClick={() => navigate('/LoginFormPage')}  className={styles.CancelButton}type="button">Cancel</button>
-          <button className={styles.ResetButton} type="submit">Reset Password</button>
+          <button onClick={(event)=>{
+            event.preventDefault();
+            let 전송할객체={
+              "newPassword":newPassword
+            }
+            console.log("전송할객체",전송할객체)
+          }
+          }
+          className={styles.ResetButton} type="submit">Reset Password</button>
         </div>
       </form>
     </section>

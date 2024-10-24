@@ -15,9 +15,11 @@ const Comment = () => {
           <span className={styles.commentorName}>vname</span>
         </div>
         <p className={styles.commentText}>여행을 떠나요</p>
-        <time className={styles.commentDate} dateTime="2024-10-15">
-          2024.10.15
-        </time>
+        <div className={styles.commentDateWrapper}>
+          <time className={styles.commentDate} dateTime="2024-10-15">
+            2024.10.15
+          </time>
+        </div>
       </div>
     </section>
   );

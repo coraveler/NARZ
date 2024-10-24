@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import styles from '../css/EditProfilePage.module.css';
 import ProfileCard from "../Includes/personalPage/ProfileCard";
+import { useNavigate } from "react-router-dom"; // useNavigate 임포트
+
 
 const EditProfilePage = ({ selectedBadge }) => {
+    const navigate = useNavigate();
     // 초기 이미지 URL 저장
     const initialProfileImage = "https://cdn.builder.io/api/v1/image/assets/TEMP/723a88e5c32d2472fefd9718f746254edeeadb446fa9ca56fed96b0d6b55d900?placeholderIfAbsent=true&apiKey=5069901003e646878c4e6740ca1b07b5";
 
@@ -25,6 +28,12 @@ const EditProfilePage = ({ selectedBadge }) => {
     const resetFileInput = (e) => {
         e.target.value = null;
     };
+
+    const[name,setName]=useState('');
+    const[nickName, setNickName]=useState ('') ;
+    const[email,setEmail]=useState('');
+    const[phone,setPhone]=useState('');
+    const[birthday, setBirthday]=useState('');
 
     return (
         <div className={styles.ProfileContainer}>
@@ -62,8 +71,15 @@ const EditProfilePage = ({ selectedBadge }) => {
                                 type="text"
                                 id={"Name"}
                                 name={"Name"}
-                                value={"비빔대왕"}
-                                readOnly
+                                placeholder="Name"
+                                value={name}
+                                onChange={(event)=>{
+                                    console.log(event.target.value);
+                                    setName(event.target.value);
+                                    console.debug('Name',name);
+                                  
+                                }}
+                        
                             />
                         </div>
                     </div>
@@ -76,8 +92,13 @@ const EditProfilePage = ({ selectedBadge }) => {
                                 type="text"
                                 id={"NickName"}
                                 name={"NickName"}
-                                value={"Value"}
-                                readOnly
+                                placeholder="NickName"
+                                value={nickName}
+                                onChange={(event)=>{
+                                    console.log(event.target.value);
+                                    setNickName(event.target.value);
+                                    console.debug('NickName',nickName);
+                                  }}
                             />
                             <button className={styles.AutoButton}>색상 랜덤 뽑기</button>
                         </div>
@@ -91,8 +112,17 @@ const EditProfilePage = ({ selectedBadge }) => {
                                 type="text"
                                 id={"Email"}
                                 name={"Email"}
-                                value={"Value"}
-                                readOnly
+                                value={email}
+                                 placeholder="Email"
+
+                                onChange={(event)=>{
+                                    console.log(event.target.value);
+                                    setEmail(event.target.value);
+                                    console.debug('Email',email);
+                                }
+
+                                }
+                                
                             />
                         </div>
                     </div>
@@ -105,8 +135,15 @@ const EditProfilePage = ({ selectedBadge }) => {
                                 type="text"
                                 id={"Phone"}
                                 name={"Phone"}
-                                value={"Value"}
-                                readOnly
+                                placeholder="Phone"
+                                value={phone}
+                                onChange={(event)=>{
+                                    console.log(event.target.value);
+                                    setPhone(event.target.value);
+                                    console.debug('Phone',phone);
+                                }
+
+                                }
                             />
                         </div>
                     </div>
@@ -119,15 +156,37 @@ const EditProfilePage = ({ selectedBadge }) => {
                                 type="text"
                                 id={"Birthday"}
                                 name={"Birthday"}
-                                value={"Value"}
-                                readOnly
+                                placeholder="Birthday"
+                                value={birthday}
+                                onChange={(event)=>
+                                {
+                                    console.log(event.target.value);
+                                    setBirthday(event.target.value);
+                                    console.debug('Birthday',birthday);
+                                }
+                                }
                             />
                         </div>
                     </div>
 
-                    <button className={styles.FullButton}>비밀번호 재설정</button>
-                    <button className={styles.FullButton}>확인</button>
-                    <button className={styles.FullButton}>취소</button>
+                    <button onClick={() => navigate('/PasswordResetPage')} className={styles.FullButton}>비밀번호 재설정</button>
+                    <button type="submit" className={styles.FullButton}
+                    onClick={(e)=>
+                    { e.preventDefault();
+                        let 전송할객체={
+                            name:name,
+                            nickName:nickName,
+                            email:email,
+                            phone:phone,
+                            birthday:birthday
+                       
+                        }
+                        console.log('전송할객체',전송할객체)
+                    }
+                    }
+                    
+                    >확인</button>
+                    <button  onClick={() => navigate('/PasswordResetPage')} className={styles.FullButton}>취소</button>
                 </form>
             </main>
         </div>
