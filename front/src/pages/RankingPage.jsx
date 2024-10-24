@@ -1,4 +1,3 @@
-// RankingPage.jsx
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import RankingNavigation from "../Includes/Ranking/RankingNavigation";
@@ -8,6 +7,11 @@ const RankingPage = ({ initialRank }) => {
   const [activeRank, setActiveRank] = useState(initialRank); // 초기값을 props로 받음
   const [leaderboardData, setLeaderboardData] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  // initialRank가 제대로 전달되었는지 로그로 확인
+  useEffect(() => {
+    console.log("Initial Rank:", initialRank);
+  }, [initialRank]);
 
   const handleRankChange = (rank) => {
     setActiveRank(rank);
@@ -25,13 +29,14 @@ const RankingPage = ({ initialRank }) => {
   };
 
   useEffect(() => {
+    console.log("Active Rank:", activeRank); // activeRank 상태를 로그로 확인
     setLoading(true);
     fetchLeaderboardData(activeRank);
   }, [activeRank]);
 
   return (
     <div className="ranking-section" style={{ marginLeft: '40px', marginTop: '20px' }}>
-      <br/>
+      <br />
       <h2 className="ranking-title" style={{ fontSize: '30px', fontWeight: 'bold' }}>랭킹</h2>
       <p className="ranking-note" style={{ fontSize: '12px', marginBottom: '20px' }}>*1~3등은 마일리지가 지급됩니다.</p>
       <RankingNavigation onRankChange={handleRankChange} />

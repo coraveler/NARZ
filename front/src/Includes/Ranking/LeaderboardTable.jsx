@@ -8,9 +8,15 @@ const LeaderboardTable = ({ leaderboardData }) => {
     <LeaderboardWrapper>
       <LeaderboardContainer>
         <LeaderboardHeader />
-        {leaderboardData.map((data, index) => (
-          <LeaderboardRow key={index} {...data} />
-        ))}
+        {leaderboardData.length === 0 ? (
+          <EmptyRow>
+            데이터가 없습니다
+          </EmptyRow>
+        ) : (
+          leaderboardData.map((data, index) => (
+            <LeaderboardRow key={index} {...data} />
+          ))
+        )}
       </LeaderboardContainer>
     </LeaderboardWrapper>
   );
@@ -30,6 +36,12 @@ const LeaderboardContainer = styled.div`
   flex-direction: column;
   width: 100%;
   max-width: 1200px;
+`;
+
+const EmptyRow = styled.div`
+  text-align: center;
+  padding: 16px;
+  color: #666;
 `;
 
 export default LeaderboardTable;

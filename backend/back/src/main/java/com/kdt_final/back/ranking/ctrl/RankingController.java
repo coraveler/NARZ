@@ -17,7 +17,7 @@ public class RankingController {
 
     // 특정 랭킹 타입에 따라 데이터를 가져오는 엔드포인트
     @GetMapping
-    public List<RankingResponseDTO> getRankings(@RequestParam String rankType) {
+    public List<RankingResponseDTO> getRankings(@RequestParam(name = "rankType") String rankType) {
         if (rankType.equals("인기 게시글 랭킹")) {
             return rankingService.getPopularPostRankings();
         } else if (rankType.equals("유저 활동 랭킹")) {
@@ -25,7 +25,8 @@ public class RankingController {
         } else if (rankType.equals("명예의 전당")) {
             return rankingService.getHallOfFame();
         } else {
-            return null; // 잘못된 rankType이 들어오면 null을 반환
+            // 잘못된 rankType에 대해 예외를 던지거나 빈 리스트 반환
+            return List.of(); // 빈 리스트를 반환하여 오류 방지
         }
     }
 
@@ -50,4 +51,3 @@ public class RankingController {
         rankingService.updateRanking(rankingRequestDTO);
     }
 }
-
