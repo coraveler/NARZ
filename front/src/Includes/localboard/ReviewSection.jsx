@@ -1,20 +1,31 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom'; 
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from '../../css/ReviewSection.module.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-const ReviewSection = ({ratingAvg, kLocal, handleArray}) => {
+const ReviewSection = ({ ratingAvg, kLocal, handleArray }) => {
   const navigate = useNavigate();
-  // const [arrayState, setArrayState] = useState(0);
+  const [buttonState, setButtonState] = useState(() => {
+    // 컴포넌트가 마운트될 때 로컬 스토리지에서 값 가져오기
+    const storedState = localStorage.getItem('buttonState');
+    return storedState !== null ? Number(storedState) : 0;
+  });
 
-  // const popularityArray = () => {
-  //   setArrayState(1);
-  //   handleArray(arrayState)
-  // }
+  useEffect(() => {
+    // buttonState가 변경될 때마다 로컬 스토리지에 저장
+    if (buttonState !== undefined) {
+      localStorage.setItem('buttonState', buttonState);
+    }
+  }, [buttonState]);
+
+  const handleState = (index) => {
+    setButtonState(index);
+  };
 
   const filterOptions = [
-    { text: '최신순', action: () =>  handleArray(0)  },
-    { text: '인기순', action: () =>  handleArray(1) },
-    { text: '평점순', action: () =>  handleArray(2)  },
+    { text: '최신순', action: () => handleArray(0) },
+    { text: '인기순', action: () => handleArray(1) },
+    { text: '평점순', action: () => handleArray(2) },
     { text: '글작성', action: () => navigate("/TravelWritePage") }
   ];
 
@@ -27,26 +38,26 @@ const ReviewSection = ({ratingAvg, kLocal, handleArray}) => {
         <div className={styles.dividerContainer}>
           <div className={styles.verticalDivider} />
         </div>
-        
+
         {filterOptions.map((option, index) => {
           const isLastButton = index === filterOptions.length - 1;
           return (
             <div
               key={index}
               className={styles.filterButton}
-              style={isLastButton ? { marginLeft:"auto" } : {}}
+              style={isLastButton ? { marginLeft: "auto" } : {}}
               onClick={option.action}
             >
-              <div className={styles.filterButtonInner}>
-                <div className={styles.filterButtonText}>{option.text}</div>
-              </div>
+              <button className={index === buttonState ? "btn btn-success" : "btn btn-outline-success"}
+                      onClick={index < 3 ? () => handleState(index) : undefined}>
+                {option.text}
+              </button>
             </div>
           );
         })}
-       
       </div>
     </section>
   );
 };
 
-export default ReviewSection; 
+export default ReviewSection;

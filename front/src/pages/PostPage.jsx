@@ -8,6 +8,7 @@ import { useParams } from 'react-router-dom';
 import { Carousel } from 'react-bootstrap';
 import { AiOutlineLike, AiFillLike } from "react-icons/ai";
 import { FaStar } from "react-icons/fa";
+import { FaRegBookmark, FaBookmark } from "react-icons/fa6";
 
 const PostPage = () => {
     const { postId } = useParams();
@@ -15,6 +16,7 @@ const PostPage = () => {
     const [postImgUrl, setPostImgUrl] = useState([]);
     const [error, setError] = useState(null);
     const [likeState, setLikeState] = useState(false);
+    const [bookMarkState, setBookMarkState] = useState(false);
     const [likeCount, setLikeCount] = useState(false);
     const userId = 'userB';
 
@@ -116,6 +118,9 @@ const PostPage = () => {
         }
     }
     
+    const clickBookMark = () =>{
+        setBookMarkState(!bookMarkState);
+    }
 
     return (
         <div>
@@ -151,7 +156,6 @@ const PostPage = () => {
                         )}
                     </section>
                     <section className={styles.ratingSection}>
-                        <div className={styles.ratingWrapper}>
                             <div className={styles.ratingBar}>
                                
                                 <div onClick={clickLike} style={{ cursor: 'pointer' }}>
@@ -163,14 +167,25 @@ const PostPage = () => {
                                 </div>
                                 
                                 <FaStar style={{color: "#FFD700"}}/>  &nbsp;{post.rating}
+                              
+                                <div onClick={clickBookMark} style={{ cursor: 'pointer', marginLeft:'350px'}}>
+                                    {
+                                    bookMarkState ? (
+                                       <div> <FaBookmark /></div>
+                                     ) : (<div><FaRegBookmark /></div>)
+                                }
+                                </div>
+                                
+                                
                             </div>
+                    </section>
+                    <div align="center">
+                    </div>
+                    <section className={styles.contentSection}>
+                        <div className={styles.textContainer}>
+                            {post.content}
                         </div>
                     </section>
-                    
-                    <div align="center">
-                        {/* <hr style={{ width: "850px" }} /> */}
-                    </div>
-                    <section className={styles.contentSection}>{post.content}</section>
                 </main>
 
                 {/* <hr style={{ width: "850px" }} /> */}
