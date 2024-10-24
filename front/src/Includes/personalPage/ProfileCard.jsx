@@ -1,10 +1,11 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import styles from '../../css/ProfileCard.module.css';
 import ProfileInfo from '../common/ProfileInfo';
 
 function ProfileCard({ selectedBadge }) {
   const navigate = useNavigate();
+  const location = useLocation(); // 현재 경로를 가져오기 위한 훅
 
   const profileData = {
     name: '회원정보',
@@ -14,30 +15,15 @@ function ProfileCard({ selectedBadge }) {
     achievement: '업적'
   };
 
-  //지도를 클릭하면 MapPage로 이동
-  const handleMapClick = () => {
-    navigate('/map');
-  };
+  // 현재 경로가 일치하는지 확인하는 함수
+  const isCurrentPath = (path) => location.pathname === path;
 
-  //업적을 AcheveivemetPage 페이지로 이동
-  const handleAchievementClick = () => {
-    navigate('/AchievementPage');
-  };
-
-  // 회원정보를 클릭하면 EditProfilePage로 이동
-  const handleNameClick = () => {
-    navigate('/EditProfilePage');
-  };
-
-  //팔로우를 클릭하면 followerPage로 이동
-  const followerClick = () => {
-    navigate('/follower');
-  };
-
-  //팔로잉을 클릭하면 FollowignPage로 이동
-  const followingClick = () => {
-    navigate('/following');
-  };
+  // 경로 이동 함수들
+  const handleMapClick = () => navigate('/map');
+  const handleAchievementClick = () => navigate('/AchievementPage');
+  const handleNameClick = () => navigate('/EditProfilePage');
+  const followerClick = () => navigate('/follower');
+  const followingClick = () => navigate('/following');
 
   return (
     <section className={styles.profileCard}>
@@ -45,23 +31,56 @@ function ProfileCard({ selectedBadge }) {
       <ProfileInfo rank={selectedBadge} data={profileData} />
 
       {/* 회원정보 클릭 시 EditProfilePage로 이동 */}
-      <div className={styles.profileName} onClick={handleNameClick} style={{ cursor: 'pointer', color: 'black' }}>
+      <div
+        className={`${styles.profileName} ${
+          isCurrentPath('/EditProfilePage') ? styles.activeLink : ''
+        }`}
+        onClick={handleNameClick}
+        style={{ cursor: 'pointer', color: 'black' }}
+      >
         {profileData.name}
       </div>
 
       {/* 지도 */}
-      <div className={styles.profileInfo} onClick={handleMapClick} style={{ cursor: 'pointer', color: 'black' }}>
+      <div
+        className={`${styles.profileInfo} ${
+          isCurrentPath('/map') ? styles.activeLink : ''
+        }`}
+        onClick={handleMapClick}
+        style={{ cursor: 'pointer', color: 'black' }}
+      >
         {profileData.map}
       </div>
 
       {/* 업적 링크 */}
-      <div className={styles.achievementLink} onClick={handleAchievementClick}>
+      <div
+        className={`${styles.achievementLink} ${
+          isCurrentPath('/AchievementPage') ? styles.activeLink : ''
+        }`}
+        onClick={handleAchievementClick}
+      >
         {profileData.achievement}
       </div>
 
       {/* 팔로워, 팔로잉 정보 */}
-      <div className={styles.profileInfo} onClick={followerClick} >팔로워 {profileData.followers}</div>
-      <div className={styles.profileInfo} onClick={followingClick}>팔로잉 {profileData.following}</div>
+      <div
+        className={`${styles.profileInfo} ${
+          isCurrentPath('/follower') ? styles.activeLink : ''
+        }`}
+        onClick={followerClick}
+        style={{ cursor: 'pointer', color: 'black' }}
+      >
+        팔로워 {profileData.followers}
+      </div>
+      <div
+        className={`${styles.profileInfo} ${
+          isCurrentPath('/following') ? styles.activeLink : ''
+        }`}
+        onClick={followingClick}
+        style={{ cursor: 'pointer', color: 'black' }}
+      >
+        팔로잉 {profileData.following}
+      </div>
     </section>
   );
 }

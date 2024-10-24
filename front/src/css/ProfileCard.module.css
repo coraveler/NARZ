@@ -10,6 +10,14 @@
   flex-wrap: wrap;
   padding: 10px 0; /* 패딩을 줄여서 레이아웃이 깔끔하게 유지되도록 수정 */
   font: 400 18px/25px Inter, -apple-system, Roboto, Helvetica, sans-serif; /* 폰트 설정 통일 */
+  font-family: 'GumiRomanceTTF', sans-serif;
+}
+
+@font-face {
+  font-family: 'GumiRomanceTTF';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2410-1@1.0/GumiRomanceTTF.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
 }
 
 @media (max-width: 991px) {
@@ -27,32 +35,30 @@
   margin: 0;
 }
 
-.profileName {
-  font-weight: 400; /* 다른 텍스트와 동일한 두께 */
-  width: 100px;
-  margin: 0;
-  text-align: center;
-  font-size: 18px; /* 다른 텍스트와 동일한 크기 */
-  line-height: 1.5;
-  color: #000; /* 검은색으로 통일 */
-  cursor: pointer; /* 클릭 가능하게 표시 */
-}
-
-.profileInfo {
+.profileName,
+.profileInfo,
+.achievementLink {
+  font-size: 18px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: all 0.3s ease;
   margin: 0 2%;
   text-align: center;
-  font-size: 18px; /* 동일한 폰트 크기 */
-  font-weight: 400; /* 동일한 폰트 두께 */
+  line-height: 1.5;
+  color: #000; /* 검은색으로 통일 */
 }
 
-.achievementLink {
-  font-size: 18px; /* 동일한 폰트 크기 */
-  margin: auto 2%;
-  text-align: center;
-  line-height: 1.5;
-  cursor: pointer;
-  color: #000; /* 동일한 폰트 색상 */
-  font-weight: 400; /* 동일한 폰트 두께 */
+.profileName:hover,
+.profileInfo:hover,
+.achievementLink:hover {
+  text-shadow: 0px 0px 4px #CEFBC9; /* 마우스 오버 시 그림자 적용 */
+}
+
+.profileName:active,
+.profileInfo:active,
+.achievementLink:active {
+  text-shadow: 0px 0px 4px #CEFBC9; /* 클릭 시 그림자 유지 */
+  color: #333; /* 클릭 시 텍스트 색상 유지 */
 }
 
 .followButton {
@@ -87,4 +93,21 @@
   align-items: center;
   justify-content: center;
   min-height: 80px;
+}
+
+
+/* 기본 스타일 */
+.profileName,
+.profileInfo,
+.achievementLink {
+  font-size: 18px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* 클릭된 링크 유지 스타일 */
+.activeLink {
+  text-shadow: 0px 0px 4px #CEFBC9; /* 클릭 후 그림자 */
+  color: #333; /* 클릭 후 색상 유지 */
 }

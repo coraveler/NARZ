@@ -3,6 +3,7 @@ import MapOverlay from '../Includes/personalPage/MapOverlay';
 import ProfileCard from '../Includes/personalPage/ProfileCard';
 import PaginationComponent from '../Includes/common/PaginationComponent';
 import TravelCardGrid from '../Includes/common/card/TravelCardGrid';
+import styles from '../css/Personal/personalpage.module.css';
 
 function PersonalPage({ selectedBadge }) {
     return (
@@ -10,13 +11,13 @@ function PersonalPage({ selectedBadge }) {
             {/* ProfileCard에 selectedBadge 전달 */}
             <ProfileCard selectedBadge={selectedBadge} />
             
-            <div align="center" style={{ marginTop: "50px", fontSize:"40px" }}>
+            <div className={styles.centeredMap}>
                 ooo's Map
             </div>
 
             <MapOverlay />
 
-            <div align="left" style={{ fontSize:"40px", width:"950px" }}>
+            <div className={styles.centeredMap}>
                 ooo's All Travel
             </div>
 
