@@ -40,7 +40,7 @@
   }
   
   .paginationButtonActive {
-    background-color: #333;
+    background-color: green;
     color : white; 
     /* color: var(--sds-color-text-brand-on-brand); */
   }
