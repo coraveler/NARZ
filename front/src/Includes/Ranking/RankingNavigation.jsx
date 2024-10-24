@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import NavItem from "./NavItem";
 import { Link } from "react-router-dom";
 
 const navItems = [
@@ -9,7 +8,7 @@ const navItems = [
   { text: "명예의 전당", path: "/ranking/hall-of-fame" }
 ];
 
-function RankingNavigation() {
+function RankingNavigation({ onRankChange, activeRank }) {
   return (
     <nav>
       <NavigationContainer>
@@ -19,8 +18,12 @@ function RankingNavigation() {
         <NavigationList>
           {navItems.map((item, index) => (
             <li key={index}>
-              <StyledLink to={item.path}>
-                <NavItem text={item.text} />
+              <StyledLink
+                to={item.path}
+                onClick={() => onRankChange(item.text)}
+                isActive={activeRank === item.text}  // active 상태 확인
+              >
+                {item.text}
               </StyledLink>
             </li>
           ))}
@@ -67,7 +70,8 @@ const VerticalDivider = styled.div`
 
 const StyledLink = styled(Link)`
   text-decoration: none;
-  color: inherit;
+  color: ${({ isActive }) => (isActive ? "black" : "gray")};  // 클릭된 항목이면 검정색
+  font-weight: ${({ isActive }) => (isActive ? "bold" : "normal")};  // 클릭된 항목이면 진하게
   &:hover {
     text-decoration: underline;
   }
