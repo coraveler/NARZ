@@ -29,11 +29,11 @@ const EditProfilePage = ({ selectedBadge }) => {
         e.target.value = null;
     };
 
-    const[name,setName]=useState('');
-    const[nickName, setNickName]=useState ('') ;
-    const[email,setEmail]=useState('');
-    const[phone,setPhone]=useState('');
-    const[birthday, setBirthday]=useState('');
+    const [name, setName] = useState('');
+    const [nickName, setNickName] = useState('');
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
+    const [birthday, setBirthday] = useState('');
 
     return (
         <div className={styles.ProfileContainer}>
@@ -73,13 +73,13 @@ const EditProfilePage = ({ selectedBadge }) => {
                                 name={"Name"}
                                 placeholder="Name"
                                 value={name}
-                                onChange={(event)=>{
+                                onChange={(event) => {
                                     console.log(event.target.value);
                                     setName(event.target.value);
-                                    console.debug('Name',name);
-                                  
+                                    console.debug('Name', name);
+
                                 }}
-                        
+
                             />
                         </div>
                     </div>
@@ -94,11 +94,11 @@ const EditProfilePage = ({ selectedBadge }) => {
                                 name={"NickName"}
                                 placeholder="NickName"
                                 value={nickName}
-                                onChange={(event)=>{
+                                onChange={(event) => {
                                     console.log(event.target.value);
                                     setNickName(event.target.value);
-                                    console.debug('NickName',nickName);
-                                  }}
+                                    console.debug('NickName', nickName);
+                                }}
                             />
                             <button className={styles.AutoButton}>색상 랜덤 뽑기</button>
                         </div>
@@ -113,16 +113,16 @@ const EditProfilePage = ({ selectedBadge }) => {
                                 id={"Email"}
                                 name={"Email"}
                                 value={email}
-                                 placeholder="Email"
+                                placeholder="Email"
 
-                                onChange={(event)=>{
+                                onChange={(event) => {
                                     console.log(event.target.value);
                                     setEmail(event.target.value);
-                                    console.debug('Email',email);
+                                    console.debug('Email', email);
                                 }
 
                                 }
-                                
+
                             />
                         </div>
                     </div>
@@ -137,10 +137,10 @@ const EditProfilePage = ({ selectedBadge }) => {
                                 name={"Phone"}
                                 placeholder="Phone"
                                 value={phone}
-                                onChange={(event)=>{
+                                onChange={(event) => {
                                     console.log(event.target.value);
                                     setPhone(event.target.value);
-                                    console.debug('Phone',phone);
+                                    console.debug('Phone', phone);
                                 }
 
                                 }
@@ -158,11 +158,10 @@ const EditProfilePage = ({ selectedBadge }) => {
                                 name={"Birthday"}
                                 placeholder="Birthday"
                                 value={birthday}
-                                onChange={(event)=>
-                                {
+                                onChange={(event) => {
                                     console.log(event.target.value);
                                     setBirthday(event.target.value);
-                                    console.debug('Birthday',birthday);
+                                    console.debug('Birthday', birthday);
                                 }
                                 }
                             />
@@ -171,22 +170,22 @@ const EditProfilePage = ({ selectedBadge }) => {
 
                     <button onClick={() => navigate('/PasswordResetPage')} className={styles.FullButton}>비밀번호 재설정</button>
                     <button type="submit" className={styles.FullButton}
-                    onClick={(e)=>
-                    { e.preventDefault();
-                        let 전송할객체={
-                            name:name,
-                            nickName:nickName,
-                            email:email,
-                            phone:phone,
-                            birthday:birthday
-                       
+                        onClick={(e) => {
+                            e.preventDefault();
+                            let 전송할객체 = {
+                                name: name,
+                                nickName: nickName,
+                                email: email,
+                                phone: phone,
+                                birthday: birthday
+
+                            }
+                            console.log('전송할객체', 전송할객체)
                         }
-                        console.log('전송할객체',전송할객체)
-                    }
-                    }
-                    
+                        }
+
                     >확인</button>
-                    <button  onClick={() => navigate('/PasswordResetPage')} className={styles.FullButton}>취소</button>
+                    <button onClick={() => navigate('/PasswordResetPage')} className={styles.FullButton}>취소</button>
                 </form>
             </main>
         </div>
