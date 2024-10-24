@@ -3,7 +3,6 @@ package com.kdt_final.back.post.ctrl;
 import java.util.List;
 import java.io.File;
 
-import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
@@ -23,8 +22,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.kdt_final.back.post.domain.PostRequestDTO;
 import com.kdt_final.back.post.domain.PostResponseDTO;
-import com.kdt_final.back.post.domain.bookMark.PostBookMarkRequestDTO;
+import com.kdt_final.back.post.domain.postBookMark.PostBookMarkRequestDTO;
 import com.kdt_final.back.post.domain.postImage.PostImageResponseDTO;
+import com.kdt_final.back.post.domain.postJoinBookMark.PostJoinBookMarkResponseDTO;
 import com.kdt_final.back.post.domain.postLike.PostLikeRequestDTO;
 import com.kdt_final.back.post.service.PostService;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -126,4 +126,27 @@ public class PostController {
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
+    @DeleteMapping("/bookmark/delete")
+    public ResponseEntity<Void> bookMarkSaveDelete(@RequestParam("postId") Integer postId, @RequestParam("userId") String userId) {
+        PostBookMarkRequestDTO params = new PostBookMarkRequestDTO();
+        params.setPostId(postId);
+        params.setUserId(userId);
+        postService.bookMarkDelete(params);
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    }
+
+    @GetMapping("/bookmark/check")
+    public ResponseEntity<Boolean> bookMarkCheck(@RequestParam("postId") Integer postId, @RequestParam("userId") String userId) {
+        PostBookMarkRequestDTO params = new PostBookMarkRequestDTO();
+        params.setPostId(postId);
+        params.setUserId(userId);
+        boolean result = postService.bookMarkCheck(params);
+        return new ResponseEntity<Boolean>(result,HttpStatus.OK);
+    }
+
+    @GetMapping("/get/bookmark/{userId}")
+    public ResponseEntity<List<PostResponseDTO>> getBookMark(@PathVariable("userId") String userId) {
+        List<PostResponseDTO> result = postService.getBookMark(userId);  
+        return new ResponseEntity<List<PostResponseDTO>>(result,HttpStatus.OK);
+    }
 }

@@ -1,4 +1,4 @@
-package com.kdt_final.back.post.domain.bookMark;
+package com.kdt_final.back.post.domain.postBookMark;
 
 import lombok.Data;
 

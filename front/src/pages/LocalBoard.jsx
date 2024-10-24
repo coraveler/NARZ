@@ -81,16 +81,19 @@ function LocalBoard() {
 
     const changeArray = () => {
         let sortedPosts = [...originalPost];
-
+    
         switch (arrayState) {
             case 0: // 최신순
-                sortedPosts = [...originalPost];
+                sortedPosts.sort((a, b) => {
+                    return new Date(b.createdDate) - new Date(a.createdDate);
+                });
                 setPage(1);
                 break;
             case 1: // 인기순
                 sortedPosts.sort((a, b) => {
                     if (b.likeCount === a.likeCount) {
-                        return a.rating - b.rating;
+                        // likeCount가 같을 때 createdDate로 정렬
+                        return new Date(b.createdDate) - new Date(a.createdDate);
                     }
                     return b.likeCount - a.likeCount;
                 });
@@ -99,7 +102,8 @@ function LocalBoard() {
             case 2: // 평점순
                 sortedPosts.sort((a, b) => {
                     if (b.rating === a.rating) {
-                        return a.likeCount - b.likeCount;
+                        // rating이 같을 때 createdDate로 정렬
+                        return new Date(b.createdDate) - new Date(a.createdDate);
                     }
                     return b.rating - a.rating;
                 });
@@ -108,10 +112,10 @@ function LocalBoard() {
             default:
                 return;
         }
-
+    
         setPost(sortedPosts);
     };
-
+    
     useEffect(() => {
         // 로컬 스토리지에서 arrayState를 가져옵니다.
         const storedArrayState = localStorage.getItem('arrayState');

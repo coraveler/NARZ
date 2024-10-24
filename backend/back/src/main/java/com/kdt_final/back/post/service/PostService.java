@@ -12,9 +12,10 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kdt_final.back.post.dao.PostMapper;
 import com.kdt_final.back.post.domain.PostRequestDTO;
 import com.kdt_final.back.post.domain.PostResponseDTO;
-import com.kdt_final.back.post.domain.bookMark.PostBookMarkRequestDTO;
+import com.kdt_final.back.post.domain.postBookMark.PostBookMarkRequestDTO;
 import com.kdt_final.back.post.domain.postImage.PostImageRequestDTO;
 import com.kdt_final.back.post.domain.postImage.PostImageResponseDTO;
+import com.kdt_final.back.post.domain.postJoinBookMark.PostJoinBookMarkResponseDTO;
 import com.kdt_final.back.post.domain.postLike.PostLikeRequestDTO;
 import com.kdt_final.back.post.domain.postLike.PostLikeResponseDTO;
 
@@ -85,26 +86,6 @@ public class PostService {
     
     String baseUrl = "http://localhost:7777/post/";
 
-    // public List<PostResponseDTO> getAllPost(String local){
-    //     System.out.println("debug >>>> service list()" + postMapper); 
-    //     List<PostResponseDTO> lst ;
-    //     if(local.equals("all")){
-    //         lst = postMapper.getAllPost();
-    //     }else{
-    //         lst = postMapper.getPost(local);
-    //     }
-    //     System.out.println("lst : " +lst);
-    //     for(int i=0; i<lst.size(); i++){
-    //         String imgPath = lst.get(i).getHeaderImg();
-    //         if (imgPath != null) {
-    //             // imgPath에 baseUrl을 추가하여 전체 경로를 생성
-    //             lst.get(i).setHeaderImg(baseUrl + imgPath);
-    //         }
-    //     }
-       
-    //     return lst;
-    // }
-
     public List<PostResponseDTO> getAllPost(String local) {
         System.out.println("debug >>>> service list()" + postMapper); 
         List<PostResponseDTO> lst;
@@ -170,4 +151,32 @@ public class PostService {
     public void bookMarkSave(PostBookMarkRequestDTO params){
         postMapper.bookMarkSave(params);
     }
+
+    public void bookMarkDelete(PostBookMarkRequestDTO params){
+        postMapper.bookMarkDelete(params);
+    }
+
+    public Boolean bookMarkCheck(PostBookMarkRequestDTO params){
+        Integer result = postMapper.bookMarkCheck(params);
+        return result != null;
+    }
+
+    public List<PostResponseDTO> getBookMark(String userId) {
+        System.out.println("debug >>>> service list()" + postMapper); 
+        List<PostResponseDTO> lst = postMapper.getBookMark(userId);
+        
+        System.out.println("lst : " + lst);
+    
+        for (int i = 0; i < lst.size(); i++) {
+            String imgPath = lst.get(i).getHeaderImg();
+            if (imgPath != null) {
+                // imgPath에 baseUrl을 추가하여 전체 경로를 생성
+                lst.get(i).setHeaderImg(baseUrl + imgPath);
+            }
+    
+        }
+    
+        return lst;
+    }
+
 }
