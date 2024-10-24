@@ -14,38 +14,37 @@ function ProfileCard({ selectedBadge }) {
     achievement: '업적'
   };
 
+  //지도를 클릭하면 MapPage로 이동
   const handleMapClick = () => {
-    navigate('/personal');
+    navigate('/map');
   };
 
+  //업적을 AcheveivemetPage 페이지로 이동
   const handleAchievementClick = () => {
     navigate('/AchievementPage');
   };
 
-  // name을 클릭하면 EditProfilePage로 이동
+  // 회원정보를 클릭하면 EditProfilePage로 이동
   const handleNameClick = () => {
     navigate('/EditProfilePage');
   };
 
+  //팔로우를 클릭하면 followerPage로 이동
+  const followerClick = () => {
+    navigate('/follower');
+  };
+
+  //팔로잉을 클릭하면 FollowignPage로 이동
+  const followingClick = () => {
+    navigate('/following');
+  };
+
   return (
     <section className={styles.profileCard}>
-      {/* <img
-        loading="lazy"
-        src="https://cdn.builder.io/api/v1/image/assets/TEMP/b27a83d8c5cb2603bbe525f37e40638c4662ab944e1735d12e70886d6fa4e375?placeholderIfAbsent=true&apiKey=c7f1d91a917e4e2ba5370da6919a77db"
-        className={styles.profileImage}
-        alt="Profile picture"
-      />ㄹ
-      <h2 className={styles.profileName}>{profileData.name}</h2> */}
+      {/* selectedBadge를 rank로 전달 */}
+      <ProfileInfo rank={selectedBadge} data={profileData} />
 
-
-        {/* <ProfileInfo/>
-      <div className={styles.profileInfo}>{profileData.title}</div> */}
-
-
-      
-      <ProfileInfo rank={selectedBadge} />
-
-      {/* 이름을 클릭하면 EditProfilePage로 이동 */}
+      {/* 회원정보 클릭 시 EditProfilePage로 이동 */}
       <div className={styles.profileName} onClick={handleNameClick} style={{ cursor: 'pointer', color: 'black' }}>
         {profileData.name}
       </div>
@@ -61,8 +60,8 @@ function ProfileCard({ selectedBadge }) {
       </div>
 
       {/* 팔로워, 팔로잉 정보 */}
-      <div className={styles.profileInfo}>팔로워 {profileData.followers}</div>
-      <div className={styles.profileInfo}>팔로잉 {profileData.following}</div>
+      <div className={styles.profileInfo} onClick={followerClick} >팔로워 {profileData.followers}</div>
+      <div className={styles.profileInfo} onClick={followingClick}>팔로잉 {profileData.following}</div>
     </section>
   );
 }

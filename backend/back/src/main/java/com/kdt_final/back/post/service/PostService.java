@@ -14,6 +14,8 @@ import com.kdt_final.back.post.domain.PostRequestDTO;
 import com.kdt_final.back.post.domain.PostResponseDTO;
 import com.kdt_final.back.post.domain.postImage.PostImageRequestDTO;
 import com.kdt_final.back.post.domain.postImage.PostImageResponseDTO;
+import com.kdt_final.back.post.domain.postLike.PostLikeRequestDTO;
+import com.kdt_final.back.post.domain.postLike.PostLikeResponseDTO;
 
 @Service
 public class PostService {
@@ -82,24 +84,56 @@ public class PostService {
     
     String baseUrl = "http://localhost:7777/post/";
 
-    public List<PostResponseDTO> getAllPost(){
+    // public List<PostResponseDTO> getAllPost(String local){
+    //     System.out.println("debug >>>> service list()" + postMapper); 
+    //     List<PostResponseDTO> lst ;
+    //     if(local.equals("all")){
+    //         lst = postMapper.getAllPost();
+    //     }else{
+    //         lst = postMapper.getPost(local);
+    //     }
+    //     System.out.println("lst : " +lst);
+    //     for(int i=0; i<lst.size(); i++){
+    //         String imgPath = lst.get(i).getHeaderImg();
+    //         if (imgPath != null) {
+    //             // imgPath에 baseUrl을 추가하여 전체 경로를 생성
+    //             lst.get(i).setHeaderImg(baseUrl + imgPath);
+    //         }
+    //     }
+       
+    //     return lst;
+    // }
+
+    public List<PostResponseDTO> getAllPost(String local) {
         System.out.println("debug >>>> service list()" + postMapper); 
-        List<PostResponseDTO> lst = postMapper.getAllPost();
-        System.out.println("lst : " +lst);
-        for(int i=0; i<lst.size(); i++){
+        List<PostResponseDTO> lst;
+        if (local.equals("all")) {
+            lst = postMapper.getAllPost();
+        } else {
+            lst = postMapper.getPost(local);
+        }
+        System.out.println("lst : " + lst);
+    
+        for (int i = 0; i < lst.size(); i++) {
             String imgPath = lst.get(i).getHeaderImg();
             if (imgPath != null) {
                 // imgPath에 baseUrl을 추가하여 전체 경로를 생성
                 lst.get(i).setHeaderImg(baseUrl + imgPath);
             }
+    
+            // 각 포스트의 좋아요 수를 추가
+            int likeCount = postMapper.countLike(lst.get(i).getPostId()); // 포스트 ID를 사용하여 좋아요 수 조회
+            lst.get(i).setLikeCount(likeCount); // 좋아요 수 설정
         }
-       
+    
         return lst;
     }
+    
 
-    public PostResponseDTO getPost(int postId){
+
+    public PostResponseDTO viewPost(int postId){
         System.out.println("debug >>>> service list()" + postMapper); 
-        return postMapper.getPost(postId);
+        return postMapper.viewPost(postId);
     }
 
     public List<PostImageResponseDTO> getPostImages(int postId){    
@@ -113,5 +147,22 @@ public class PostService {
             }
         }
         return lst;
+    }
+
+    public void likeSave(PostLikeRequestDTO params){
+        postMapper.likeSave(params);
+    }
+
+    public void likeDelete(PostLikeRequestDTO params){
+        postMapper.likeDelete(params);
+    }
+
+    public Boolean likeCheck(PostLikeRequestDTO params){
+        Integer result = postMapper.likeCheck(params);
+        return result != null;
+    }
+
+    public Integer countLike(Integer postId){
+        return postMapper.countLike(postId);
     }
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from '../../css/PaginationComponent.module.css';
 
 const PaginationButton = ({ children, isActive, onClick }) => {
@@ -29,23 +29,32 @@ const PaginationNavButton = ({ children, onClick, direction, disabled }) => {
   );
 };
 
-const PaginationComponent = ({ totalPages = 5 }) => {
-  const [currentPage, setCurrentPage] = useState(1);
-
+const PaginationComponent = ({ totalPages = 5, currentPage, onPageChange }) => {
   const handlePageChange = (page) => {
-    setCurrentPage(page);
+    if (onPageChange) {
+      onPageChange(page); // 부모 컴포넌트에 페이지 번호 전달
+    }
   };
 
   const handlePrevious = () => {
     if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
+      handlePageChange(currentPage - 1);
     }
   };
 
   const handleNext = () => {
     if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
+      handlePageChange(currentPage + 1);
     }
+  };
+
+  // 페이지 그룹 계산
+  const getPageGroup = () => {
+    const groupSize = 5;
+    const currentGroup = Math.ceil(currentPage / groupSize);
+    const start = (currentGroup - 1) * groupSize + 1;
+    const end = Math.min(start + groupSize - 1, totalPages);
+    return Array.from({ length: end - start + 1 }, (_, i) => start + i);
   };
 
   return (
@@ -56,9 +65,9 @@ const PaginationComponent = ({ totalPages = 5 }) => {
         disabled={currentPage === 1}
       >
         Previous
-      </PaginationNavButton>
+      </PaginationNavButton>&nbsp;&nbsp;
       <div className={styles.paginationList}>
-        {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+        {getPageGroup().map((page) => (
           <PaginationButton
             key={page}
             isActive={page === currentPage}
@@ -68,6 +77,7 @@ const PaginationComponent = ({ totalPages = 5 }) => {
           </PaginationButton>
         ))}
       </div>
+      &nbsp;&nbsp;
       <PaginationNavButton 
         direction="next" 
         onClick={handleNext} 

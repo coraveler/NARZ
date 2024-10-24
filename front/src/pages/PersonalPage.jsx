@@ -7,17 +7,21 @@ import TravelCardGrid from '../Includes/common/card/TravelCardGrid';
 function PersonalPage({ selectedBadge }) {
     return (
         <div align="center">
+            {/* ProfileCard에 selectedBadge 전달 */}
             <ProfileCard selectedBadge={selectedBadge} />
-            <div align="center" style={{marginTop: "50px", fontSize:"40px" }}>
+            
+            <div align="center" style={{ marginTop: "50px", fontSize:"40px" }}>
                 ooo's Map
             </div>
-            <MapOverlay/>
-            <div align="left" style={{ fontSize:"40px", width:"950px"}}>
+
+            <MapOverlay />
+
+            <div align="left" style={{ fontSize:"40px", width:"950px" }}>
                 ooo's All Travel
             </div>
-            <TravelCardGrid/>
-            <PaginationComponent/>
-            
+
+            <TravelCardGrid />
+            <PaginationComponent />
         </div>
     );
 }

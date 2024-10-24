@@ -3,12 +3,14 @@ package com.kdt_final.back.post.ctrl;
 import java.util.List;
 import java.io.File;
 
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +24,10 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kdt_final.back.post.domain.PostRequestDTO;
 import com.kdt_final.back.post.domain.PostResponseDTO;
 import com.kdt_final.back.post.domain.postImage.PostImageResponseDTO;
+import com.kdt_final.back.post.domain.postLike.PostLikeRequestDTO;
 import com.kdt_final.back.post.service.PostService;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 
@@ -42,10 +47,10 @@ public class PostController {
         return new ResponseEntity<Integer>(postId,HttpStatus.OK);
     }
     
-    @GetMapping("/view")
-    public ResponseEntity<List<PostResponseDTO>> getAllPost() {
+    @GetMapping("/get/{local}")
+    public ResponseEntity<List<PostResponseDTO>> getAllPost(@PathVariable("local") String local) {
         System.out.println("debug >>>> post controller client path /view");
-        List<PostResponseDTO> lst = postService.getAllPost();  
+            List<PostResponseDTO> lst = postService.getAllPost(local);  
         return new ResponseEntity<List<PostResponseDTO>>(lst, HttpStatus.OK);
     }
     
@@ -68,9 +73,9 @@ public class PostController {
     }
 
     @GetMapping("/view/{postId}")
-    public ResponseEntity<PostResponseDTO> getPost(@PathVariable("postId") Integer postId) {
+    public ResponseEntity<PostResponseDTO> viewPost(@PathVariable("postId") Integer postId) {
         System.out.println("debug >>>> post controller client path /view");
-        PostResponseDTO params = postService.getPost(postId);  
+        PostResponseDTO params = postService.viewPost(postId);  
         System.out.println(">>>>>>>>>>>>>>>>>"+params);
         return new ResponseEntity<PostResponseDTO>(params, HttpStatus.OK);
     }
@@ -82,4 +87,37 @@ public class PostController {
         System.out.println(">>>>>>>>>>>>>>>>>"+lst);
         return new ResponseEntity<List<PostImageResponseDTO>>(lst, HttpStatus.OK);
     }
+
+    @PostMapping("/like/save")
+    public ResponseEntity<Void> likeSave(@RequestBody PostLikeRequestDTO params) {
+        postService.likeSave(params);
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/like/delete")
+    public ResponseEntity<Void> likeDelete(@RequestParam("postId") Integer postId, @RequestParam("userId") String userId) {
+        PostLikeRequestDTO params = new PostLikeRequestDTO();
+        params.setPostId(postId);
+        params.setUserId(userId);
+        postService.likeDelete(params);
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    }
+
+    @GetMapping("/like/check")
+    public ResponseEntity<Boolean> likeCheck(@RequestParam("postId") Integer postId, @RequestParam("userId") String userId) {
+        PostLikeRequestDTO params = new PostLikeRequestDTO();
+        params.setPostId(postId);
+        params.setUserId(userId);
+        boolean result = postService.likeCheck(params);
+        return new ResponseEntity<Boolean>(result,HttpStatus.OK);
+    }
+    
+    @GetMapping("/like/count/{postId}")
+    public ResponseEntity<Integer> countLike(@PathVariable("postId") Integer postId) {
+        
+        Integer result =postService.countLike(postId);
+        return new ResponseEntity<Integer>(result,HttpStatus.OK);
+    }
+    
+
 }

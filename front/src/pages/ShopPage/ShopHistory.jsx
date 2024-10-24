@@ -6,9 +6,9 @@ function Navbar() {
   return (
     <nav className={styles.navbar}>
       <ul>
-        <li><Link to="/shop">마일리지 쿠폰</Link></li>
-        <li><Link to="/purchase">마일리지 사용</Link></li>
-        <li><Link to="/history">마일리지 내역</Link></li>
+        <li><Link to="/shop">포인트 쿠폰</Link></li>
+        <li><Link to="/purchase">포인트 사용</Link></li>
+        <li><Link to="/history">포인트 내역</Link></li>
       </ul>
     </nav>
   );
@@ -44,7 +44,7 @@ function ShopHistory() {
   <div className={styles['shop-page']}>
     <Navbar /> 
     <div className={styles['mileage-history']}>
-      <h2>마일리지 내역</h2>
+      <h2>포인트 내역</h2>
       <div className={styles['table-container']}> {/* 테이블을 감싸는 컨테이너 추가 */}
         <table>
           <thead>

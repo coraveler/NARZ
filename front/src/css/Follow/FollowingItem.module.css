@@ -1,0 +1,69 @@
+.followerCard {
+    background-color: #fff;
+    border-color: #000;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    display: flex;
+    min-height: 150px;
+    width: 100%;
+    align-items: center;
+    gap: 30px 40px;
+    overflow: hidden;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 20px 300px; /* 상하 20px, 좌우 80px 패딩 추가 */
+  }
+  
+  @media (max-width: 991px) {
+    .followerCard {
+      max-width: 100%;
+      padding: 20 40px;
+    }
+  }
+  
+  .profileImage {
+    aspect-ratio: 1; 
+    object-fit: contain;
+    object-position: center;
+    width: 60px; /* 이미지 크기 축소 */
+    border-radius: 50%; 
+    align-self: stretch;
+    margin: auto 0;
+  }
+  
+  .userName {
+    font-size: 16px; /* 폰트 크기 축소 */
+    font-weight: 700;
+    line-height: 20px;
+    align-self: stretch;
+    flex-grow: 1;
+    width: 600px; /* 사용자 이름 영역의 너비 축소 */
+    margin: auto 0;
+  }
+  
+  @media (max-width: 991px) {
+    .userName {
+      max-width: 100%;
+    }
+  }
+  
+  .followButton {
+    align-self: stretch;
+    color: white;
+    width: 60px; /* 가로 길이 축소 */
+    border-radius: 8px;
+    background-color: #FFB74D;
+    min-height: 25px; /* 버튼 최소 높이 축소 */
+    gap: 8px;
+    overflow: hidden;
+    text-align: center;
+    flex: 0 0 auto; /* flex-grow를 없애고 고정 너비로 설정 */
+    margin: auto 0;
+    border: 1px solid #FFB74D;
+    font-size: 12px; /* 폰트 크기 축소 */
+  }
+
+  .followButton:hover {
+    background-color: #FF8A2B;
+    border-color: #FFB74D;
+  }
