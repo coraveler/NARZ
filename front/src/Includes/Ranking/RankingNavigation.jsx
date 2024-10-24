@@ -1,14 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 import NavItem from "./NavItem";
+import { Link } from "react-router-dom";
 
 const navItems = [
-  { text: "인기 게시글 랭킹" },
-  { text: "유저 활동 랭킹" },
-  { text: "명예의 전당" }
+  { text: "인기 게시글 랭킹", path: "/ranking/popular" },
+  { text: "유저 활동 랭킹", path: "/ranking/user-activity" },
+  { text: "명예의 전당", path: "/ranking/hall-of-fame" }
 ];
 
-function RankingNavigation({ onRankChange }) {
+function RankingNavigation() {
   return (
     <nav>
       <NavigationContainer>
@@ -17,7 +18,11 @@ function RankingNavigation({ onRankChange }) {
         </VerticalDividerWrapper>
         <NavigationList>
           {navItems.map((item, index) => (
-            <NavItem key={index} text={item.text} onClick={() => onRankChange(item.text)} />
+            <li key={index}>
+              <StyledLink to={item.path}>
+                <NavItem text={item.text} />
+              </StyledLink>
+            </li>
           ))}
         </NavigationList>
       </NavigationContainer>
@@ -58,6 +63,14 @@ const VerticalDivider = styled.div`
   border-right: 2px solid #e0e0e0;
   min-height: 40px;
   width: 2px;
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: inherit;
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 export default RankingNavigation;
