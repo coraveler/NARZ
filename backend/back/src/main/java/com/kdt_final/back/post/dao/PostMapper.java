@@ -42,5 +42,7 @@ public interface PostMapper {
 
     public Integer bookMarkCheck (PostBookMarkRequestDTO params);
 
-    public List<PostResponseDTO> getBookMark(String userId);
+    public List<PostResponseDTO> getAllBookMark(String userId);
+
+    public List<PostResponseDTO> getBookMark(PostRequestDTO params);
 }

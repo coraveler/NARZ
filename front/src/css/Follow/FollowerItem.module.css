@@ -56,12 +56,12 @@
   }
   
   .actionButton {
-    border: 1px solid #198754;
+    border: 1px solid #FF8A2B;
     padding: 8px 16px;
     cursor: pointer;
     font-size: 14px;
     align-self: stretch;
-    color: #198754;
+    color: #FF8A2B;
     width: 100px;
     border-radius: 8px;
     background-color: white;
@@ -75,7 +75,7 @@
   }
   
   .actionButton:hover {
-    background-color: #198754;
+    background-color: #FF8A2B;
     color: #f5f5f5;
   }
   

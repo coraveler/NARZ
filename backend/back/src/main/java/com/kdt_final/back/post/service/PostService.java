@@ -161,9 +161,14 @@ public class PostService {
         return result != null;
     }
 
-    public List<PostResponseDTO> getBookMark(String userId) {
+    public List<PostResponseDTO> getBookMark(PostRequestDTO params) {
         System.out.println("debug >>>> service list()" + postMapper); 
-        List<PostResponseDTO> lst = postMapper.getBookMark(userId);
+        List<PostResponseDTO> lst ;
+        if(params.getLocal().equals("all")){
+            lst = postMapper.getAllBookMark(params.getUserId());
+        }else{
+            lst = postMapper.getBookMark(params);
+        }
         
         System.out.println("lst : " + lst);
     
@@ -173,7 +178,9 @@ public class PostService {
                 // imgPath에 baseUrl을 추가하여 전체 경로를 생성
                 lst.get(i).setHeaderImg(baseUrl + imgPath);
             }
-    
+             // 각 포스트의 좋아요 수를 추가
+             int likeCount = postMapper.countLike(lst.get(i).getPostId()); // 포스트 ID를 사용하여 좋아요 수 조회
+             lst.get(i).setLikeCount(likeCount); // 좋아요 수 설정
         }
     
         return lst;

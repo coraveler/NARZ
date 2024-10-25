@@ -120,9 +120,9 @@
         WHERE USERID = #{userId} AND POSTID = #{postId};
     </select>   
 
-    <!-- getBookMark --> 
+    <!-- getAllBookMark --> 
 
-    <select id="getBookMark"
+    <select id="getAllBookMark"
             parameterType="String"
             resultType="com.kdt_final.back.post.domain.PostResponseDTO">
        SELECT 
@@ -143,5 +143,29 @@
         WHERE 
             pb.userId = #{userId}
     </select>   
+
+    <!-- getBookMark --> 
+
+    <select id="getBookMark"
+            parameterType="com.kdt_final.back.post.domain.PostRequestDTO"
+            resultType="com.kdt_final.back.post.domain.PostResponseDTO">
+       SELECT 
+            p.postId,
+            p.userId,
+            p.local,
+            p.title,
+            p.content,
+            p.headerImg,
+            p.rating,
+            pb.createdDate,
+            p.updatedDate,
+            p.secret
+        FROM 
+            post p
+        JOIN 
+            postBookMark pb ON p.postId = pb.postId
+        WHERE 
+            pb.userId = #{userId} AND p.local = #{local}
+    </select>
 
     </mapper>
