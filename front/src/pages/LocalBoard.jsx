@@ -18,6 +18,7 @@ function LocalBoard() {
     const [arrayState, setArrayState] = useState(0); // 기본값을 0으로 설정
     const [originalPost, setOriginalPost] = useState([]);
     // const [board, setBoard] = useState();
+    const userId = 'userB';
 
     const getPost = async () => {
         try {
@@ -88,7 +89,6 @@ function LocalBoard() {
                 sortedPosts.sort((a, b) => {
                     return new Date(b.createdDate) - new Date(a.createdDate);
                 });
-                setPage(1);
                 break;
             case 1: // 인기순
                 sortedPosts.sort((a, b) => {
@@ -98,7 +98,6 @@ function LocalBoard() {
                     }
                     return b.likeCount - a.likeCount;
                 });
-                setPage(1);
                 break;
             case 2: // 평점순
                 sortedPosts.sort((a, b) => {
@@ -108,12 +107,12 @@ function LocalBoard() {
                     }
                     return b.rating - a.rating;
                 });
-                setPage(1);
+                
                 break;
             default:
                 return;
         }
-
+        setPage(1);
         setPost(sortedPosts);
     };
 
@@ -145,10 +144,32 @@ function LocalBoard() {
         console.log("페이지 수 : ", totalPages);
     };
 
+    const getBookMarkPost = async () => {
+        try {
+          const response = await api.get(`post/get/bookmark`,{params: {
+                                            local: local,
+                                            userId: userId,
+        }
+
+          });
+          console.log("debug >>> response, ", response.data);
+          // 최신순으로 정렬
+          const sortedPosts = response.data.sort((a, b) => {
+            return new Date(b.createdDate) - new Date(a.createdDate);
+          });
+          setOriginalPost(response.data);
+          setPost(sortedPosts);
+    
+        } catch (err) {
+          // setError('Failed to load images');
+          console.log(err);
+        }
+      };
+
     useEffect(() => {
         switch(board){
             case "bookmark":
-                // getBookMarkPost();
+                getBookMarkPost();
                 break;
             default:
                 getPost();
