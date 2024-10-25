@@ -148,10 +148,9 @@ function LocalBoard() {
     useEffect(() => {
         switch(board){
             case "bookmark":
-                // setBoard(pageInfo);
+                // getBookMarkPost();
                 break;
             default:
-                // setBoard(pageInfo);
                 getPost();
                 return;   
         }
