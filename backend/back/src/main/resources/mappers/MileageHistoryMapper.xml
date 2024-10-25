@@ -5,21 +5,21 @@
 
 <mapper namespace="com.kdt_final.back.shop.dao.MileageHistoryMapper">
     <!-- 마일리지 내역 추가 -->
-    <insert id="insertHistory" parameterType="com.kdt_final.back.shop.domain.MileageHistory">
-        INSERT INTO mileage (user_id, mileage, change_history, change_date)
+    <insert id="insertMileageHistory" parameterType="com.kdt_final.back.shop.domain.MileageHistory">
+        INSERT INTO mileage_history (user_id, mileage_points, description, change_date)
         VALUES (#{userId}, #{mileagePoints}, #{description}, CURRENT_TIMESTAMP)
     </insert>
 
     <!-- 특정 유저의 마일리지 내역 조회 -->
-    <select id="getHistoryByUser" parameterType="String" resultType="com.kdt_final.back.shop.domain.MileageHistory">
-        SELECT mileage_id, user_id, mileage, change_history, change_date
-        FROM mileage
+    <select id="findByUserId" parameterType="String" resultType="com.kdt_final.back.shop.domain.MileageHistory">
+        SELECT mileage_id, user_id, mileage_points, description, change_date
+        FROM mileage_history
         WHERE user_id = #{userId}
     </select>
 
     <!-- 모든 마일리지 내역 조회 -->
     <select id="getAllHistories" resultType="com.kdt_final.back.shop.domain.MileageHistory">
-        SELECT mileage_id, user_id, mileage, change_history, change_date
-        FROM mileage
+        SELECT mileage_id, user_id, mileage_points, description, change_date
+        FROM mileage_history
     </select>
 </mapper>
