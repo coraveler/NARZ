@@ -10,6 +10,7 @@ function ProfileCard({ selectedBadge }) {
   const profileData = {
     name: '회원정보',
     map: '지도',
+    travelog: '여행로그', // 추가된 항목
     followers: 0,
     following: 0,
     achievement: '업적'
@@ -20,6 +21,7 @@ function ProfileCard({ selectedBadge }) {
 
   // 경로 이동 함수들
   const handleMapClick = () => navigate('/map');
+  const handleTravelogClick = () => navigate('/travelog'); // travelog 경로로 이동하는 함수
   const handleAchievementClick = () => navigate('/AchievementPage');
   const handleNameClick = () => navigate('/EditProfilePage');
   const followerClick = () => navigate('/follower');
@@ -50,6 +52,17 @@ function ProfileCard({ selectedBadge }) {
         style={{ cursor: 'pointer', color: 'black' }}
       >
         {profileData.map}
+      </div>
+
+      {/* travelog */}
+      <div
+        className={`${styles.profileInfo} ${
+          isCurrentPath('/travelog') ? styles.activeLink : ''
+        }`}
+        onClick={handleTravelogClick}
+        style={{ cursor: 'pointer', color: 'black' }}
+      >
+        {profileData.travelog}
       </div>
 
       {/* 업적 링크 */}
@@ -86,3 +99,4 @@ function ProfileCard({ selectedBadge }) {
 }
 
 export default ProfileCard;
+

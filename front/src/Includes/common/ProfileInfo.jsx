@@ -15,7 +15,7 @@ const ProfileInfo = ({ rank, data }) => {
       
       {/* 사용자 이름 표시 */}
       <p className={styles.profileName}>
-        {data?.userId || 'name'} 
+        {data?.userId || 'name'}  
       </p>
 
     </>
