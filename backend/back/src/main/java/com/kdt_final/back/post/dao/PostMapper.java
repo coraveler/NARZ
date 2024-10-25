@@ -7,10 +7,10 @@ import org.apache.ibatis.annotations.Options;
 
 import com.kdt_final.back.post.domain.PostRequestDTO;
 import com.kdt_final.back.post.domain.PostResponseDTO;
+import com.kdt_final.back.post.domain.postBookMark.PostBookMarkRequestDTO;
 import com.kdt_final.back.post.domain.postImage.PostImageRequestDTO;
 import com.kdt_final.back.post.domain.postImage.PostImageResponseDTO;
 import com.kdt_final.back.post.domain.postLike.PostLikeRequestDTO;
-import com.kdt_final.back.post.domain.postLike.PostLikeResponseDTO;
 
 @Mapper
 public interface PostMapper {
@@ -35,4 +35,12 @@ public interface PostMapper {
     public Integer likeCheck (PostLikeRequestDTO params);
 
     public Integer countLike(Integer postId );
+
+    public void bookMarkSave (PostBookMarkRequestDTO params);
+
+    public void bookMarkDelete (PostBookMarkRequestDTO params);
+
+    public Integer bookMarkCheck (PostBookMarkRequestDTO params);
+
+    public List<PostResponseDTO> getBookMark(String userId);
 }

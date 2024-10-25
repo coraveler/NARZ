@@ -7,7 +7,7 @@ import PaginationComponent from '../Includes/common/PaginationComponent';
 import api from '../api/axios';
 
 function LocalBoard() {
-    const { local } = useParams();
+    const { board ,local } = useParams();
     const [post, setPost] = useState([]);
     const [page, setPage] = useState(1); // 기본값을 1로 설정
     const [totalCount, setTotalCount] = useState(0);
@@ -17,6 +17,7 @@ function LocalBoard() {
     const [kLocal, setkLocal] = useState('');
     const [arrayState, setArrayState] = useState(0); // 기본값을 0으로 설정
     const [originalPost, setOriginalPost] = useState([]);
+    // const [board, setBoard] = useState();
 
     const getPost = async () => {
         try {
@@ -74,7 +75,7 @@ function LocalBoard() {
                 setkLocal("제주");
                 break;
             default:
-                alert("지역설정이 잘못되었습니다.");
+                alert("문제발생");
                 return;
         }
     };
@@ -84,13 +85,16 @@ function LocalBoard() {
 
         switch (arrayState) {
             case 0: // 최신순
-                sortedPosts = [...originalPost];
+                sortedPosts.sort((a, b) => {
+                    return new Date(b.createdDate) - new Date(a.createdDate);
+                });
                 setPage(1);
                 break;
             case 1: // 인기순
                 sortedPosts.sort((a, b) => {
                     if (b.likeCount === a.likeCount) {
-                        return a.rating - b.rating;
+                        // likeCount가 같을 때 createdDate로 정렬
+                        return new Date(b.createdDate) - new Date(a.createdDate);
                     }
                     return b.likeCount - a.likeCount;
                 });
@@ -99,7 +103,8 @@ function LocalBoard() {
             case 2: // 평점순
                 sortedPosts.sort((a, b) => {
                     if (b.rating === a.rating) {
-                        return a.likeCount - b.likeCount;
+                        // rating이 같을 때 createdDate로 정렬
+                        return new Date(b.createdDate) - new Date(a.createdDate);
                     }
                     return b.rating - a.rating;
                 });
@@ -141,7 +146,17 @@ function LocalBoard() {
     };
 
     useEffect(() => {
-        getPost();
+        switch(board){
+            case "bookmark":
+                // setBoard(pageInfo);
+                break;
+            default:
+                // setBoard(pageInfo);
+                getPost();
+                return;   
+        }
+        
+        
     }, [local]);
 
     const handleArray = (value) => {
@@ -151,8 +166,9 @@ function LocalBoard() {
     return (
         <div>
             <div>
-                <RegionSelector />
+                <RegionSelector board={board}/>
             </div>
+
             <div>
                 <ReviewSection ratingAvg={ratingAvg} kLocal={kLocal} handleArray={handleArray} />
             </div>

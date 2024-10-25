@@ -26,6 +26,7 @@ const PostPage = () => {
         getPostImages(postId);
         checkLike(postId,userId);
         countLike(postId);
+        checkBookMark(postId,userId);
     }, [postId]);
 
     useEffect(() => {
@@ -118,8 +119,56 @@ const PostPage = () => {
         }
     }
     
+    const saveBookMark = async () => {
+        const data = {
+            postId: postId,
+            userId: userId,
+        };
+        try {
+            const response = await api.post(`post/bookmark/save`,data);
+            console.log("debug >>> response saveLike >>>>>>>>>>>>>>>> ", response.data);
+            setBookMarkState(!bookMarkState);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    const deleteBookMark = async () => {
+        try {
+            const response = await api.delete(`post/bookmark/delete`, {
+                params: {
+                    postId: postId,
+                    userId: userId,
+                }
+            });
+            console.log("debug >>> response deleteLike >>>>>>>>>>>>>>>> ", response.data);
+            setBookMarkState(!bookMarkState);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
     const clickBookMark = () =>{
-        setBookMarkState(!bookMarkState);
+        if(bookMarkState){
+            deleteBookMark();
+        }else{
+            saveBookMark();
+        }
+    }
+
+    const checkBookMark = async (postId,userId) => {
+        try {
+            const response = await api.get(`post/bookmark/check`,{
+                params: {
+                    postId: postId,
+                    userId: userId,
+                }
+            });
+            console.log("debug >>> response checkLike >>>>>>>>>>>>>>>> ", response.data);
+            setBookMarkState(response.data);
+        } catch (err) {
+            console.log(err);
+        }
     }
 
     return (

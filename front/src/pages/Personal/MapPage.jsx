@@ -1,7 +1,7 @@
 import React from 'react';
-import MapOverlay from '../Includes/personalPage/MapOverlay';
-import ProfileCard from '../Includes/personalPage/ProfileCard';
-import styles from '../css/Personal/personalpage.module.css';
+import MapOverlay from '../../Includes/personalPage/MapOverlay';
+import ProfileCard from '../../Includes/personalPage/ProfileCard';
+import styles from '../../css/Personal/personalpage.module.css';
 function MapPage({ selectedBadge }) {
     return (
         <div align="center">

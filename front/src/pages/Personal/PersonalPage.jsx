@@ -1,9 +1,9 @@
 import React from 'react';
-import MapOverlay from '../Includes/personalPage/MapOverlay';
-import ProfileCard from '../Includes/personalPage/ProfileCard';
-import PaginationComponent from '../Includes/common/PaginationComponent';
-import TravelCardGrid from '../Includes/common/card/TravelCardGrid';
-import styles from '../css/Personal/personalpage.module.css';
+import MapOverlay from '../../Includes/personalPage/MapOverlay';
+import ProfileCard from '../../Includes/personalPage/ProfileCard';
+import PaginationComponent from '../../Includes/common/PaginationComponent';
+import TravelCardGrid from '../../Includes/common/card/TravelCardGrid';
+import styles from '../../css/Personal/personalpage.module.css';
 
 function PersonalPage({ selectedBadge }) {
     return (
@@ -18,7 +18,7 @@ function PersonalPage({ selectedBadge }) {
             <MapOverlay />
 
             <div className={styles.centeredMap}>
-                ooo's All Travel
+                000's Travelog
             </div>
 
             <TravelCardGrid />
