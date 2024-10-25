@@ -177,7 +177,7 @@ function LocalBoard() {
         }
         
         
-    }, [local]);
+    }, [local,board]);
 
     const handleArray = (value) => {
         setArrayState(value);

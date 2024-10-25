@@ -91,7 +91,7 @@ function FormSection() {
         alert("지역설정이 잘못되었습니다.");
         return;
     }
-    // setLocal(event.target.value);
+    setLocal(event.target.value);
   };
 
   const handleTitleChange = (event) => {
