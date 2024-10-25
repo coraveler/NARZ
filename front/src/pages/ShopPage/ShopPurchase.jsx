@@ -23,25 +23,30 @@ const ShopPurchase = () => {
 
   const handlePurchase = async (option) => {
     const userId = 'user123'; // 더미 사용자 ID
-    const mileagePoints = option.price; // 옵션에 따라 포인트 비용 설정
+    const mileagePoints = -option.price; // 사용된 포인트는 음수로 설정
     const description = `구매한 옵션: ${option.name}`;
 
-    const response = await fetch('/api/mileage-history', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        user_id: userId,
-        mileage_points: mileagePoints,
-        description: description,
-      }),
-    });
+    try {
+      const response = await fetch('http://localhost:7777/api/mileage-history', { // 포트 수정
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          user_id: userId,
+          mileage_points: mileagePoints,
+          description: description,
+        }),
+      });
 
-    if (response.ok) {
-      alert('구매가 완료되었습니다!');
-    } else {
-      alert('구매에 실패했습니다.');
+      if (response.ok) {
+        alert('구매가 완료되었습니다!');
+      } else {
+        const errorData = await response.json();
+        alert(`구매에 실패했습니다: ${errorData.message || '알 수 없는 오류'}`);
+      }
+    } catch (error) {
+      alert('구매에 실패했습니다: ' + error.message);
     }
   };
 
