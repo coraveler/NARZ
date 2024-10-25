@@ -52,13 +52,13 @@ function App() {
         <Route path="/history" element={<ShopHistory />} />
         {/*개인페이지관련*/}
         <Route path="/personal" element={<PersonalPage selectedBadge={selectedBadge} />} />
-        <Route path="/EditProfilePage" element={<EditProfilePage selectedBadge={selectedBadge} />} />
+        <Route path="/personal/EditProfilePage" element={<EditProfilePage selectedBadge={selectedBadge} />} />
         <Route path="/profile" element={<ProfileCard selectedBadge={selectedBadge} />} />
-        <Route path="/AchievementPage" element={<AchievementPage selectedBadge={selectedBadge} onBadgeSelect={setSelectedBadge} />} />
-        <Route path="/map" element={<MapPage selectedBadge={selectedBadge} />} />
-        <Route path="/follower" element={<FollowerPage selectedBadge={selectedBadge} />} />
-        <Route path="/following" element={<FollowingPage selectedBadge={selectedBadge} />} />
-        <Route path="/travelog" element={<TravelogPage selectedBadge={selectedBadge}/>} />
+        <Route path="/personal/AchievementPage" element={<AchievementPage selectedBadge={selectedBadge} onBadgeSelect={setSelectedBadge} />} />
+        <Route path="/personal/map" element={<MapPage selectedBadge={selectedBadge} />} />
+        <Route path="/personal/follower" element={<FollowerPage selectedBadge={selectedBadge} />} />
+        <Route path="/personal/following" element={<FollowingPage selectedBadge={selectedBadge} />} />
+        <Route path="/personal/travelog" element={<TravelogPage selectedBadge={selectedBadge}/>} />
         {/* 랭킹페이지 관련 */}
         <Route path="/ranking/popular" element={<RankingPage initialRank="인기 게시글 랭킹" />} />
         <Route path="/ranking/user-activity" element={<RankingPage initialRank="유저 활동 랭킹" />} />

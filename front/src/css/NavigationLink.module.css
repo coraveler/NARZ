@@ -1,0 +1,29 @@
+/* 글로벌 폰트 정의 */
+@font-face {
+    font-family: 'GumiRomanceTTF';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2410-1@1.0/GumiRomanceTTF.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  /* 링크 스타일 */
+  .styledLink {
+    text-decoration: none; /* 밑줄 없앰 */
+    color: black; /* 기본 색상 */
+    margin-right: 40px;
+    font-size: 17px;
+    font-family: 'GumiRomanceTTF', sans-serif; /* 폰트 적용 */
+    transition: color 0.3s ease, text-shadow 0.3s ease; /* 색상 및 그림자 변화 애니메이션 */
+  
+    &:hover {
+      color: black;
+      text-shadow: 0px 0px 4px #FFB74D; /* 마우스를 올렸을 때 그림자 적용 */
+    }
+  }
+  
+  /* 활성화된 링크에 적용되는 스타일 */
+  .active {
+    color: black; /* 활성화된 상태에서도 검은색 유지 */
+    text-shadow: 0px 0px 4px #FFB74D; /* 그림자 유지 */
+  }
+  

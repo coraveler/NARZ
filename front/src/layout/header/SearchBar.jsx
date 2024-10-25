@@ -23,29 +23,17 @@ const SearchBar = () => {
 const SearchForm = styled.form`
   display: flex;
   align-items: center;
-  min-width: 265px;
+  min-width: 300px;
   font-size: 16px;
   color: #767676;
   font-weight: 300;
   margin: auto 0;
 `;
 
-// const Label = styled.label`
-//   position: absolute;
-//   width: 1px;
-//   height: 1px;
-//   padding: 0;
-//   margin: -1px;
-//   overflow: hidden;
-//   clip: rect(0, 0, 0, 0);
-//   white-space: nowrap;
-//   border: 0;
-// `;
-
 const InputWrapper = styled.div`
   position: relative; /* 아이콘을 입력창에 절대 위치시키기 위해 relative 설정 */
   flex-grow: 1;
-  margin-right: 10px
+  margin-right: 10px;
 `;
 
 const SearchInput = styled.input`
@@ -58,9 +46,7 @@ const SearchInput = styled.input`
   padding-right: 35px;
   padding-bottom: 7px;
   font-size: 16px;
-  
 
-  
   @media (max-width: 991px) {
     padding-right: 20px;
   }
@@ -73,8 +59,12 @@ const StyledFaSearch = styled(FaSearch)`
   transform: translateY(-50%); /* 세로 중앙 정렬을 위한 변환 */
   width: 20px; /* 아이콘 너비 */
   height: 20px; /* 아이콘 높이 */
-  color: #767676; /* 아이콘 색상 */
-  pointer-events: none; /* 클릭 이벤트 비활성화 (입력창에 포커스 주기 위해) */
+  color: #767676; /* 기본 아이콘 색상 */
+
+  /* 마우스 오버 시 색상 변경 */
+  &:hover {
+    color: #FFB74D; /* 호버 시 아이콘 색상을 #FFB74D로 변경 */
+  }
 `;
 
 export default SearchBar;

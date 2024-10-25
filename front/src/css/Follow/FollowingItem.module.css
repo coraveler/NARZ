@@ -6,10 +6,6 @@
 }
 
 .followerCard {
-  background-color: #fff;
-  border-color: #000;
-  border-top-width: 1px;
-  border-bottom-width: 1px;
   display: flex;
   min-height: 150px;
   width: 100%;
