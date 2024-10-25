@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import img0 from '../../images/homepage.webp';
-import img1 from '../../images/1.jpg';
-import img2 from '../../images/2.jpg';
+import img0 from '../../images/homepage.png';
+import img1 from '../../images/siwoomap.png';
+import img2 from '../../images/homepage2.png';
 import img3 from '../../images/3.jpg';
 import styles from '../../css/BackgroundSlider.module.css';
 
@@ -64,15 +64,9 @@ function BackgroundSlider() {
         ))}
       </div>
 
-      {/* 첫 번째 이미지일 때만 텍스트 표시 */}
-      {currentImageIndex === 0 && (
-        <div className={styles.textContainer}>
-        <h1 className={styles.title}>
-          나만 알고싶은 지역, 나알지
-        </h1>
-      </div>
       
-      )}
+      
+    
     </div>
   );
 }
