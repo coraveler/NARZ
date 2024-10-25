@@ -10,32 +10,31 @@ function ProfileCard({ selectedBadge }) {
   const profileData = {
     name: '회원정보',
     map: '지도',
-    travelog: '여행로그', // 추가된 항목
     followers: 0,
     following: 0,
-    achievement: '도전과제'
+    achievement: '도전과제',
+    travelog: 'Travelog'
   };
 
-  // 현재 경로가 일치하는지 확인하는 함수
-  const isCurrentPath = (path) => location.pathname === path;
+  // 현재 경로가 일치하거나 하위 경로인 경우 스타일 유지
+  const isCurrentPath = (path) => location.pathname.startsWith(path);
 
   // 경로 이동 함수들
-  const handleMapClick = () => navigate('/map');
-  const handleTravelogClick = () => navigate('/travelog'); // travelog 경로로 이동하는 함수
-  const handleAchievementClick = () => navigate('/AchievementPage');
-  const handleNameClick = () => navigate('/EditProfilePage');
-  const followerClick = () => navigate('/follower');
-  const followingClick = () => navigate('/following');
+  const handleMapClick = () => navigate('/personal/map');
+  const handleAchievementClick = () => navigate('/personal/AchievementPage');
+  const handleNameClick = () => navigate('/personal/EditProfilePage');
+  const followerClick = () => navigate('/personal/follower');
+  const followingClick = () => navigate('/personal/following');
+  const handleTravelogClick = () => navigate('/personal/travelog');
 
   return (
     <section className={styles.profileCard}>
-      {/* selectedBadge를 rank로 전달 */}
       <ProfileInfo rank={selectedBadge} data={profileData} />
 
       {/* 회원정보 클릭 시 EditProfilePage로 이동 */}
       <div
         className={`${styles.profileName} ${
-          isCurrentPath('/EditProfilePage') ? styles.activeLink : ''
+          isCurrentPath('/personal/EditProfilePage') ? styles.activeLink : ''
         }`}
         onClick={handleNameClick}
         style={{ cursor: 'pointer', color: 'black' }}
@@ -43,10 +42,10 @@ function ProfileCard({ selectedBadge }) {
         {profileData.name}
       </div>
 
-      {/* 지도 */}
+      {/* 지도 클릭 */}
       <div
         className={`${styles.profileInfo} ${
-          isCurrentPath('/map') ? styles.activeLink : ''
+          isCurrentPath('/personal/map') ? styles.activeLink : ''
         }`}
         onClick={handleMapClick}
         style={{ cursor: 'pointer', color: 'black' }}
@@ -54,10 +53,10 @@ function ProfileCard({ selectedBadge }) {
         {profileData.map}
       </div>
 
-      {/* travelog */}
+      {/* Travelog 추가 */}
       <div
         className={`${styles.profileInfo} ${
-          isCurrentPath('/travelog') ? styles.activeLink : ''
+          isCurrentPath('/personal/travelog') ? styles.activeLink : ''
         }`}
         onClick={handleTravelogClick}
         style={{ cursor: 'pointer', color: 'black' }}
@@ -68,26 +67,29 @@ function ProfileCard({ selectedBadge }) {
       {/* 업적 링크 */}
       <div
         className={`${styles.achievementLink} ${
-          isCurrentPath('/AchievementPage') ? styles.activeLink : ''
+          isCurrentPath('/personal/AchievementPage') ? styles.activeLink : ''
         }`}
         onClick={handleAchievementClick}
+        style={{ cursor: 'pointer', color: 'black' }}
       >
         {profileData.achievement}
       </div>
 
-      {/* 팔로워, 팔로잉 정보 */}
+      {/* 팔로워 */}
       <div
         className={`${styles.profileInfo} ${
-          isCurrentPath('/follower') ? styles.activeLink : ''
+          isCurrentPath('/personal/follower') ? styles.activeLink : ''
         }`}
         onClick={followerClick}
         style={{ cursor: 'pointer', color: 'black' }}
       >
         팔로워 {profileData.followers}
       </div>
+
+      {/* 팔로잉 */}
       <div
         className={`${styles.profileInfo} ${
-          isCurrentPath('/following') ? styles.activeLink : ''
+          isCurrentPath('/personal/following') ? styles.activeLink : ''
         }`}
         onClick={followingClick}
         style={{ cursor: 'pointer', color: 'black' }}
@@ -99,4 +101,3 @@ function ProfileCard({ selectedBadge }) {
 }
 
 export default ProfileCard;
-

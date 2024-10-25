@@ -95,19 +95,15 @@
   min-height: 80px;
 }
 
-
-/* 기본 스타일 */
-.profileName,
-.profileInfo,
-.achievementLink {
-  font-size: 18px;
-  font-weight: 400;
-  cursor: pointer;
-  transition: all 0.3s ease;
+/* 링크 기본 스타일 */
+.profileName, .profileInfo, .achievementLink {
+  text-decoration: none;
+  color: black;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
 }
 
-/* 클릭된 링크 유지 스타일 */
+/* 활성화된 링크에 적용될 스타일 */
 .activeLink {
-  text-shadow: 0px 0px 10px  #FFB74D; /* 클릭 후 그림자 */
-  color: #333; /* 클릭 후 색상 유지 */
+  color: black;
+  text-shadow: 0px 0px 4px #FFB74D;
 }

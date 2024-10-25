@@ -1,39 +1,23 @@
-// src/components/NavigationLink.jsx
 import React from 'react';
-import { Link } from 'react-router-dom';
-import styled, { createGlobalStyle } from 'styled-components';
-
-// 글로벌 스타일로 폰트 정의
-const GlobalStyle = createGlobalStyle`
-  @font-face {
-    font-family: 'GumiRomanceTTF';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2410-1@1.0/GumiRomanceTTF.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-  }
-`;
+import { Link, useLocation } from 'react-router-dom';
+import styles from '../../css/NavigationLink.module.css'; // CSS 모듈 임포트
 
 const NavigationLink = ({ text, href }) => {
+  const location = useLocation();
+
+  // 현재 경로가 '/localboard'를 포함하는지 확인 (하위 경로 포함)
+  const isActive = href === '/board/localboard/all' 
+    ? location.pathname.includes('/localboard')  // '/localboard'를 포함하면 활성화
+    : location.pathname.startsWith(href);        // 다른 링크들은 경로가 시작하는지 확인
+
   return (
-    <>
-      <GlobalStyle />
-      <StyledLink to={href}>
-        {text}
-      </StyledLink>
-    </>
+    <Link 
+      to={href} 
+      className={`${styles.styledLink} ${isActive ? styles.active : ''}`} // 활성 상태일 때 추가 클래스 적용
+    >
+      {text}
+    </Link>
   );
 };
-
-const StyledLink = styled(Link)`
-  text-decoration: none;
-  color: #444444;
-  margin-right: 40px;
-  font-size: 17px;
-
-  &:hover {
-    color: #0073e6;
-  }
-  font-family: 'GumiRomanceTTF'; // 주의: 여기에 따옴표 추가
-`;
 
 export default NavigationLink;
