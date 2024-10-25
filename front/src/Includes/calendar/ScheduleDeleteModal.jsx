@@ -47,7 +47,7 @@ function ScheduleDeleteModal({
                         width: '20vw'}}}>
                     
                 <div style={{textAlign:'center'}}>
-                    <TiWarningOutline style={{fontSize:'40px'}}/><p/>
+                    <TiWarningOutline style={{fontSize:'40px', color:'red'}}/><p/>
                     <div>
                         일정을 정말 삭제하시겠습니까?
                     </div><br/>
