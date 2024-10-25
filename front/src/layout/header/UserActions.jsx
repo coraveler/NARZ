@@ -11,9 +11,14 @@ import NotificationModal from "../../Includes/nofification/NotificationModal";
 const UserActions = ({ isLoggedIn }) => {
   const navigate = useNavigate(); // useNavigate 사용
   const [notificationModalStatus, setNotificationModalStatus] = useState(false);
+  const [notificationCount, setNotificationCount] = useState(0);
 
   const notificationModalClose = () => {
     setNotificationModalStatus(false);
+  }
+
+  const notificationCountHandler = (count) => {
+    setNotificationCount(count);
   }
 
   return (
@@ -22,7 +27,7 @@ const UserActions = ({ isLoggedIn }) => {
         {/* 알림 아이콘 */}
         <NotificationIcon onClick={()=>setNotificationModalStatus(true)}>
           <MdNotificationsNone/>
-          <NotificationCount>2</NotificationCount>
+          {notificationCount == 0 ? '' : <NotificationCount>{notificationCount}</NotificationCount>}
         </NotificationIcon>
         {/* 캘린더 아이콘 */}
         <CalendarIcon onClick={() => { navigate('/calendar'); }}>
@@ -42,7 +47,9 @@ const UserActions = ({ isLoggedIn }) => {
 
       <NotificationModal
         notificationModalStatus={notificationModalStatus}
-        notificationModalClose={notificationModalClose}/>
+        notificationModalClose={notificationModalClose}
+        notificationCountHandler={notificationCountHandler}/>
+      
     </>
   );
 };
