@@ -18,7 +18,7 @@ const RegionItem = ({ iconSrc, name, href, board }) => {
   return (
     <div onClick={() => navigate(href)}>
       <img loading="lazy" src={iconSrc} alt="" className={itemState ? styles.selectIcon : styles.regionIcon} /><p/>
-      <span className={styles.regionName}>{name}</span>
+      <span className={itemState ? styles.selectName : styles.regionName}>{name}</span>
     </div>
   );
 };
