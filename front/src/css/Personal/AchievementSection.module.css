@@ -13,7 +13,7 @@
 }
 
 .achievementSection {
-  padding: 20px 500px; /* 상하 32px, 좌우 60px 패딩으로 설정 */
+  padding: 20px 20%; /* 상하 32px, 좌우 60px 패딩으로 설정 */
 }
 
 .sectionTitle {
@@ -72,10 +72,6 @@
   outline: 1px solid #198754;
 }
 
-.selectButton:hover {
-  background-color: #198754;
-  color :#f5f5f5;
-}
 
 /* 클릭된 버튼에 적용되는 스타일 */
 .clicked {

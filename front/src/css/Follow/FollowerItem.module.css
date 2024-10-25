@@ -18,7 +18,7 @@
     overflow: hidden;
     justify-content: center;
     flex-wrap: wrap;
-    padding: 20px 500px; /* 상하 20px, 좌우 80px 패딩 추가 */
+    padding: 20px 20%; /* 상하 20px, 좌우 80px 패딩 추가 */
   }
   
   @media (max-width: 991px) {
@@ -44,7 +44,7 @@
     line-height: 20px;
     align-self: stretch;
     flex-grow: 1;
-    width: 600px; /* 사용자 이름 영역의 너비 축소 */
+    width: 350px; /* 사용자 이름 영역의 너비 축소 */
     margin: auto 0;
     font-family: 'GumiRomanceTTF', sans-serif;
   }
@@ -56,19 +56,22 @@
   }
   
   .actionButton {
+    border: 1px solid #198754;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 14px;
     align-self: stretch;
     color: #198754;
-    width: 60px; /* 가로 길이 축소 */
+    width: 100px;
     border-radius: 8px;
     background-color: white;
-    min-height: 25px; /* 버튼 최소 높이 축소 */
+    min-height: 25px;
     gap: 8px;
     overflow: hidden;
     text-align: center;
-    flex: 0 0 auto; /* flex-grow를 없애고 고정 너비로 설정 */
+    flex: 0 0 auto;
     margin: auto 0;
-    border: 1px solid #198754;
-    font-size: 12px; /* 폰트 크기 축소 */
+    transition: background-color 0.3s ease; /* 색상 전환 애니메이션 추가 */
   }
   
   .actionButton:hover {

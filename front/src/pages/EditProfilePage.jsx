@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from '../css/EditProfilePage.module.css';
-import ProfileCard from "../Includes/personalPage/ProfileCard";
 import { useNavigate } from "react-router-dom"; // useNavigate 임포트
+import ProfileCard from "../Includes/personalPage/ProfileCard";
 
 
 const EditProfilePage = ({ selectedBadge }) => {
