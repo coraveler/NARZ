@@ -5,9 +5,9 @@
 
 <mapper namespace="com.kdt_final.back.shop.dao.MileageHistoryMapper">
     <!-- 마일리지 내역 추가 -->
-    <insert id="insertMileageHistory" parameterType="com.kdt_final.back.shop.domain.MileageHistory">
-        INSERT INTO mileage_history (user_id, mileage_points, description, change_date)
-        VALUES (#{userId}, #{mileagePoints}, #{description}, CURRENT_TIMESTAMP)
+    <insert insert id="insertMileageHistory" parameterType="com.kdt_final.back.shop.domain.MileageHistory">
+    INSERT INTO mileage_history (user_id, mileage_points, description, created_at)
+    VALUES (#{userId}, #{mileagePoints}, #{description}, CURRENT_TIMESTAMP)
     </insert>
 
     <!-- 특정 유저의 마일리지 내역 조회 -->

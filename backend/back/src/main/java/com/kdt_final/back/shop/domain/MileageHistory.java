@@ -3,15 +3,25 @@ package com.kdt_final.back.shop.domain;
 import java.time.LocalDateTime;
 
 public class MileageHistory {
+    
     private Long mileageId;
     private String userId;
     private int mileagePoints;
     private String description;
     private LocalDateTime changeDate;
 
-    // 기본 생성자, getter/setter 메소드
+    // 기본 생성자
     public MileageHistory() {}
 
+    // 매개변수 있는 생성자 (userId, mileagePoints, description)
+    public MileageHistory(String userId, int mileagePoints, String description) {
+        this.userId = userId;
+        this.mileagePoints = mileagePoints;
+        this.description = description;
+        this.changeDate = LocalDateTime.now(); // 자동으로 현재 시간 설정
+    }
+
+    // Getter/Setter 메소드
     public Long getMileageId() {
         return mileageId;
     }

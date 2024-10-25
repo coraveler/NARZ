@@ -5,7 +5,6 @@ import com.kdt_final.back.shop.service.MileageHistoryService;
 import io.swagger.v3.oas.annotations.Operation;  
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.List;
 

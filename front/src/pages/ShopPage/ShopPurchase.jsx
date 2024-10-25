@@ -16,7 +16,7 @@ function Navbar() {
 
 const ShopPurchase = () => {
   const options = [
-    { name: "닉네임 이름 변경", price: 10000 },
+    { name: "닉네임 변경", price: 10000 },
     { name: "닉네임 컬러 변경", price: 10000 },
     { name: "프로필 사진 변경", price: 10000 },
   ];
