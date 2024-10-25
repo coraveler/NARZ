@@ -13,7 +13,7 @@ function ProfileCard({ selectedBadge }) {
     travelog: '여행로그', // 추가된 항목
     followers: 0,
     following: 0,
-    achievement: '업적'
+    achievement: '도전과제'
   };
 
   // 현재 경로가 일치하는지 확인하는 함수

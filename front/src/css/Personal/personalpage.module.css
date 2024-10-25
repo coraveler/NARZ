@@ -26,13 +26,13 @@
     cursor: pointer;
     font-size: 14px;
     background-color: white;
-    color: #198754;
+    color: #FF8A2B;
     border: none;
-    outline: 1px solid #198754;
+    outline: 1px solid #FF8A2B;
     margin: 20px 0;
 }
 
 .writeButton:hover {
-    background-color: #145a32;
+    background-color: #FF8A2B;
     color : white;
 }
