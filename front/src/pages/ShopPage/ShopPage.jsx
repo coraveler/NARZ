@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom"; // Link를 react-router-dom에서 import
-import styles from "../../css/Shop/Shop.module.css"; // 스타일시트 import
+import { Link } from "react-router-dom"; 
+import styles from "../../css/Shop/Shop.module.css"; 
 
 function Navbar() {
   return (
@@ -26,7 +26,7 @@ function CouponPurchase() {
       <h2>포인트 쿠폰 구매</h2>
       <input type="text" placeholder="구매하실 쿠폰 명칭을 입력해 주세요" />
       <p>
-        사용안내: 마일리지 사용 가이드 및 약관을 확인하세요. 구매 시 10,000 마일리지가 적립됩니다.
+        사용안내: 포인트 사용 가이드 및 약관을 확인하세요. 구매 시 10,000 포인트가 적립됩니다.
         <br />
         * 10% 수수료가 추가됩니다.
       </p>

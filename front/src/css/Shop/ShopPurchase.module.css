@@ -1,7 +1,8 @@
+/* 쇼핑 페이지 스타일 */
 .shop-purchase {
   font-family: Arial, sans-serif;
   background-color: white;
-  color: black;
+  color: #FFB300;
   padding: 2rem;
 }
 
@@ -15,48 +16,59 @@
 .option-card {
   background-color: white;
   padding: 1rem;
-  border: 1px solid #ccc;
+  border: 1px solid #FFB300; /* 주황색 테두리 */
   border-radius: 5px; /* 카드 모서리 둥글게 */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
   flex: 1; /* 각 카드가 같은 비율로 공간을 차지하도록 설정 */
   min-width: 200px; /* 카드 최소 너비 설정 (조정 가능) */
+  color: #FF8A2B; /* 텍스트 색상을 주황색으로 변경 */
 }
 
 .purchase-button {
   padding: 0.5rem 1rem;
-  background-color: black;
-  color: white;
+  background-color: #FF8A2B; /* 기본 주황색 */
+  color: white; /* 버튼 글자 색상 */
   border: none;
+  border-radius: 5px; /* 테두리 둥글게 설정 */
   cursor: pointer;
   transition: background-color 0.3s; /* 버튼 효과 */
+  box-shadow: 0px 0px 4px #FFB74D; /* 주황색 그림자 */
 }
 
 .purchase-button:hover {
-  background-color: #444; /* 버튼 호버 색상 */
+  background-color: #FFB300; /* 호버 시 조금 더 진한 주황색 */
 }
-/* Navbar.module.css */
+
+
+/* 내비게이션 바 */
 .navbar {
-  background-color: white; /* 배경색 */
-  padding: 1rem; /* 패딩 */
+  background-color: #FF8A2B; /* 주황색 배경 */
+  padding: 1rem 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%; /* 전체 너비 */
+  display: flex;
+  justify-content: center; /* 중앙 정렬 */
+  border-bottom: 2px solid #e0e0e0;
 }
 
 .navbar ul {
-  display: flex; /* 수평으로 정렬 */
-  list-style-type: none; /* 기본 리스트 스타일 제거 */
-  padding: 0; /* 기본 패딩 제거 */
-  margin: 0; /* 기본 마진 제거 */
-  justify-content: center; /* 중앙 정렬 */
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
 }
 
 .navbar li {
-  margin-right: 1rem; /* 링크 간의 간격 */
+  margin-right: 2rem;
 }
 
 .navbar a {
-  text-decoration: none; /* 링크의 밑줄 제거 */
-  color: black; /* 링크 텍스트 색상 */
+  text-decoration: none;
+  color: white; /* 내비게이션 링크를 흰색으로 변경 */
+  font-weight: bold;
+  transition: color 0.3s;
 }
 
 .navbar a:hover {
-  color: #444; /* 호버 시 색상 변경 */
+  color: #FFA000; /* 호버 시 주황색으로 변경 */
 }
