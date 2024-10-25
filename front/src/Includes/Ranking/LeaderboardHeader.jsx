@@ -19,7 +19,7 @@ const HeaderRow = styled.div`
   color: #1e1e1e;
   letter-spacing: -0.45px;
   font: 700 14px/2 Inter, sans-serif; 
-  background-color: #e6eaf3;
+  background-color: rgb(237, 193, 111);
   padding: 8px; 
   justify-content: center;
 `;
