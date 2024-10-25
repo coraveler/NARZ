@@ -10,11 +10,14 @@ function HomePage() {
   const navigate = useNavigate();
   const [bookMarkPost, setBookMarkPost] = useState({});
   const userId = 'userB';
-  
+  const local = 'all';
 
   const getBookMarkPost = async () => {
     try {
-      const response = await api.get(`post/get/bookmark/${userId}`);
+      const response = await api.get(`post/get/bookmark`,{params: {
+                                            local: local,
+                                            userId: userId
+    }});
       console.log("debug >>> response, ", response.data);
       // 최신순으로 정렬
       const sortedPosts = response.data.sort((a, b) => {
