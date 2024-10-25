@@ -1,6 +1,6 @@
 import React from "react";
-import AchievementSection from "../Includes/personalPage/AchievementSection";
-import ProfileCard from "../Includes/personalPage/ProfileCard";
+import AchievementSection from "../../Includes/personalPage/AchievementSection";
+import ProfileCard from "../../Includes/personalPage/ProfileCard";
 
 function AchievementPage({ onBadgeSelect, selectedBadge }) {
   return (
