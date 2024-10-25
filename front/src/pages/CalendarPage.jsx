@@ -144,7 +144,8 @@ const Calendar = () => {
                     eventClick={scheduleClickHandler}
                     // dateClick={dateClickHandler}
 
-                />  
+                />
+                <br/>  
             </div>
 
             {/* 스케줄 추가 모달 */}

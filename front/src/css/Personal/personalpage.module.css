@@ -12,3 +12,27 @@
     font-weight: 400;    /* 폰트 크기 */
     font-family: 'Cafe24Lovingu', sans-serif;
   }
+
+.writeButtonContainer {
+    display: flex;
+    justify-content: flex-end; /* 왼쪽 정렬 */
+    width: 50%; /* 부모 컨테이너 전체 너비 사용 */
+    margin-bottom: 20px; /* TravelCardGrid와의 간격 */
+}
+
+.writeButton {
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    background-color: white;
+    color: #198754;
+    border: none;
+    outline: 1px solid #198754;
+    margin: 20px 0;
+}
+
+.writeButton:hover {
+    background-color: #145a32;
+    color : white;
+}

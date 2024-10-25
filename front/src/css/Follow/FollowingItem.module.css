@@ -18,7 +18,7 @@
   overflow: hidden;
   justify-content: center;
   flex-wrap: wrap;
-  padding: 20px 500px;
+  padding: 20px 20%;
 }
 
 @media (max-width: 991px) {
@@ -44,7 +44,7 @@
   line-height: 20px;
   align-self: stretch;
   flex-grow: 1;
-  width: 600px;
+  width: 350px;
   margin: auto 0;
   font-family: 'GumiRomanceTTF', sans-serif;
 }
@@ -55,10 +55,14 @@
   }
 }
 
-.followButton {
+.followButton {    
+  border: 1px solid #198754;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 14px;
   align-self: stretch;
   color: white;
-  width: 60px;
+  width: 100px;
   border-radius: 8px;
   background-color: #198754;
   min-height: 25px;
@@ -67,8 +71,6 @@
   text-align: center;
   flex: 0 0 auto;
   margin: auto 0;
-  border: 1px solid #198754;
-  font-size: 12px;
   transition: background-color 0.3s ease; /* 색상 전환 애니메이션 추가 */
 }
 

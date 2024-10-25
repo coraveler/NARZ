@@ -11,9 +11,14 @@ import NotificationModal from "../../Includes/nofification/NotificationModal";
 const UserActions = ({ isLoggedIn }) => {
   const navigate = useNavigate(); // useNavigate 사용
   const [notificationModalStatus, setNotificationModalStatus] = useState(false);
+  const [notificationCount, setNotificationCount] = useState(0);
 
   const notificationModalClose = () => {
     setNotificationModalStatus(false);
+  }
+
+  const notificationCountHandler = (count) => {
+    setNotificationCount(count);
   }
 
   return (
@@ -22,6 +27,7 @@ const UserActions = ({ isLoggedIn }) => {
         {/* 알림 아이콘 */}
         <NotificationIcon onClick={()=>setNotificationModalStatus(true)}>
           <MdNotificationsNone/>
+          {notificationCount == 0 ? '' : <NotificationCount>{notificationCount}</NotificationCount>}
         </NotificationIcon>
         {/* 캘린더 아이콘 */}
         <CalendarIcon onClick={() => { navigate('/calendar'); }}>
@@ -41,12 +47,16 @@ const UserActions = ({ isLoggedIn }) => {
 
       <NotificationModal
         notificationModalStatus={notificationModalStatus}
-        notificationModalClose={notificationModalClose}/>
+        notificationModalClose={notificationModalClose}
+        notificationCountHandler={notificationCountHandler}/>
+      
     </>
   );
 };
 
 export default UserActions;
+
+
 
 const StyledUserActions = styled.div`
   display: flex;
@@ -55,7 +65,9 @@ const StyledUserActions = styled.div`
 `;
 
 
+// 스타일 추가
 const NotificationIcon = styled.div`
+  position: relative; // position을 relative로 설정
   aspect-ratio: 1;
   object-fit: contain;
   object-position: center;
@@ -63,8 +75,23 @@ const NotificationIcon = styled.div`
   font-size: 34px;
 
   &:hover {
-    color: #555; // 호버 시 텍스트 색상 변경
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); // 호버 시 그림자 변경
+    color: #555;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  }
+`;
+
+const NotificationCount = styled.span`
+  width: 18px;
+  text-align: center;
+  position: absolute;
+  top: -2px; // 위치 조정
+  right: -6px; // 위치 조정
+  background-color: red; // 배경색
+  color: white; // 글자색
+  border-radius: 20px;
+  padding: 1px;
+  font-size: 12px;
+  font-weight: bold;
 `;
 
 const CalendarIcon = styled.div`
