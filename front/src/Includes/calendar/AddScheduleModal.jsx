@@ -22,7 +22,7 @@ function AddScheduleModal({
     const [scheduleEndDate, setScheduleEndDate] = useState(afterHour);        // 일정 끝나는 날짜
     const [scheduleStartTime, setScheduleStartTime] = useState(startTime);      // 일정 시작 시간
     const [scheduleEndTime, setScheduleEndTime] = useState(endTime);            // 일정 끝나는 시간
-    const [scheduleColor, setScheduleColor] = useState('#00bcd4');              // 일정 색상
+    const [scheduleColor, setScheduleColor] = useState('#FFB300');              // 일정 색상
     const [colorChoiceVisible, setColorChoiceVisible] = useState(false);        // 색상 선택 상태
 
     
@@ -64,7 +64,7 @@ function AddScheduleModal({
             setScheduleEndDate(afterHour);
             setScheduleStartTime(startTime);
             setScheduleEndTime(endTime);
-            setScheduleColor('#00bcd4');
+            setScheduleColor('#FFB300');
             setScheduleContent('');
             addScheduleModalClose();
             getSchedule();
@@ -92,7 +92,7 @@ function AddScheduleModal({
         setScheduleEndDate(afterHour);
         setScheduleStartTime(startTime);
         setScheduleEndTime(endTime);
-        setScheduleColor('#00bcd4');
+        setScheduleColor('#FFB300');
         setScheduleContent('');
     }
 
@@ -115,7 +115,7 @@ function AddScheduleModal({
                         width: '30vw'}}}>
 
                 <div style={{textAlign:'center'}}>
-                    <RiCalendarScheduleLine style={{fontSize:'40px', marginTop:'5px'}}/>
+                    <RiCalendarScheduleLine style={{fontSize:'40px', marginTop:'5px', color:'#FFB300'}}/>
                     <h3 style={{marginTop:'10px'}}>나의 일정을 추가해 주세요</h3>
 
                     {/* 일정 제목 */}

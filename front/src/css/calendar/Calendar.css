@@ -33,45 +33,40 @@
 /* 풀캘린더 헤더 버튼 스타일 */
 .fc-button {
     background-color: transparent !important; /* 배경을 투명하게 */
-    color: #6B6B6B !important; /* 텍스트 색상 */
-    border: 0px solid #a9a3a3 !important; /* 어두운 테두리 */
-    padding: 7px 15px !important; /* 패딩 조정 */
-    font-weight: 700 !important; /* 글자 두께 */
+    border: none !important;
     border-radius: 10px !important; /* 약간 둥글게 */
-    transition: background-color 0.5s, color 0.5s; /* 부드러운 전환 효과 */
 }
 .fc-button:hover {
-    background-color: #a9a3a3 !important; /* 마우스 오버시 배경 색상 변화 */
-    color: #fff !important; /* 마우스 오버시 텍스트 색상 변화 */
+    text-shadow: 0px 0px 4px #FFB300;
 }
 
 /* 일정 추가 버튼 */
 .fc-addEvent-button{
     background-color: transparent !important; /* 배경을 투명하게 */
-    color: #343232 !important; /* 텍스트 색상 */
-    border: 2px solid #4B4B4B !important; /* 어두운 테두리 */
+    color: #FFB300 !important; /* 텍스트 색상 */
+    border: 2px solid #FFB300 !important; /* 어두운 테두리 */
     padding: 7px 15px !important; /* 패딩 조정 */
     font-weight: 700 !important; /* 글자 크기 */
     border-radius: 10px !important; /* 약간 둥글게 */
     transition: background-color 0.5s, color 0.5s; /* 부드러운 전환 효과 */
 }
 .fc-addEvent-button:hover {
-    background-color: #4B4B4B !important; /* 마우스 오버시 배경 색상 변화 */
+    background-color: #FFB300 !important; /* 마우스 오버시 배경 색상 변화 */
     color: #fff !important; /* 마우스 오버시 텍스트 색상 변화 */
 }
 
 /* 오늘 버튼 */
 .fc-today-button{
     background-color: transparent !important; /* 배경을 투명하게 */
-    color: #343232 !important; /* 텍스트 색상 */
-    border: 2px solid #4B4B4B !important; /* 어두운 테두리 */
+    color: #FFB300 !important; /* 텍스트 색상 */
+    border: 2px solid #FFB300 !important; /* 어두운 테두리 */
     padding: 7px 15px !important; /* 패딩 조정 */
     font-weight: 700 !important; /* 글자 크기 */
     border-radius: 10px !important; /* 약간 둥글게 */
     transition: background-color 0.5s, color 0.5s; /* 부드러운 전환 효과 */
 }
 .fc-today-button:hover {
-    background-color: #4B4B4B !important; /* 마우스 오버시 배경 색상 변화 */
+    background-color: #FFB300 !important; /* 마우스 오버시 배경 색상 변화 */
     color: #fff !important; /* 마우스 오버시 텍스트 색상 변화 */
 }
 
@@ -106,7 +101,7 @@
 
 /* 달력 헤더(요일) 스타일 */
 .fc-col-header-cell{
-    background-color: #a29999;
+    background-color: #FFB300;
     color: #fff;
     font-size: 14px;
 }
