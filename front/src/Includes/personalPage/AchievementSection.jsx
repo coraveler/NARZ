@@ -36,7 +36,7 @@ function AchievementSection({ onBadgeSelect }) {
 
   return (
     <section className={styles.achievementSection}>
-      <h2 className={styles.sectionTitle}>나의 업적</h2>
+      <h2 className={styles.sectionTitle}>도전과제</h2>
       <ul className={styles.achievementList}>
         {achievements.map((achievement, index) => (
           <li key={index} className={styles.achievementItem}>

@@ -63,18 +63,18 @@
 
 .selectButton {
   background-color: white;
-  color: #198754;
+  color: #FF8A2B;
   border: none;
   padding: 8px 16px;
   border-radius: 8px;
   cursor: pointer;
   font-size: 14px;
-  outline: 1px solid #198754;
+  outline: 1px solid #FF8A2B;
 }
 
 
 /* 클릭된 버튼에 적용되는 스타일 */
 .clicked {
-  background-color: #198754;
+  background-color: #FF8A2B;
   color: #f5f5f5;
 }
