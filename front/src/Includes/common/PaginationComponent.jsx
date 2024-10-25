@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from '../../css/PaginationComponent.module.css';
+import { IoMdArrowRoundForward, IoMdArrowRoundBack } from "react-icons/io";
 
 const PaginationButton = ({ children, isActive, onClick }) => {
   const buttonClass = isActive ? styles.paginationButtonActive : styles.paginationButton;
@@ -19,11 +20,11 @@ const PaginationNavButton = ({ children, onClick, direction, disabled }) => {
       aria-label={`${direction} page`}
     >
       {direction === 'previous' && (
-        <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/19f075e853cf9369b05635d48350fe7f5648bacf4828f67bc095fd11bc4c6ea5?placeholderIfAbsent=true&apiKey=c7f1d91a917e4e2ba5370da6919a77db" alt="" className={styles.navIcon} />
+       <IoMdArrowRoundBack />
       )}
       {children}
       {direction === 'next' && (
-        <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/d8bffe3600cb34c563844fbb1907b34eb8ac0f701d9d00e7706e7f25b35514d5?placeholderIfAbsent=true&apiKey=c7f1d91a917e4e2ba5370da6919a77db" alt="" className={styles.navIcon} />
+        <IoMdArrowRoundForward />
       )}
     </button>
   );
@@ -64,7 +65,7 @@ const PaginationComponent = ({ totalPages = 5, currentPage, onPageChange }) => {
         onClick={handlePrevious} 
         disabled={currentPage === 1}
       >
-        Previous
+        이전
       </PaginationNavButton>&nbsp;&nbsp;
       <div className={styles.paginationList}>
         {getPageGroup().map((page) => (
@@ -83,7 +84,7 @@ const PaginationComponent = ({ totalPages = 5, currentPage, onPageChange }) => {
         onClick={handleNext} 
         disabled={currentPage === totalPages}
       >
-        Next
+        다음
       </PaginationNavButton>
     </nav>
   );
