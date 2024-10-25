@@ -1,7 +1,7 @@
 .travelCardGrid {
-  max-width: 955px;
+  max-width: 990px;
   display: flex;
-  gap: 10px; /* 카드 간의 간격 */
+  gap: 12px; /* 카드 간의 간격 */
   flex-wrap: wrap; /* 카드가 줄 바꿈을 할 수 있도록 설정 */
   justify-content: flex-start; /* 카드가 왼쪽으로 정렬되도록 설정 */
 }

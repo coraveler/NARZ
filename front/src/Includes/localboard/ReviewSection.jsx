@@ -31,6 +31,16 @@ const ReviewSection = ({ ratingAvg, kLocal, handleArray }) => {
     { text: '글작성', action: () => navigate("/TravelWritePage") }
   ];
 
+  const activeStyle = {
+    backgroundColor: "#FFB74D", // 활성화된 버튼의 배경색
+    color: "white", // 텍스트 색상
+};
+
+const inactiveStyle = {
+    backgroundColor: "white", // 비활성화된 버튼의 배경색
+    color: "#FFC107", // 비활성화된 버튼의 텍스트 색상
+};
+
   return (
     <section className={styles.reviewSection}>
       <div className={styles.reviewContainer}>
@@ -53,8 +63,9 @@ const ReviewSection = ({ ratingAvg, kLocal, handleArray }) => {
               style={isLastButton ? { marginLeft: "auto" } : {}}
               onClick={option.action}
             >
-              <button className={index === buttonState ? "btn btn-success" : "btn btn-outline-success"}
-                      onClick={index < 3 ? () => handleState(index) : undefined}>
+              <button className={index === buttonState ? "btn btn-warning" : "btn btn-outline-warning"}
+                      onClick={index < 3 ? () => handleState(index) : undefined}
+                      style={index === buttonState ? activeStyle : inactiveStyle} >
                 {option.text}
               </button>
             </div>

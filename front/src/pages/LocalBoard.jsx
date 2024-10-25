@@ -185,6 +185,7 @@ function LocalBoard() {
 
     return (
         <div>
+            <br/>
             <div>
                 <RegionSelector board={board}/>
             </div>
@@ -192,9 +193,14 @@ function LocalBoard() {
             <div>
                 <ReviewSection ratingAvg={ratingAvg} kLocal={kLocal} handleArray={handleArray} />
             </div>
+            <br/><br/>
             <div align="center">
                 <TravelCardGrid data={post} page={page} onTotalCountChange={handleTotalCountChange} itemsPerPage={itemsPerPage} />
-                <PaginationComponent totalPages={totalPages} onPageChange={handlePageChange} totalCount={totalCount} currentPage={page} />
+                {post.length > 0 &&
+                    <PaginationComponent totalPages={totalPages} onPageChange={handlePageChange} totalCount={totalCount} currentPage={page} />
+                }
+                
+                
             </div>
         </div>
     );

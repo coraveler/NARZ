@@ -30,7 +30,7 @@
 }
 
 .scoreHighlight {
-  color: #229062;
+  color: #FFB74D;
 }
 
 .dividerContainer {
@@ -59,7 +59,7 @@
   white-space: nowrap;
   text-align: center;
   justify-content: center;
-  width: 115px;
+  width: 90px;
   margin: auto 0;
   padding: 2px 2px 2px 1px;
   font: 700 16px/20px Inter, -apple-system, Roboto, Helvetica, sans-serif;
