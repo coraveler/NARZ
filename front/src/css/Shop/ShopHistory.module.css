@@ -2,7 +2,7 @@
 body {
   font-family: 'Arial', sans-serif;
   background-color: white;
-  color: #333;
+  color: #333; /* 기본 글자 색상 */
   margin: 0;
   padding: 0;
 }
@@ -19,7 +19,7 @@ body {
 
 /* 내비게이션 바 */
 .navbar {
-  background-color: white;
+  background-color: #FF8A2B; /* 주황색 배경 */
   padding: 1rem 2rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   width: 100%; /* 전체 너비 */
@@ -41,13 +41,13 @@ body {
 
 .navbar a {
   text-decoration: none;
-  color: #333;
+  color: white; /* 내비게이션 링크를 흰색으로 변경 */
   font-weight: bold;
   transition: color 0.3s;
 }
 
 .navbar a:hover {
-  color: #0073e6;
+  color: #FFA000; /* 호버 시 주황색으로 변경 */
 }
 
 /* 마일리지 내역 */
@@ -76,13 +76,14 @@ body {
 /* 테이블 헤더와 바디 */
 .mileage-history th,
 .mileage-history td {
-  border: 1px solid #ddd; /* 테두리 */
+  border: 1px solid #FFB300; /* 주황색 테두리 */
   padding: 15px; /* 패딩 */
+  color: #FF8A2B; /* 주황색 텍스트 색상 */
 }
 
 .mileage-history th {
-  background-color: black; /* 헤더 배경색 */
-  color: white;
+  background-color: #FFB300; /* 헤더 배경색 주황색으로 변경 */
+  color: white; /* 헤더 텍스트 색상 */
   font-weight: bold;
   text-transform: uppercase; /* 대문자로 변환 */
 }

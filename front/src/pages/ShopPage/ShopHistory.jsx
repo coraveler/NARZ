@@ -20,10 +20,10 @@ function ShopHistory() {
 
   // 데이터 로드하는 useEffect
   useEffect(() => {
-    // API 호출 함수
     async function fetchMileageHistory() {
       try {
-        const response = await fetch("/api/mileage-history");  // API 호출
+        const userId = 'user123'; // 더미 사용자 ID
+        const response = await fetch(`/api/mileage-history/${userId}`);  // API 호출
         const data = await response.json();  // JSON 형식으로 변환
         setHistory(data);  // 데이터 저장
         setLoading(false); // 로딩 완료
@@ -41,59 +41,33 @@ function ShopHistory() {
   }
 
   return (
-  <div className={styles['shop-page']}>
-    <Navbar /> 
-    <div className={styles['mileage-history']}>
-      <h2>포인트 내역</h2>
-      <div className={styles['table-container']}> {/* 테이블을 감싸는 컨테이너 추가 */}
-        <table>
-          <thead>
-            <tr>
-              <th>날짜</th>
-              <th>내용</th>
-              <th>금액 내역</th>
-            </tr>
-          </thead>
-          <tbody>
-            {/* {history.map((item, index) => (
-              <tr key={index}>
-                <td>{item.date}</td>
-                <td>{item.description}</td>
-                <td>{item.amount}</td>
+    <div className={styles['shop-page']}>
+      <Navbar /> 
+      <div className={styles['mileage-history']}>
+        <h2>포인트 내역</h2>
+        <div className={styles['table-container']}>
+          <table>
+            <thead>
+              <tr>
+                <th>날짜</th>
+                <th>내용</th>
+                <th>내역</th>
               </tr>
-            ))} */}
-            <tr>
-              <td>2024.10.20</td>
-              <td>물품 구매</td>
-              <td>-10000</td>
-            </tr>
-            <tr>
-              <td>2024.10.21</td>
-              <td>포인트 적립</td>
-              <td>+20000</td>
-            </tr>
-            <tr>
-              <td>2024.10.21</td>
-              <td>포인트 적립</td>
-              <td>+20000</td>
-            </tr>
-            <tr>
-              <td>2024.10.21</td>
-              <td>포인트 적립</td>
-              <td>+20000</td>
-            </tr>
-            <tr>
-              <td>2024.10.21</td>
-              <td>포인트 적립</td>
-              <td>+20000</td>
-            </tr>
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {history.map((item, index) => (
+                <tr key={index}>
+                  <td>{item.created_at}</td>
+                  <td>{item.description}</td>
+                  <td>{item.mileage_points}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
-  </div>
-);
-
+  );
 }
 
 export default ShopHistory;
