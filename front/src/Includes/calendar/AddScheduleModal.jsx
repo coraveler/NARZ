@@ -12,13 +12,14 @@ function AddScheduleModal({
 
     // 현재 날짜 및 시간 포맷
     const currentDate = `${new Date().getFullYear()}-${(new Date().getMonth()+1).toString().padStart(2, '0')}-${new Date().getDate().toString().padStart(2, '0')}`
+    const afterHour = new Date().getHours()!="23" ? `${new Date().getFullYear()}-${(new Date().getMonth()+1).toString().padStart(2, '0')}-${new Date().getDate().toString().padStart(2, '0')}` : `${new Date().getFullYear()}-${(new Date().getMonth()+1).toString().padStart(2, '0')}-${(new Date().getDate()+1).toString().padStart(2, '0')}`
     const startTime = `${new Date().getHours().toString().padStart(2, '0')}:00`
-    const endTime = `${(new Date().getHours()+1).toString().padStart(2, '0')}:00`
+    const endTime = new Date().getHours()!="23" ? `${(new Date().getHours()+1).toString().padStart(2, '0')}:00` : "00:00:00"
 
     const [scheduleTitle, setScheduleTitle] = useState('');                     // 일정 제목
     const [scheduleContent, setScheduleContent] = useState('');                 // 일정 내용
     const [scheduleStartDate, setScheduleStartDate] = useState(currentDate);    // 일정 시작 날짜
-    const [scheduleEndDate, setScheduleEndDate] = useState(currentDate);        // 일정 끝나는 날짜
+    const [scheduleEndDate, setScheduleEndDate] = useState(afterHour);        // 일정 끝나는 날짜
     const [scheduleStartTime, setScheduleStartTime] = useState(startTime);      // 일정 시작 시간
     const [scheduleEndTime, setScheduleEndTime] = useState(endTime);            // 일정 끝나는 시간
     const [scheduleColor, setScheduleColor] = useState('#00bcd4');              // 일정 색상
@@ -60,7 +61,7 @@ function AddScheduleModal({
             // 초기 상태 설정
             setScheduleTitle('');
             setScheduleStartDate(currentDate);
-            setScheduleEndDate(currentDate);
+            setScheduleEndDate(afterHour);
             setScheduleStartTime(startTime);
             setScheduleEndTime(endTime);
             setScheduleColor('#00bcd4');
@@ -88,7 +89,7 @@ function AddScheduleModal({
         addScheduleModalClose();
         setScheduleTitle('');
         setScheduleStartDate(currentDate);
-        setScheduleEndDate(currentDate);
+        setScheduleEndDate(afterHour);
         setScheduleStartTime(startTime);
         setScheduleEndTime(endTime);
         setScheduleColor('#00bcd4');
