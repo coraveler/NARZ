@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kdt_final.back.user.dao.UserMapper">
+
+    <select id="findUserAll"
+            resultType="com.kdt_final.back.user.domain.User">
+        SELECT user_id, login_id,password, user_name, user_nickname, email, birthday, phone_num
+        FROM user
+    </select>
+
+    <insert id="createUser"
+            parameterType="com.kdt_final.back.user.domain.User">
+        INSERT INTO user(user_id, login_id,password, user_name, user_nickname, email, birthday, phone_num)
+        VALUES
+       ( #{loginId}, #{password}, #{userName}, #{userNickname}, #{email}, #{birthday}, #{phoneNum})
+
+    </insert>
+
+    <select id="findAllByUserNickname"
+            parameterType="String"
+            resultType="com.kdt_final.back.user.domain.User">
+        SELECT  user_nickname
+        FROM user where user_nickname =#{userNickname}
+    </select>
+
+    <select id="findAllByLoginId"
+            parameterType="String"
+            resultType="com.kdt_final.back.user.domain.User">
+        SELECT  login_id
+        FROM user where login_id =#{loginId}
+    </select>
+</mapper>
