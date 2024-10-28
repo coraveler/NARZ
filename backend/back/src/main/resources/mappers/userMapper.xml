@@ -11,9 +11,9 @@
 
     <insert id="createUser"
             parameterType="com.kdt_final.back.user.domain.User">
-        INSERT INTO user(user_id, login_id,password, user_name, user_nickname, email, birthday, phone_num)
+        INSERT INTO user(login_id,password, user_name, user_nickname, email, birthday, phone_num)
         VALUES
-       ( #{loginId}, #{password}, #{userName}, #{userNickname}, #{email}, #{birthday}, #{phoneNum})
+       (#{loginId}, #{password}, #{userName}, #{userNickname}, #{email}, #{birthday}, #{phoneNum})
 
     </insert>
 

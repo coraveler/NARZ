@@ -51,7 +51,7 @@ public class UserService {
     public Boolean checkDuplicateUserNickName(String userNickname) {
         List<User> allByUserNickname =userRepository.findAllByUserNickname(userNickname);
 
-        if (allByUserNickname==null|| allByUserNickname.isEmpty()) {
+        if ( allByUserNickname.isEmpty()) {
             return true;
         }
         return false;
@@ -60,7 +60,7 @@ public class UserService {
 
     public Boolean checkDuplicateLoginId(String loginId){
         List <User> allByLoginId = userRepository.findAllByLoginId(loginId);
-        if (allByLoginId == null || allByLoginId.isEmpty()){
+        if ( allByLoginId.isEmpty()){
             return true;
         }
         return false;
