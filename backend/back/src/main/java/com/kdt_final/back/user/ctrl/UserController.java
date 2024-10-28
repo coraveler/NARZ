@@ -26,17 +26,35 @@ public class UserController {
         return responseEntity;
     }
 
-    @GetMapping("/{id}")
-    public void findUserById(@PathVariable String id){
+    @GetMapping("/check/userNickname/{userNickname}")
+    public Boolean checkDuplicateUserNickName(@PathVariable String userNickname) {
+        System.out.println(userNickname);
 
+        Boolean result= userService.checkDuplicateUserNickName(userNickname);
+        return result;
     }
+
+
+    @GetMapping("/check/loginId/{loginId}")
+    public Boolean checkDuplicateLoginId(@PathVariable String loginId){
+        System.out.println(loginId);
+
+        Boolean result1=userService.checkDuplicateLoginId(loginId);
+        return result1;
+    }
+
 
     @PostMapping
     public ResponseEntity<Boolean> createUser(@RequestBody UserDTO.UserRequestDTO userDTO) {
+        System.out.println("객체확인"+userDTO);
+
+        userService.creatUser(userDTO);
 
         ResponseEntity<Boolean> responseEntity = ResponseEntity.ok()
                 .body(true);
         return  responseEntity;
+
+
     }
 
     @PatchMapping

@@ -18,5 +18,25 @@ public class UserRepositoryImpl implements UserRepository {
     public List<User> findUserAll() {
 
         return userMapper.findUserAll();
+
+
     }
+
+
+    @Override
+    public void createUser( User user) {
+        userMapper.createUser(user);
+    }
+
+    @Override
+    public List<User> findAllByUserNickname(String userNickname) {
+        return userMapper.findAllByUserNickname(userNickname);
+
+    }
+
+    @Override
+    public List<User> findAllByLoginId(String loginId) {
+        return userMapper.findAllByLoginId(loginId);
+    }
+
 }

@@ -23,6 +23,7 @@ public class UserService {
         for(User user : userAll) {
             UserDTO.UserResponseDTO userResponseDTO = UserDTO.UserResponseDTO.builder()
                     .userId(user.getUserId())
+                    .loginId(user.getLoginId())
                     .userName(user.getUserName())
                     .email(user.getEmail())
                     .userNickname(user.getUserNickname())
@@ -31,5 +32,37 @@ public class UserService {
         }
 
         return userResponseDTOS;
+    }
+
+
+    public void creatUser(UserDTO.UserRequestDTO userRequestDTO) {
+        User user = new User();
+        user.setLoginId(userRequestDTO.getLoginId());
+        user.setUserName(userRequestDTO.getUserName());
+        user.setPassword(userRequestDTO.getPassword());
+        user.setEmail(userRequestDTO.getEmail());
+        user.setUserNickname(userRequestDTO.getUserNickname());
+        user.setPhoneNum(userRequestDTO.getPhoneNum());
+
+
+       userRepository.createUser(user);
+
+    }
+    public Boolean checkDuplicateUserNickName(String userNickname) {
+        List<User> allByUserNickname =userRepository.findAllByUserNickname(userNickname);
+
+        if (allByUserNickname==null|| allByUserNickname.isEmpty()) {
+            return true;
+        }
+        return false;
+
+    }
+
+    public Boolean checkDuplicateLoginId(String loginId){
+        List <User> allByLoginId = userRepository.findAllByLoginId(loginId);
+        if (allByLoginId == null || allByLoginId.isEmpty()){
+            return true;
+        }
+        return false;
     }
 }

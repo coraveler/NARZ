@@ -1,5 +1,6 @@
 package com.kdt_final.back.user.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 public class UserDTO {
@@ -10,6 +11,7 @@ public class UserDTO {
     @AllArgsConstructor
     @Builder
     public static class UserRequestDTO{
+
 
         public int userId;
         public String loginId;

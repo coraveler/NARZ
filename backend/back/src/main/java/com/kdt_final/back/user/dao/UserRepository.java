@@ -9,5 +9,7 @@ import java.util.List;
 public interface UserRepository  {
 
     public List<User> findUserAll();
-
+    public void createUser( User user);
+    public List<User> findAllByUserNickname(String userNickname);
+    public List<User> findAllByLoginId(String loginId);
 }
