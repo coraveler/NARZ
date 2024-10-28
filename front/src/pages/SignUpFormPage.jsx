@@ -1,30 +1,31 @@
 import React, { useState } from "react";
 import styles from '../css/SignUpFormPage.module.css';
 import { useNavigate } from "react-router-dom"; // useNavigate 임포트
+import api from '../api/axios';
 
 function SignUpFormPage({ ...props }) {
   const navigate = useNavigate();
 
   // formFields 배열 정의
   const formFields = [
-    { label: "Nickname", type: "text", hasButton: true },
-    { label: "ID", type: "text", hasButton: true },
-    { label: "Password", type: "password" },
-    { label: "Confirm_Password", type: "password" },
-    { label: "Name", type: "text" },
-    { label: "Email", type: "email" },
-    { label: "Phone", type: "tel" }
+    { label: "Nickname", type: "text", hasButton: true, key: "userNickname" },
+    { label: "ID", type: "text", hasButton: true, key: "loginId" },
+    { label: "Password", type: "password", key: "password" },
+    { label: "Confirm_Password", type: "password", key: "passwordConfirm" },
+    { label: "Name", type: "text", key: "userName" },
+    { label: "Email", type: "email", key: "email" },
+    { label: "Phone", type: "tel", key: "phoneNum" }
   ];
 
   // formData 상태 정의
   const [formData, setFormData] = useState({
-    Nickname: "",
-    ID: "",
-    Password: "",
-    Confirm_Password: "",
-    Name: "",
-    Email: "",
-    Phone: ""
+    userNickname: "",
+    loginId: "",
+    password: "",
+    passwordConfirm: "",
+    userName: "",
+    email: "",
+    phoneNum: ""
   });
 
   // 입력값이 변경될 때 상태 업데이트
@@ -39,10 +40,31 @@ function SignUpFormPage({ ...props }) {
   };
 
   // 폼 제출 핸들러
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("보내야할객체", formData);
-    // 추가적인 로직 처리
+
+    try {
+      const response = await api.post('user', formData, {
+        headers: {
+          // Content-Type을 설정하지 않음
+
+        }
+      })
+
+      if (response.data == true) {
+        alert("회원가입이 성공했습니다.")
+        navigate('/')
+
+
+      }
+      else {
+        alert("회원가입이 실패했습니다.")
+      }
+
+    } catch (e) {
+
+    }
+
   };
 
   return (
@@ -60,31 +82,41 @@ function SignUpFormPage({ ...props }) {
                 <input
                   className={styles.Input}
                   type={field.type}
-                  id={field.label}
+                  id={field.key}
                   // 1. **기본값을 빈 문자열로 설정하여 uncontrolled -> controlled 전환 방지**
-                  value={formData[field.label] || ""}
+                  value={formData[field.key] || ""}
                   onChange={handleInputChange}
                   placeholder="Value"
                 />
                 {field.hasButton && (
                   <button
-                    onClick={(event) => {
+                    onClick={async (event) => {
                       event.preventDefault();
 
-                      let 보내야할객체 = {};
+                      let url = "";
 
-                      if (field.label === "Nickname") {
-                        보내야할객체 = {
-                          Nickname: formData.Nickname
-                        }
+                      if (field.key === "userNickname") {
+
+                          url = `user/check/userNickname/${formData.userNickname}`
                       }
-                      else if (field.label === "ID") {
-                        보내야할객체 = {
-                          ID: formData.ID
-                        }
+                      else if (field.key === "loginId") {
+                          url = `user/check/loginId/${formData.loginId}`
 
                       }
-                      console.log("보내야할객체", 보내야할객체)
+
+                    try {
+                      const response = await api.get(url);
+                      console.debug('asdfasdf',response)
+                      if (response.data == true) {
+                          alert("사용가능합니다.");
+                      } else {
+                         alert("중복입니다.");
+                      }
+
+                    } catch (err) {
+                          console.log(err);
+                      }
+
                     }
                     }
                     className={styles.StyledButton}
