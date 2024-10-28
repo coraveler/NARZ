@@ -1,0 +1,16 @@
+/* SF_HambakSnow 폰트 불러오기 */
+@font-face {
+    font-family: 'SF_HambakSnow';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2106@1.1/SF_HambakSnow.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 각 섹션 제목에 폰트 적용 */
+.section-title {
+    font-family: 'SF_HambakSnow';
+    font-size: 24px;
+    text-align: left;
+    width: 950px;
+    margin: 0 auto;
+}
