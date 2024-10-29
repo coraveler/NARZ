@@ -9,7 +9,7 @@ import '../css/Homepage.css';
 
 function HomePage() {
   const navigate = useNavigate();
-  const [bookMarkPost, setBookMarkPost] = useState({});
+  const [bookMarkPost, setBookMarkPost] = useState([]);
   const userId = 'userB';
   const local = 'all';
 
@@ -39,9 +39,10 @@ function HomePage() {
   }, []);
 
   const sections = [
-    { title: '주간 인기 게시글 랭킹', data: [], action: undefined },
-    { title: '팔로잉 게시판', data: [], action: undefined },
-    { title: '북마크 게시판', data: bookMarkPost, action: () => navigate("/board/bookmark/all") }
+    { title: ' # 주간 인기 게시글', data: [], action: () => navigate("/board/popular") },
+    { title: '# 주간 활동 랭킹', data: [], action: () => navigate("/board/activity") },
+    { title: '# 팔로잉 게시판', data: [], action: () => navigate("/board/following") },
+    { title: '# 북마크 게시판', data: bookMarkPost, action: () => navigate("/board/bookmark/all") }
   ];
 
   return (
@@ -53,28 +54,19 @@ function HomePage() {
 
       <br />
       <div>
-        <h3 className="section-title">주간 활동 랭킹</h3>
-        <div align="center">
-          <TravelCardGrid />
-        </div>
-      </div>
-      
-      <div>
-        <br />
         {sections.map((section, index) => (
           <div key={index}>
             <h3 className="section-title">{section.title}</h3>
             <div style={{ cursor: "pointer" }} onClick={section.action}>
-              {section.data.length > 5 &&
+              {section.data.length > 5 && (
                 <p style={{ width: '920px', textAlign: "right", marginLeft: "auto", marginRight: "auto" }}>
                   더보기 <IoMdArrowDropright style={{ fontSize: "25px", marginBottom: "3px" }} />
                 </p>
-              }
+              )}
             </div>
             <div align="center">
               <TravelCardGrid data={section.data} itemsPerPage={5} />
             </div>
-
             <br />
           </div>
         ))}

@@ -70,8 +70,15 @@
     font-family: 'HSSanTokki20-Regular'; /* 사용자 정의 폰트 적용 */
 }
   
+@font-face {
+    font-family: 'LOTTERIADDAG';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/LOTTERIADDAG.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
 .logoSubtitle {
-    font-size: 10px; /* 서브타이틀 글꼴 크기 10px */
+    font-family: 'LOTTERIADDAG';
+    font-size: 13px; /* 서브타이틀 글꼴 크기 10px */
 }
   
 /* 로고에 마우스를 올렸을 때의 스타일 */
