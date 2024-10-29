@@ -36,7 +36,7 @@ const EditProfilePage = ({ selectedBadge }) => {
     const [birthday, setBirthday] = useState('');
 
     return (
-        <div className={styles.ProfileContainer}>
+        <div >
             {/* ProfileCard에 selectedBadge 전달 */}
             <ProfileCard selectedBadge={selectedBadge} />
             <main className={styles.mainContainer}>
