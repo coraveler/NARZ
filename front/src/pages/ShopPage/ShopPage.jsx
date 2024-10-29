@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom"; 
 import styles from "../../css/Shop/Shop.module.css"; 
+import ShopNav from "./ShopNav";
 
 function Navbar() {
   return (
@@ -63,7 +64,7 @@ function CouponRegister() {
 function ShopPage() {  
   return (
     <div className={styles['shop-page']}>
-      <Navbar />
+      <ShopNav />
       <main>
         <CouponPurchase />
         <CouponRegister />
