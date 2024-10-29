@@ -28,10 +28,23 @@ function FormSection() {
 
 
   const postSave = async () => {
+    const localMapping = {
+      "수도권": "sudo",
+      "강원": "gangwon",
+      "충북": "chungbuk",
+      "충남": "chungnam",
+      "대전": "daejeon",
+      "경북": "gyeonbuk",
+      "경남": "gyeongnam",
+      "전북": "jeonbuk",
+      "전남": "jeonnam",
+      "제주": "jeju"
+  };
+    const mappedLocal = localMapping[local];
     
     const formData = new FormData();
     formData.append('userId', 'user');
-    formData.append('local', local);
+    formData.append('local', mappedLocal);
     formData.append('title', title);
     formData.append('content', content);
     formData.append('rating', rating);
@@ -56,41 +69,6 @@ function FormSection() {
     }
 };
   const handleLocalChange = (event) => {
-    switch(event.target.value){
-      case "수도권":
-        setLocal("sudo");
-        break;
-      case "강원":
-        setLocal("gangwon");
-        break;
-      case "충북":
-        setLocal("chungbuk");
-        break;
-      case "충남":
-        setLocal("chungnam");
-        break;
-      case "대전":
-        setLocal("daejeon");
-        break;
-      case "경북":
-        setLocal("gyeonbuk");
-        break;
-      case "경남":
-        setLocal("gyeongnam");
-        break;
-      case "전북":
-        setLocal("jeonbuk");
-        break;
-      case "전남":
-        setLocal("jeonnam");
-        break;
-      case "제주":
-        setLocal("jeju");
-        break;
-      default:
-        alert("지역설정이 잘못되었습니다.");
-        return;
-    }
     setLocal(event.target.value);
   };
 
@@ -133,7 +111,7 @@ function FormSection() {
         type="select"
         placeholder="지역을 선택하세요"
         required
-        options={["수도권","충북", "충남", "전북", "전남", "경기도", "경남", "경북", "제주", "강원도", "대전"]}
+        options={["수도권","충북", "충남", "전북", "전남", "경남", "경북", "제주", "강원도", "대전"]}
         value={local}
         onChange={handleLocalChange}
       />
