@@ -26,19 +26,27 @@ import TravelWritePage from "./pages/TravelWritePage";
 import TravelogPage from "./pages/Personal/TravelogPage";
 import PersonalPostPage from "./pages/PersonalPostPage";
 
-function Header() {
-  return <TravelHeader />;
-}
+// function Header({board, local}) {
+//   console.log(board+"/"+local);
+//   return <TravelHeader board={board} local={local}/>;
+// }
 
 function App() {
   const [selectedBadge, setSelectedBadge] = useState('여행 초보자');
+  const [board, setBoard] = useState(null);
+  const [local, setLocal] = useState(null);
+
   return (
     <BrowserRouter>
-      <Header />
+      <TravelHeader board={board} local={local}/>
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<HomePage/>} />
         <Route path="/calendar" element={<CalendarPage />} />
-        <Route path="/board/:board/:local" element={<LocalBoard />} />
+        <Route path="/board/:board/:local" element={<LocalBoard 
+                                           onParamsChange={(boardParam, localParam) => {
+                                            setBoard(boardParam);
+                                            setLocal(localParam);
+                                           }}/>}/>
         <Route path="/SignUpFormPage" element={<SignUpFormPage />} />
         <Route path="/PasswordResetPage" element={<PasswordResetPage />} />
         <Route path="/LoginFormPage" element={<LoginFormPage />} />

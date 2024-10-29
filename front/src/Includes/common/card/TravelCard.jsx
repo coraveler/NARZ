@@ -3,10 +3,13 @@ import styles from '../../../css/TravelCard.module.css';
 import { useNavigate } from "react-router-dom";
 import { FaRegStar, FaStar } from "react-icons/fa"; // 빈 별과 채워진 별 아이콘
 import { FaRegStarHalfStroke } from "react-icons/fa6"; // 반 별 아이콘
+import BookMark from '../BookMark';
+import LikeIcon from '../LikeIcon';
 
 const TravelCard = (props) => {
   const navigate = useNavigate();
   const [imageUrls, setImageUrls] = useState('');
+  const userId = 'userB';
 
   const getImageUrls = () => {
     // props.data.headerImg가 배열일 경우 첫 번째 이미지를 사용
@@ -29,6 +32,10 @@ const TravelCard = (props) => {
     <article className={styles.travelCard} 
              onClick={() => navigate(`/postpage/${props.data.postId}`)}>
       <img src={imageUrls} alt={`${props.data.title} view`} className={styles.cardImage} />
+      <div style={{display: 'flex', width:'90%'}}>
+        <LikeIcon userId={userId} postId={props.data.postId}/>
+        <BookMark userId={userId} postId={props.data.postId} style={["auto","2px"]}/>
+      </div>
       <h2 className={styles.cardTitle}>{props.data.title}</h2>
       <p className={styles.cardLocation}>{props.data.userId}</p>
       <div className={styles.ratingField}>

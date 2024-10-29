@@ -6,6 +6,7 @@ const TravelCardGrid = (props) => {
   const data = Array.isArray(props.data) ? props.data : []; // props.data가 배열인지 확인
   const { page = 1, onTotalCountChange } = props; // 페이지 번호와 콜백 함수를 props에서 가져옴
   const itemsPerPage = props.itemsPerPage || 1; // 기본값 설정
+  // const msg = props.msg
 
   // 시작 인덱스와 끝 인덱스 계산
   const startIndex = (page - 1) * itemsPerPage;
@@ -30,7 +31,7 @@ const TravelCardGrid = (props) => {
           </div>
         ))
       ) : (
-        <p>No posts available.</p> // 데이터가 없을 때 표시할 메시지
+        <p>{props.msg}</p> // 데이터가 없을 때 표시할 메시지
       )}
     </section>
   );

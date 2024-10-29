@@ -8,7 +8,7 @@ const RegionItem = ({ iconSrc, name, href, board }) => {
   const [itemState, setItemState] = useState(0);
 
   useEffect(() => {
-        if(href == "/board/"+board+"/"+local ){
+    if (href.includes("/board/" + board + "/" + local)) {
           setItemState(1);
         }else{
           setItemState(0);
