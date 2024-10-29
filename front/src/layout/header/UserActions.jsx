@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BsCoin } from "react-icons/bs";
 import { CgProfile } from "react-icons/cg";
 import { FaRegCalendarAlt } from "react-icons/fa";
@@ -9,6 +9,7 @@ import NotificationModal from "../../Includes/nofification/NotificationModal";
 
 // UserActions 컴포넌트
 const UserActions = ({ isLoggedIn }) => {
+  const isMac = () => navigator.platform.toLowerCase().includes('mac');
   const navigate = useNavigate(); // 페이지 이동을 위한 useNavigate 사용
   const [notificationModalStatus, setNotificationModalStatus] = useState(false); // 알림 모달 상태 관리
   const [notificationCount, setNotificationCount] = useState(0); // 알림 카운트 상태 관리
@@ -22,6 +23,10 @@ const UserActions = ({ isLoggedIn }) => {
   const notificationCountHandler = (count) => {
     setNotificationCount(count);
   };
+
+  const ProfileIconComponent = isMac() ? StyledCgProfileMac : StyledCgProfile;
+  
+  
 
   return (
     <>
@@ -40,8 +45,8 @@ const UserActions = ({ isLoggedIn }) => {
 
         {/* 로그인 상태에 따라 프로필 아이콘 처리 */}
         {isLoggedIn
-          ? (<StyledCgProfile />) // 로그인된 경우
-          : (<Link to="/LoginFormPage"><StyledCgProfile /></Link>) // 로그인되지 않은 경우
+          ? (<ProfileIconComponent />) // 로그인된 경우
+          : (<Link to="/LoginFormPage"><ProfileIconComponent /></Link>) // 로그인되지 않은 경우
         }
 
         {/* 마일리지 및 포인트 표시 */}
@@ -140,16 +145,27 @@ const PointsDisplay = styled.div`
   }
 `;
 
-// 프로필 아이콘 스타일
-const StyledCgProfile = styled(CgProfile)`
+// 프로필 아이콘 스타일(공통)
+const StyledCgProfileBase = styled(CgProfile)`
   width: 32px; // 아이콘 너비
   height: 32px; // 아이콘 높이
-  margin-top: 10px; // 아이콘을 2px 아래로 이동
 
   &:hover {
     color: #FFB74D; // 호버 시 텍스트 색상 변경
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); // 호버 시 그림자 변경
   }
+`;
+
+// 프로필 아이콘 스타일(윈도우)
+const StyledCgProfile = styled(StyledCgProfileBase)`
+  margin-top: 10px; // 아이콘을 2px 아래로 이동
+
+
+`;
+
+// 프로필 아이콘 스타일(mac)
+const StyledCgProfileMac = styled(StyledCgProfileBase)`
+  margin-top: 2px; // 아이콘을 2px 아래로 이동
 `;
 
 
