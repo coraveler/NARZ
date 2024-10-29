@@ -3,43 +3,57 @@ import { useNavigate } from 'react-router-dom';
 import styles from '../../css/ReviewSection.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const ReviewSection = ({ ratingAvg, kLocal, handleArray }) => {
+const ReviewSection = ({ ratingAvg, kLocal, handleArray, handleStandard, searchTerm }) => {
   const navigate = useNavigate();
-  const [buttonState, setButtonState] = useState(() => {
-    // 컴포넌트가 마운트될 때 로컬 스토리지에서 값 가져오기
-    const storedState = localStorage.getItem('buttonState');
+  const [arrayButtonState, setArrayButtonState] = useState(() => {
+    const storedState = localStorage.getItem('arrayButtonState');
+    return storedState !== null ? Number(storedState) : 0;
+  });
+
+  const [standardButtonState, setStandardButtonState] = useState(() => {
+    const storedState = localStorage.getItem('standardButtonState');
     return storedState !== null ? Number(storedState) : 0;
   });
 
   useEffect(() => {
-    // buttonState가 변경될 때마다 로컬 스토리지에 저장
-    if (buttonState !== undefined) {
-      localStorage.setItem('buttonState', buttonState);
-    }
-  }, [buttonState]);
+    localStorage.setItem('arrayButtonState', arrayButtonState);
+    localStorage.setItem('standardButtonState', standardButtonState);
+  }, [arrayButtonState, standardButtonState]);
 
-  const handleState = (index) => {
-    setButtonState(index);
+  const handleArrayState = (index) => {
+    setArrayButtonState(index);
   };
 
-  const filterOptions = [
-    { text: '최신순', action: () => handleArray(0) },
-    { text: '인기순', action: () => handleArray(1) },
-    { text: '평점순', action: () => handleArray(2) },
-    // { text: '팔로잉', action: () => undefined },
-    // { text: '북마크', action: () => undefined },
+  const handleStandardState = (index) => {
+    setStandardButtonState(index);
+  };
+
+  const ArrayOptions = [
+    { text: '최신순', action: () => { handleArray(0); handleArrayState(0); } },
+    { text: '인기순', action: () => { handleArray(1); handleArrayState(1); } },
+    { text: '평점순', action: () => { handleArray(2); handleArrayState(2); } },
     { text: '글작성', action: () => navigate("/TravelWritePage") }
   ];
 
-  const activeStyle = {
-    backgroundColor: "#FFB74D", // 활성화된 버튼의 배경색
-    color: "white", // 텍스트 색상
-};
+  const FilterOptions = [
+    { text: '제목+내용', action: () => { handleStandard(0); handleStandardState(0); } },
+    { text: '작성자', action: () => { handleStandard(1); handleStandardState(1); } },
+  ];
 
-const inactiveStyle = {
-    backgroundColor: "white", // 비활성화된 버튼의 배경색
-    color: "#FFC107", // 비활성화된 버튼의 텍스트 색상
-};
+  const activeStyle = {
+    backgroundColor: "#FFB74D",
+    color: "white",
+  };
+
+  const inactiveStyle = {
+    backgroundColor: "white",
+    color: "#FFC107",
+  };
+
+  useEffect(() => {
+    setStandardButtonState(0);
+    // setArrayButtonState(0);
+}, []);
 
   return (
     <section className={styles.reviewSection}>
@@ -47,15 +61,37 @@ const inactiveStyle = {
         {kLocal ? 
           (<h2 className={styles.reviewScore}>
             {kLocal} 후기 평점 : <span className={styles.scoreHighlight}>{ratingAvg}</span>
-          </h2>):
-            <h2>none</h2>}
+          </h2>)
+          : <h2>none</h2>}
         
+        
+
+        {searchTerm && FilterOptions.map((option, index) => {
+          // const isLastButton = index === FilterOptions.length - 1;
+          return (
+            
+            <div
+              key={index}
+              className={styles.filterButton}
+              style={{ marginLeft: "5px" }}
+              onClick={option.action}
+            >
+              <button
+                className={index === standardButtonState ? "btn btn-warning" : "btn btn-outline-warning"}
+                style={index === standardButtonState ? activeStyle : inactiveStyle}
+              >
+                {option.text}
+              </button>
+            </div>
+          );
+        })}
+
         <div className={styles.dividerContainer}>
           <div className={styles.verticalDivider} />
         </div>
 
-        {filterOptions.map((option, index) => {
-          const isLastButton = index === filterOptions.length - 1;
+        {ArrayOptions.map((option, index) => {
+          const isLastButton = index === ArrayOptions.length - 1;
           return (
             <div
               key={index}
@@ -63,9 +99,10 @@ const inactiveStyle = {
               style={isLastButton ? { marginLeft: "auto" } : {}}
               onClick={option.action}
             >
-              <button className={index === buttonState ? "btn btn-warning" : "btn btn-outline-warning"}
-                      onClick={index < 3 ? () => handleState(index) : undefined}
-                      style={index === buttonState ? activeStyle : inactiveStyle} >
+              <button
+                className={index === arrayButtonState ? "btn btn-warning" : "btn btn-outline-warning"}
+                style={index === arrayButtonState ? activeStyle : inactiveStyle}
+              >
                 {option.text}
               </button>
             </div>
@@ -73,7 +110,6 @@ const inactiveStyle = {
         })}
       </div>
     </section>
-   
   );
 };
 
