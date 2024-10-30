@@ -39,4 +39,10 @@ public class UserRepositoryImpl implements UserRepository {
         return userMapper.findAllByLoginId(loginId);
     }
 
+    @Override
+    public List<User> login(User user) {
+
+        return userMapper.login(user);
+    }
+
 }

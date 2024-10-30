@@ -12,4 +12,5 @@ public interface UserRepository  {
     public void createUser( User user);
     public List<User> findAllByUserNickname(String userNickname);
     public List<User> findAllByLoginId(String loginId);
+    public List<User> login(User user);
 }
