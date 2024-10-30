@@ -3,6 +3,8 @@ import styles from '../../css/PaginationComponent.module.css';
 import { IoMdArrowRoundForward, IoMdArrowRoundBack } from "react-icons/io";
 
 const PaginationButton = ({ children, isActive, onClick }) => {
+  
+
   const buttonClass = isActive ? styles.paginationButtonActive : styles.paginationButton;
   return (
     <button className={buttonClass} onClick={onClick} aria-current={isActive ? 'page' : undefined}>
@@ -12,9 +14,10 @@ const PaginationButton = ({ children, isActive, onClick }) => {
 };
 
 const PaginationNavButton = ({ children, onClick, direction, disabled }) => {
+  const isMac = () => navigator.platform.toLowerCase().includes('mac');
   return (
     <button 
-      className={styles.paginationNavButton} 
+      className={isMac ? styles.paginationNavButton : styles.paginationWindowNavButton} 
       onClick={onClick} 
       disabled={disabled}
       aria-label={`${direction} page`}
