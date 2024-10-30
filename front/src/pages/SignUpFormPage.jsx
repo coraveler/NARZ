@@ -47,7 +47,7 @@ function SignUpFormPage({ ...props }) {
       const response = await api.post('user', formData, {
         headers: {
           // Content-Type을 설정하지 않음
-
+         
         }
       })
 
@@ -133,6 +133,7 @@ function SignUpFormPage({ ...props }) {
               회원가입
             </button>
           </div>
+          <div className={styles.ButtonGroup}>
           <button
             type="button"
             onClick={() => navigate('/LoginFormPage')}
@@ -141,6 +142,7 @@ function SignUpFormPage({ ...props }) {
           >
             취소
           </button>
+          </div>
         </form>
       </section>
     </main>
