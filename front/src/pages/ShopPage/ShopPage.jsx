@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import styles from "../../css/Shop/Shop.module.css"; 
 import ShopNav from "./ShopNav";
 
-
 function CouponPurchase() {
   const [quantity, setQuantity] = useState(1); // 상태 관리
 
@@ -54,10 +53,12 @@ function ShopPage() {
   return (
     <div className={styles['shop-page']}>
       <ShopNav />
+      <br/>
       <main>
+        <h3 className={styles['shop-title']}>-----$ 쿠폰 등록 $-----</h3> 
         <CouponRegister />
         <br/>
-        <CouponPurchase />
+        {/* <CouponPurchase /> */}
       </main>
     </div>
   );
