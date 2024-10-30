@@ -5,13 +5,13 @@
 
     <select id="findUserAll"
             resultType="com.kdt_final.back.user.domain.User">
-        SELECT user_id, login_id,password, user_name, user_nickname, email, birthday, phone_num
+        SELECT userId, loginId,password, userName, userNickname, email, birthday, phoneNum
         FROM user
     </select>
 
     <insert id="createUser"
             parameterType="com.kdt_final.back.user.domain.User">
-        INSERT INTO user(login_id,password, user_name, user_nickname, email, birthday, phone_num)
+        INSERT INTO user(loginId,password, userName, userNickname, email, birthday, phoneNum)
         VALUES
        (#{loginId}, #{password}, #{userName}, #{userNickname}, #{email}, #{birthday}, #{phoneNum})
 
@@ -20,14 +20,14 @@
     <select id="findAllByUserNickname"
             parameterType="String"
             resultType="com.kdt_final.back.user.domain.User">
-        SELECT  user_nickname
-        FROM user where user_nickname =#{userNickname}
+        SELECT  userNickname
+        FROM user where userNickname =#{userNickname}
     </select>
 
     <select id="findAllByLoginId"
             parameterType="String"
             resultType="com.kdt_final.back.user.domain.User">
-        SELECT  login_id
-        FROM user where login_id =#{loginId}
+        SELECT  loginId
+        FROM user where loginId =#{loginId}
     </select>
 </mapper>

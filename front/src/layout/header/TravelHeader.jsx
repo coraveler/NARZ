@@ -22,7 +22,7 @@ const TravelHeader = ({board, local}) => {
         <nav className={styles.nav}>
           <div className={styles.logoContainer} onClick={() => navigate('/')}>
             <div className={styles.logo}>NARZ</div>
-            <div className={styles.logoSubtitle}>나만 알고 싶은 지역</div>
+            <div className={styles.logoSubtitle}>나만 알고있는 지역</div>
           </div>
           
           {navLinks.map((link, index) => (
