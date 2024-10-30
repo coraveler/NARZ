@@ -4,6 +4,7 @@
   flex-direction: column;
   overflow: hidden;
   margin: 0px 0px 0px 0px;
+}
 
   .profile-title {
     width: 100%;
@@ -41,6 +42,7 @@
     width:100%;
     max-width: 789px;
     margin: 0 auto;
+
   }
 
   .button-group {
@@ -49,7 +51,7 @@
     justify-content: center;
     margin-top: 10px;
   }
-}
+
 
 .ImageContainer{
   display: flex;
@@ -110,16 +112,17 @@
 }
 
 .FullButton{
-  border-radius: 8px;
+
+    border-radius: 8px;
     background-color: #2c2c2c;
     color: #fff;
     padding: 12px;
     border: 1px solid #2c2c2c;
     cursor: pointer;
     font-size: 16px;
-    width: auto;
+    width: 0 auto;
     margin-top: 10px;
-    width: 100%;
+    width:100% ;
     opacity: 0.9;
    
 }
@@ -138,4 +141,6 @@
 
 .mainContainer{
   margin: 0px 200px;
+  
+  
 }
