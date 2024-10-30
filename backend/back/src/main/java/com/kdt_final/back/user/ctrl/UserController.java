@@ -2,6 +2,7 @@ package com.kdt_final.back.user.ctrl;
 
 import com.kdt_final.back.user.dto.UserDTO;
 import com.kdt_final.back.user.service.UserService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,21 +27,26 @@ public class UserController {
         return responseEntity;
     }
 
+
+
+
     @GetMapping("/check/userNickname/{userNickname}")
-    public Boolean checkDuplicateUserNickName(@PathVariable String userNickname) {
+    public ResponseEntity <Boolean> checkDuplicateUserNickName(@PathVariable String userNickname) {
         System.out.println(userNickname);
 
         Boolean result= userService.checkDuplicateUserNickName(userNickname);
-        return result;
+        ResponseEntity<Boolean> responseEntity = ResponseEntity.ok().body(result);
+        return responseEntity;
     }
 
 
     @GetMapping("/check/loginId/{loginId}")
-    public Boolean checkDuplicateLoginId(@PathVariable String loginId){
+    public ResponseEntity<Boolean> checkDuplicateLoginId(@PathVariable String loginId){
         System.out.println(loginId);
 
-        Boolean result1=userService.checkDuplicateLoginId(loginId);
-        return result1;
+       Boolean result=userService.checkDuplicateLoginId((loginId));
+       ResponseEntity<Boolean> responseEntity=ResponseEntity.ok().body(result);
+       return responseEntity;
     }
 
 
@@ -61,5 +67,7 @@ public class UserController {
     public void updateUser(){
 
     }
+
+  
 
 }
