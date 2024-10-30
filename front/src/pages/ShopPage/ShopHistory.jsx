@@ -1,18 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "../../css/Shop/ShopHistory.module.css"; 
+import ShopNav from "./ShopNav";
 
-function Navbar() {
-  return (
-    <nav className={styles.navbar}>
-      <ul>
-        <li><Link to="/shop">포인트 쿠폰</Link></li>
-        <li><Link to="/purchase">포인트 사용</Link></li>
-        <li><Link to="/history">포인트 내역</Link></li>
-      </ul>
-    </nav>
-  );
-}
 
 function ShopHistory() {
   const [history, setHistory] = useState([]);  // 마일리지 내역을 저장할 state
@@ -41,10 +31,13 @@ function ShopHistory() {
   }
 
   return (
+    <div>
+    <ShopNav /> 
     <div className={styles['shop-page']}>
-      <Navbar /> 
       <div className={styles['mileage-history']}>
-        <h2>포인트 내역</h2>
+        <br/>
+        <h3 className={styles['mileageTitle']}>-----$ 포인트 내역 $-----</h3>
+        <br/>
         <div className={styles['table-container']}>
           <table>
             <thead>
@@ -64,8 +57,10 @@ function ShopHistory() {
               ))}
             </tbody>
           </table>
+          <br/>
         </div>
       </div>
+    </div>
     </div>
   );
 }

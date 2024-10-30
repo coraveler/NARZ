@@ -1,74 +1,54 @@
-/* 전체 페이지 스타일 */
-body {
-  font-family: 'Arial', sans-serif;
-  background-color: white;
-  color: #333; /* 기본 글자 색상 */
-  margin: 0;
-  padding: 0;
+/*폰트*/
+@font-face {
+  font-family: 'GumiRomanceTTF';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2410-1@1.0/GumiRomanceTTF.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
 }
+
+@font-face {
+  font-family: 'HakgyoansimChilpanjiugaeTTF-B';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-5@1.0/HakgyoansimChilpanjiugaeTTF-B.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+
 
 /* 마일리지 내역 페이지 스타일 */
 .shop-page {
   max-width: 1200px; /* 최대 너비 설정 */
   margin: 0 auto; /* 중앙 정렬 */
-  padding: 20px;
+  padding: 5px;
   display: flex; 
   flex-direction: column; /* 세로 방향으로 정렬 */
   align-items: center; /* 세로 방향으로 중앙 정렬 */
 }
 
-/* 내비게이션 바 */
-.navbar {
-  background-color: #FF8A2B; /* 주황색 배경 */
-  padding: 1rem 2rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 100%; /* 전체 너비 */
-  display: flex;
-  justify-content: center; /* 중앙 정렬 */
-  border-bottom: 2px solid #e0e0e0;
-}
-
-.navbar ul {
-  display: flex;
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-
-.navbar li {
-  margin-right: 2rem;
-}
-
-.navbar a {
-  text-decoration: none;
-  color: white; /* 내비게이션 링크를 흰색으로 변경 */
-  font-weight: bold;
-  transition: color 0.3s;
-}
-
-.navbar a:hover {
-  color: #FFA000; /* 호버 시 주황색으로 변경 */
-}
-
 /* 마일리지 내역 */
 .mileage-history {
+  font-family: 'GumiRomanceTTF';
   max-width: 800px; /* 최대 너비 설정 */
   width: 100%; /* 가로 폭 100% */
   text-align: center; /* 내용 중앙 정렬 */
 }
 
-/* 테이블을 감싸는 컨테이너 */
-.table-container {
-  width: 100%; /* 가로 폭 100% */
-  margin: 20px auto; /* 중앙 정렬 및 위 아래 여백 */
-  overflow-x: auto; /* 모바일에서 테이블이 넘칠 경우 스크롤 가능 */
+.mileageTitle {
+  font-family: 'GumiRomanceTTF', sans-serif;
+  color: black;
+  padding: 3px;
 }
+
+/* 테이블을 감싸는 컨테이너
+.table-container {
+  width: 100%; 가로 폭 100%
+  margin: 20px auto; 중앙 정렬 및 위 아래 여백
+  overflow-x: auto; 모바일에서 테이블이 넘칠 경우 스크롤 가능
+} */
 
 /* 마일리지 내역 테이블 */
 .mileage-history table {
   width: 100%; /* 테이블 너비를 100%로 설정 */
   border-collapse: collapse; /* 테두리 합치기 */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   background-color: #ffffff;
   margin: 0 auto; /* 테이블 중앙 정렬 */
 }
@@ -76,22 +56,26 @@ body {
 /* 테이블 헤더와 바디 */
 .mileage-history th,
 .mileage-history td {
-  border: 1px solid #FFB300; /* 주황색 테두리 */
   padding: 15px; /* 패딩 */
   color: #FF8A2B; /* 주황색 텍스트 색상 */
 }
 
 .mileage-history th {
-  background-color: #FFB300; /* 헤더 배경색 주황색으로 변경 */
-  color: white; /* 헤더 텍스트 색상 */
+  background-color: white; /* 헤더 배경색 주황색으로 변경 */
+  color: #FFB300; /* 헤더 텍스트 색상 */
   font-weight: bold;
-  text-transform: uppercase; /* 대문자로 변환 */
 }
 
 .mileage-history tr:nth-child(even) {
-  background-color: #f9f9f9; /* 짝수 행 배경색 */
+  background-color: #ffffff /* 짝수 행 배경색 */
 }
 
 .mileage-history tr:hover {
-  background-color: #e0e0e0; /* 마우스 오버 시 배경색 */
+  background-color: #FFB300;; /* 마우스 오버 시 배경색 */
+}
+
+/* 테이블 헤더 */
+.mileage-history thead {
+  box-shadow: 0px 2px 0px #FFB300; /* 그림자 효과 */
+  background-color: white; /* 헤더 배경색 */
 }
