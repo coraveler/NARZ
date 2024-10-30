@@ -43,7 +43,7 @@ const EditProfilePage = ({ selectedBadge }) => {
                 <div className={styles.ImageContainer}>
                     <img src={profileImage} alt="Profile" />
                     <div className={styles.ButtonGroup}>
-                        <label className={styles.AutoButton}>
+                        <label className={styles.changeButton}>
                             이미지 변경
                             <input
                                 type="file"
@@ -54,7 +54,7 @@ const EditProfilePage = ({ selectedBadge }) => {
                             />
                         </label>
                         <button
-                            className={styles.AutoButton}
+                            className={styles.deleteButton}
                             onClick={() => setProfileImage(initialProfileImage)}
                         >
                             삭제
@@ -188,6 +188,7 @@ const EditProfilePage = ({ selectedBadge }) => {
                     <button onClick={() => navigate('/PasswordResetPage')} className={styles.FullButton}>취소</button>
                 </form>
             </main>
+            <br/>
         </div>
     );
 };
