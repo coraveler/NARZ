@@ -13,14 +13,15 @@
 }
 .followerCard {
   display: flex;
-  min-height: 150px;
-  width: 100%;
+  min-height: 100px;
+  width: 70%;
   align-items: center;
   gap: 30px 40px;
   overflow: hidden;
   justify-content: center;
   flex-wrap: wrap;
   padding: 20px 20%;
+  margin: 0 auto; /* 가운데 정렬 */
 }
 
 @media (max-width: 991px) {
@@ -49,6 +50,7 @@
   width: 350px;
   margin: auto 0;
   font-family: 'HakgyoansimChilpanjiugaeTTF-B';
+
 }
 
 @media (max-width: 991px) {
