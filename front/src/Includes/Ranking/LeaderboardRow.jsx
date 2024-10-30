@@ -1,19 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const LeaderboardRow = ({ rank, name, board, score, views, likes }) => {
+const LeaderboardRow = ({ rank, author, board, rating, views, likes, postCount, commentCount }) => {
   return (
     <RowWrapper>
       <RankCell>{rank}</RankCell>
-      <NameCell>{name}</NameCell>
-      <DataCella>{board}</DataCella>
-      <DataCellb>{score}</DataCellb>
-      <DataCell>{views}</DataCell>
-      <DataCellc>{likes}</DataCellc>
+      <AuthorCell>{author}</AuthorCell>
+      {board ? <BoardCell>{board}</BoardCell> : null}
+      {rating !== undefined ? <RatingCell>{rating}</RatingCell> : null}
+      {views !== undefined ? <ViewsCell>{views}</ViewsCell> : null}
+      {likes !== undefined ? <LikesCell>{likes}</LikesCell> : null}
+      {postCount !== undefined ? <PostCountCell>{postCount}</PostCountCell> : null}
+      {commentCount !== undefined ? <CommentCountCell>{commentCount}</CommentCountCell> : null}
     </RowWrapper>
   );
 };
 
+// 기존 스타일 코드 유지
 const RowWrapper = styled.div`
   display: flex;
   width: 100%;
@@ -29,47 +32,51 @@ const RowWrapper = styled.div`
 `;
 
 const RankCell = styled.div`
-  flex: 0 0 8.5%;
-  text-align: right;
-  padding: 8px 0;
-`;
-
-const NameCell = styled.div`
-  flex: 0 0 25%;
-  display: flex;
-  align-items: center;
-  padding: 15px 160px;
-  text-align: right;
-`;
-
-
-const Name = styled.span`
-  color: #1e1e1e;
-  font-weight: 600;
-`;
-
-const DataCella = styled.div`
   flex: 1;
-  text-align: left;
-  padding: 8px 10px;
+  text-align: center;
+  padding: 8px;
 `;
 
-const DataCell = styled.div`
+const AuthorCell = styled.div`
   flex: 1;
-  text-align: left;
-  padding: 8px 25px;
+  text-align: center;
+  padding: 8px;
 `;
 
-const DataCellb = styled.div`
+const BoardCell = styled.div`
   flex: 1;
-  text-align: left;
-  padding: 8px 150px;
+  text-align: center;
+  padding: 8px;
 `;
 
-const DataCellc = styled.div`
+const RatingCell = styled.div`
   flex: 1;
-  text-align: left;
-  padding: 8px 160px;
+  text-align: center;
+  padding: 8px;
+`;
+
+const ViewsCell = styled.div`
+  flex: 1;
+  text-align: center;
+  padding: 8px;
+`;
+
+const LikesCell = styled.div`
+  flex: 1;
+  text-align: center;
+  padding: 8px;
+`;
+
+const PostCountCell = styled.div`
+  flex: 1;
+  text-align: center;
+  padding: 8px;
+`;
+
+const CommentCountCell = styled.div`
+  flex: 1;
+  text-align: center;
+  padding: 8px;
 `;
 
 export default LeaderboardRow;
