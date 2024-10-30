@@ -11,4 +11,25 @@
         WHERE userId = #{userId}
     </select>
 
+    <insert id="saveMsg"
+            parameterType="com.kdt_final.back.notification.domain.NotificationMsgRequestDTO"
+            useGeneratedKeys="true" keyProperty="msgId">
+        INSERT INTO notificationMessage(msgTitle, msgContent, userId)
+        VALUES (#{msgTitle}, #{msgContent}, #{userId})
+    </insert>
+
+    <select id="getMsg"
+            parameterType="String"
+            resultType="com.kdt_final.back.notification.domain.NotificationMsgResponseDTO">
+        SELECT *
+        FROM notificationMessage
+        WHERE userId = #{userId}
+    </select>
+
+    <delete id="deleteMsg"
+            parameterType="int">
+        DELETE FROM notificationMessage
+        WHERE msgId = #{msgId}
+    </delete>
+
 </mapper>
