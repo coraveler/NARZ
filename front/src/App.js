@@ -42,8 +42,9 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage/>} />
         <Route path="/calendar" element={<CalendarPage />} />
-        <Route path="/board/:board/:local" element={<LocalBoard 
-                                           onParamsChange={(boardParam, localParam) => {
+        <Route path="/board/:board/:local"  element={<LocalBoard 
+                                            selectedBadge={selectedBadge}
+                                            onParamsChange={(boardParam, localParam) => {
                                             setBoard(boardParam);
                                             setLocal(localParam);
                                            }}/>}/>

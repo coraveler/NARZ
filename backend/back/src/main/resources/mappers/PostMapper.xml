@@ -168,4 +168,26 @@
             pb.userId = #{userId} AND p.local = #{local}
     </select>
 
+     <!-- getAllTravelog --> 
+
+    <select id="getAllTravelog"
+            parameterType="String"
+            resultType="com.kdt_final.back.post.domain.PostResponseDTO">
+        SELECT POSTID, USERID, LOCAL, TITLE, RATING, SECRET, HEADERIMG, CONTENT, CREATEDDATE
+        FROM POST
+        WHERE SECRET = 0 AND USERID = #{userId}
+    </select>   
+
+    <!-- getTravelog --> 
+
+    <select id="getTravelog"
+            parameterType="com.kdt_final.back.post.domain.PostRequestDTO"
+            resultType="com.kdt_final.back.post.domain.PostResponseDTO">
+        SELECT POSTID, USERID, LOCAL, TITLE, RATING, SECRET, HEADERIMG, CONTENT, CREATEDDATE
+        FROM POST
+        WHERE SECRET = 0 AND USERID = #{userId} AND LOCAL = #{local}
+       
+    </select>
+
+
     </mapper>

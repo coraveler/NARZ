@@ -65,4 +65,17 @@ public class UserService {
         }
         return false;
     }
+
+    public Boolean login(UserDTO.UserRequestDTO userRequestDTO) {
+
+        User user=new User();
+        user.setLoginId(userRequestDTO.getLoginId());
+        user.setPassword(userRequestDTO.getPassword());
+
+    List<User> loginStatus=userRepository.login(user);
+    if (loginStatus==null || loginStatus.isEmpty()){
+        return false;
+    }
+    return true;
+    }
 }

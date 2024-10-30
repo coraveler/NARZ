@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../css/LoginFormPage.module.css';
 import { useNavigate } from "react-router-dom"; // useNavigate 임포트
+import api from '../api/axios';
 
 const LoginFormPage = () => {
   const navigate = useNavigate();
-  let [email,setEmail] = useState('');
-  const [pw,setPw] = useState('');
+  let [loginId,setloginId] = useState('');
+  const [password,setPassword] = useState('');
  
 
   return (
@@ -13,18 +14,18 @@ const LoginFormPage = () => {
       <form className={styles.loginForm}>
         <h1 className={styles.logo}>NARZ</h1>
         <div className={styles.inputGroup}>
-          <label htmlFor="email" className={styles.label}>Email</label>
+          <label htmlFor="loginId" className={styles.label}>ID</label>
           <input
-            type="email"
-            id="email"
+            type="text"
+            id="loginId"
             className={styles.input}
-            placeholder="Enter your email"
-            aria-label="Email"
-            value={email}
+            placeholder="Enter your ID"
+            aria-label="text"
+            value={loginId}
             onChange={(event)=>{
               console.log(event.target.value);
-              setEmail(event.target.value);
-              console.debug('이메일값확인',email);
+              setloginId(event.target.value);
+              console.debug('아이디확인',loginId);
             }}
           />
         </div>
@@ -36,22 +37,44 @@ const LoginFormPage = () => {
             className={styles.input}
             placeholder="Enter your password"
             aria-label="Password"
-            value={pw}
+            value={password}
             onChange={(event)=>{
-                setPw(event.target.value);
+              setPassword(event.target.value);
             }}
           />
         </div>
         <div className={styles.buttonGroup}>
-          <button type="submit" className={styles.button} onClick={(e)=>{
+          <button type="submit" className={styles.button} onClick={async(e)=>{
             e.preventDefault();
           
                 let 전송할객체 = {
-                email:email,
-                pw:pw
+                loginId:loginId,
+                password:password
                 }
 
                 console.debug('전송할객체',전송할객체)
+
+                try {
+                  const response = await api.post('user/loginStatus', 전송할객체, {
+                    headers: {
+                      // Content-Type을 설정하지 않음
+                     
+                    }
+                  })
+            
+                  if (response.data == true) {
+                    alert("로그인되었습니다.")
+                    navigate('/')
+            
+            
+                  }
+                  else {
+                    alert("정보가 일치하지 않습니다.")
+                  }
+            
+                } catch (e) {
+            
+                }
               
 
             }}>Sign In</button>

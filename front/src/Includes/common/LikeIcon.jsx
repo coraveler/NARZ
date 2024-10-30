@@ -82,11 +82,11 @@ const LikeIcon = ({postId, userId}) => {
         }
     }
     return (
-        <div onClick={clickLike} style={{ cursor: 'pointer' }}>
+        <div >
             {
                 likeState ? (
-                    <div> <AiFillLike style={{marginBottom: '3px'}}/>&nbsp; {likeCount} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                ) : (<div><AiOutlineLike style={{marginBottom: '3px'}}/>&nbsp; {likeCount} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </div>)
+                    <div> <AiFillLike style={{marginBottom: '3px', cursor: 'pointer'}}onClick={clickLike}/>&nbsp; {likeCount} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                ) : (<div><AiOutlineLike style={{marginBottom: '3px', cursor: 'pointer'}}onClick={clickLike}/>&nbsp; {likeCount} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </div>)
             }
         </div>
     );

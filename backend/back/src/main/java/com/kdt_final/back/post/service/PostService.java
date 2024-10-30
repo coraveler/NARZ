@@ -161,6 +161,24 @@ public class PostService {
         return result != null;
     }
 
+    public List<PostResponseDTO> getBoardPost(PostRequestDTO params, String board) {
+        List<PostResponseDTO> lst ;
+        switch (board) {
+            case "bookmark":
+                System.err.println("ASDASDASDASDASDASD");
+                lst = getBookMark(params);
+                break;
+            case "travelog":
+                lst = getTravelLog(params);                
+                break;
+            default:
+                lst = null;
+                break;
+        }
+        return lst;
+    }
+
+
     public List<PostResponseDTO> getBookMark(PostRequestDTO params) {
         System.out.println("debug >>>> service list()" + postMapper); 
         List<PostResponseDTO> lst ;
@@ -186,4 +204,29 @@ public class PostService {
         return lst;
     }
 
+
+    public List<PostResponseDTO> getTravelLog(PostRequestDTO params) {
+        System.out.println("debug >>>> service list()" + postMapper); 
+        List<PostResponseDTO> lst ;
+        if(params.getLocal().equals("all")){
+            lst = postMapper.getAllTravelog(params.getUserId());
+        }else{
+            lst = postMapper.getTravelog(params);
+        }
+        
+        System.out.println("lst : " + lst);
+    
+        for (int i = 0; i < lst.size(); i++) {
+            String imgPath = lst.get(i).getHeaderImg();
+            if (imgPath != null) {
+                // imgPath에 baseUrl을 추가하여 전체 경로를 생성
+                lst.get(i).setHeaderImg(baseUrl + imgPath);
+            }
+             // 각 포스트의 좋아요 수를 추가
+             int likeCount = postMapper.countLike(lst.get(i).getPostId()); // 포스트 ID를 사용하여 좋아요 수 조회
+             lst.get(i).setLikeCount(likeCount); // 좋아요 수 설정
+        }
+    
+        return lst;
+    }
 }
