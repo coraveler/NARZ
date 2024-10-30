@@ -45,6 +45,7 @@ const LoginFormPage = () => {
         <div className={styles.buttonGroup}>
           <button type="submit" className={styles.button} onClick={(e)=>{
             e.preventDefault();
+          
                 let 전송할객체 = {
                 email:email,
                 pw:pw

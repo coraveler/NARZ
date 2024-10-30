@@ -12,7 +12,7 @@ function RankingNavigation({ onRankChange, activeRank }) {
   return (
     <nav>
       <NavigationContainer>
-        <VerticalDividerWrapper>
+        <VerticalDividerWrapper> 
           <VerticalDivider />
         </VerticalDividerWrapper>
         <NavigationList>
