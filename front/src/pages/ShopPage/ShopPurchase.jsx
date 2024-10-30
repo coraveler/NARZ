@@ -8,6 +8,7 @@ const ShopPurchase = () => {
     { name: "닉네임 변경", price: 10000 },
     { name: "닉네임 컬러 변경", price: 10000 },
     { name: "프로필 사진 변경", price: 10000 },
+    { name : "포인트 쿠폰 구매", price : 10000}
   ];
 
   const handlePurchase = async (option) => {
