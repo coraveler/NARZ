@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import img0 from '../../images/1.png';
 import img1 from '../../images/2.png';
 import img2 from '../../images/3.png';
-import img3 from '../../images/4.webp';
+import img3 from '../../images/4.png';
 import styles from '../../css/BackgroundSlider.module.css';
 
 const images = [img0, img1, img2, img3];
