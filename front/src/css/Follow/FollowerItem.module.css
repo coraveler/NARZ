@@ -18,21 +18,15 @@
     border-top-width: 1px;
     border-bottom-width: 1px;
     display: flex;
-    min-height: 150px; /* 항목의 최소 높이 축소 */
-    width: 100%;
+    min-height: 100px; /* 항목의 최소 높이 축소 */
+    width: 70%;
     align-items: center;
     gap: 30px 40px; /* 요소 간의 간격 줄임 */
     overflow: hidden;
     justify-content: center;
     flex-wrap: wrap;
-    padding: 20px 20%; /* 상하 20px, 좌우 80px 패딩 추가 */
-  }
-  
-  @media (max-width: 991px) {
-    .followerItem {
-      max-width: 100%;
-      padding: 20px 40px; /* 작은 화면에서 좌우 패딩을 40px로 조정 */
-    }
+    padding: 10px 20%; /* 상하 20px, 좌우 80px 패딩 추가 */
+    margin: 0 auto; /* 가운데 정렬 */
   }
   
   .profileImage {
