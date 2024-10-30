@@ -30,4 +30,12 @@
         SELECT  loginId
         FROM user where loginId =#{loginId}
     </select>
+
+
+    <select id="login"
+            parameterType="com.kdt_final.back.user.domain.User">
+         SELECT loginId,password
+          FROM user
+    </select>
+
 </mapper>

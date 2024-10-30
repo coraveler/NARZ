@@ -106,7 +106,7 @@ function SignUpFormPage({ ...props }) {
 
                     try {
                       const response = await api.get(url);
-                      console.debug('asdfasdf',response)
+                     
                       if (response.data == true) {
                           alert("사용가능합니다.");
                       } else {
