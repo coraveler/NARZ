@@ -25,7 +25,7 @@ function ProfileCard({ selectedBadge }) {
   const handleNameClick = () => navigate('/personal/EditProfilePage');
   const followerClick = () => navigate('/personal/follower');
   const followingClick = () => navigate('/personal/following');
-  const handleTravelogClick = () => navigate('/personal/travelog');
+  const handleTravelogClick = () => navigate('/board/travelog/all');
 
   return (
     <section className={styles.profileCard}>

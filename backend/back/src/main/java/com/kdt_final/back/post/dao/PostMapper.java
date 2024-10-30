@@ -45,4 +45,8 @@ public interface PostMapper {
     public List<PostResponseDTO> getAllBookMark(String userId);
 
     public List<PostResponseDTO> getBookMark(PostRequestDTO params);
+
+    public List<PostResponseDTO> getAllTravelog(String userId);
+
+    public List<PostResponseDTO> getTravelog(PostRequestDTO params);
 }

@@ -26,12 +26,25 @@ function TravelogPage({ selectedBadge }) {
             </button>
             </div>
 
-            
+{/*             
+            <div align="center">
+                <TravelCardGrid 
+                    data={post} 
+                    page={10} 
+                    // onTotalCountChange={handleTotalCountChange} 
+                    itemsPerPage={itemsPerPage} 
+                    msg={msg} 
+                />
+                {post.length > 0 &&
+                    <PaginationComponent 
+                        totalPages={totalPages} 
+                        onPageChange={handlePageChange} 
+                        totalCount={totalCount} 
+                        currentPage={page} 
+                    />
+                }
+            </div> */}
 
-            <TravelCardGrid />
-            
-
-            <PaginationComponent />
         </div>
     );
 }
