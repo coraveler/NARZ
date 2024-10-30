@@ -13,7 +13,7 @@
 }
 
 .achievementSection {
-  padding: 20px 20%; /* 상하 32px, 좌우 60px 패딩으로 설정 */
+  padding: 20px 30%; /* 상하 32px, 좌우 60px 패딩으로 설정 */
 }
 
 .sectionTitle {
@@ -40,7 +40,7 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 16px;
-  font-size: 19px;
+  font-size: 16px;
 }
 
 .achievementTitle {
@@ -65,10 +65,10 @@
   background-color: white;
   color: #FF8A2B;
   border: none;
-  padding: 8px 16px;
+  padding: 8px 14px;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 12px;
   outline: 1px solid #FF8A2B;
 }
 

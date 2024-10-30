@@ -70,6 +70,8 @@ function SignUpFormPage({ ...props }) {
   return (
     <main>
       <section className={styles.FormContainer}>
+        <br/>
+        <br/>
         <h1 className={styles.FormTitle}>회원정보를 입력해주세요</h1>
 
         <form onSubmit={handleSubmit}>
