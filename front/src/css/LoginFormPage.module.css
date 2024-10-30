@@ -36,7 +36,7 @@
   }
   
   .logo {
-    color: #dd983e;
+    color: #FF8A2B;
     text-shadow: 5px 5px 4px rgba(0, 0, 0, 0.5);
     text-align: center;
     align-self: center;
@@ -123,7 +123,7 @@
   .button {
     align-self: stretch;
     border-radius: 8px;
-    background-color:#2c2c2c;
+    background-color:white;
     min-width: 240px;
     width: 100%;
     gap: 8px;
@@ -131,11 +131,15 @@
     flex: 1;
     margin: auto 0;
     padding: 12px;
-    border: 1px solid #2c2c2c;
-    color: #fff;
+    border: 1px solid #FF8A2B;
+    color: #FF8A2B;
     cursor: pointer;
   }
 
+  .button:hover {
+    background: #FF8A2B;
+    color: white;
+  }
   
   @media (max-width: 991px) {
     .button {

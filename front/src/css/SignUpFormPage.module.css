@@ -32,6 +32,12 @@
     margin-top: 24px;
 }
 
+.StyledButton:hover {
+    background: #FF8A2B;
+    color: white;
+  }
+
+
 .FieldWrapper {
     display: flex;
     flex-direction: column;
@@ -69,10 +75,10 @@
 .StyledButton {
     margin: 0px 0px 10px 0px;
     border-radius: 8px;
-    background-color: #2c2c2c;;
-    color: white;
+    background-color: white;;
+    color: #FF8A2B;
     padding: 12px;
-    border: 1px solid#2c2c2c;;
+    border: 1px solid #FF8A2B;;
     cursor: pointer;
     width: 100%;
     max-width: 746px;
@@ -82,6 +88,11 @@
         white-space: normal;
 
     }
+    .StyledButton:hover {
+        background: #FF8A2B;
+        color: white;
+      }
+    
 }
 
     .StyledCancleButton {
@@ -91,10 +102,10 @@
         margin-top: 24px;
         margin: 0px 0px 10px 0px;
         border-radius: 8px;
-        background-color: #2c2c2c;;
-        color: white;
+        background-color: white;;
+        color: #FF8A2B;
         padding: 12px;
-        border: 1px solid#2c2c2c;;
+        border: 1px solid #FF8A2B;;
         cursor: pointer;
         width: 100%;
         max-width: 746px;
@@ -104,4 +115,9 @@
             white-space: normal;
     
         }
+        
+        .StyledCancleButton:hover {
+            background: #FF8A2B;
+            color: white;
+          }
 }
