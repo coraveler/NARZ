@@ -11,9 +11,9 @@
 
     <!-- 모든 랭킹 가져오기 -->
     <select id="getRankings" resultType="com.kdt_final.back.ranking.domain.RankingResponseDTO">
-        SELECT id, author, board, rating, views, likes
-        FROM ranking
-        ORDER BY likes DESC
+        SELECT postId AS id, userId AS author, title AS board, rating, 0 AS views, 0 AS likes
+        FROM post
+        ORDER BY rating DESC
     </select>
 
     <!-- 특정 랭킹 삭제 -->
@@ -23,9 +23,9 @@
 
     <!-- 특정 랭킹 정보 가져오기 -->
     <select id="getRankingInfo" parameterType="int" resultType="com.kdt_final.back.ranking.domain.RankingResponseDTO">
-        SELECT *
-        FROM ranking
-        WHERE id = #{id}
+        SELECT postId AS id, userId AS author, title AS board, rating, 0 AS views, 0 AS likes
+        FROM post
+        WHERE postId = #{id}
     </select>
 
     <!-- 랭킹 수정 -->
@@ -41,24 +41,24 @@
 
     <!-- 인기 게시글 랭킹 가져오기 -->
     <select id="getPopularPostRankings" resultType="com.kdt_final.back.ranking.domain.RankingResponseDTO">
-        SELECT id, author, board, rating, views, likes
-        FROM ranking
-        ORDER BY likes DESC
+        SELECT postId AS id, userId AS author, title AS board, rating, 0 AS views, 0 AS likes
+        FROM post
+        ORDER BY rating DESC
         LIMIT 10
     </select>
 
     <!-- 유저 활동 랭킹 가져오기 -->
     <select id="getUserActivityRankings" resultType="com.kdt_final.back.ranking.domain.RankingResponseDTO">
-        SELECT id, author, board, rating, views, likes
-        FROM ranking
-        ORDER BY views DESC
+        SELECT postId AS id, userId AS author, title AS board, rating, 0 AS views, 0 AS likes
+        FROM post
+        ORDER BY createdDate DESC
         LIMIT 10
     </select>
 
     <!-- 명예의 전당 가져오기 -->
     <select id="getHallOfFame" resultType="com.kdt_final.back.ranking.domain.RankingResponseDTO">
-        SELECT id, author, board, rating, views, likes
-        FROM ranking
+        SELECT postId AS id, userId AS author, title AS board, rating, 0 AS views, 0 AS likes
+        FROM post
         WHERE rating > 4.5
         ORDER BY rating DESC
         LIMIT 3

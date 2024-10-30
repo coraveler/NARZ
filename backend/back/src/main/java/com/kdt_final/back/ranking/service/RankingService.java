@@ -26,23 +26,23 @@ public class RankingService {
         return rankingMapper.getHallOfFame();
     }
 
-    public void addRanking(RankingRequestDTO rankingRequestDTO) {
-        rankingMapper.addRanking(rankingRequestDTO);
-    }
+//     public void addRanking(RankingRequestDTO rankingRequestDTO) {
+//         rankingMapper.addRanking(rankingRequestDTO);
+//     }
 
-    public List<RankingResponseDTO> getRankings() {
-        return rankingMapper.getRankings();
-    }
+//     public List<RankingResponseDTO> getRankings() {
+//         return rankingMapper.getRankings();
+//     }
 
-    public void deleteRanking(int rank) {
-        rankingMapper.deleteRanking(rank);
-    }
+//     public void deleteRanking(int rank) {
+//         rankingMapper.deleteRanking(rank);
+//     }
 
-    public RankingResponseDTO getRankingInfo(int rank) {
-        return rankingMapper.getRankingInfo(rank);
-    }
+//     public RankingResponseDTO getRankingInfo(int rank) {
+//         return rankingMapper.getRankingInfo(rank);
+//     }
 
-    public void updateRanking(RankingRequestDTO rankingRequestDTO) {
-        rankingMapper.updateRanking(rankingRequestDTO);
-    }
-}
+//     public void updateRanking(RankingRequestDTO rankingRequestDTO) {
+//         rankingMapper.updateRanking(rankingRequestDTO);
+//     }
+ }
