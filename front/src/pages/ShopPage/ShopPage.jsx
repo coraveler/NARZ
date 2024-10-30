@@ -55,8 +55,9 @@ function ShopPage() {
     <div className={styles['shop-page']}>
       <ShopNav />
       <main>
-        <CouponPurchase />
         <CouponRegister />
+        <br/>
+        <CouponPurchase />
       </main>
     </div>
   );

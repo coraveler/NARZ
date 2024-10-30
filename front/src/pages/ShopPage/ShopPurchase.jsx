@@ -43,11 +43,12 @@ const ShopPurchase = () => {
     <div>
       <ShopNav />
       <div className={styles['shop-purchase']}>
-        <h2>포인트 사용</h2>
+        <h3>-----$ 포인트 상점 $-----</h3>
+        <br/>
         <div className={styles['options-container']}>
           {options.map((option, index) => (
             <div key={index} className={styles['option-card']}>
-              <h3>{option.name}</h3>
+              <h4>{option.name}</h4>
               <p>가격: {option.price}M</p>
               <button className={styles['purchase-button']} onClick={() => handlePurchase(option)}>구매</button>
             </div>

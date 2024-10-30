@@ -22,8 +22,7 @@
   padding: 2rem;
 }
 
-/* h2 제목 폰트 변경 */
-h2 {
+.shop-purchase h3 {
   font-family: 'GumiRomanceTTF', sans-serif;
   color: black;
 }
@@ -33,6 +32,7 @@ h2 {
   flex-direction: row;
   flex-wrap: wrap;
   gap: 1rem;
+  justify-content: center;
 }
 
 .option-card {
@@ -42,7 +42,8 @@ h2 {
   border: 1px solid #FFB300;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  flex: 1;
+  flex: 0 1 350px; /* flex-grow를 0으로, flex-basis를 200px로 설정 */
+  max-width: 500px; /* 최대 너비를 제한하여 크기 조정 */
   min-width: 200px;
   color: #FF8A2B;
 }

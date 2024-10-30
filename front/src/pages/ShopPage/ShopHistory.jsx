@@ -35,7 +35,8 @@ function ShopHistory() {
     <ShopNav /> 
     <div className={styles['shop-page']}>
       <div className={styles['mileage-history']}>
-        <h2>포인트 내역</h2>
+        <br/>
+        <h3 className={styles['mileageTitle']}>-----$ 포인트 내역 $-----</h3>
         <br/>
         <div className={styles['table-container']}>
           <table>
@@ -56,6 +57,7 @@ function ShopHistory() {
               ))}
             </tbody>
           </table>
+          <br/>
         </div>
       </div>
     </div>

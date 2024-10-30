@@ -13,11 +13,12 @@
   font-style: normal;
 }
 
+
 /* 마일리지 내역 페이지 스타일 */
 .shop-page {
   max-width: 1200px; /* 최대 너비 설정 */
   margin: 0 auto; /* 중앙 정렬 */
-  padding: 20px;
+  padding: 5px;
   display: flex; 
   flex-direction: column; /* 세로 방향으로 정렬 */
   align-items: center; /* 세로 방향으로 중앙 정렬 */
@@ -25,12 +26,17 @@
 
 /* 마일리지 내역 */
 .mileage-history {
-  font-family: 'HakgyoansimChilpanjiugaeTTF-B';
+  font-family: 'GumiRomanceTTF';
   max-width: 800px; /* 최대 너비 설정 */
   width: 100%; /* 가로 폭 100% */
   text-align: center; /* 내용 중앙 정렬 */
 }
 
+.mileageTitle {
+  font-family: 'GumiRomanceTTF', sans-serif;
+  color: black;
+  padding: 3px;
+}
 
 /* 테이블을 감싸는 컨테이너
 .table-container {

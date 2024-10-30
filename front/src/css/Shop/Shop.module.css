@@ -15,14 +15,14 @@
 
 /* 내비게이션 바 */
 .navbar {
-  background-color: white; /* 주황색 배경 */
-  color : black;
+  background-color: white;
+  color: black;
   padding: 20px 30px;
-  width: 100%; /* 전체 너비 */
+  width: 100%;
   display: flex;
   font-family: 'GumiRomanceTTF', sans-serif;
   font-size: 18px;
-  justify-content: center; /* 중앙 정렬 */
+  justify-content: center;
 }
 
 .navbar ul {
@@ -36,17 +36,19 @@
   margin-right: 2rem;
 }
 
-.navbar a {
+.link {
   text-decoration: none;
-  color: black; /* 흰색 글씨로 변경 */
+  color: black;
   font-weight: bold;
   transition: color 0.3s;
 }
 
-.navbar a:hover {
-  color: black; /* 호버 시 주황색으로 변경 */
-  text-shadow: 0px 0px 10px #FFB300;
+.link:hover,
+.active {
+  color: black;
+  text-shadow: 0px 0px 10px #FFB300; /* 호버 및 활성화 상태에서 그림자 */
 }
+
 
 /* 쿠폰 구매 및 등록 */
 .coupon-purchase, .coupon-register {
