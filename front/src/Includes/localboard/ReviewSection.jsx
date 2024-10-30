@@ -43,11 +43,13 @@ const ReviewSection = ({ ratingAvg, kLocal, handleArray, handleStandard, searchT
   const activeStyle = {
     backgroundColor: "#FFB74D",
     color: "white",
+    // marginLeft: '20px'
   };
 
   const inactiveStyle = {
     backgroundColor: "white",
     color: "#FFC107",
+    // marginLeft: '10px'
   };
 
   useEffect(() => {
@@ -69,11 +71,10 @@ const ReviewSection = ({ ratingAvg, kLocal, handleArray, handleStandard, searchT
         {searchTerm && FilterOptions.map((option, index) => {
           // const isLastButton = index === FilterOptions.length - 1;
           return (
-            
             <div
               key={index}
               className={styles.filterButton}
-              style={{ marginLeft: "5px" }}
+              style={{ marginLeft: "15px" }}
               onClick={option.action}
             >
               <button
@@ -82,6 +83,7 @@ const ReviewSection = ({ ratingAvg, kLocal, handleArray, handleStandard, searchT
               >
                 {option.text}
               </button>
+              
             </div>
           );
         })}

@@ -11,14 +11,12 @@ function HomePage() {
   const navigate = useNavigate();
   const [bookMarkPost, setBookMarkPost] = useState([]);
   const userId = 'userB';
-  const local = 'all';
 
   const getBookMarkPost = async () => {
     try {
-      const response = await api.get(`post/get/bookmark`, {
+      const response = await api.get(`post/get/bookmark/all`, {
         params: {
-          local: local,
-          userId: userId
+          userId
         }
       });
       console.log("debug >>> response, ", response.data);
@@ -57,12 +55,12 @@ function HomePage() {
         {sections.map((section, index) => (
           <div key={index}>
             <h3 className="section-title">{section.title}</h3>
-            <div style={{ cursor: "pointer" }} onClick={section.action}>
+            <div >
               {section.data.length > 5 && (
-                <p style={{ width: '920px', textAlign: "right", marginLeft: "auto", marginRight: "auto" }}>
-                  더보기 <IoMdArrowDropright style={{ fontSize: "25px", marginBottom: "3px" }} />
+                <p style={{ width: '920px', textAlign: "right", marginLeft: "auto", marginRight: "auto"}} >
+                  <span style={{cursor: "pointer"}} onClick={section.action}>더보기 <IoMdArrowDropright style={{ fontSize: "25px", marginBottom: "3px" }} /></span>
                 </p>
-              )}
+              )} 
             </div>
             <div align="center">
               <TravelCardGrid data={section.data} itemsPerPage={5} />

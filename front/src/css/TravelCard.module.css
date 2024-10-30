@@ -11,11 +11,13 @@
   }
   
   .cardImage {
-    aspect-ratio: 1.07;
-    object-fit: contain;
-    object-position: center;
-    width: 100%;
-    align-self: stretch;
+    /* aspect-ratio: 1.07; */
+    /* object-fit: contain; */
+    /* object-position: center; */
+    width: 100%; /* 너비를 100%로 설정 */
+    height: 100%; /* 높이를 100%로 설정 */
+    object-fit: cover; /* 이미지를 덮어서 잘림 현상 방지 */
+    /* align-self: stretch; */
   }
   
   .cardTitle {
