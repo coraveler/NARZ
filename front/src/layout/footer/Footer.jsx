@@ -27,7 +27,7 @@ function Footer() {
   return (
     <div style={{borderTop:'1px solid rgba(214, 214, 214, 0.8)'}}>
       <div style={{textAlign:'center', marginTop:'20px', marginBottom:'5px'}}><span  className={styles.logo}>.Traveler.</span></div>
-      <div className={styles['member']} ><p>meber | jaksam, siu, Gunzzal, uunesn, semi, yoonseo</p></div>
+      <div className={styles['member']} ><p>member | jaksam, siu, Gunzzal, uunesn, semi, yoonseo</p></div>
       <footer className={styles.footer}>
         <div className={styles['comment']} >
         <p>Travel makes one modest. You see what a tiny place you occupy in the world.</p>
