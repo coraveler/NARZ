@@ -44,8 +44,10 @@ function ShopHistory() {
   }
 
   return (
+    <div>
+    <Navbar /> 
     <div className={styles['shop-page']}>
-      <Navbar /> 
+      
       <div className={styles['mileage-history']}>
         <h2>포인트 내역</h2>
         <div className={styles['table-container']}>
@@ -69,6 +71,7 @@ function ShopHistory() {
           </table>
         </div>
       </div>
+    </div>
     </div>
   );
 }
