@@ -379,10 +379,6 @@ function LocalBoard({ onParamsChange }) {
     };
 
     useEffect(() => {
-        getPost(); // 처음 데이터 가져오기
-    }, [local, board]);
-
-    useEffect(() => {
         updatePostOrder(originalPost); // originalPost가 변경될 때마다 정렬
     }, [arrayState, originalPost]);
 
@@ -404,7 +400,9 @@ function LocalBoard({ onParamsChange }) {
                 }
             });
             const filteredPosts = filterPosts(response.data, searchTerm);
+            setOriginalPost(filteredPosts);
             updatePostOrder(filteredPosts); // 정렬된 포스트 업데이트
+            averageRating(filteredPosts.map(post => post.rating));
         } catch (err) {
             console.log(err);
         }
@@ -412,16 +410,26 @@ function LocalBoard({ onParamsChange }) {
     
 
     useEffect(() => {
+        console.log("ASDASDASDASD"+board);
         if (board === "bookmark") {
             getBookMarkPost();
         } else {
             getPost();
         }
-    }, [local, board, arrayState, searchTerm, standardState]);
+    }, [local, board,  searchTerm, standardState]);
 
     const handleArray = (value) => {
         setArrayState(value);
+        // localStorage.setItem('arrayButtonState', value); // 로컬 스토리지에 저장
     };
+
+    useEffect(() => {
+                // 로컬 스토리지에서 arrayState를 가져옵니다.
+                const storedArrayState = localStorage.getItem('arrayButtonState');
+                if (storedArrayState) {
+                    setArrayState(JSON.parse(storedArrayState));
+                }
+            }, []);
 
     useEffect(() => {
         if (onParamsChange) {
@@ -437,6 +445,7 @@ function LocalBoard({ onParamsChange }) {
 
     const handleStandard = (value) => {
         setStandardState(value);
+        // localStorage.setItem('standardState', value); // 로컬 스토리지에 저장
     };
 
     return (
