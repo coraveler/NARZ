@@ -70,7 +70,7 @@ function ScheduleInfoModal({
                         bottom: 'auto',
                         borderRadius: '20px',
                         padding: '30px',
-                        width: '30vw'}}}>
+                        width: '25vw'}}}>
 
                 <div style={{textAlign:'left'}}>
                     <div style={{textAlign:'right'}}>

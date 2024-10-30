@@ -36,12 +36,12 @@ function Footer() {
       </footer>
 
       <div style={{ display:'flex', gap:'10px', fontSize:'25px', justifyContent:'center', cursor:'pointer', marginTop:'5px'}}>
-        <a href="https://github.com" ><FaGithub/></a>
-        <a href="https://youtube.com" ><FaYoutube/></a>
-        <a href="https://facebook.com"><FaFacebookSquare/></a>
-        <a href="https://instagram.com"><FaInstagram/></a>
-        <a href="https://twitter.com"><FaTwitter/></a>
-        <a href="https://naver.com" style={{fontSize: '20px', lineHeight: '38px' }}><SiNaver/></a>
+        <a href="https://github.com" target="_blank" ><FaGithub/></a>
+        <a href="https://youtube.com" target="_blank" ><FaYoutube/></a>
+        <a href="https://facebook.com" target="_blank" ><FaFacebookSquare/></a>
+        <a href="https://instagram.com" target="_blank" ><FaInstagram/></a>
+        <a href="https://twitter.com" target="_blank" ><FaTwitter/></a>
+        <a href="https://naver.com" style={{fontSize: '20px', lineHeight: '38px' }} target="_blank" ><SiNaver/></a>
       </div>
         
       <div style={{ textAlign: 'center', marginBottom:'20px', padding: '10px', }}>
