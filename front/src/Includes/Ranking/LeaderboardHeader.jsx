@@ -1,19 +1,38 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const LeaderboardHeader = () => {
+const LeaderboardHeader = ({ activeRank }) => {
   return (
     <HeaderRow>
-      <HeaderCell>순위</HeaderCell>
-      <HeaderCell>작성자</HeaderCell>
-      <HeaderCell>게시판</HeaderCell>
-      <HeaderCell>평점</HeaderCell>
-      <HeaderCell>조회수</HeaderCell>
-      <HeaderCell>좋아요</HeaderCell>
+      {activeRank === "인기 게시글 랭킹" && (
+        <>
+          <HeaderCell>순위</HeaderCell>
+          <HeaderCell>작성자</HeaderCell>
+          <HeaderCell>게시판</HeaderCell>
+          <HeaderCell>평점</HeaderCell>
+          <HeaderCell>조회수</HeaderCell>
+          <HeaderCell>좋아요</HeaderCell>
+        </>
+      )}
+      {activeRank === "유저 활동 랭킹" && (
+        <>
+          <HeaderCell>순위</HeaderCell>
+          <HeaderCell>작성자</HeaderCell>
+          <HeaderCell>게시물 수</HeaderCell>
+          <HeaderCell>댓글 수</HeaderCell>
+        </>
+      )}
+      {activeRank === "명예의 전당" && (
+        <>
+          <HeaderCell>순위</HeaderCell>
+          <HeaderCell>작성자</HeaderCell>
+        </>
+      )}
     </HeaderRow>
   );
 };
 
+// 기존 스타일 코드 유지
 const HeaderRow = styled.div`
   display: flex;
   color: #1e1e1e;
@@ -26,9 +45,9 @@ const HeaderRow = styled.div`
 
 const HeaderCell = styled.div`
   flex: 1;
-  padding: 4px; 
-  min-width: 100px;
+  padding: 8px;
   text-align: center;
+  min-width: 100px;
 `;
 
 export default LeaderboardHeader;

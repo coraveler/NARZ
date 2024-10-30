@@ -85,7 +85,7 @@ const ReviewSection = ({ ratingAvg, kLocal, handleArray, handleStandard, searchT
               </button>
               
             </div>
-          );
+          ); 
         })}
 
         <div className={styles.dividerContainer}>
