@@ -1,18 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom"; 
 import styles from "../../css/Shop/Shop.module.css"; 
+import ShopNav from "./ShopNav";
 
-function Navbar() {
-  return (
-    <nav className={styles.navbar}> 
-      <ul>
-        <li><Link to="/shop">포인트 쿠폰</Link></li> 
-        <li><Link to="/purchase">포인트 사용</Link></li> 
-        <li><Link to="/history">포인트 내역</Link></li>
-      </ul>
-    </nav>
-  );
-}
 
 function CouponPurchase() {
   const [quantity, setQuantity] = useState(1); // 상태 관리
@@ -63,10 +53,11 @@ function CouponRegister() {
 function ShopPage() {  
   return (
     <div className={styles['shop-page']}>
-      <Navbar />
+      <ShopNav />
       <main>
-        <CouponPurchase />
         <CouponRegister />
+        <br/>
+        <CouponPurchase />
       </main>
     </div>
   );
