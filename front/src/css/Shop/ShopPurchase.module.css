@@ -25,6 +25,7 @@
 .shop-purchase h3 {
   font-family: 'GumiRomanceTTF', sans-serif;
   color: black;
+  margin-top: 10px;
 }
 
 .options-container {
@@ -50,13 +51,15 @@
 
 .purchase-button {
   font-family: Arial, sans-serif;
-  padding: 0.5rem 1rem;
+  padding: 3px 6px;
+  font-size: 15px;
   background-color: white;
   color: #FF8A2B;
   border: 1px solid #FF8A2B;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .purchase-button:hover {

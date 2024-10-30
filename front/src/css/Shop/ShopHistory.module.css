@@ -36,6 +36,7 @@
   font-family: 'GumiRomanceTTF', sans-serif;
   color: black;
   padding: 3px;
+  margin-top: 10px;
 }
 
 /* 테이블을 감싸는 컨테이너
@@ -62,8 +63,10 @@
 
 .mileage-history th {
   background-color: white; /* 헤더 배경색 주황색으로 변경 */
+  font-family: 'HakgyoansimChilpanjiugaeTTF-B';
   color: #FFB300; /* 헤더 텍스트 색상 */
   font-weight: bold;
+  font-size: 25px;
 }
 
 .mileage-history tr:nth-child(even) {
