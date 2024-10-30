@@ -14,7 +14,7 @@ const FollowerPage = ({ selectedBadge }) => {
   ];
 
   return (
-    <div className={styles.followerPage}>
+    <div >
       <div>
         <ProfileCard selectedBadge={selectedBadge} />
       </div>

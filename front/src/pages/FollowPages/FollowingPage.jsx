@@ -13,7 +13,7 @@ const FollowerPage = ({ selectedBadge }) => {
     ];
   
     return (
-        <main className={styles.followerPage}>
+        <main >
             <ProfileCard selectedBadge={selectedBadge} />
           {followers.map((follower) => (
             <FollowerCard key={follower.id} name={follower.name} imageUrl={follower.imageUrl} />
