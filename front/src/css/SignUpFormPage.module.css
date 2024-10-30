@@ -15,7 +15,8 @@
 }
 
 .FormTitle {
-    color: #111;
+    color: #FF8A2B;
+    text-shadow: 5px 5px 4px rgba(0, 0, 0, 0.5);
     text-align: center;
     font: 700 32px/1 Inter, sans-serif;
     margin-bottom: 24px;
@@ -113,11 +114,10 @@
     
         @media (max-width: 991px) {
             white-space: normal;
-    
         }
-        
-        .StyledCancleButton:hover {
-            background: #FF8A2B;
+    
+        &:hover {
+            background-color: #FF8A2B;
             color: white;
-          }
+        }
 }
