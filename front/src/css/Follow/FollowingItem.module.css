@@ -5,6 +5,12 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'HakgyoansimChilpanjiugaeTTF-B';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-5@1.0/HakgyoansimChilpanjiugaeTTF-B.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
 .followerCard {
   display: flex;
   min-height: 150px;
@@ -35,14 +41,14 @@
 }
 
 .userName {
-  font-size: 16px;
+  font-size: 30px;
   font-weight: 700;
   line-height: 20px;
   align-self: stretch;
   flex-grow: 1;
   width: 350px;
   margin: auto 0;
-  font-family: 'GumiRomanceTTF', sans-serif;
+  font-family: 'HakgyoansimChilpanjiugaeTTF-B';
 }
 
 @media (max-width: 991px) {
@@ -58,7 +64,7 @@
   font-size: 14px;
   align-self: stretch;
   color: white;
-  width: 100px;
+  width: 80px;
   border-radius: 8px;
   background-color: #FF8A2B;
   min-height: 25px;
