@@ -15,9 +15,10 @@ function NotificationModal({
     const [previousDayAry, setPreviousDayAry] = useState([]);
     const [todayAry, setTodayAry] = useState([]);
     const [eventSource, setEventSource] = useState(null);
-    const [showToast, setShowToast] = useState(false);
     const [getScheduleLength, setGetScheduleLength] = useState('');
-    const [showToastLogin, setShowToastLogin] = useState(false);
+    const [showToast, setShowToast] = useState(false);  // 새 알림 토스트 상태
+    const [showToastLogin, setShowToastLogin] = useState(false);    // 로그인 토스트 상태
+    const [showToastLogout, setShowToastLogout] = useState(false);  // 로그아웃 토스트 상태
 
 
     const todayNotificationMsg = localStorage.getItem("todayNotificationMsg");
@@ -127,6 +128,7 @@ function NotificationModal({
     
     // 로그아웃 실행 함수
     const logoutHandler = () => {
+        logoutToastHandler(true);
         setIsLogin(false);
         if (eventSource) {
             eventSource.close(); // EventSource 종료
@@ -143,6 +145,12 @@ function NotificationModal({
     const notificationToastHandler = () => {
         setShowToast(true);
         setTimeout(()=>setShowToast(false), 5000)
+    }
+
+    // 로그아웃 토스트
+    const logoutToastHandler = () => {
+        setShowToastLogout(true);
+        setTimeout(()=>setShowToastLogout(false), 5000)
     }
     
 
@@ -227,6 +235,19 @@ function NotificationModal({
                     </Toast.Header>
                     <Toast.Body>
                         {userId}님 방문을 환영합니다
+                    </Toast.Body>
+                </Toast>
+            </ToastContainer>
+
+            <ToastContainer position="bottom-end" className="p-3" style={{ position: 'fixed' }}>
+                <Toast show={showToastLogout} onClose={()=>setShowToastLogout(false)}>
+                    <Toast.Header>
+                        <img style={{width:"30px"}} src="로고_02.png"/>&nbsp;
+                        <strong className="me-auto">알림</strong>
+                        <small>방금</small>
+                    </Toast.Header>
+                    <Toast.Body>
+                        {userId}님 안녕히 가세요
                     </Toast.Body>
                 </Toast>
             </ToastContainer>
