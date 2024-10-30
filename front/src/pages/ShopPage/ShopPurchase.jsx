@@ -40,19 +40,22 @@ const ShopPurchase = () => {
   };
 
   return (
-    <div className={styles['shop-purchase']}>
+    <div>
       <ShopNav />
-      <h2>포인트 사용</h2>
-      <div className={styles['options-container']}>
-        {options.map((option, index) => (
-          <div key={index} className={styles['option-card']}>
-            <h3>{option.name}</h3>
-            <p>가격: {option.price}M</p>
-            <button className={styles['purchase-button']} onClick={() => handlePurchase(option)}>구매</button>
-          </div>
-        ))}
+      <div className={styles['shop-purchase']}>
+        <h2>포인트 사용</h2>
+        <div className={styles['options-container']}>
+          {options.map((option, index) => (
+            <div key={index} className={styles['option-card']}>
+              <h3>{option.name}</h3>
+              <p>가격: {option.price}M</p>
+              <button className={styles['purchase-button']} onClick={() => handlePurchase(option)}>구매</button>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
+    
   );
 };
 
