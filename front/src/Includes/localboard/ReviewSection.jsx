@@ -73,7 +73,7 @@ const ReviewSection = ({ ratingAvg, kLocal, handleArray, handleStandard, searchT
             <div
               key={index}
               className={styles.filterButton}
-              style={{ marginLeft: "5px" }}
+              style={{ marginLeft: "15px" }}
               onClick={option.action}
             >
               <button
@@ -83,7 +83,7 @@ const ReviewSection = ({ ratingAvg, kLocal, handleArray, handleStandard, searchT
                 {option.text}
               </button>
             </div>
-          );
+          ); 
         })}
 
         <div className={styles.dividerContainer}>

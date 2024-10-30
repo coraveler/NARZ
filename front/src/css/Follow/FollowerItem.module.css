@@ -5,6 +5,13 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'HakgyoansimChilpanjiugaeTTF-B';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-5@1.0/HakgyoansimChilpanjiugaeTTF-B.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+
 .followerItem {
     background-color: #fff;
     border-color: #000;
@@ -39,14 +46,14 @@
   }
   
   .userName {
-    font-size: 16px; /* 폰트 크기 축소 */
+    font-size: 30px; /* 폰트 크기 축소 */
     font-weight: 700;
     line-height: 20px;
     align-self: stretch;
     flex-grow: 1;
     width: 350px; /* 사용자 이름 영역의 너비 축소 */
+    font-family: 'HakgyoansimChilpanjiugaeTTF-B';
     margin: auto 0;
-    font-family: 'GumiRomanceTTF', sans-serif;
   }
   
   @media (max-width: 991px) {
@@ -62,7 +69,7 @@
     font-size: 14px;
     align-self: stretch;
     color: #FF8A2B;
-    width: 100px;
+    width: 80px;
     border-radius: 8px;
     background-color: white;
     min-height: 25px;
