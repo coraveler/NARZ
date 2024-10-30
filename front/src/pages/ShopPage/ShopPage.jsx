@@ -43,7 +43,8 @@ function CouponRegister() {
   return (
     <div className={styles['coupon-register']}>
       <h2>포인트 쿠폰 등록</h2>
-      <input type="text" placeholder="쿠폰 번호 입력" />
+      <br/>
+      <input type="text" placeholder="쿠폰 번호 입력" className={styles.couponInput}/>
       <button className={styles['purchase-button']}>입력</button>
     </div>
   );

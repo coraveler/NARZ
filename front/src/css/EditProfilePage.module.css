@@ -1,9 +1,23 @@
+@font-face {
+  font-family: 'GumiRomanceTTF';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2410-1@1.0/GumiRomanceTTF.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'HakgyoansimChilpanjiugaeTTF-B';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-5@1.0/HakgyoansimChilpanjiugaeTTF-B.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+
+
 .ProfileContainer {
   background-color: #fff;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  margin: 0px 0px 0px 0px;
 }
 
   .profile-title {
@@ -146,17 +160,45 @@
     cursor: pointer;
     font-size: 16px;
     width: auto;
-    margin-top: 10px;
 }
 .AutoButton:hover {
   background: #FF8A2B;
   color: white;
 }
 
+.deleteButton {
+  font-family: 'HakgyoansimChilpanjiugaeTTF-B';
+  text-align: center;
+  border-radius: 8px;
+  background-color: white;
+  color: #FF8A2B;
+  border: 1px solid #FF8A2B;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 8px 16px; /* 버튼 내부 여백 조정 */
+  width: 120px; /* 버튼 너비 조정 */
+  height: 40px; /* 버튼 높이 조정 */
+  transition: background-color 0.3s; /* 색상 전환 효과 */
+  margin-top: 10px;
+}
 
+.changeButton {
+  font-family: 'HakgyoansimChilpanjiugaeTTF-B';
+  text-align: center;
+  border-radius: 8px;
+  background-color: white;
+  color: #FF8A2B;
+  border: 1px solid #FF8A2B;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 8px 16px; /* 버튼 내부 여백 조정 */
+  width: 120px; /* 버튼 너비 조정 */
+  height: 40px; /* 버튼 높이 조정 */
+  transition: background-color 0.3s; /* 색상 전환 효과 */
+  
+}
 
 .mainContainer{
-  margin: 0px 200px;
-  
-  
+  margin: 0px 35%;
+  font-family: 'HakgyoansimChilpanjiugaeTTF-B';
 }
