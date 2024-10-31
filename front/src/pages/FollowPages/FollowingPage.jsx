@@ -2,6 +2,8 @@ import React from 'react';
 import ProfileCard from '../../Includes/personalPage/ProfileCard';
 import styles from '../../css/Follow/FollowerPage.module.css';
 import FollowerCard from '../../Includes/followItem/FollowerCard';
+import PaginationComponent from '../../Includes/common/PaginationComponent';
+
 
 const FollowerPage = ({ selectedBadge }) => {
     const followers = [
@@ -18,6 +20,9 @@ const FollowerPage = ({ selectedBadge }) => {
           {followers.map((follower) => (
             <FollowerCard key={follower.id} name={follower.name} imageUrl={follower.imageUrl} />
           ))}
+          <PaginationComponent />
+
+
         </main>
       );
     

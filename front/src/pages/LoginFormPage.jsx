@@ -55,21 +55,26 @@ const LoginFormPage = () => {
                 console.debug('전송할객체',전송할객체)
 
                 try {
-                  const response = await api.post('user/loginStatus', 전송할객체, {
-                    headers: {
-                      // Content-Type을 설정하지 않음
-                     
+                  const response = await api.post('user/login', 전송할객체, {
+                    headers: {// Content-Type을 설정하지 않음
+                      withCredentials: true,
+                    
                     }
                   })
+                  console.debug('response.data',response.data);
             
-                  if (response.data == true) {
-                    alert("로그인되었습니다.")
-                    navigate('/')
-            
-            
+                  if (response.data.isLogin == false) {
+                    //alert("정보가 일치하지 않습니다.");
+                    
                   }
                   else {
-                    alert("정보가 일치하지 않습니다.")
+                    let data = response.data.userResponseDTO;
+                    let expire =(new Date().getTime() + (1 * 8 * 60 * 60 * 1000));
+                    let loginInfo = {data,expire};
+                    
+                    localStorage.setItem("loginInfo",JSON.stringify(loginInfo));
+                    alert("로그인되었습니다.");
+                    navigate('/');            
                   }
             
                 } catch (e) {

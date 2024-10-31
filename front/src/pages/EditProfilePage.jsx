@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import styles from '../css/EditProfilePage.module.css';
 import { useNavigate } from "react-router-dom"; // useNavigate 임포트
 import ProfileCard from "../Includes/personalPage/ProfileCard";
+import { getLoginInfo } from "../Includes/common/CommonUtil";
 
 
 const EditProfilePage = ({ selectedBadge }) => {
@@ -34,7 +35,21 @@ const EditProfilePage = ({ selectedBadge }) => {
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
     const [birthday, setBirthday] = useState('');
+    
+    useEffect(()=>{
 
+       let loginInfo = getLoginInfo();
+       if(loginInfo==null){
+        alert("로그인 먼저 해주세요");
+        navigate('/LoginFormPage');
+       }else{
+        setName(loginInfo.userName);        
+        setNickName(loginInfo.userNickname);
+       }
+       
+
+
+    },[])
     return (
         <div >
             {/* ProfileCard에 selectedBadge 전달 */}
@@ -185,7 +200,14 @@ const EditProfilePage = ({ selectedBadge }) => {
                         }
 
                     >확인</button>
-                    <button onClick={() => navigate('/PasswordResetPage')} className={styles.FullButton}>취소</button>
+                    <button onClick={() => navigate('/personal')} className={styles.FullButton}>취소</button>
+                    <button onClick={() => {       
+                        localStorage.removeItem('loginInfo');
+                        alert("로그아웃 되었습니다.");                 
+                        navigate('/');
+                    }
+
+                        } className={styles.FullButton}>로그아웃</button>
                 </form>
             </main>
             <br/>

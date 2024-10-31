@@ -32,10 +32,18 @@
     </select>
 
 
-    <select id="login"
+    <select id="findUserByLoginId"
             parameterType="com.kdt_final.back.user.domain.User">
          SELECT loginId,password
           FROM user
     </select>
+
+    <select id="findByLoginIdAndPassword"
+            parameterType="com.kdt_final.back.user.domain.User">
+        SELECT userId, loginId,password, userName, userNickname, email, birthday, phoneNum
+        FROM user
+        where loginId =#{loginId} and password = #{password}
+    </select>
+
 
 </mapper>
