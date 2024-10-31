@@ -1,11 +1,14 @@
-import React, { useState,useEffect } from "react";
-import styles from '../css/EditProfilePage.module.css';
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"; // useNavigate 임포트
-import ProfileCard from "../Includes/personalPage/ProfileCard";
+import ColorChoiceModal from "../Includes/calendar/ColorChoiceModal";
 import { getLoginInfo } from "../Includes/common/CommonUtil";
+import ProfileCard from "../Includes/personalPage/ProfileCard";
+import styles from '../css/EditProfilePage.module.css';
+import ColorChangeModal from "./Personal/ColorChangeModal";
 
 
 const EditProfilePage = ({ selectedBadge }) => {
+    
     const navigate = useNavigate();
     // 초기 이미지 URL 저장
     const initialProfileImage = "https://cdn.builder.io/api/v1/image/assets/TEMP/723a88e5c32d2472fefd9718f746254edeeadb446fa9ca56fed96b0d6b55d900?placeholderIfAbsent=true&apiKey=5069901003e646878c4e6740ca1b07b5";
@@ -30,11 +33,31 @@ const EditProfilePage = ({ selectedBadge }) => {
         e.target.value = null;
     };
 
+    // 닉네임 컬러 선택 모달창 닫기 함수
+    const colorChoiceClose = () => {
+        setColorChoiceVisible(false);
+    }
+
+    // 닉네임 컬러 변경 모달창 닫기 함수
+    const colorChangeModalClose = () => {
+        setColorChangeModalStatus(false);
+    }
+
+    // 닉네임 색상 변경 완료 클릭시 실행
+    const colorChangeComplete = () => {
+        alert("변경이 완료되었습니다.")
+        setColorChangeModalStatus(false);
+    }
+
     const [name, setName] = useState('');
     const [nickName, setNickName] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
     const [birthday, setBirthday] = useState('');
+    const [nickNameColor, setNickNameColor] = useState('#000000')   // 닉네임 현재 색상
+    const [colorChoiceVisible, setColorChoiceVisible] = useState(false);    // 닉네임 컬러 선택 모달창 상태
+    const [colorChangeModalStatus, setColorChangeModalStatus] = useState(false);    // 컬러 변경 모달창 상태
+
     
     useEffect(()=>{
 
@@ -115,8 +138,17 @@ const EditProfilePage = ({ selectedBadge }) => {
                                     console.debug('NickName', nickName);
                                 }}
                             />
-                            <button className={styles.AutoButton}>색상 랜덤 뽑기</button>
+                            
+                            {/* 현재 닉네임 색상 */}
+                            <div style={{backgroundColor: nickNameColor}}
+                                onClick={()=>setColorChoiceVisible(true)}
+                                className={styles.nickNameColor}
+                            />
                         </div>
+                    </div>
+
+                    <div className={styles.FieldWrapper}>
+                        <button type="button" className={styles.AutoButton} onClick={()=>setColorChangeModalStatus(true)}>색상 선택 완료</button>
                     </div>
 
                     <div className={styles.FieldWrapper}>
@@ -211,6 +243,22 @@ const EditProfilePage = ({ selectedBadge }) => {
                 </form>
             </main>
             <br/>
+
+            {/* 닉네임 색상 선택 모달 */}
+            <ColorChoiceModal 
+                colorChoiceClose={colorChoiceClose}
+                colorChoiceVisible={colorChoiceVisible}
+                scheduleColor={nickNameColor}
+                setScheduleColor={setNickNameColor}
+            />
+            {/* 닉네임 색상 변경 모달 */}
+            <ColorChangeModal
+                colorChangeModalStatus={colorChangeModalStatus}
+                colorChangeModalClose={colorChangeModalClose}
+                colorChangeComplete={colorChangeComplete}
+            />
+
+            
         </div>
     );
 };
