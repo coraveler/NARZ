@@ -39,10 +39,11 @@ public class UserRepositoryImpl implements UserRepository {
         return userMapper.findAllByLoginId(loginId);
     }
 
-    @Override
-    public List<User> login(User user) {
 
-        return userMapper.login(user);
+
+    @Override
+    public User findByLoginIdAndPassword(String loginId, String password) {
+        return userMapper.findByLoginIdAndPassword(loginId, password);
     }
 
 }

@@ -6,6 +6,8 @@ import { MdNotificationsNone } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom"; // useNavigate 임포트
 import styled from "styled-components";
 import NotificationModal from "../../Includes/nofification/NotificationModal";
+import { getLoginInfo } from "../../Includes/common/CommonUtil";
+
 
 // UserActions 컴포넌트
 const UserActions = ({ isLoggedIn }) => {
@@ -43,11 +45,22 @@ const UserActions = ({ isLoggedIn }) => {
           <FaRegCalendarAlt />
         </CalendarIcon>
 
+
         {/* 로그인 상태에 따라 프로필 아이콘 처리 */}
-        {isLoggedIn
+
+        {/* {isLoggedIn
           ? (<ProfileIconComponent />) // 로그인된 경우
           : (<Link to="/LoginFormPage"><ProfileIconComponent /></Link>) // 로그인되지 않은 경우
-        }
+        } */}
+
+        <ProfileIconComponent onClick={()=>{
+          let loginInfo = getLoginInfo();
+          if(!loginInfo){            
+            navigate('/LoginFormPage');
+          }else{
+            navigate('/personal/EditProfilePage');
+          }
+        }} />
 
         {/* 마일리지 및 포인트 표시 */}
         <Container>
