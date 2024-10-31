@@ -15,6 +15,7 @@ const PaginationButton = ({ children, isActive, onClick }) => {
 
 const PaginationNavButton = ({ children, onClick, direction, disabled }) => {
   const isMac = () => navigator.platform.toLowerCase().includes('mac');
+
   return (
     <button 
       className={isMac ? styles.paginationNavButton : styles.paginationWindowNavButton} 
