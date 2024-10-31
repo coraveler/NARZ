@@ -42,11 +42,11 @@ public interface PostMapper {
 
     public Integer bookMarkCheck (PostBookMarkRequestDTO params);
 
-    public List<PostResponseDTO> getAllBookMark(String userId);
+    public List<PostResponseDTO> getAllBookMark(int userId);
 
     public List<PostResponseDTO> getBookMark(PostRequestDTO params);
 
-    public List<PostResponseDTO> getAllTravelog(String userId);
+    public List<PostResponseDTO> getAllTravelog(int userId);
 
     public List<PostResponseDTO> getTravelog(PostRequestDTO params);
 }

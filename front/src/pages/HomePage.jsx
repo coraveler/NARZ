@@ -6,11 +6,13 @@ import api from '../api/axios';
 import { IoMdArrowDropright } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import '../css/Homepage.css';
+import { getLoginInfo } from "../Includes/common/CommonUtil";
 
 function HomePage() {
   const navigate = useNavigate();
   const [bookMarkPost, setBookMarkPost] = useState([]);
-  const userId = 'userB';
+  let loginInfo = getLoginInfo();
+  const userId = loginInfo?.userId || null;
 
   const getBookMarkPost = async () => {
     try {
@@ -33,7 +35,9 @@ function HomePage() {
   };
 
   useEffect(() => {
-    getBookMarkPost();
+    if(userId){
+      getBookMarkPost();
+    }
   }, []);
 
   const sections = [
@@ -48,7 +52,7 @@ function HomePage() {
       <BackgroundSlider />
       <br />
 
-      <RegionSelector />
+      <RegionSelector board={'localboard'}/>
 
       <br />
       <div>
@@ -56,11 +60,11 @@ function HomePage() {
           <div key={index}>
             <h3 className="section-title">{section.title}</h3>
             <div >
-              {section.data.length > 5 && (
+              {section.data.length > 5 ? (
                 <p style={{ width: '920px', textAlign: "right", marginLeft: "auto", marginRight: "auto"}} >
                   <span style={{cursor: "pointer"}} onClick={section.action}>더보기 <IoMdArrowDropright style={{ fontSize: "25px", marginBottom: "3px" }} /></span>
                 </p>
-              )} 
+              ):<br/>}
             </div>
             <div align="center">
               <TravelCardGrid data={section.data} itemsPerPage={5} />

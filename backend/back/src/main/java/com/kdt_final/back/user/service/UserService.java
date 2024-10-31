@@ -108,6 +108,7 @@ public class UserService {
             // 쿠키 생성
 
             UserDTO.UserResponseDTO userResponseDTO = UserDTO.UserResponseDTO.builder()
+                    .userId(user.getUserId())
                     .loginId(user.getLoginId())
                     .userNickname(user.getUserNickname())
                     .email(user.getEmail())

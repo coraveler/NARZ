@@ -9,13 +9,17 @@ const LikeIcon = ({postId, userId}) => {
 
     useEffect(() => {
         // 예: API 호출하여 postId에 해당하는 포스트 데이터 가져오기
-        checkLike(postId,userId);
+        if(userId){
+            checkLike(postId,userId);
+        }
         countLike(postId);
         // checkBookMark(postId,userId);
     }, [postId]);
 
     useEffect(() => {
-        countLike(postId);
+        if(userId){
+            countLike(postId);
+        }
     }, [likeState]);
 
 
@@ -29,6 +33,7 @@ const LikeIcon = ({postId, userId}) => {
             console.log("debug >>> response saveLike >>>>>>>>>>>>>>>> ", response.data);
             setLikeState(!likeState);
         } catch (err) {
+            alert("로그인 후 이용 가능합니다!");
             console.log(err);
         }
     }
