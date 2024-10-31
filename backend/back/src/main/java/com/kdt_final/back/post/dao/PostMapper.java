@@ -20,6 +20,11 @@ public interface PostMapper {
 
     public void savePostImage(PostImageRequestDTO params);
 
+    // @Options(useGeneratedKeys = true, keyProperty = "postId")
+    public void editRow(PostRequestDTO params);
+
+    public void deletePostImage(PostRequestDTO params);
+
     public List<PostResponseDTO> getAllPost();
 
     public List<PostResponseDTO> getPost(String local);

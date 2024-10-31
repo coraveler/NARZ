@@ -47,7 +47,8 @@ html, body {
   }
   
   .profileInfo {
-    background-color: #fff;
+    width: 800px;
+    /* background-color: black; */
     display: flex;
     align-items: flex-start; /* 'left'는 잘못된 값입니다. 'center' 또는 'flex-start'로 수정 */
     overflow: hidden;
@@ -64,17 +65,18 @@ html, body {
     font-size: 17px;
 }
 
-.followButton {
+.buttonDiv {
     align-self: stretch;
-    width: 80px;
+    /* width: 80px; */
     border-radius: 10px;
     background-color: #fff;
     min-height: 39px;
     font-size: 17px;
     line-height: 1;
     margin: auto 0;
+    margin-left: auto;
     cursor: pointer;
-    margin-left: 400px
+    /* margin-left: 300px */
 }
 
 

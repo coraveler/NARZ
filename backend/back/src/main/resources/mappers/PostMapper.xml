@@ -11,6 +11,22 @@
         VALUES( #{userId}, #{local}, #{title}, #{content}, #{rating}, #{secret}, #{headerImg})
     </insert>
 
+    <!-- editRow --> 
+
+    <update id="editRow"
+            parameterType="com.kdt_final.back.post.domain.PostRequestDTO">
+        UPDATE POST
+        SET 
+            LOCAL = #{local},
+            TITLE = #{title},
+            CONTENT = #{content},
+            RATING = #{rating},
+            SECRET = #{secret},
+            HEADERIMG = #{headerImg}
+        WHERE 
+            USERID = #{userId} AND POSTID = #{postId}; 
+    </update>
+
     <!-- savePostImage --> 
 
     <insert id="savePostImage"
@@ -18,6 +34,16 @@
         INSERT INTO POSTIMAGES(POSTID, IMAGEPATH)
         VALUES( #{postId}, #{imagePath})
     </insert>
+
+    <!-- deletePostImage --> 
+
+    <delete id="deletePostImage"
+            parameterType="com.kdt_final.back.post.domain.PostRequestDTO">
+        DELETE FROM POSTIMAGES
+        WHERE POSTID = #{postId};
+
+    </delete>
+
 
     <!-- getPost --> 
 
