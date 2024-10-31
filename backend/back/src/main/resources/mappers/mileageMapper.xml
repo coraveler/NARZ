@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kdt_final.back.Shop.dao.MileageMapper">
+
+    <!-- 현재 마일리지 조회 -->
+    <select id="getMileageByUserId" parameterType="int" resultType="com.kdt_final.back.Shop.domain.Mileage">
+        SELECT * FROM Mileage WHERE userId = #{userId}
+    </select>
+
+    <!-- 마일리지 추가 -->
+    <insert id="insertMileage" parameterType="com.kdt_final.back.Shop.domain.Mileage">
+        INSERT INTO Mileage (userId, mileage, changeHistory)
+        VALUES (#{userId}, #{mileage}, #{changeHistory})
+    </insert>
+
+    <!-- 마일리지 내역 추가 -->
+    <insert id="insertMileageHistory" parameterType="com.kdt_final.back.Shop.domain.MileageHistory">
+        INSERT INTO mileageHistory (userId, mileagePoints, description, createdAt)
+        VALUES (#{userId}, #{mileagePoints}, #{description}, NOW())
+    </insert>
+
+    <!-- 마일리지 내역 조회 -->
+    <select id="getMileageHistoryByUserId" parameterType="int" resultType="com.kdt_final.back.Shop.domain.MileageHistory">
+        SELECT * FROM mileageHistory WHERE userId = #{userId}
+    </select>
+</mapper>
