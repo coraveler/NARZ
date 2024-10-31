@@ -60,7 +60,7 @@ function HomePage() {
                 <p style={{ width: '920px', textAlign: "right", marginLeft: "auto", marginRight: "auto"}} >
                   <span style={{cursor: "pointer"}} onClick={section.action}>더보기 <IoMdArrowDropright style={{ fontSize: "25px", marginBottom: "3px" }} /></span>
                 </p>
-              )} 
+              )}
             </div>
             <div align="center">
               <TravelCardGrid data={section.data} itemsPerPage={5} />

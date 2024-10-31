@@ -15,7 +15,7 @@ const UserActions = ({ isLoggedIn }) => {
   const navigate = useNavigate(); // 페이지 이동을 위한 useNavigate 사용
   const [notificationModalStatus, setNotificationModalStatus] = useState(false); // 알림 모달 상태 관리
   const [notificationCount, setNotificationCount] = useState(0); // 알림 카운트 상태 관리
-
+  let loginInfo = getLoginInfo();
   // 알림 모달 닫기 핸들러
   const notificationModalClose = () => {
     setNotificationModalStatus(false);
@@ -48,19 +48,19 @@ const UserActions = ({ isLoggedIn }) => {
 
         {/* 로그인 상태에 따라 프로필 아이콘 처리 */}
 
-        {/* {isLoggedIn
-          ? (<ProfileIconComponent />) // 로그인된 경우
+        {loginInfo
+          ? (<Link to ="/personal/EditProfilePage"><ProfileIconComponent /></Link>) // 로그인된 경우
           : (<Link to="/LoginFormPage"><ProfileIconComponent /></Link>) // 로그인되지 않은 경우
-        } */}
+        }
 
-        <ProfileIconComponent onClick={()=>{
+        {/* <ProfileIconComponent onClick={()=>{
           let loginInfo = getLoginInfo();
           if(!loginInfo){            
             navigate('/LoginFormPage');
           }else{
             navigate('/personal/EditProfilePage');
           }
-        }} />
+        }} /> */}
 
         {/* 마일리지 및 포인트 표시 */}
         <Container>

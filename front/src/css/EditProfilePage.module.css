@@ -202,3 +202,16 @@
   margin: 0px 35%;
   font-family: 'HakgyoansimChilpanjiugaeTTF-B';
 }
+
+.nickNameColor{
+  width: 50px;
+  height: 50px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  cursor:pointer;
+}
+
+.nickNameColor:hover{
+  opacity: 0.9;
+  border: 3px solid orange;
+}

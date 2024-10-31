@@ -36,7 +36,7 @@ function Footer() {
       </footer>
 
       <div style={{ display:'flex', gap:'10px', fontSize:'25px', justifyContent:'center', cursor:'pointer', marginTop:'5px'}}>
-        <a href="https://github.com" target="_blank" ><FaGithub/></a>
+        <a href="https://github.com/coraveler/final-pjt" target="_blank" ><FaGithub/></a>
         <a href="https://youtube.com" target="_blank" ><FaYoutube/></a>
         <a href="https://facebook.com" target="_blank" ><FaFacebookSquare/></a>
         <a href="https://instagram.com" target="_blank" ><FaInstagram/></a>
