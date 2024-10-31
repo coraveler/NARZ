@@ -11,7 +11,7 @@ const TravelCard = (props) => {
   const navigate = useNavigate();
   const [imageUrls, setImageUrls] = useState('');
   let loginInfo = getLoginInfo();
-  const userId = loginInfo.userId || null;
+  const userId = loginInfo?.userId || null;
 
   const getImageUrls = () => {
     // props.data.headerImg가 배열일 경우 첫 번째 이미지를 사용

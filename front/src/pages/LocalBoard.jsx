@@ -25,7 +25,7 @@ function LocalBoard({ onParamsChange, selectedBadge }) {
     const [searchTerm, setSearchTerm] = useState('');
     const [msg, setMsg] = useState("불러올 수 있는 데이터가 없습니다");
     let loginInfo = getLoginInfo();
-    const userId = loginInfo.userId || null;
+    const userId = loginInfo?.userId || null;
 
     const getPost = async () => {
         try {
@@ -125,13 +125,12 @@ function LocalBoard({ onParamsChange, selectedBadge }) {
 
     useEffect(() => {
         // console.log(userId);
-        if(userId != null){
-            if (board === "localboard") {
-                getPost();
-            } else {
-                getBoardPost();
-            }
+        if (board === "localboard") {
+            getPost();
+        } else {
+            getBoardPost();
         }
+        
     }, [local, board,  searchTerm, standardState]);
 
     const handleArray = (value) => {
