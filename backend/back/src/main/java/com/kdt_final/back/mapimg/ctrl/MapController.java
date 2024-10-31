@@ -29,25 +29,25 @@ public class MapController {
     private MapService mapService;
 
     @PostMapping("/upload")
-    public ResponseEntity<String> upload(@RequestParam("id_no") int id_no,
+    public ResponseEntity<String> upload(@RequestParam("userId") int userId,
                                         @RequestParam("local") String local,
                                         @RequestParam("file") MultipartFile file) {
 
-        String result = mapService.uploadFile(id_no, local, file);
+        String result = mapService.uploadFile(userId, local, file);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @GetMapping("/load/{id_no}")
-    public ResponseEntity<List<String>> loadFiles(@PathVariable("id_no") int id_no) {
-        List<String> imagePaths = mapService.loadFiles(id_no);
+    @GetMapping("/load/{userId}")
+    public ResponseEntity<List<String>> loadFiles(@PathVariable("userId") int userId) {
+        List<String> imagePaths = mapService.loadFiles(userId);
         return new ResponseEntity<>(imagePaths, HttpStatus.OK);
     }
     
-    @GetMapping("img/{id_no}/{fileName:.+}")
+    @GetMapping("img/{userId}/{fileName:.+}")
     @ResponseBody
-    public ResponseEntity<Resource> loadImage(@PathVariable("id_no") int id_no, @PathVariable("fileName") String fileName) {
+    public ResponseEntity<Resource> loadImage(@PathVariable("userId") int userId, @PathVariable("fileName") String fileName) {
         // 상대 경로를 사용하여 파일 경로 설정
-        String filePath = System.getProperty("user.dir") + "/uploads/images/map/" + id_no + "/" + fileName;
+        String filePath = System.getProperty("user.dir") + "/uploads/images/map/" + userId + "/" + fileName;
         File file = new File(filePath);
 
         System.out.println("File path: " + filePath); // 경로 로그 출력
