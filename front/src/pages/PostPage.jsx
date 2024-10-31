@@ -66,7 +66,7 @@ const PostPage = () => {
             <section className={styles.profileContainer}>
             <br/>
                 <h1 className={styles.profileTitle}>{post.title}</h1>
-                <br/><br/>
+                <br/> <br/>
                 <div className={styles.profileInfo}>
                     <ProfileInfo data={post} />
                     <time className={styles.profileDate}>{post.createdDate}</time>
