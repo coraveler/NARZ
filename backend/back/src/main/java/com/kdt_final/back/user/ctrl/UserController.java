@@ -1,9 +1,14 @@
 package com.kdt_final.back.user.ctrl;
 
+import com.kdt_final.back.user.dto.LoginResponseDTO;
 import com.kdt_final.back.user.dto.UserDTO;
 import com.kdt_final.back.user.service.UserService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -63,11 +68,18 @@ public class UserController {
 
     }
 
-    @PatchMapping
-    public void updateUser(){
+    @PostMapping("/login")
+
+    public ResponseEntity<LoginResponseDTO> logIn(@RequestBody UserDTO.UserRequestDTO userRequestDTO) {
+        System.out.println("객체확인" + userRequestDTO);
+
+      LoginResponseDTO result= userService.login(userRequestDTO);
+
+      return ResponseEntity.ok()
+              .body(result);
+
 
     }
 
-  
 
 }

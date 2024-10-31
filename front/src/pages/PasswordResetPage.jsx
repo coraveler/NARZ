@@ -66,7 +66,7 @@ function PasswordResetPage() {
               />
             </div>
             <div className={styles.ButtonGroup}>
-              <button onClick={() => navigate('/LoginFormPage')} className={styles.CancelButton} type="button">Cancel</button>
+              <button onClick={() => navigate('/personal/EditProfilePage')} className={styles.CancelButton} type="button">Cancel</button>
               <button onClick={(event) => {
                 event.preventDefault();
                 let 전송할객체 = {

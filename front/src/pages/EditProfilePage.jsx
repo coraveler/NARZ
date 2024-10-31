@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"; // useNavigate 임포트
 import ColorChoiceModal from "../Includes/calendar/ColorChoiceModal";
+import { getLoginInfo } from "../Includes/common/CommonUtil";
 import ProfileCard from "../Includes/personalPage/ProfileCard";
 import styles from '../css/EditProfilePage.module.css';
 import ColorChangeModal from "./Personal/ColorChangeModal";
@@ -57,7 +58,21 @@ const EditProfilePage = ({ selectedBadge }) => {
     const [colorChoiceVisible, setColorChoiceVisible] = useState(false);    // 닉네임 컬러 선택 모달창 상태
     const [colorChangeModalStatus, setColorChangeModalStatus] = useState(false);    // 컬러 변경 모달창 상태
 
+    
+    useEffect(()=>{
 
+       let loginInfo = getLoginInfo();
+       if(loginInfo==null){
+        alert("로그인 먼저 해주세요");
+        navigate('/LoginFormPage');
+       }else{
+        setName(loginInfo.userName);        
+        setNickName(loginInfo.userNickname);
+       }
+       
+
+
+    },[])
     return (
         <div >
             {/* ProfileCard에 selectedBadge 전달 */}
@@ -217,7 +232,14 @@ const EditProfilePage = ({ selectedBadge }) => {
                         }
 
                     >확인</button>
-                    <button onClick={() => navigate('/PasswordResetPage')} className={styles.FullButton}>취소</button>
+                    <button onClick={() => navigate('/personal')} className={styles.FullButton}>취소</button>
+                    <button onClick={() => {       
+                        localStorage.removeItem('loginInfo');
+                        alert("로그아웃 되었습니다.");                 
+                        navigate('/');
+                    }
+
+                        } className={styles.FullButton}>로그아웃</button>
                 </form>
             </main>
             <br/>
