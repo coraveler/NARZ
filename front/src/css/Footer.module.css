@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'Cafe24Shiningstar';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Shiningstar.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
 .footer {
     justify-content: center;
     display: flex;
@@ -112,3 +119,20 @@
     white-space: nowrap;
     border: 0;
   }
+
+  .comment{
+    font-family: 'Cafe24Shiningstar';
+    text-align: center;
+    margin: 1px;
+  }
+  .comment p {
+    margin: 8px 0; /* 위아래 8px의 간격으로 줄여 여백 조절 */
+    line-height: 1.5; /* 문단 간 줄 간격 */
+}
+
+.member{
+  font-family: 'Cafe24Shiningstar';
+  text-align: center;
+  font-size: 30px;
+  margin: 1px;
+}

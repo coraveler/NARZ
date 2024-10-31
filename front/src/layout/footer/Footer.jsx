@@ -26,13 +26,13 @@ const footerColumns = [
 function Footer() {
   return (
     <div style={{borderTop:'1px solid rgba(214, 214, 214, 0.8)'}}>
-      <div style={{textAlign:'center', marginTop:'20px', marginBottom:'5px'}}><span  className={styles.logo}>NARZ</span></div>
+      <div style={{textAlign:'center', marginTop:'20px', marginBottom:'5px'}}><span  className={styles.logo}>.Traveler.</span></div>
+      <div className={styles['member']} ><p>member | jaksam, siu, Gunzzal, uunesn, semi, yoonseo</p></div>
       <footer className={styles.footer}>
-        {/* {footerColumns.map((column, index) => (
-          <FooterColumn key={index} title={column.title} items={column.items} />
-        ))} */}
-        <div><IoCall/> <span style={{fontSize:'15px'}}>010.5121.1754</span></div>
-        <div><MdOutlineMailOutline style={{fontSize:'22px'}}/> <span>siu147@naver.com</span></div>
+        <div className={styles['comment']} >
+        <p>Travel makes one modest. You see what a tiny place you occupy in the world.</p>
+        <p>-Gustave Flaubert-</p>
+        </div>
       </footer>
 
       <div style={{ display:'flex', gap:'10px', fontSize:'25px', justifyContent:'center', cursor:'pointer', marginTop:'5px'}}>
@@ -45,8 +45,7 @@ function Footer() {
       </div>
         
       <div style={{ textAlign: 'center', marginBottom:'20px', padding: '10px', }}>
-        <p style={{ margin: 0, fontWeight: 'bold' }}>교육 기관: <span style={{ fontWeight: 'normal' }}>멀티캠퍼스</span></p>
-        <p style={{ margin: 0, fontWeight: 'bold' }}>팀명: <span style={{ fontWeight: 'normal' }}>코레블러</span></p>
+        <p style={{ margin: 0, fontWeight: 'bold' }}>educational institution| <span style={{ fontWeight: 'normal' }}>MultiCampus</span></p>
       </div>
         
     </div>
