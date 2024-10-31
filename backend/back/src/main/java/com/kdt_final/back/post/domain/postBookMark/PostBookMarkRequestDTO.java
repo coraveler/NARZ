@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class PostBookMarkRequestDTO {
     private Integer postId;
-    private String userId;
+    private Integer userId;
 }

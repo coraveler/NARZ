@@ -16,8 +16,8 @@ import org.springframework.web.multipart.MultipartFile;
 public class MapService {
 
     // 파일 업로드 메서드
-    public String uploadFile(int id_no, String local, MultipartFile file) {
-        String uploadDir = getUploadDir(id_no);
+    public String uploadFile(int userId, String local, MultipartFile file) {
+        String uploadDir = getUploadDir(userId);
         File userDir = new File(uploadDir);
 
         // 디렉토리 생성
@@ -33,10 +33,10 @@ public class MapService {
     }
 
     // 업로드할 디렉토리 경로 반환
-    private String getUploadDir(int id_no) {
+    private String getUploadDir(int userId) {
         // 현재 작업 디렉토리를 기준으로 절대 경로 설정
         String baseDir = System.getProperty("user.dir");
-        return baseDir + "/uploads/images/map/" + id_no + "/";
+        return baseDir + "/uploads/images/map/" + userId + "/";
     }
 
     // 기존 파일 삭제
@@ -66,9 +66,9 @@ public class MapService {
 
 
  // 파일 로드 메서드
-    public List<String> loadFiles(int id_no) {
+    public List<String> loadFiles(int userId) {
         List<String> imageUrls = new ArrayList<>();
-        String uploadDir = getUploadDir(id_no); // 업로드 디렉토리 경로 가져오기
+        String uploadDir = getUploadDir(userId); // 업로드 디렉토리 경로 가져오기
 
         try {
             // Path 객체를 이용하여 파일 목록을 가져옴
@@ -80,7 +80,7 @@ public class MapService {
                     if (Files.isRegularFile(filePath)) {
                         // 파일의 이름을 가져와서 URL 형식으로 변환
                         String fileName = filePath.getFileName().toString();
-                        String imageUrl = "http://localhost:7777/map/img/" + id_no + "/" + fileName; // URL 생성
+                        String imageUrl = "http://localhost:7777/map/img/" + userId + "/" + fileName; // URL 생성
                         imageUrls.add(imageUrl); // URL을 리스트에 추가
                     }
                 });

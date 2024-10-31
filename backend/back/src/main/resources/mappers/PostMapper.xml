@@ -23,19 +23,22 @@
 
     <select id="getAllPost"
             resultType="com.kdt_final.back.post.domain.PostResponseDTO">
-        SELECT POSTID, USERID, LOCAL, TITLE, RATING, SECRET, HEADERIMG, CONTENT, CREATEDDATE
-        FROM POST
-        WHERE SECRET = 0
+        SELECT p.POSTID, p.USERID, p.LOCAL, p.TITLE, p.RATING, p.SECRET, p.HEADERIMG, p.CONTENT, p.CREATEDDATE, u.userNickname
+        FROM POST p
+        JOIN USER u ON p.USERID = u.userId
+        WHERE p.SECRET = 0
     </select>
+
 
     <!-- getPostImages --> 
 
     <select id="viewPost"
             parameterType="int"
             resultType="com.kdt_final.back.post.domain.PostResponseDTO">
-        SELECT POSTID, USERID, LOCAL, TITLE, RATING, SECRET, HEADERIMG, CONTENT, CREATEDDATE
-        FROM POST
-        WHERE POSTID = #{postId}
+        SELECT p.POSTID, p.USERID, p.LOCAL, p.TITLE, p.RATING, p.SECRET, p.HEADERIMG, p.CONTENT, p.CREATEDDATE, u.userNickname
+        FROM POST p
+        JOIN USER u ON p.USERID = u.userId
+        WHERE p.POSTID = #{postId}
     </select>
 
     <!-- getPostImages --> 
@@ -53,9 +56,10 @@
     <select id="getPost"
             parameterType="String"
             resultType="com.kdt_final.back.post.domain.PostResponseDTO">
-        SELECT POSTID, USERID, LOCAL, TITLE, RATING, SECRET, HEADERIMG, CONTENT, CREATEDDATE
-        FROM POST
-        WHERE (SECRET = 0) AND (LOCAL = #{local})
+        SELECT p.POSTID, p.USERID, p.LOCAL, p.TITLE, p.RATING, p.SECRET, p.HEADERIMG, p.CONTENT, p.CREATEDDATE, u.userNickname
+        FROM POST p
+        JOIN USER u ON p.USERID = u.userId
+        WHERE (p.SECRET = 0) AND (p.LOCAL = #{local})
     </select>    
     
     <!-- likeSave --> 
@@ -123,9 +127,9 @@
     <!-- getAllBookMark --> 
 
     <select id="getAllBookMark"
-            parameterType="String"
-            resultType="com.kdt_final.back.post.domain.PostResponseDTO">
-       SELECT 
+                parameterType="int"
+                resultType="com.kdt_final.back.post.domain.PostResponseDTO">
+        SELECT 
             p.postId,
             p.userId,
             p.local,
@@ -135,14 +139,18 @@
             p.rating,
             pb.createdDate,
             p.updatedDate,
-            p.secret
+            p.secret,
+            u.userNickname
         FROM 
             post p
         JOIN 
             postBookMark pb ON p.postId = pb.postId
+        JOIN 
+            user u ON p.userId = u.userId
         WHERE 
             pb.userId = #{userId}
-    </select>   
+    </select>
+ 
 
     <!-- getBookMark --> 
 
@@ -159,11 +167,14 @@
             p.rating,
             pb.createdDate,
             p.updatedDate,
-            p.secret
+            p.secret,
+            u.userNickname
         FROM 
             post p
         JOIN 
             postBookMark pb ON p.postId = pb.postId
+        JOIN 
+            user u ON p.userId = u.userId
         WHERE 
             pb.userId = #{userId} AND p.local = #{local}
     </select>
@@ -171,11 +182,12 @@
      <!-- getAllTravelog --> 
 
     <select id="getAllTravelog"
-            parameterType="String"
+            parameterType="int"
             resultType="com.kdt_final.back.post.domain.PostResponseDTO">
-        SELECT POSTID, USERID, LOCAL, TITLE, RATING, SECRET, HEADERIMG, CONTENT, CREATEDDATE
-        FROM POST
-        WHERE SECRET = 0 AND USERID = #{userId}
+        SELECT p.POSTID, p.USERID, p.LOCAL, p.TITLE, p.RATING, p.SECRET, p.HEADERIMG, p.CONTENT, p.CREATEDDATE, u.userNickname
+        FROM POST p
+        JOIN USER u ON p.USERID = u.userId
+        WHERE p.SECRET = 0 AND p.USERID = #{userId}
     </select>   
 
     <!-- getTravelog --> 
@@ -183,9 +195,10 @@
     <select id="getTravelog"
             parameterType="com.kdt_final.back.post.domain.PostRequestDTO"
             resultType="com.kdt_final.back.post.domain.PostResponseDTO">
-        SELECT POSTID, USERID, LOCAL, TITLE, RATING, SECRET, HEADERIMG, CONTENT, CREATEDDATE
-        FROM POST
-        WHERE SECRET = 0 AND USERID = #{userId} AND LOCAL = #{local}
+        SELECT p.POSTID, p.USERID, p.LOCAL, p.TITLE, p.RATING, p.SECRET, p.HEADERIMG, p.CONTENT, p.CREATEDDATE, u.userNickname
+        FROM POST p
+        JOIN USER u ON p.USERID = u.userId
+        WHERE p.SECRET = 0 AND p.USERID = #{userId} AND p.LOCAL = #{local}
        
     </select>
 

@@ -3,7 +3,7 @@ import axios from "axios";
 import RankingNavigation from "../Includes/Ranking/RankingNavigation";
 import LeaderboardTable from "../Includes/Ranking/LeaderboardTable";
 
-const RankingPage = ({ initialRank = "인기 게시글 랭킹" }) => {  // 기본값을 "인기 게시글 랭킹"으로 설정
+const RankingPage = ({ initialRank = "인기 게시글 랭킹" }) => {
   const [activeRank, setActiveRank] = useState(initialRank);
   const [leaderboardData, setLeaderboardData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -27,7 +27,7 @@ const RankingPage = ({ initialRank = "인기 게시글 랭킹" }) => {  // 기�
   };
 
   useEffect(() => {
-    fetchLeaderboardData(activeRank);  // 페이지 로드 시 기본 '인기 게시글 랭킹' 데이터 호출
+    fetchLeaderboardData(activeRank);
   }, [activeRank]);
 
   return (
