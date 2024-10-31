@@ -7,7 +7,7 @@ const ImageOverlay = () => {
 const canvasRef = useRef(null);
 const fileInputRef = useRef(null);
 const [images, setImages] = useState([]);
-const id_no = 0;
+const userId = 0;
 
 // 초기 이미지 URL 설정
 const defaultImageUrls = {
@@ -64,7 +64,7 @@ const userMap = (images) => {
 
 const fetchImages = async () => {
     try {
-        const response = await api.get(`map/load/${id_no}`);
+        const response = await api.get(`map/load/${userId}`);
         setImages(response.data);
     } catch (error) {
         console.error("Error loading images:", error);
@@ -202,7 +202,7 @@ const uploadProcessedImage = async (processedImageUrl, key) => {
     }
 
     const formData = new FormData();
-    formData.append("id_no", id_no); // id_no를 변수로 사용
+    formData.append("userId", userId); // id_no를 변수로 사용
     formData.append("file", dataURItoBlob(processedImageUrl));
     formData.append("local", key);
 

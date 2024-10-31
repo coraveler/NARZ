@@ -96,7 +96,7 @@ public class PostController {
     }
 
     @DeleteMapping("/like/delete")
-    public ResponseEntity<Void> likeDelete(@RequestParam("postId") Integer postId, @RequestParam("userId") String userId) {
+    public ResponseEntity<Void> likeDelete(@RequestParam("postId") Integer postId, @RequestParam("userId") Integer userId) {
         PostLikeRequestDTO params = new PostLikeRequestDTO();
         params.setPostId(postId);
         params.setUserId(userId);
@@ -105,7 +105,7 @@ public class PostController {
     }
 
     @GetMapping("/like/check")
-    public ResponseEntity<Boolean> likeCheck(@RequestParam("postId") Integer postId, @RequestParam("userId") String userId) {
+    public ResponseEntity<Boolean> likeCheck(@RequestParam("postId") Integer postId, @RequestParam("userId") Integer userId) {
         PostLikeRequestDTO params = new PostLikeRequestDTO();
         params.setPostId(postId);
         params.setUserId(userId);
@@ -127,7 +127,7 @@ public class PostController {
     }
 
     @DeleteMapping("/bookmark/delete")
-    public ResponseEntity<Void> bookMarkSaveDelete(@RequestParam("postId") Integer postId, @RequestParam("userId") String userId) {
+    public ResponseEntity<Void> bookMarkSaveDelete(@RequestParam("postId") Integer postId, @RequestParam("userId") Integer userId) {
         PostBookMarkRequestDTO params = new PostBookMarkRequestDTO();
         params.setPostId(postId);
         params.setUserId(userId);
@@ -136,7 +136,7 @@ public class PostController {
     }
 
     @GetMapping("/bookmark/check")
-    public ResponseEntity<Boolean> bookMarkCheck(@RequestParam("postId") Integer postId, @RequestParam("userId") String userId) {
+    public ResponseEntity<Boolean> bookMarkCheck(@RequestParam("postId") Integer postId, @RequestParam("userId") Integer userId) {
         PostBookMarkRequestDTO params = new PostBookMarkRequestDTO();
         params.setPostId(postId);
         params.setUserId(userId);
@@ -145,7 +145,7 @@ public class PostController {
     }
 
     @GetMapping("/get/{board}/{local}")
-    public ResponseEntity<List<PostResponseDTO>> getBookMark(@RequestParam("userId") String userId, @PathVariable("board") String board, @PathVariable("local") String local) {
+    public ResponseEntity<List<PostResponseDTO>> getBookMark(@RequestParam("userId") Integer userId, @PathVariable("board") String board, @PathVariable("local") String local) {
         System.err.println(userId+", "+board+", "+local);
         PostRequestDTO params = new PostRequestDTO();
         params.setUserId(userId);

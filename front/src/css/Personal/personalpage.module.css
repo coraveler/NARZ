@@ -36,3 +36,10 @@
     background-color: #FF8A2B;
     color : white;
 }
+
+.overlayContainer {
+    position: relative; /* 자식 요소의 위치 기준 설정 */
+    width: 100%; /* 원하는 너비 설정 */
+    height: 100%; /* 원하는 높이 설정, 필요에 따라 조정 */
+    overflow: hidden; /* 내부 내용이 넘치지 않도록 설정 */
+}

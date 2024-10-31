@@ -60,6 +60,17 @@
     color:#FFB74D;
   }
 
+  .paginationWindowNavButton {
+    width: 100px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: White;
+    /* opacity: 0.8;  */
+    /* color: var(--sds-color-text-default-secondary); */
+    color:#FFB74D;
+  }
+
   .paginationNavButton:hover {
     background-color: #FFB74D;
     color:white;

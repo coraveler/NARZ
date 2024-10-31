@@ -74,7 +74,6 @@ public class UserController {
         System.out.println("객체확인" + userRequestDTO);
 
       LoginResponseDTO result= userService.login(userRequestDTO);
-
       return ResponseEntity.ok()
               .body(result);
 
