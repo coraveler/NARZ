@@ -47,6 +47,17 @@ public class PostController {
         int postId = postService.save(params, images);
         return new ResponseEntity<Integer>(postId,HttpStatus.OK);
     }
+
+    @PostMapping("/edit")
+    public ResponseEntity<Integer> edit(@ModelAttribute PostRequestDTO params,
+                                     @RequestParam("images") MultipartFile[] images) {
+
+        System.out.println("debug >>>> bbs controller client path /post/save");
+        System.out.println(params);
+        int postId = postService.edit(params, images);
+        return new ResponseEntity<Integer>(postId,HttpStatus.OK);
+    }
+    
     
     @GetMapping("/get/{local}")
     public ResponseEntity<List<PostResponseDTO>> getAllPost(@PathVariable("local") String local) {

@@ -32,21 +32,35 @@ public class PostService {
         // 이미지 업로드 처리
         if (images != null && images.length > 0) {
 
-            uploadImages(images, params);
+            uploadImages(images, params, "save");
         } else {
             System.out.println("No images uploaded.");
         }
         return params.getPostId();
     }
 
-    private void uploadImages(MultipartFile[] images, PostRequestDTO params) {
+    public Integer edit(PostRequestDTO params, MultipartFile[] images) {
+        System.out.println("Debug >>>> service save() - PostMapper: " + postMapper);
+        postMapper.deletePostImage(params);
+
+        // 이미지 업로드 처리
+        if (images != null && images.length > 0) {
+
+            uploadImages(images, params, "edit");
+        } else {
+            System.out.println("No images uploaded.");
+        }
+        return params.getPostId();
+    }
+
+    private void uploadImages(MultipartFile[] images, PostRequestDTO params, String method) {
         String uploadDir = getUploadDir();
         File userDir = new File(uploadDir);
         userDir.mkdirs(); // 디렉토리가 없으면 생성
 
         for (int i = 0; i < images.length; i++) {
             MultipartFile image = images[i];
-            String result = savePostImage(userDir, image, params, i + 1);
+            String result = savePostImage(userDir, image, params, i + 1, method);
             System.out.println(result);
         }
     }
@@ -56,7 +70,7 @@ public class PostService {
         return baseDir + "/uploads/images/post/";
     }
 
-    private String savePostImage(File userDir, MultipartFile image, PostRequestDTO params, int num) {
+    private String savePostImage(File userDir, MultipartFile image, PostRequestDTO params, int num, String method) {
         try {
             String randomFileName = UUID.randomUUID().toString() + ".png";
             File dest = new File(userDir, randomFileName);
@@ -65,8 +79,12 @@ public class PostService {
             String relativePath = "uploads/images/post/" + randomFileName;
             if (num == 1) {
                 params.setHeaderImg(relativePath); // 첫 번째 이미지를 헤더 이미지로 설정
-                // 데이터베이스에 포스트 저장
-                postMapper.saveRow(params);
+                if(method.equals("save")){
+                    // 데이터베이스에 포스트 저장
+                    postMapper.saveRow(params);
+                }else{
+                    postMapper.editRow(params);
+                }
             }
             
             saveImageToDatabase(params.getPostId(), relativePath);

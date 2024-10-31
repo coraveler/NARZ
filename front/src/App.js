@@ -52,6 +52,7 @@ function App() {
         <Route path="/PasswordResetPage" element={<PasswordResetPage />} />
         <Route path="/LoginFormPage" element={<LoginFormPage />} />
         <Route path="/TravelWritePage" element={<TravelWritePage />} />
+        <Route path="/TravelEditPage" element={<TravelWritePage />} />
         <Route path="/ranking" element={<RankingPage />} /> 
         <Route path="/postpage/:postId" element={<PostPage />} />
         <Route path="/festival" element={<FestivalPage/>}/>

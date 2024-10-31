@@ -4,16 +4,18 @@ import { Carousel } from 'react-bootstrap';
 // import { AiFillLike, AiOutlineLike } from "react-icons/ai";
 import { FaStar } from "react-icons/fa";
 // import { FaBookmark, FaRegBookmark } from "react-icons/fa6";
-import { useParams } from 'react-router-dom';
+import { MdModeEdit } from "react-icons/md";
+import { useNavigate, useParams } from 'react-router-dom';
 import api from '../api/axios';
 import styles from '../css/PostPage.module.css';
 import Comment from '../Includes/comment/Comment';
-import ProfileInfo from '../Includes/common/ProfileInfo';
 import BookMark from '../Includes/common/BookMark';
-import LikeIcon from '../Includes/common/LikeIcon';
 import { getLoginInfo } from "../Includes/common/CommonUtil";
+import LikeIcon from '../Includes/common/LikeIcon';
+import ProfileInfo from '../Includes/common/ProfileInfo';
 
 const PostPage = () => {
+    const navigate = useNavigate();
     const { postId } = useParams();
     const [post, setPost] = useState({});
     const [postImgUrl, setPostImgUrl] = useState([]);
@@ -60,7 +62,7 @@ const PostPage = () => {
             console.log(err);
         }
     }
-
+    
     return (
         <div>
             <section className={styles.profileContainer}>
@@ -70,9 +72,26 @@ const PostPage = () => {
                 <div className={styles.profileInfo}>
                     <ProfileInfo data={post} />
                     <time className={styles.profileDate}>{post.createdDate}</time>
-                    <button className={styles.followButton} aria-label="Follow">
-                        + 팔로우
-                    </button>
+
+                    <div className={styles.buttonDiv}>
+                        {
+                            userId == post.userId ?
+                                        <button className="btn btn-outline-warning"
+                                        onClick={() => navigate(`/TravelEditPage`,{
+                                            state:{
+                                                post : post,
+                                                postImgUrl : postImgUrl
+                                            }
+                                        })}>
+                                                수정하기 <MdModeEdit /> 
+                                        </button> :
+
+                                        <button className="btn btn-outline-warning" aria-label="Follow"
+                                                style={{marginLeft:"5px"}}>
+                                            + 팔로우
+                                        </button>
+                        }
+                    </div>
                 </div><br/>
             </section>
            
