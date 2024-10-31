@@ -6,6 +6,7 @@ import FormField from "./FormField";
 import ImageUpload from "./ImageUpload";
 import PrivacyToggle from "./PrivacyToggle";
 import RatingField from "./RatingField";
+import { getLoginInfo } from "../../Includes/common/CommonUtil";
 
 function FormSection() {
   const navigate = useNavigate(); // 페이지 이동을 위한 useNavigate 훅
@@ -15,7 +16,8 @@ function FormSection() {
   const [rating, setRating] = useState();
   const [secret, setSecret] = useState();
   const [images, setImages] = useState([]);
-  // const [postId, setPostId] = useState();
+  let loginInfo = getLoginInfo();
+  const userId = loginInfo.userId || null;
 
   // 취소 버튼을 클릭했을 때 실행되는 함수
   const handleCancel = () => {
@@ -43,7 +45,7 @@ function FormSection() {
     const mappedLocal = localMapping[local];
     
     const formData = new FormData();
-    formData.append('userId', 'user');
+    formData.append('userId', userId);
     formData.append('local', mappedLocal);
     formData.append('title', title);
     formData.append('content', content);
@@ -53,7 +55,6 @@ function FormSection() {
     images.forEach((image) => {
         formData.append('images', image); // 'images'는 서버에서 기대하는 필드 이름
     });
-
     try {
         const response = await api.post('post/save', formData, {
             headers: {

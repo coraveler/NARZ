@@ -5,7 +5,7 @@ import styles from '../../../css/RegionSelector.module.css';
 
 
 const RegionSelector = ({board,searchTerm}) => {
-  
+  // board = null ?? "localboard";
 
   const regions = [
     { name: '전국', iconSrc: 'https://cdn.builder.io/api/v1/image/assets/TEMP/f7b6ed17f7fe4942cc720681729a7fca7644688c3e5ade50c4f48ab57ab16199?placeholderIfAbsent=true&apiKey=c7f1d91a917e4e2ba5370da6919a77db', href:`/board/${board}/all` },

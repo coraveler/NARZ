@@ -7,6 +7,7 @@ import PaginationComponent from '../Includes/common/PaginationComponent';
 import api from '../api/axios';
 import { useLocation } from 'react-router-dom';
 import ProfileCard from '../Includes/personalPage/ProfileCard';
+import { getLoginInfo } from "../Includes/common/CommonUtil";
 
 function LocalBoard({ onParamsChange, selectedBadge }) {
     const location = useLocation();
@@ -23,7 +24,8 @@ function LocalBoard({ onParamsChange, selectedBadge }) {
     const [originalPost, setOriginalPost] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [msg, setMsg] = useState("불러올 수 있는 데이터가 없습니다");
-    const userId = 'userB';
+    let loginInfo = getLoginInfo();
+    const userId = loginInfo.userId || null;
 
     const getPost = async () => {
         try {
@@ -39,7 +41,7 @@ function LocalBoard({ onParamsChange, selectedBadge }) {
 
     const filterPosts = (posts, searchTerm) => {
         const filteredPosts = standardState 
-            ? posts.filter(post => post.userId.includes(searchTerm) || searchTerm === '')
+            ? posts.filter(post => post.userNickname.includes(searchTerm) || searchTerm === '')
             : posts.filter(post => 
                 post.content.includes(searchTerm) || post.title.includes(searchTerm) || searchTerm === ''
             );
@@ -122,10 +124,13 @@ function LocalBoard({ onParamsChange, selectedBadge }) {
     
 
     useEffect(() => {
-        if (board === "localboard") {
-            getPost();
-        } else {
-            getBoardPost();
+        // console.log(userId);
+        if(userId != null){
+            if (board === "localboard") {
+                getPost();
+            } else {
+                getBoardPost();
+            }
         }
     }, [local, board,  searchTerm, standardState]);
 

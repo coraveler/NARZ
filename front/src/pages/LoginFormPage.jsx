@@ -71,7 +71,7 @@ const LoginFormPage = () => {
                     let data = response.data.userResponseDTO;
                     let expire =(new Date().getTime() + (1 * 8 * 60 * 60 * 1000));
                     let loginInfo = {data,expire};
-                    
+                    console.log(loginInfo);
                     localStorage.setItem("loginInfo",JSON.stringify(loginInfo));
                     alert("로그인되었습니다.");
                     navigate('/');            
