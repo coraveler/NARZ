@@ -19,20 +19,28 @@ const Calendar = () => {
     
     // db로부터 일정 가져오기
     const getSchedule = async () => {
-        try{
-            const response = await axios.get('http://localhost:7777/api/schedule?userId=siwoo123')
-            const ary = response.data;
+        // 로그인 상태 확인
+        if(localStorage.getItem("loginInfo")){
+            // 유저 정보 가져오기
+            const item = localStorage.getItem("loginInfo")
+            const parseItem = JSON.parse(item);
+            const userId = parseItem.data.userId
 
-            const schAry = ary.map(sch => ({
-                title: sch.title,
-                content: sch.content,
-                start: sch.startDate,
-                end: new Date(new Date(sch.endDate).getTime() + 86400000).toISOString().split('T')[0],
-                id: sch.id,
-                color: sch.color}));
-            setScheduleAry(schAry)
-        }catch(e){
-            console.log(e)
+            try{
+                const response = await axios.get(`http://localhost:7777/api/schedule?userId=${userId}`)
+                const ary = response.data;
+                
+                const schAry = ary.map(sch => ({
+                    title: sch.title,
+                    content: sch.content,
+                    start: sch.startDate,
+                    end: new Date(new Date(sch.endDate).getTime() + 86400000).toISOString().split('T')[0],
+                    id: sch.id,
+                    color: sch.color}));
+                setScheduleAry(schAry)
+            }catch(e){
+                console.log(e)
+            }
         }
     }
 
@@ -105,14 +113,14 @@ const Calendar = () => {
 
     return (
         <div>
-            <div className='' style={{ width:'65%', margin: 'auto'}}><br/>
+            <div className='' style={{ width:'55%', margin: 'auto'}}><br/>
                 
                 {/* 캘린더 */}
                 <FullCalendar
 
                     plugins={[ dayGridPlugin , interactionPlugin]}
                     locale="ko"
-                    height={'52vw'}     // 달력 높이
+                    height={'45vw'}     // 달력 높이
                     dayMaxEvents={true} // 이벤트 오버 높이 조정
                     events={[...scheduleAry, ...holidayAry]}    // 이벤트 가져오기
                     
@@ -120,7 +128,7 @@ const Calendar = () => {
                     headerToolbar={{
                         left: 'today',
                         center: 'prevYear prev title next nextYear',
-                        right: 'addEvent'}}
+                        right: localStorage.getItem("loginInfo") ? 'addEvent' : ''}}
                     
                     // 버튼명 지정
                     buttonText={{ 
