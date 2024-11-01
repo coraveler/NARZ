@@ -7,11 +7,11 @@ import UserActions from "./UserActions";
 
 const TravelHeader = ({board, local}) => {
   const navLinks = [
-    { text: "지역", href: "/board/localboard/all" },
+    { text: "여행노트", href: "/board/localboard/all" },
     { text: "랭킹", href: "/ranking" },
     { text: "상점", href: "/shop" },
     { text: "축제", href: "/festival" },
-    { text: "개인페이지", href: "/personal" }
+    localStorage.getItem("loginInfo") ? { text: "개인페이지", href: "/personal" }: ''
   ];
 
   const navigate = useNavigate();
