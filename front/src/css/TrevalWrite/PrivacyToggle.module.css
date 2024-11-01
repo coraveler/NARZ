@@ -7,7 +7,7 @@
 
 .label {
   color: #000;
-  font-size: 16px;
+  font-size: 25px;
   font-weight: 400;
   margin-right: 10px;
 }
@@ -40,7 +40,7 @@
 }
 
 .toggleInput:checked + .toggleSlider {
-  background-color: #2196F3;
+  background-color: #d19675;
 }
 
 .toggleInput:checked + .toggleSlider:before {

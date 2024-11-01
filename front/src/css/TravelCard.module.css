@@ -1,4 +1,19 @@
-.travelCard {
+@font-face {
+  font-family: 'HakgyoansimChilpanjiugaeTTF-B';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-5@1.0/HakgyoansimChilpanjiugaeTTF-B.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'JNE-Yuna-TTF-Regular';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-1@1.0/JNE-Yuna-TTF-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.travelCard {  
+    font-family: 'HakgyoansimChilpanjiugaeTTF-B';
     border-radius: 5px;
     background-color: #fff;
     box-shadow: 0 8px 24px rgba(149, 157, 165, 0.2);
@@ -21,19 +36,21 @@
   }
   
   .cardTitle {
+    font-family: 'HakgyoansimChilpanjiugaeTTF-B';
     color: #333;
     letter-spacing: -0.6px;
     text-align: center;
     margin-top: 15px;
-    font: 600 14px/1 'Noto Sans KR', -apple-system, Roboto, Helvetica, sans-serif; /* 크기를 줄임 */
+    font-size: 20px;
 }
 
 .cardLocation {
+    font-family: 'JNE-Yuna-TTF-Regular';
     color: #666;
     letter-spacing: -0.5px;
     text-align: center;
     margin-top: 9px;
-    font: 350 14px/1 'Noto Sans KR', -apple-system, Roboto, Helvetica, sans-serif; /* 크기를 줄임 */
+    font-size: 20px;
 }
 
   

@@ -1,6 +1,23 @@
+@font-face {
+  font-family: 'HakgyoansimChilpanjiugaeTTF-B';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-5@1.0/HakgyoansimChilpanjiugaeTTF-B.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Ownglyph_ryuttung-Rg';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405-2@1.0/Ownglyph_ryuttung-Rg.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
 .formSection {
+  font-family: 'Ownglyph_ryuttung-Rg';
   background-color: #fff;
   padding: 0 180px;
+  font-size: 20px;
 }
 
 .buttonGroup {
@@ -13,11 +30,13 @@
 /* 등록 버튼과 취소 버튼 스타일 */
 .submitButton,
 .cancelButton {
+  font-family: 'Ownglyph_ryuttung-Rg';
   border-radius: 8px;
   background-color: #f3f3f3;
   padding: 8px 16px;
-  font: 16px Inter, sans-serif;
-  border: 1px solid #767676;
+  font-size: 16px;
+  border: 1px solid #FF8A2B;
+  color: #FF8A2B;
   cursor: pointer;
 }
 

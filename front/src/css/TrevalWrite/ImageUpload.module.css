@@ -6,7 +6,7 @@
 
 .label {
   color: #000;
-  font-size: 16px;
+  font-size: 25px;
   font-weight: 400;
   margin-right: 10px;
 }
@@ -24,9 +24,10 @@
   background-color: #f3f3f3;
   padding: 4px 8px; /* 패딩 감소로 버튼 크기 조정 */
   font: inherit;
-  border: 1px solid #767676;
+  border: 1px solid #FF8A2B;
+  color: #FF8A2B ;
   cursor: pointer;
-  font-size: 14px; /* 글씨 크기를 줄여서 작은 버튼 만들기 */
+  font-size: 17px; /* 글씨 크기를 줄여서 작은 버튼 만들기 */
   width: 100px; /* 버튼의 가로 크기 조정 */
   justify-content: center; /* 텍스트를 가운데 정렬 */
 }
@@ -52,7 +53,7 @@
 }
 
 .fileName {
-  font-size: 14px;
+  font-size: 20px;
   color: #333;
 }
 
@@ -63,6 +64,7 @@
   border-radius: 4px;
   padding: 4px 8px;
   cursor: pointer;
+  font-size: 15px;
 }
 
 .buttonContainer {

@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'Ownglyph_ryuttung-Rg';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405-2@1.0/Ownglyph_ryuttung-Rg.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
 .reviewSection {
   max-width: none !important;
   background-color: #fff;
@@ -20,13 +27,14 @@
 }
 
 .reviewScore {
+  font-family: 'Ownglyph_ryuttung-Rg';
   color: #000;
   letter-spacing: -0.5px;
   text-align: center;
   align-self: stretch;
   width: 143px;
   margin: auto 0;
-  font: 700 16px/20px Inter, -apple-system, Roboto, Helvetica, sans-serif;
+  font-size: 20px;
 }
 
 .scoreHighlight {
@@ -50,6 +58,8 @@
 }
 
 .filterButton {
+  font-family: 'Ownglyph_ryuttung-Rg';
+
   align-self: stretch;
   display: flex;
   min-height: 40px;
@@ -62,7 +72,6 @@
   width: 90px;
   margin: auto 0;
   padding: 2px 2px 2px 1px;
-  font: 700 16px/20px Inter, -apple-system, Roboto, Helvetica, sans-serif;
   cursor: pointer;
 }
 
