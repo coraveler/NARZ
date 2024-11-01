@@ -27,7 +27,7 @@ const TravelCardGrid = (props) => {
       {currentData.length > 0 ? (
         currentData.map((item, index) => (
           <div key={startIndex + index} className={styles.travelCardColumn}>
-            <TravelCard data={item} />
+            <TravelCard data={item} trimmedUrl={props.trimmedUrl}/>
           </div>
         ))
       ) : (

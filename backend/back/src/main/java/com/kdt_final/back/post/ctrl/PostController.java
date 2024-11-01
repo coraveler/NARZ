@@ -66,6 +66,13 @@ public class PostController {
         return new ResponseEntity<List<PostResponseDTO>>(lst, HttpStatus.OK);
     }
     
+    @DeleteMapping("/delete/{postId}")
+    public ResponseEntity<Void> delete(@PathVariable("postId") Integer postId) {
+        System.out.println("debug >>>> post controller client path /delete");
+        postService.delete(postId);  
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @GetMapping("/uploads/images/post/{imgPath:.+}")
     @ResponseBody
     public ResponseEntity<Resource> loadImage(@PathVariable("imgPath") String imgPath) {

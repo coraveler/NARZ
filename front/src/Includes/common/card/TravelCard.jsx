@@ -32,7 +32,7 @@ const TravelCard = (props) => {
 
   return (
     <article className={styles.travelCard}
-      onClick={() => navigate(`/postpage/${props.data.postId}`)}>
+      onClick={() => navigate(`/postpage/${props.data.postId}`, {state : {trimmedUrl:props.trimmedUrl}})}>
       <div style={{ width: '150px', height: '150px', overflow: 'hidden' }}> {/* overflow: hidden 추가 */}
         <img src={imageUrls} alt={`${props.data.title} view`} className={styles.cardImage} />
       </div>
