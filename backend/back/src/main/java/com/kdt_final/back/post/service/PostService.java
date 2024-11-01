@@ -45,6 +45,7 @@ public class PostService {
 
     public Integer edit(PostRequestDTO params, MultipartFile[] images) {
         System.out.println("Debug >>>> service save() - PostMapper: " + postMapper);
+        deleteImageFile(params.getPostId());
         postMapper.deletePostImage(params);
 
         // 이미지 업로드 처리

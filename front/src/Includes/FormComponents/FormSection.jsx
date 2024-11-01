@@ -85,22 +85,27 @@ function FormSection({post, postImgUrl}) {
     formData.append('content', content);
     formData.append('rating', rating);
     formData.append('secret', secret);
-    
+
     const existingFiles = await Promise.all(existingImages.map(async (image) => {
       const response = await fetch(image.imagePath);
       const blob = await response.blob();
       const fileName = image.imagePath.split('/').pop(); // 파일 이름 추출
       return new File([blob], fileName, { type: blob.type });
-  }));
+    }));
+    
+    const existingImageNames = new Set(images.map(image => image.name));
 
-  existingFiles.forEach((file) => {
-      formData.append('images', file); // 서버에서 기대하는 필드 이름
-  });
-
+    existingFiles.forEach((file) => {
+      if (existingImageNames.has(file.name)) {
+          formData.append('images', file); // 서버에서 기대하는 필드 이름
+      }
+    });
+    
+    
     images.forEach((image) => {
         formData.append('images', image); // 'images'는 서버에서 기대하는 필드 이름
     });
-    
+
     try {
         const response = await api.post('post/edit', formData, {
             headers: {
