@@ -13,7 +13,7 @@ function ProfileCard({ selectedBadge }) {
     followers: 0,
     following: 0,
     achievement: '도전과제',
-    travelog: 'Travelog'
+    travelog: '나의 여행노트'
   };
 
   // 현재 경로가 일치하거나 하위 경로인 경우 스타일 유지
