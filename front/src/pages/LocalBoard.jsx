@@ -26,6 +26,8 @@ function LocalBoard({ onParamsChange, selectedBadge }) {
     const [msg, setMsg] = useState("불러올 수 있는 데이터가 없습니다");
     let loginInfo = getLoginInfo();
     const userId = loginInfo?.userId || null;
+    const fullUrl =  window.location.href;
+    const trimmedUrl = fullUrl.replace("http://localhost:3000", "");
 
     const getPost = async () => {
         try {
@@ -40,9 +42,9 @@ function LocalBoard({ onParamsChange, selectedBadge }) {
     };
 
     const filterPosts = (posts, searchTerm) => {
-        const filteredPosts = standardState 
+        const filteredPosts = standardState
             ? posts.filter(post => post.userNickname.includes(searchTerm) || searchTerm === '')
-            : posts.filter(post => 
+            : posts.filter(post =>
                 post.content.includes(searchTerm) || post.title.includes(searchTerm) || searchTerm === ''
             );
 
@@ -121,7 +123,7 @@ function LocalBoard({ onParamsChange, selectedBadge }) {
             console.log(err);
         }
     };
-    
+
 
     useEffect(() => {
         // console.log(userId);
@@ -130,8 +132,8 @@ function LocalBoard({ onParamsChange, selectedBadge }) {
         } else {
             getBoardPost();
         }
-        
-    }, [local, board,  searchTerm, standardState]);
+
+    }, [local, board, searchTerm, standardState]);
 
     const handleArray = (value) => {
         setArrayState(value);
@@ -139,12 +141,12 @@ function LocalBoard({ onParamsChange, selectedBadge }) {
     };
 
     useEffect(() => {
-                // 로컬 스토리지에서 arrayState를 가져옵니다.
-                const storedArrayState = localStorage.getItem('arrayButtonState');
-                if (storedArrayState) {
-                    setArrayState(JSON.parse(storedArrayState));
-                }
-            }, []);
+        // 로컬 스토리지에서 arrayState를 가져옵니다.
+        const storedArrayState = localStorage.getItem('arrayButtonState');
+        if (storedArrayState) {
+            setArrayState(JSON.parse(storedArrayState));
+        }
+    }, []);
 
     useEffect(() => {
         if (onParamsChange) {
@@ -166,23 +168,23 @@ function LocalBoard({ onParamsChange, selectedBadge }) {
     return (
         <div>
             {
-                board=="travelog" && 
+                board == "travelog" &&
                 (<div align="center">
-                <ProfileCard selectedBadge={selectedBadge} />
-             </div>)
+                    <ProfileCard selectedBadge={selectedBadge} />
+                </div>)
             }
-            
+
             <br />
             <div>
                 <RegionSelector board={board} searchTerm={searchTerm} />
             </div>
             <div>
-                <ReviewSection 
-                    ratingAvg={ratingAvg} 
-                    kLocal={kLocal} 
-                    handleArray={handleArray} 
-                    searchTerm={searchTerm} 
-                    handleStandard={handleStandard} 
+                <ReviewSection
+                    ratingAvg={ratingAvg}
+                    kLocal={kLocal}
+                    handleArray={handleArray}
+                    searchTerm={searchTerm}
+                    handleStandard={handleStandard}
                 />
             </div>
             <div style={{ width: "100%", display: 'flex', alignItems: 'center' }}>
@@ -192,19 +194,20 @@ function LocalBoard({ onParamsChange, selectedBadge }) {
             </div>
             <br /><br />
             <div align="center">
-                <TravelCardGrid 
-                    data={post} 
-                    page={page} 
-                    onTotalCountChange={handleTotalCountChange} 
-                    itemsPerPage={itemsPerPage} 
-                    msg={msg} 
+                <TravelCardGrid
+                    data={post}
+                    page={page}
+                    onTotalCountChange={handleTotalCountChange}
+                    itemsPerPage={itemsPerPage}
+                    msg={msg}
+                    trimmedUrl={trimmedUrl}
                 />
                 {post.length > 0 &&
-                    <PaginationComponent 
-                        totalPages={totalPages} 
-                        onPageChange={handlePageChange} 
-                        totalCount={totalCount} 
-                        currentPage={page} 
+                    <PaginationComponent
+                        totalPages={totalPages}
+                        onPageChange={handlePageChange}
+                        totalCount={totalCount}
+                        currentPage={page}
                     />
                 }
             </div>

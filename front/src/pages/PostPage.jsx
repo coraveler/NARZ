@@ -13,6 +13,7 @@ import BookMark from '../Includes/common/BookMark';
 import { getLoginInfo } from "../Includes/common/CommonUtil";
 import LikeIcon from '../Includes/common/LikeIcon';
 import ProfileInfo from '../Includes/common/ProfileInfo';
+import { useLocation } from 'react-router-dom';
 
 const PostPage = () => {
     const navigate = useNavigate();
@@ -25,6 +26,8 @@ const PostPage = () => {
     // const [likeCount, setLikeCount] = useState(false);
     let loginInfo = getLoginInfo();
     const userId = loginInfo?.userId || null;
+    const location = useLocation();
+    const trimmedUrl = location.state?.trimmedUrl || "/board/localboard/all";
 
     useEffect(() => {
         // 예: API 호출하여 postId에 해당하는 포스트 데이터 가져오기
@@ -62,6 +65,22 @@ const PostPage = () => {
             console.log(err);
         }
     }
+
+    const postDelete = async () => {
+        const isConfirmed = window.confirm("정말로 삭제하시겠습니까?");
+        if(isConfirmed){
+            try {   
+                console.log(postId);
+                const response = await api.delete(`post/delete/${postId}`);
+                console.log("debug >>> response imgUrls >>>>>>>>>>>>>>>> ", response.data);
+                navigate(trimmedUrl);
+                alert("삭제 되었습니다.");
+            } catch (err) {
+                console.log(err);
+            }
+        }
+    }
+
     
     return (
         <div>
@@ -76,6 +95,8 @@ const PostPage = () => {
                     <div className={styles.buttonDiv}>
                         {
                             userId == post.userId ?
+                                        <div>
+
                                         <button className="btn btn-outline-warning"
                                         onClick={() => navigate(`/TravelEditPage`,{
                                             state:{
@@ -84,7 +105,14 @@ const PostPage = () => {
                                             }
                                         })}>
                                                 수정하기 <MdModeEdit /> 
-                                        </button> :
+                                        </button> 
+
+                                        <button className="btn btn-outline-danger"
+                                                style={{marginLeft:"5px"}}
+                                                onClick={postDelete}>
+                                            삭제
+                                        </button>
+                                        </div>:
 
                                         <button className="btn btn-outline-warning" aria-label="Follow"
                                                 style={{marginLeft:"5px"}}>
@@ -151,7 +179,7 @@ const PostPage = () => {
                 </main>
 
                 {/* <hr style={{ width: "850px" }} /> */}
-                <Comment />  {/* 반복 */}
+                <Comment postId={postId}/>  {/* 반복 */}
 
 
             </div>
