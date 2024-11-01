@@ -129,6 +129,10 @@
     color: black !important;
 }
 
+/* 달력 이벤트 글씨 스타일 */
+.fc-daygrid-day-events{
+    font-weight: bold;
+}
 
 
 

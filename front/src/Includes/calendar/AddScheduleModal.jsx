@@ -26,57 +26,67 @@ function AddScheduleModal({
     const [colorChoiceVisible, setColorChoiceVisible] = useState(false);        // 색상 선택 상태
 
     
+        
+    
+    
 
     // 서버에 POST 요청하여 일정 저장
     const saveSchedule = async () => {
-        if (!scheduleTitle) {
-            return alert('일정 제목을 입력해 주세요!');
-        }
-    
-        if (!scheduleStartDate || !scheduleEndDate || !scheduleStartTime || !scheduleEndTime) {
-            return alert('일정 기간을 입력해 주세요!');
-        }
-    
-        if (scheduleStartDate > scheduleEndDate) {
-            return alert('종료 날짜는 시작 날짜보다 늦어야 합니다.');
-        }
-    
-        if (scheduleStartTime > scheduleEndTime && scheduleStartDate == scheduleEndDate) {
-            return alert('종료 시간은 시작 시간보다 늦어야 합니다.');
-        }
-    
-        const data = {
-            title: scheduleTitle,
-            content: scheduleContent,
-            startDate: scheduleStartDate,
-            endDate: scheduleEndDate,
-            startTime: scheduleStartTime,
-            endTime: scheduleEndTime,
-            userId: "siwoo123",
-            color: scheduleColor
-        };
-    
-        try {
-            const response = await axios.post('http://localhost:7777/api/schedule', data);
-            // 초기 상태 설정
-            setScheduleTitle('');
-            setScheduleStartDate(currentDate);
-            setScheduleEndDate(afterHour);
-            setScheduleStartTime(startTime);
-            setScheduleEndTime(endTime);
-            setScheduleColor('#FFB300');
-            setScheduleContent('');
-            addScheduleModalClose();
-            getSchedule();
-            getHoliday();
-    
-            alert(response.status === 201
-                ? '일정이 정상적으로 저장되었습니다.'
-                : '일정 저장에 실패하였습니다. 다시 시도해 주세요.');
-        } catch (e) {
-            console.log(e);
-            alert('일정 저장 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.');
-        }
+        if(localStorage.getItem("loginInfo")){
+            const item = localStorage.getItem("loginInfo")
+            const parseItem = JSON.parse(item);
+            const userId = parseItem.data.userId
+
+            if (!scheduleTitle) {
+                return alert('일정 제목을 입력해 주세요!');
+            }
+        
+            if (!scheduleStartDate || !scheduleEndDate || !scheduleStartTime || !scheduleEndTime) {
+                return alert('일정 기간을 입력해 주세요!');
+            }
+        
+            if (scheduleStartDate > scheduleEndDate) {
+                return alert('종료 날짜는 시작 날짜보다 늦어야 합니다.');
+            }
+        
+            if (scheduleStartTime > scheduleEndTime && scheduleStartDate == scheduleEndDate) {
+                return alert('종료 시간은 시작 시간보다 늦어야 합니다.');
+            }
+        
+            const data = {
+                title: scheduleTitle,
+                content: scheduleContent,
+                startDate: scheduleStartDate,
+                endDate: scheduleEndDate,
+                startTime: scheduleStartTime,
+                endTime: scheduleEndTime,
+                userId: userId,
+                color: scheduleColor
+            };
+        
+            try {
+                
+                const response = await axios.post('http://localhost:7777/api/schedule', data);
+                // 초기 상태 설정
+                setScheduleTitle('');
+                setScheduleStartDate(currentDate);
+                setScheduleEndDate(afterHour);
+                setScheduleStartTime(startTime);
+                setScheduleEndTime(endTime);
+                setScheduleColor('#FFB300');
+                setScheduleContent('');
+                addScheduleModalClose();
+                getSchedule();
+                getHoliday();
+        
+                alert(response.status === 201
+                    ? '일정이 정상적으로 저장되었습니다.'
+                    : '일정 저장에 실패하였습니다. 다시 시도해 주세요.');
+            } catch (e) {
+                console.log(e);
+                alert('일정 저장 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.');
+            }
+        }   
     };
     
 
