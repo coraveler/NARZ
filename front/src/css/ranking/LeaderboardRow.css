@@ -1,10 +1,16 @@
+@font-face {
+  font-family: 'GoryeongStrawberry';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/GoryeongStrawberry.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
 .row-wrapper {
     display: flex;
     width: 100%;
     color: #666;
     white-space: nowrap;
     letter-spacing: -0.39px;
-    font: 400 13px Inter, sans-serif;
+    font: 400 17px Inter,'GoryeongStrawberry';
     padding: 16px;
   }
   
