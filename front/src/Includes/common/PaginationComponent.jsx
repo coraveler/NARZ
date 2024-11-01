@@ -88,7 +88,7 @@ const PaginationComponent = ({ totalPages = 5, currentPage, onPageChange }) => {
         onClick={handleNext} 
         disabled={currentPage === totalPages}
       >
-        다음
+        다음&nbsp;
       </PaginationNavButton>
     </nav>
   );

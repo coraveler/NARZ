@@ -12,7 +12,13 @@
     font-weight: 700;
     font-style: normal;
   }
-  
+  @font-face {
+    font-family: 'GoryeongStrawberry';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/GoryeongStrawberry.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+  }
+
   /* 랭킹 페이지 스타일 */
   .ranking-section {
     max-width: 1200px; /* 최대 너비 설정 */
@@ -21,6 +27,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+  
+  .mainTitle{
+    font-family: 'GoryeongStrawberry';
+
   }
   
   /* 랭킹 제목 */
@@ -32,9 +43,9 @@
   }
   
   /* 랭킹 주의 문구 */
-  .ranking-note {
-    font-family: 'GumiRomanceTTF', sans-serif;
-    color: #FF8A2B;
+  .ranking-note {    
+    font-family: 'HakgyoansimChilpanjiugaeTTF-B';
+    color: black;
     font-size: 14px;
     margin-bottom: 15px;
   }

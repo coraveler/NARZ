@@ -1,3 +1,18 @@
+/* 폰트 */
+@font-face {
+  font-family: 'GumiRomanceTTF';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2410-1@1.0/GumiRomanceTTF.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Katuri';
+  src: url('https://gcore.jsdelivr.net/gh/projectnoonnu/noonfonts_13@1.0/Katuri.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
 @font-face {
   font-family: 'HakgyoansimChilpanjiugaeTTF-B';
   src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-5@1.0/HakgyoansimChilpanjiugaeTTF-B.woff2') format('woff2');
@@ -10,7 +25,7 @@
   display: flex;
   justify-content: flex-start;
   padding: 1px 0;
-  font-family: 'HakgyoansimChilpanjiugaeTTF-B', sans-serif; /* Apply the font here */
+  margin: 0px;
 }
 
 @media (max-width: 991px) {
@@ -23,12 +38,11 @@
   display: flex;
   max-width: 100%;
   align-items: center;
-  gap: 35px;
+  gap: 40px;
   justify-content: flex-start;
   list-style-type: none;
   padding: 0;
-  margin: 0;
-  font-family: 'HakgyoansimChilpanjiugaeTTF-B', sans-serif; /* Optionally apply to list items */
+  margin-right: 100px; 
 }
 
 .vertical-divider-wrapper {
@@ -38,24 +52,22 @@
   justify-content: center;
   width: 51px;
 }
-
+/* 
 .vertical-divider {
   border-right: 2px solid #e0e0e0;
   min-height: 40px;
   width: 2px;
-}
+} */
 
 .styled-link {
   text-decoration: none;
-  color: gray;
-  font-family: 'HakgyoansimChilpanjiugaeTTF-B', sans-serif; /* Apply to links */
+  font-family: 'GumiRomanceTTF';
+  color: black;
+  font-weight: bold;
+  font-size: 23px;
 }
 
 .styled-link.active {
-  color: black;
-  font-weight: bold;
+  text-shadow: 0px 0px 10px #FFB300;
 }
 
-.styled-link:hover {
-  text-decoration: underline;
-}
