@@ -40,6 +40,7 @@ public class MileageController {
         return mileageService.getMileageHistory(userId);
     }
 
+    // 쿠폰등록
     @PostMapping("/register-coupon")
     public ResponseEntity<String> registerCoupon(@RequestBody CouponRequest couponRequest) {
         String couponCode = couponRequest.getCouponCode();

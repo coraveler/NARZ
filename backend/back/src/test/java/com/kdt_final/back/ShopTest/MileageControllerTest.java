@@ -1,42 +1,51 @@
-//package com.kdt_final.back.ShopTest;
-//
-//import com.kdt_final.back.Shop.ctrl.MileageController;
-//import com.kdt_final.back.Shop.domain.Mileage;
-//import com.kdt_final.back.Shop.service.MileageService;
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Test;
-//import org.mockito.InjectMocks;
-//import org.mockito.Mock;
-//import org.mockito.MockitoAnnotations;
-//import org.springframework.http.ResponseEntity;
-//
-//import static org.mockito.Mockito.when;
-//
-//public class MileageControllerTest {
-//
-//    @InjectMocks
-//    private MileageController mileageController;
-//
-//    @Mock
-//    private MileageService mileageService;
-//
-//    @BeforeEach
-//    public void setUp() {
-//        MockitoAnnotations.openMocks(this);
-//    }
-//
-//    @Test
-//    public void testGetMileage() {
-//        // Given
-//        int userId = 1;
-//        // Mileage 객체를 모의하여 반환값 설정
-//        when(mileageService.getMileage(userId)).thenReturn(new Mileage());
-//
-//        // When
-//        ResponseEntity<?> response = mileageController.getMileage(userId);
-//
-//        // Then
-//        // Assertions to check response status and content
-//        assertEquals(200, response.getStatusCodeValue());
-//    }
-//}
+package com.kdt_final.back.Shop.ctrl;
+
+import com.kdt_final.back.Shop.domain.Mileage;
+import com.kdt_final.back.Shop.service.MileageService;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.any;
+
+@WebMvcTest(MileageController.class)
+class MileageControllerTest {
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @MockBean
+    private MileageService mileageService;
+
+    @Test
+    void testAddMileage() throws Exception {
+        Mileage mileage = new Mileage();
+        mileage.setUserId(123);
+        mileage.setMileage(-1000); // 포인트 차감
+        mileage.setChangeHistory("구매: 닉네임 변경");
+
+        // 서비스 메서드가 호출될 때 아무 동작도 수행하지 않도록 설정
+        Mockito.doNothing().when(mileageService).addMileage(any(Mileage.class));
+
+        mockMvc.perform(post("/api/mileage/")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"userId\": 123, \"mileage\": -1000, \"changeHistory\": \"구매: 닉네임 변경\"}"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void testGetMileageHistory() throws Exception {
+        int userId = 123;
+
+        mockMvc.perform(get("/api/mileage/history/" + userId))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON));
+    }
+}
