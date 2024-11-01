@@ -20,6 +20,7 @@ const UserActions = ({ isLoggedIn }) => {
 
   const ProfileIconComponent = isMac() ? StyledCgProfileMac : StyledCgProfile;
 
+ 
 
   // 새로운 알림 상태 확인
   useEffect(()=>{
@@ -27,11 +28,16 @@ const UserActions = ({ isLoggedIn }) => {
         const item = localStorage.getItem("loginInfo")
         const parseItem = JSON.parse(item);
         const userId = parseItem.data.userId
-      if(localStorage.getItem(`todayNotificationMsg-${userId}`)==`${new Date().toDateString()}-notificationMsg-new`){
-        setNewNotificationStatus(true);
-        localStorage.setItem(`todayNotificationMsg-${userId}`, `${new Date().toDateString()}-notificationMsg`)
-      }
+      setTimeout(()=>{
+        if(localStorage.getItem(`todayNotificationMsg-${userId}`)==`${new Date().toDateString()}-notificationMsg-new`){
+          setNewNotificationStatus(true)
+          localStorage.setItem(`todayNotificationMsg-${userId}`, `${new Date().toDateString()}-notificationMsg`)
+        }
+      },100)
+    } else{
+      setNewNotificationStatus(false)
     }
+
   },[localStorage.getItem("loginInfo")])
 
   // 알림 아이콘 실행 함수

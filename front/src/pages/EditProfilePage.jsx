@@ -240,6 +240,7 @@ const EditProfilePage = ({ selectedBadge }) => {
                         // alert("로그아웃 되었습니다.");                 
                         navigate('/');
                         showLogoutToast();  // 로그아웃 토스트 실행
+
                     }
 
                         } className={styles.FullButton}>로그아웃</button>

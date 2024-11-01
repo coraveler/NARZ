@@ -8,13 +8,10 @@ import NotificationList from "./NotificationList";
 const NotificationModal = forwardRef(({
     notificationModalStatus,
     notificationModalClose}, ref) => {
-
     
     const [previousDayAry, setPreviousDayAry] = useState([]);   // 이전 알림 모음
     const [todayAry, setTodayAry] = useState([]);   // 오늘 알림 모음
     const {showLoginToast, showNotificationToast, getMsgLength} = useToast();   // toastContext로부터 함수 가져오기
-    
-   
 
     const now = new Date()  // 오늘
     const afterWeek = new Date();   // 일주일 후
@@ -23,6 +20,9 @@ const NotificationModal = forwardRef(({
     const afterOneHours = new Date();   // 한시간 후
     afterOneHours.setHours(afterOneHours.getHours() + 1);
 
+    
+
+    // 알림 모달창 동작시 알림 메시지 정보 가져오기
     useEffect(()=>{
         if(localStorage.getItem("loginInfo")){
             const item = localStorage.getItem("loginInfo")
@@ -48,6 +48,9 @@ const NotificationModal = forwardRef(({
         const source = new EventSource(`http://localhost:7777/api/sse?userId=${userId}`);
         source.addEventListener("message", (event) => {
             let getSchedules = JSON.parse(event.data);
+            if(getSchedules.length == 0){
+                localStorage.setItem(`todayNotificationMsg-${userId}`, `${new Date().toDateString()}-notificationMsg`)
+            }
             const schedules = getSchedules.filter(sch => new Date(`${sch.startDate}T${sch.startTime}`) > afterOneHours && new Date(sch.startDate) < afterWeek)
             schedules.sort((a,b) => new Date(`${a.startDate}T${a.startTime}`) - new Date(`${b.startDate}T${b.startTime}`))
             showNotificationToast()  // 일정 알림 토스트
@@ -74,10 +77,8 @@ const NotificationModal = forwardRef(({
             const userId = parseItem.data.userId
             const userNickname = parseItem.data.userNickname
             if(localStorage.getItem(`todayNotificationMsg-${userId}`)){
-                if(localStorage.getItem(`todayNotificationMsg-${userId}`)!=`${new Date().toDateString()}-notificationMsg` ||
-                    localStorage.getItem(`todayNotificationMsg-${userId}`)==`${new Date().toDateString()}-notificationMsg-new`){
+                if(localStorage.getItem(`todayNotificationMsg-${userId}`)!=`${new Date().toDateString()}-notificationMsg`){
                     fetchSchedule(userId, userNickname);
-                    
                     localStorage.setItem(`todayNotificationMsg-${userId}`, `${new Date().toDateString()}-notificationMsg-new`)
                 }else{
                     showLoginToast() // 로그인 토스트
@@ -90,6 +91,7 @@ const NotificationModal = forwardRef(({
     
     // 가져온 일정 오늘/이전 분류이후 메시지로 저장하기
     const saveMsgHandler = async(schedules, userId, userNickname) => {
+        
         for(const sch of schedules){
             const startDay = new Date(sch.startDate);
             const nowDate = new Date(new Date().setHours(0, 0, 0, 0)); // 현재 날짜의 자정
