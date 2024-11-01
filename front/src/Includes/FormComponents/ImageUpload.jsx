@@ -127,7 +127,7 @@ function ImageUpload({ onChange, postImgUrl }) {
 
   return (
     <div className={styles.imageUpload}>
-      <p>이미지</p>
+      <p style={{ fontSize: '25px' }} >이미지</p>
       <input
         type="file"
         id="image-upload"
