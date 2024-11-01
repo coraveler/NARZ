@@ -20,6 +20,11 @@ public interface PostMapper {
 
     public void savePostImage(PostImageRequestDTO params);
 
+    // @Options(useGeneratedKeys = true, keyProperty = "postId")
+    public void editRow(PostRequestDTO params);
+
+    public void deletePostImage(PostRequestDTO params);
+
     public List<PostResponseDTO> getAllPost();
 
     public List<PostResponseDTO> getPost(String local);
@@ -42,11 +47,11 @@ public interface PostMapper {
 
     public Integer bookMarkCheck (PostBookMarkRequestDTO params);
 
-    public List<PostResponseDTO> getAllBookMark(String userId);
+    public List<PostResponseDTO> getAllBookMark(int userId);
 
     public List<PostResponseDTO> getBookMark(PostRequestDTO params);
 
-    public List<PostResponseDTO> getAllTravelog(String userId);
+    public List<PostResponseDTO> getAllTravelog(int userId);
 
     public List<PostResponseDTO> getTravelog(PostRequestDTO params);
 }

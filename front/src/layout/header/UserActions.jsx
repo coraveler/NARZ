@@ -59,7 +59,7 @@ const UserActions = ({ isLoggedIn }) => {
 
         {/* 로그인 상태에 따라 프로필 아이콘 처리 */}
 
-        {loginInfo
+        {loginInfo !=null
           ? (<Link to ="/personal/EditProfilePage"><ProfileIconComponent /></Link>) // 로그인된 경우
           : (<Link to="/LoginFormPage"><ProfileIconComponent /></Link>) // 로그인되지 않은 경우
         }

@@ -4,15 +4,18 @@ import { Carousel } from 'react-bootstrap';
 // import { AiFillLike, AiOutlineLike } from "react-icons/ai";
 import { FaStar } from "react-icons/fa";
 // import { FaBookmark, FaRegBookmark } from "react-icons/fa6";
-import { useParams } from 'react-router-dom';
+import { MdModeEdit } from "react-icons/md";
+import { useNavigate, useParams } from 'react-router-dom';
 import api from '../api/axios';
 import styles from '../css/PostPage.module.css';
 import Comment from '../Includes/comment/Comment';
-import ProfileInfo from '../Includes/common/ProfileInfo';
 import BookMark from '../Includes/common/BookMark';
+import { getLoginInfo } from "../Includes/common/CommonUtil";
 import LikeIcon from '../Includes/common/LikeIcon';
+import ProfileInfo from '../Includes/common/ProfileInfo';
 
 const PostPage = () => {
+    const navigate = useNavigate();
     const { postId } = useParams();
     const [post, setPost] = useState({});
     const [postImgUrl, setPostImgUrl] = useState([]);
@@ -20,7 +23,8 @@ const PostPage = () => {
     // const [bookMarkState, setBookMarkState] = useState(false);
     // const [likeState, setLikeState] = useState(false);
     // const [likeCount, setLikeCount] = useState(false);
-    const userId = 'userB';
+    let loginInfo = getLoginInfo();
+    const userId = loginInfo?.userId || null;
 
     useEffect(() => {
         // 예: API 호출하여 postId에 해당하는 포스트 데이터 가져오기
@@ -58,133 +62,36 @@ const PostPage = () => {
             console.log(err);
         }
     }
-
-    // const saveLike = async () => {
-    //     const data = {
-    //         postId: postId,
-    //         userId: userId,
-    //     };
-    //     try {
-    //         const response = await api.post(`post/like/save`,data);
-    //         console.log("debug >>> response saveLike >>>>>>>>>>>>>>>> ", response.data);
-    //         setLikeState(!likeState);
-    //     } catch (err) {
-    //         console.log(err);
-    //     }
-    // }
-
-    // const deleteLike = async () => {
-    //     try {
-    //         const response = await api.delete(`post/like/delete`, {
-    //             params: {
-    //                 postId: postId,
-    //                 userId: userId,
-    //             }
-    //         });
-    //         console.log("debug >>> response deleteLike >>>>>>>>>>>>>>>> ", response.data);
-    //         setLikeState(!likeState);
-    //     } catch (err) {
-    //         console.log(err);
-    //     }
-    // }
-
-    // const clickLike =  () => {
-    //     if(likeState){
-    //         deleteLike();
-    //     }else{
-    //         saveLike();
-    //     }
-    // }
-
-    // const checkLike = async (postId,userId) => {
-    //     try {
-    //         const response = await api.get(`post/like/check`,{
-    //             params: {
-    //                 postId: postId,
-    //                 userId: userId,
-    //             }
-    //         });
-    //         console.log("debug >>> response checkLike >>>>>>>>>>>>>>>> ", response.data);
-    //         setLikeState(response.data);
-    //     } catch (err) {
-    //         console.log(err);
-    //     }
-    // }
-
-    // const countLike = async (postId) => {
-    //     try {
-    //         const response = await api.get(`post/like/count/${postId}`);
-    //         console.log("debug >>> response countLike >>>>>>>>>>>>>>>> ", response.data);
-    //         setLikeCount(response.data);
-    //     } catch (err) {
-    //         console.log(err);
-    //     }
-    // }
     
-    // const saveBookMark = async () => {
-    //     const data = {
-    //         postId: postId,
-    //         userId: userId,
-    //     };
-    //     try {
-    //         const response = await api.post(`post/bookmark/save`,data);
-    //         console.log("debug >>> response saveLike >>>>>>>>>>>>>>>> ", response.data);
-    //         setBookMarkState(!bookMarkState);
-    //     } catch (err) {
-    //         console.log(err);
-    //     }
-    // }
-
-    // const deleteBookMark = async () => {
-    //     try {
-    //         const response = await api.delete(`post/bookmark/delete`, {
-    //             params: {
-    //                 postId: postId,
-    //                 userId: userId,
-    //             }
-    //         });
-    //         console.log("debug >>> response deleteLike >>>>>>>>>>>>>>>> ", response.data);
-    //         setBookMarkState(!bookMarkState);
-    //     } catch (err) {
-    //         console.log(err);
-    //     }
-    // }
-
-    // const clickBookMark = () =>{
-    //     if(bookMarkState){
-    //         deleteBookMark();
-    //     }else{
-    //         saveBookMark();
-    //     }
-    // }
-
-    // const checkBookMark = async (postId,userId) => {
-    //     try {
-    //         const response = await api.get(`post/bookmark/check`,{
-    //             params: {
-    //                 postId: postId,
-    //                 userId: userId,
-    //             }
-    //         });
-    //         console.log("debug >>> response checkLike >>>>>>>>>>>>>>>> ", response.data);
-    //         setBookMarkState(response.data);
-    //     } catch (err) {
-    //         console.log(err);
-    //     }
-    // }
-
     return (
         <div>
             <section className={styles.profileContainer}>
             <br/>
                 <h1 className={styles.profileTitle}>{post.title}</h1>
-                <br/><br/>
+                <br/> <br/>
                 <div className={styles.profileInfo}>
                     <ProfileInfo data={post} />
                     <time className={styles.profileDate}>{post.createdDate}</time>
-                    <button className={styles.followButton} aria-label="Follow">
-                        + 팔로우
-                    </button>
+
+                    <div className={styles.buttonDiv}>
+                        {
+                            userId == post.userId ?
+                                        <button className="btn btn-outline-warning"
+                                        onClick={() => navigate(`/TravelEditPage`,{
+                                            state:{
+                                                post : post,
+                                                postImgUrl : postImgUrl
+                                            }
+                                        })}>
+                                                수정하기 <MdModeEdit /> 
+                                        </button> :
+
+                                        <button className="btn btn-outline-warning" aria-label="Follow"
+                                                style={{marginLeft:"5px"}}>
+                                            + 팔로우
+                                        </button>
+                        }
+                    </div>
                 </div><br/>
             </section>
            

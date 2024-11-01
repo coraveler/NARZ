@@ -32,23 +32,23 @@ public class RankingController {
     }
 
     // 기존 메서드들도 함께 사용 가능
-    // @PostMapping
-    // public void addRanking(@RequestBody RankingRequestDTO rankingRequestDTO) {
-    //     rankingService.addRanking(rankingRequestDTO);
-    // }
+    @PostMapping
+    public void addRanking(@RequestBody RankingRequestDTO rankingRequestDTO) {
+        rankingService.addRanking(rankingRequestDTO);
+    }
 
-    // @DeleteMapping("/{rank}")
-    // public void deleteRanking(@PathVariable int rank) {
-    //     rankingService.deleteRanking(rank);
-    // }
+    @DeleteMapping("/{rank}")
+    public void deleteRanking(@PathVariable int rank) {
+        rankingService.deleteRanking(rank);
+    }
 
-    // @GetMapping("/{rank}")
-    // public RankingResponseDTO getRankingInfo(@PathVariable int rank) {
-    //     return rankingService.getRankingInfo(rank);
-    // }
+    @GetMapping("/{rank}")
+    public RankingResponseDTO getRankingInfo(@PathVariable int rank) {
+        return rankingService.getRankingInfo(rank);
+    } 
 
-    // @PutMapping
-    // public void updateRanking(@RequestBody RankingRequestDTO rankingRequestDTO) {
-    //     rankingService.updateRanking(rankingRequestDTO);
-    // }
+    @PutMapping
+    public void updateRanking(@RequestBody RankingRequestDTO rankingRequestDTO) {
+        rankingService.updateRanking(rankingRequestDTO);
+    }
 }

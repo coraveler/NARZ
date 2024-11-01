@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class PostResponseDTO {
     private Integer postId;
-    private String userId;
+    private Integer userId;
     private String local;
     private String title;
     private String content;
@@ -13,6 +13,6 @@ public class PostResponseDTO {
     private Integer secret;
     private String headerImg;
     private String createdDate;
-
+    private String userNickname;
     private int likeCount;
 }

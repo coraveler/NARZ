@@ -6,12 +6,12 @@ const LeaderboardRow = ({ rank, author, board, rating, views, likes, postCount, 
     <RowWrapper>
       <RankCell>{rank}</RankCell>
       <AuthorCell>{author}</AuthorCell>
-      {board ? <BoardCell>{board}</BoardCell> : null}
-      {rating !== undefined ? <RatingCell>{rating}</RatingCell> : null}
-      {views !== undefined ? <ViewsCell>{views}</ViewsCell> : null}
-      {likes !== undefined ? <LikesCell>{likes}</LikesCell> : null}
-      {postCount !== undefined ? <PostCountCell>{postCount}</PostCountCell> : null}
-      {commentCount !== undefined ? <CommentCountCell>{commentCount}</CommentCountCell> : null}
+      {board !== undefined && <BoardCell>{board}</BoardCell>}
+      {rating !== undefined && <RatingCell>{rating}</RatingCell>}
+      {views !== undefined && <ViewsCell>{views}</ViewsCell>}
+      {likes !== undefined && <LikesCell>{likes}</LikesCell>}
+      {postCount !== undefined && <PostCountCell>{postCount}</PostCountCell>}
+      {commentCount !== undefined && <CommentCountCell>{commentCount}</CommentCountCell>}
     </RowWrapper>
   );
 };

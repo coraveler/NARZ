@@ -74,6 +74,7 @@ const LoginFormPage = () => {
                     let data = response.data.userResponseDTO;
                     let expire =(new Date().getTime() + (1 * 8 * 60 * 60 * 1000));
                     let loginInfo = {data,expire};
+                    console.log(loginInfo);
                     localStorage.setItem("loginInfo",JSON.stringify(loginInfo));
                     notificationRef.current.loginHandler(); // NotificationModal컴포넌트의 loginHandler()를 함수 실행
                     // alert("로그인되었습니다.");

@@ -8,7 +8,9 @@ const BookMark = ({postId, userId, style}) => {
 
     useEffect(() => {
         // 예: API 호출하여 postId에 해당하는 포스트 데이터 가져오기
-        checkBookMark(postId,userId);
+        if(userId){
+            checkBookMark(postId,userId);
+        }
     }, [postId]);
 
     const saveBookMark = async () => {
@@ -21,6 +23,7 @@ const BookMark = ({postId, userId, style}) => {
             console.log("debug >>> response saveLike >>>>>>>>>>>>>>>> ", response.data);
             setBookMarkState(!bookMarkState);
         } catch (err) {
+            alert("로그인 후 이용가능합니다!");
             console.log(err);
         }
     }

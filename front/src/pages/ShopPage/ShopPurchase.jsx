@@ -17,7 +17,7 @@ const ShopPurchase = () => {
     const description = `구매한 옵션: ${option.name}`;
 
     try {
-      const response = await fetch('http://localhost:7777/api/mileage-history', { // 포트 수정
+      const response = await fetch('http://localhost:7777/api/mileage/history', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
