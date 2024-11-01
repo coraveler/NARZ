@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import RankingNavigation from "../Includes/Ranking/RankingNavigation";
 import LeaderboardTable from "../Includes/Ranking/LeaderboardTable";
+import { FaCrown } from "react-icons/fa";
 import "../css/ranking/RankingPage.css";
 
 
@@ -36,14 +37,16 @@ const RankingPage = ({ initialRank = "인기 게시글 랭킹" }) => {
   return (
     <div className="ranking-section">
       <br/>
-      <h2 className="ranking-title">-----랭킹-----</h2>
-      <p className="ranking-note">*1~3등은 마일리지가 지급됩니다.</p>
+      <h2 className="mainTitle"><FaCrown /> ･:*:･ ･:*:･ 당신의 순위를 확인해보세요 ･:*:･ ･:*:･ <FaCrown /> </h2>
+      <br/>
       <RankingNavigation onRankChange={handleRankChange} activeRank={activeRank} />
+      <hr/>
       {loading ? (
         <p>Loading...</p>
       ) : (
         <LeaderboardTable leaderboardData={leaderboardData} activeRank={activeRank} />
       )}
+      <p className="ranking-note">*1~3등은 마일리지가 지급됩니다.</p>
     </div>
   );
 };

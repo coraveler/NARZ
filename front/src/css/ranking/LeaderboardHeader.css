@@ -1,24 +1,26 @@
 @font-face {
-  font-family: 'HakgyoansimChilpanjiugaeTTF-B';
-  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-5@1.0/HakgyoansimChilpanjiugaeTTF-B.woff2') format('woff2');
-  font-weight: 700;
+  font-family: 'GoryeongStrawberry';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/GoryeongStrawberry.woff2') format('woff2');
+  font-weight: normal;
   font-style: normal;
 }
-
 .header-row {
   display: flex;
-  color: #1e1e1e;
   letter-spacing: -0.45px;
-  font: 700 14px/2 'HakgyoansimChilpanjiugaeTTF-B', sans-serif; /* 폰트 변경 */
-  background-color: rgb(237, 193, 111);
+  font: 'GoryeongStrawberry'; /* 폰트 변경 */
   padding: 8px; 
   justify-content: center;
+  color: #FF8A2B;
+  font-weight: bold;
+  font-size: 30px;
 }
+
 
 .header-cell {
   flex: 1;
   padding: 8px;
   text-align: center;
-  min-width: 100px;
-  font-family: 'HakgyoansimChilpanjiugaeTTF-B', sans-serif; /* 폰트 변경 */
+  min-width: 200px;
+  font-family: 'GoryeongStrawberry', sans-serif; /* 폰트 변경 */
+  box-shadow: 0px 2px 0px #FFB300; /* 그림자 효과 */
 }
