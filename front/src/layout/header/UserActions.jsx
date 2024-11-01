@@ -80,10 +80,13 @@ const UserActions = ({ isLoggedIn }) => {
         }} /> */}
 
         {/* 마일리지 및 포인트 표시 */}
-        <Container>
-          <MileageIcon><BsCoin /></MileageIcon>
-          <PointsDisplay>1,000 <span style={{ fontSize: '10px' }}></span></PointsDisplay>
-        </Container>
+        {localStorage.getItem("loginInfo") 
+        ? <Container>
+            <MileageIcon><BsCoin /></MileageIcon>
+            <PointsDisplay>1,000 <span style={{ fontSize: '10px' }}></span></PointsDisplay>
+          </Container>
+        : '' }
+        
       </StyledUserActions>
 
       {/* 알림 모달 */}
