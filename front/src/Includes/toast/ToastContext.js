@@ -38,6 +38,7 @@ export const ToastProvider = ({ children }) => {
     const getMsgLength = (length) => {
         setMsgLength(length)
     }
+        
 
     return (
         <ToastContext.Provider value={{ showLoginToast, showLogoutToast, showNotificationToast, getMsgLength}}>
