@@ -1,0 +1,27 @@
+.row-wrapper {
+    display: flex;
+    width: 100%;
+    color: #666;
+    white-space: nowrap;
+    letter-spacing: -0.39px;
+    font: 400 13px Inter, sans-serif;
+    padding: 16px;
+  }
+  
+  .row-wrapper:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .rank-cell,
+  .author-cell,
+  .board-cell,
+  .rating-cell,
+  .views-cell,
+  .likes-cell,
+  .post-count-cell,
+  .comment-count-cell {
+    flex: 1;
+    text-align: center;
+    padding: 8px;
+  }
+  

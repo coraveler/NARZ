@@ -1,0 +1,61 @@
+@font-face {
+  font-family: 'HakgyoansimChilpanjiugaeTTF-B';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-5@1.0/HakgyoansimChilpanjiugaeTTF-B.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+
+.navigation-container {
+  background-color: #fff;
+  display: flex;
+  justify-content: flex-start;
+  padding: 1px 0;
+  font-family: 'HakgyoansimChilpanjiugaeTTF-B', sans-serif; /* Apply the font here */
+}
+
+@media (max-width: 991px) {
+  .navigation-container {
+    padding: 0 20px;
+  }
+}
+
+.navigation-list {
+  display: flex;
+  max-width: 100%;
+  align-items: center;
+  gap: 35px;
+  justify-content: flex-start;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  font-family: 'HakgyoansimChilpanjiugaeTTF-B', sans-serif; /* Optionally apply to list items */
+}
+
+.vertical-divider-wrapper {
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 51px;
+}
+
+.vertical-divider {
+  border-right: 2px solid #e0e0e0;
+  min-height: 40px;
+  width: 2px;
+}
+
+.styled-link {
+  text-decoration: none;
+  color: gray;
+  font-family: 'HakgyoansimChilpanjiugaeTTF-B', sans-serif; /* Apply to links */
+}
+
+.styled-link.active {
+  color: black;
+  font-weight: bold;
+}
+
+.styled-link:hover {
+  text-decoration: underline;
+}
