@@ -1,22 +1,22 @@
 import React from 'react';
-import styled from 'styled-components';
+import "../../css/ranking/LeaderboardTable.css";
+
+
 import LeaderboardHeader from './LeaderboardHeader';
 import LeaderboardRow from './LeaderboardRow';
 
 const LeaderboardTable = ({ leaderboardData, activeRank }) => {
   return (
-    <LeaderboardWrapper>
-      <LeaderboardContainer>
+    <section className="leaderboard-wrapper">
+      <div className="leaderboard-container">
         <LeaderboardHeader activeRank={activeRank} />
         {leaderboardData.length === 0 ? (
-          <EmptyRow>
-            데이터가 없습니다
-          </EmptyRow>
+          <div className="empty-row">데이터가 없습니다</div>
         ) : (
           leaderboardData.map((data, index) => (
             <LeaderboardRow 
               key={index} 
-              rank={index + 1}  // 순위 표시
+              rank={index + 1}  
               author={data.author} 
               board={activeRank === "인기 게시글 랭킹" ? data.board : undefined} 
               rating={activeRank === "인기 게시글 랭킹" ? data.rating : undefined} 
@@ -27,32 +27,9 @@ const LeaderboardTable = ({ leaderboardData, activeRank }) => {
             />
           ))
         )}
-      </LeaderboardContainer>
-    </LeaderboardWrapper>
+      </div>
+    </section>
   );
 };
-
-// 기존 스타일 코드 유지
-const LeaderboardWrapper = styled.section`
-  background-color: #fff;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding: 40px 0 92px;
-  overflow: hidden;
-`;
-
-const LeaderboardContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  max-width: 1200px;
-`;
-
-const EmptyRow = styled.div`
-  text-align: center;
-  padding: 16px;
-  color: #666;
-`;
 
 export default LeaderboardTable;
