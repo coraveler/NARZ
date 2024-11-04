@@ -51,7 +51,7 @@ const TravelCard = (props) => {
 
             return (
               <span key={index} className={styles.starButton}>
-                {props.data.rating > currentRating ? (
+                {props.data.rating >= currentRating ? (
                   <FaStar className={styles.star} /> // 채워진 별 아이콘
                 ) : props.data.rating >= currentRating - 0.5 ? (
                   <FaRegStarHalfStroke className={styles.star} /> // 반 별 아이콘
