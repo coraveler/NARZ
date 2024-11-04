@@ -13,4 +13,5 @@ public interface UserRepository  {
     public List<User> findAllByUserNickname(String userNickname);
     public List<User> findAllByLoginId(String loginId);
     public User findByLoginIdAndPassword(String loginId, String password);
+    public void updateUser(User user );
 }

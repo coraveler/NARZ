@@ -11,5 +11,5 @@ import lombok.*;
 
 public class UpdateResponseDTO {
     public Boolean isUpdate;
-    public UserDTO.UserResponseDTO updateResponseDto;
+    public UserDTO.UserResponseDTO userResponseDTO;
 }
