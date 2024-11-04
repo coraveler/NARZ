@@ -4,7 +4,6 @@ import "./App.css";
 import ProfileCard from "./Includes/personalPage/ProfileCard";
 import Footer from "./layout/footer/Footer";
 import TravelHeader from "./layout/header/TravelHeader";
-import AchievementPage from "./pages/Personal/AchievementPage";
 import CalendarPage from "./pages/CalendarPage";
 import EditProfilePage from "./pages/EditProfilePage";
 import FestivalPage from "./pages/FestivalPage";
@@ -13,9 +12,12 @@ import FollowingPage from "./pages/FollowPages/FollowingPage";
 import HomePage from "./pages/HomePage";
 import LocalBoard from "./pages/LocalBoard";
 import LoginFormPage from "./pages/LoginFormPage";
-import MapPage from "./pages/Personal/MapPage";
+import MapSharePage from "./pages/MapSharePage";
 import PasswordResetPage from "./pages/PasswordResetPage";
+import AchievementPage from "./pages/Personal/AchievementPage";
+import MapPage from "./pages/Personal/MapPage";
 import PersonalPage from "./pages/Personal/PersonalPage";
+import TravelogPage from "./pages/Personal/TravelogPage";
 import PostPage from "./pages/PostPage";
 import RankingPage from "./pages/RankingPage";
 import ShopHistory from './pages/ShopPage/ShopHistory';
@@ -23,8 +25,6 @@ import ShopPage from "./pages/ShopPage/ShopPage";
 import ShopPurchase from "./pages/ShopPage/ShopPurchase";
 import SignUpFormPage from "./pages/SignUpFormPage";
 import TravelWritePage from "./pages/TravelWritePage";
-import TravelogPage from "./pages/Personal/TravelogPage";
-import PersonalPostPage from "./pages/PersonalPostPage";
 
 // function Header({board, local}) {
 //   console.log(board+"/"+local);
@@ -56,6 +56,7 @@ function App() {
         <Route path="/ranking" element={<RankingPage />} /> 
         <Route path="/postpage/:postId" element={<PostPage />} />
         <Route path="/festival" element={<FestivalPage/>}/>
+        <Route path="/mapShare" element={<MapSharePage/>}/>
         {/*쇼핑관련*/}
         <Route path="/shop" element={<ShopPage />} />
         <Route path="/purchase" element={<ShopPurchase />} />

@@ -35,17 +35,21 @@ function Footer() {
         </div>
       </footer>
 
-      <div style={{ display:'flex', gap:'10px', fontSize:'25px', justifyContent:'center', cursor:'pointer', marginTop:'5px'}}>
-        <a href="https://github.com/coraveler/final-pjt" target="_blank" ><FaGithub/></a>
-        <a href="https://youtube.com" target="_blank" ><FaYoutube/></a>
-        <a href="https://facebook.com" target="_blank" ><FaFacebookSquare/></a>
-        <a href="https://instagram.com" target="_blank" ><FaInstagram/></a>
-        <a href="https://twitter.com" target="_blank" ><FaTwitter/></a>
-        <a href="https://naver.com" style={{fontSize: '20px', lineHeight: '38px' }} target="_blank" ><SiNaver/></a>
+      <div style={{ display: 'flex', gap: '10px', fontSize: '25px', justifyContent: 'center', cursor: 'pointer', marginTop: '5px' }}>
+        <img src={`${process.env.PUBLIC_URL}/Narzlog3.png`} alt="NARZ Logo" style={{ width: '50px', height: 'auto' }} />
       </div>
-        
+      <div style={{ display: 'flex', gap: '10px', fontSize: '25px', justifyContent: 'center', cursor: 'pointer', marginTop: '5px' }}>
+        <a href="https://github.com/coraveler/final-pjt" target="_blank"><FaGithub /></a>
+        <a href="https://youtube.com" target="_blank"><FaYoutube /></a>
+        <a href="https://facebook.com" target="_blank"><FaFacebookSquare /></a>
+        <a href="https://instagram.com" target="_blank"><FaInstagram /></a>
+        <a href="https://twitter.com" target="_blank"><FaTwitter /></a>
+        <a href="https://naver.com" style={{ fontSize: '20px', lineHeight: '38px' }} target="_blank"><SiNaver /></a>
+      </div>
+      
+
       <div style={{ textAlign: 'center', marginBottom:'20px', padding: '10px', }}>
-        <p style={{ margin: 0, fontWeight: 'bold' }}>educational institution| <span style={{ fontWeight: 'normal' }}>MultiCampus</span></p>
+        <p style={{ margin: 0, fontWeight: 'bold' }}>educational institution | <span style={{ fontWeight: 'normal' }}>MultiCampus</span></p>
       </div>
         
     </div>

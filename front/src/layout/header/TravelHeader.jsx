@@ -11,6 +11,7 @@ const TravelHeader = ({board, local}) => {
     { text: "랭킹", href: "/ranking" },
     { text: "상점", href: "/shop" },
     { text: "축제", href: "/festival" },
+    { text: "여행지도공유", href: "/mapShare"},
     localStorage.getItem("loginInfo") ? { text: "개인페이지", href: "/personal" }: ''
   ];
 
