@@ -1,9 +1,11 @@
 package com.kdt_final.back.user.dao;
 
-import com.kdt_final.back.user.domain.User;
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import com.kdt_final.back.user.domain.User;
+import com.kdt_final.back.user.dto.UserDTO;
 
 @Repository
 public interface UserRepository  {
@@ -14,4 +16,5 @@ public interface UserRepository  {
     public List<User> findAllByLoginId(String loginId);
     public User findByLoginIdAndPassword(String loginId, String password);
     public void updateUser(User user );
+    public User getUserInfo(Integer userId);
 }

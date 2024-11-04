@@ -61,6 +61,13 @@
 
     </update>
 
+    <select id="getUserInfo"
+            resultType="com.kdt_final.back.user.domain.User">
+        SELECT userNickname
+        FROM user
+        WHERE USERID = #{userId}
+    </select>
+
 
 
 </mapper>
