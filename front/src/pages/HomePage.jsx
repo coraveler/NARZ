@@ -82,11 +82,11 @@ function HomePage() {
           <div key={index}>
             <h3 className="section-title">{section.title}</h3>
             <div >
-              {/* {section.data.length > 5 ? ( */}
+              {section.data.length > 5 ? (
                 <p style={{ width: '920px', textAlign: "right", marginLeft: "auto", marginRight: "auto"}} >
                   <span style={{cursor: "pointer"}} onClick={section.action}>더보기 <IoMdArrowDropright style={{ fontSize: "25px", marginBottom: "3px" }} /></span>
                 </p>
-              {/* ):<br/>} */}
+              ):<br/>}
             </div>
             <div align="center">
               <TravelCardGrid data={section.data} itemsPerPage={5} />
