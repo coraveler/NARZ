@@ -46,4 +46,10 @@ public class UserRepositoryImpl implements UserRepository {
         return userMapper.findByLoginIdAndPassword(loginId, password);
     }
 
+    @Override
+    public void updateUser(User user ) {
+       userMapper.updateUser(user);
+
+    }
+
 }
