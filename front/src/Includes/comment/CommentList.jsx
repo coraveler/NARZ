@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Comment from './Comment';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import api from '../../api/axios';
 
 const CommentList = ({postId, userId}) => {
     const [comment, setComment] = useState("");
@@ -11,8 +12,21 @@ const CommentList = ({postId, userId}) => {
     }
 
     const saveComment = async() => {
-        
+        const data = {
+            postId : postId,
+            userId : userId,
+            comment : comment
+        }
+        try {
+            const response = await api.post(`comment/save`,data);
+            console.log("debug >>> response, ", response.data);
+            // console.log("debug >>> response, ", response.data.comments);
+            // setComments(response.data.comments);
+        } catch (err) {
+            console.log(err);
+        }
     }
+
 
     return (
         <div>
