@@ -12,7 +12,7 @@ function ShopHistory() {
   useEffect(() => {
     async function fetchMileageHistory() {
       try {
-        const userId = 'user123'; // 더미 사용자 ID
+        const userId = 'user1'; // 더미 사용자 ID
         const response = await fetch(`/api/mileage-history/${userId}`);  // API 호출
         const data = await response.json();  // JSON 형식으로 변환
         setHistory(data);  // 데이터 저장
