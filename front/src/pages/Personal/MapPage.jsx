@@ -1,8 +1,8 @@
+import html2canvas from 'html2canvas';
 import React, { useRef } from 'react';
 import MapOverlay from '../../Includes/personalPage/MapOverlay';
 import ProfileCard from '../../Includes/personalPage/ProfileCard';
 import styles from '../../css/Personal/personalpage.module.css';
-import html2canvas from 'html2canvas';
 
 function MapPage({ selectedBadge }) {
     const overlayRef = useRef(); // 캡처할 영역을 참조하기 위한 ref
@@ -45,7 +45,7 @@ function MapPage({ selectedBadge }) {
             </div>
 
             <button onClick={handleCapture} style={{ marginTop: '20px' }}>
-                캡처하기
+                공유하기
             </button>
         </div>
     );
