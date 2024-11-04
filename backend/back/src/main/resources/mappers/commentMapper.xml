@@ -13,9 +13,15 @@
     <select id="getComments"
             parameterType="int"
             resultType="com.kdt_final.back.comment.domain.CommentResponseDTO">
-    select USERID, COMMENT, CREATEDDATE
-    FROM COMMENT
-    WHERE POSTID = #{postId};
+        select USERID, COMMENT, CREATEDDATE, COMMENTID
+        FROM COMMENT
+        WHERE POSTID = #{postId};
     </select>
+
+    <delete id="deleteComment"
+            parameterType="int">
+        DELETE FROM COMMENT
+        WHERE COMMENTID = #{commentId}
+    </delete>
 
     </mapper>

@@ -13,4 +13,6 @@ public interface CommentMapper {
     public void saveComment(CommentRequestDTO params);
 
     public List<CommentResponseDTO> getComments(Integer postId); 
+
+    public void deleteComment(Integer commentId);
 }

@@ -1,6 +1,8 @@
 package com.kdt_final.back.user.dao;
 
 import com.kdt_final.back.user.domain.User;
+import com.kdt_final.back.user.dto.UserDTO;
+
 import lombok.RequiredArgsConstructor;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +51,12 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public void updateUser(User user ) {
        userMapper.updateUser(user);
+
+    }
+
+    @Override
+    public User getUserInfo(Integer userId) {
+       return userMapper.getUserInfo(userId);
 
     }
 

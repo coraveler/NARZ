@@ -9,16 +9,17 @@ const ProfileInfo = ({ rank, userId }) => {
     try {
         const response = await api.get(`user/info/${userId}`);
         console.log("debug >>> response, ", response.data);
+        setUserInfo(response.data);
     } catch (err) {
         console.log(err);
     }
  }
 
   useEffect( ()=>{
-    if(userId){
+    if(userId != null){
       getUserInfo();
     }
-  },[])
+  },[userId])
 
   return (
     <>
@@ -34,6 +35,7 @@ const ProfileInfo = ({ rank, userId }) => {
       {/* 사용자 이름 표시 */}
       <p className={styles.profileName}>
         {/* {data?.userNickname || 'name'}   */}
+        {userInfo?.userNickname || 'null'}
       </p>
 
     </>

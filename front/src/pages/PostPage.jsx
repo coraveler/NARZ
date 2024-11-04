@@ -37,7 +37,7 @@ const PostPage = () => {
         // checkLike(postId,userId);
         // countLike(postId);
         // checkBookMark(postId,userId);
-    }, [postId]);
+    }, []);
 
     // useEffect(() => {
     //     countLike(postId);
@@ -90,7 +90,7 @@ const PostPage = () => {
                 <h1 className={styles.profileTitle}>{post.title}</h1>
                 <br/> <br/>
                 <div className={styles.profileInfo}>
-                    <ProfileInfo data={post} />
+                    <ProfileInfo userId={post.userId}/>
                     <time className={styles.profileDate}>{post.createdDate}</time>
 
                     <div className={styles.buttonDiv}>
@@ -181,10 +181,12 @@ const PostPage = () => {
 
                 {/* <hr style={{ width: "850px" }} /> */}
                 {/* <Comment postId={postId}/>  반복 */}
-                <CommentList postId={postId} userId={userId}/>
+               
 
 
             </div>
+            
+            <CommentList postId={postId} userId={userId}/>
         </div>
     );
 };

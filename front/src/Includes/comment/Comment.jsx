@@ -1,11 +1,31 @@
 import React from 'react';
 import styles from '../../css/Comment.module.css';
 import ProfileInfo from '../common/ProfileInfo';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { getLoginInfo } from "../../Includes/common/CommonUtil";
+import api from '../../api/axios';
+import { RiDeleteBinLine } from "react-icons/ri";
 
-const Comment = ({comment}) => {
+const Comment = ({comment, deleteComment}) => {
+
+  let loginInfo = getLoginInfo();
+  const userId = loginInfo?.userId || null;
+
+  const handleDeleteComment = async () => {
+    const isConfirmed = window.confirm("정말로 삭제하시겠습니까?");
+ 
+    if(isConfirmed){
+        try {   
+            const response = await api.delete(`comment/delete/${comment.commentId}`);
+            console.log("debug >>> response imgUrls >>>>>>>>>>>>>>>> ", response.data);
+            deleteComment(comment.commentId); 
+        } catch (err) {
+            console.log(err);
+        }
+    }
+}
 
   return (
-
     <section className={styles.commentSection}>
       <div className={styles.commentContent}>
         <div className={styles.commentorInfo}>
@@ -17,6 +37,10 @@ const Comment = ({comment}) => {
             />
             <span className={styles.commentorName}>vname</span> */}
           <ProfileInfo userId={comment.userId}/>
+            {
+              userId == comment.userId && <button className={'btn btn-outline-danger'} style={{marginLeft:'auto'}} onClick={handleDeleteComment}>삭제<RiDeleteBinLine style={{marginBottom:'3px'}}/></button>
+            }
+          
         </div>
         <p className={styles.commentText}>{comment.comment}</p>
         <div className={styles.commentDateWrapper}>

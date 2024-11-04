@@ -6,11 +6,13 @@ import com.kdt_final.back.user.dto.UserDTO;
 import com.kdt_final.back.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 
 
 @RestController
@@ -35,7 +37,7 @@ public class UserController {
 
     //닉네임 중복체크
     @GetMapping("/check/userNickname/{userNickname}")
-    public ResponseEntity <Boolean> checkDuplicateUserNickName(@PathVariable String userNickname) {
+    public ResponseEntity <Boolean> checkDuplicateUserNickName(@PathVariable("userNickname") String userNickname) {
         System.out.println(userNickname);
 
         Boolean result= userService.checkDuplicateUserNickName(userNickname);
@@ -45,7 +47,7 @@ public class UserController {
 
     //아이디 중복체크
     @GetMapping("/check/loginId/{loginId}")
-    public ResponseEntity<Boolean> checkDuplicateLoginId(@PathVariable String loginId){
+    public ResponseEntity<Boolean> checkDuplicateLoginId(@PathVariable("loginId") String loginId){
         System.out.println(loginId);
 
        Boolean result=userService.checkDuplicateLoginId((loginId));
@@ -80,5 +82,12 @@ public class UserController {
 
     }
 
+    @GetMapping("/info/{userId}")
+    public ResponseEntity<UserDTO.UserResponseDTO> getUserInfo(@PathVariable("userId") Integer userId) {
+        UserDTO.UserResponseDTO result = userService.getUserInfo(userId);
+
+        return new ResponseEntity<UserDTO.UserResponseDTO>(result,HttpStatus.OK);
+    }
+    
 
 }

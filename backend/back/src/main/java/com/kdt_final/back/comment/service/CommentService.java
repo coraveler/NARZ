@@ -23,4 +23,8 @@ public class CommentService {
         List<CommentResponseDTO> lst = commentMapper.getComments(postId);
         return lst;
     }
+
+    public void deleteComment(Integer commentId){
+        commentMapper.deleteComment(commentId);
+    }
 }
