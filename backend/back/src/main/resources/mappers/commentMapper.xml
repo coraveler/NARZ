@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kdt_final.back.comment.dao.CommentMapper">
+    <!-- saveRow --> 
+
+    <insert id="saveComment"
+            parameterType="com.kdt_final.back.comment.domain.CommentRequestDTO">
+        INSERT INTO COMMENT(USERID, POSTID, COMMENT)
+        VALUES( #{userId}, #{postId}, #{comment})
+    </insert>
+
+    <select id="getComments"
+            parameterType="int"
+            resultType="com.kdt_final.back.comment.domain.CommentResponseDTO">
+    select USERID, COMMENT, CREATEDDATE
+    FROM COMMENT
+    WHERE POSTID = #{postId};
+    </select>
+
+    </mapper>

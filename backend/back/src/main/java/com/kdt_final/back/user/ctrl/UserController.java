@@ -8,11 +8,13 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 
 @RestController
 @RequiredArgsConstructor
@@ -79,6 +81,13 @@ public class UserController {
 
 
     }
+
+    @GetMapping("/info/{userId}")
+    public ResponseEntity<UserDTO.UserResponseDTO> getUserInfo(@PathVariable("userId") Integer userId) {
+        UserDTO.UserResponseDTO result = userService.getUserInfo(userId);
+        return new ResponseEntity<UserDTO.UserResponseDTO>(result ,HttpStatus.OK);
+    }
+    
 
 
 }

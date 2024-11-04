@@ -1,7 +1,25 @@
-import React from 'react'; 
+import React, { useEffect, useState } from 'react'; 
 import styles from '../../css/ProfileInfo.module.css';
+import api from '../../api/axios';
 
-const ProfileInfo = ({ rank, data }) => {
+const ProfileInfo = ({ rank, userId }) => {
+  const [userInfo, setUserInfo] = useState({});
+  
+  const getUserInfo = async() => {
+    try {
+        const response = await api.get(`user/info/${userId}`);
+        console.log("debug >>> response, ", response.data);
+    } catch (err) {
+        console.log(err);
+    }
+ }
+
+  useEffect( ()=>{
+    if(userId){
+      getUserInfo();
+    }
+  },[])
+
   return (
     <>
       <img
@@ -15,7 +33,7 @@ const ProfileInfo = ({ rank, data }) => {
       
       {/* 사용자 이름 표시 */}
       <p className={styles.profileName}>
-        {data?.userNickname || 'name'}  
+        {/* {data?.userNickname || 'name'}   */}
       </p>
 
     </>
