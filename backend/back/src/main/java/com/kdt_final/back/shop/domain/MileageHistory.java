@@ -1,4 +1,4 @@
-package com.kdt_final.back.Shop.domain;
+package com.kdt_final.back.shop.domain;
 
 import java.time.LocalDateTime;
 

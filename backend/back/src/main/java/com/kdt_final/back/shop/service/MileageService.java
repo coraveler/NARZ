@@ -1,8 +1,8 @@
-package com.kdt_final.back.Shop.service;
+package com.kdt_final.back.shop.service;
 
-import com.kdt_final.back.Shop.dao.MileageMapper;
-import com.kdt_final.back.Shop.domain.Mileage;
-import com.kdt_final.back.Shop.domain.MileageHistory;
+import com.kdt_final.back.shop.dao.MileageMapper;
+import com.kdt_final.back.shop.domain.Mileage;
+import com.kdt_final.back.shop.domain.MileageHistory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

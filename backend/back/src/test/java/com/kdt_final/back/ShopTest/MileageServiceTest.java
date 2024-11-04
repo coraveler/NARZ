@@ -1,9 +1,9 @@
 package com.kdt_final.back.ShopTest;
 
-import com.kdt_final.back.Shop.dao.MileageMapper;
-import com.kdt_final.back.Shop.domain.Mileage;
-import com.kdt_final.back.Shop.domain.MileageHistory;
-import com.kdt_final.back.Shop.service.MileageService;
+import com.kdt_final.back.shop.dao.MileageMapper;
+import com.kdt_final.back.shop.domain.Mileage;
+import com.kdt_final.back.shop.domain.MileageHistory;
+import com.kdt_final.back.shop.service.MileageService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

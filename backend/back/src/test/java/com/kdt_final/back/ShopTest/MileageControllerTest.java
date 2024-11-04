@@ -1,7 +1,8 @@
-package com.kdt_final.back.Shop.ctrl;
+package com.kdt_final.back.ShopTest;
 
-import com.kdt_final.back.Shop.domain.Mileage;
-import com.kdt_final.back.Shop.service.MileageService;
+import com.kdt_final.back.shop.ctrl.MileageController;
+import com.kdt_final.back.shop.domain.Mileage;
+import com.kdt_final.back.shop.service.MileageService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import static org.mockito.Mockito.when;
 import static org.mockito.ArgumentMatchers.any;
 
 @WebMvcTest(MileageController.class)

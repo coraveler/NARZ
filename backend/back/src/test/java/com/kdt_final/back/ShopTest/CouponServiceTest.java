@@ -1,59 +1,57 @@
 package com.kdt_final.back.ShopTest;
 
-import com.kdt_final.back.Shop.dao.CouponMapper;
-import com.kdt_final.back.Shop.domain.CouponRequest;
-import com.kdt_final.back.Shop.domain.Mileage;
-import com.kdt_final.back.Shop.service.CouponService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.mockito.Mockito.*;
+@WebMvcTest(CouponController.class)
+class CouponControllerTest {
 
-class CouponServiceTest {
+    @Autowired
+    private MockMvc mockMvc;
 
-    @Mock
-    private CouponMapper couponMapper;
-
-    @InjectMocks
+    @MockBean
     private CouponService couponService;
 
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    @Test
+    void testRegisterCoupon_ValidCode() throws Exception {
+        CouponRequest couponRequest = new CouponRequest();
+        couponRequest.setCouponCode("VALIDCODE");
+        couponRequest.setUserId(123);
+
+        Mockito.when(couponService.registerCoupon(Mockito.any(CouponRequest.class)))
+                .thenReturn(true);
+
+        mockMvc.perform(post("/api/coupon/register")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(couponRequest)))
+                .andExpect(status().isOk())
+                .andExpect(content().string("쿠폰이 성공적으로 등록되었습니다!"));
     }
 
     @Test
-    void testRegisterCoupon_ValidCoupon() {
-        // Given
+    void testRegisterCoupon_InvalidCode() throws Exception {
         CouponRequest couponRequest = new CouponRequest();
+        couponRequest.setCouponCode("INVALIDCODE");
         couponRequest.setUserId(123);
-        couponRequest.setCouponCode("testcp");
 
-        // When
-        boolean result = couponService.registerCoupon(couponRequest);
+        Mockito.when(couponService.registerCoupon(Mockito.any(CouponRequest.class)))
+                .thenReturn(false);
 
-        // Then
-        assertTrue(result);
-        verify(couponMapper, times(1)).addMileage(any(Mileage.class));
-    }
-
-    @Test
-    void testRegisterCoupon_InvalidCoupon() {
-        // Given
-        CouponRequest couponRequest = new CouponRequest();
-        couponRequest.setUserId(123);
-        couponRequest.setCouponCode("invalid");
-
-        // When
-        boolean result = couponService.registerCoupon(couponRequest);
-
-        // Then
-        assertFalse(result);
-        verify(couponMapper, never()).addMileage(any(Mileage.class));
+        mockMvc.perform(post("/api/coupon/register")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(couponRequest)))
+                .andExpect(status().isOk())
+                .andExpect(content().string("유효하지 않은 쿠폰 코드입니다."));
     }
 }

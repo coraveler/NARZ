@@ -1,9 +1,9 @@
-package com.kdt_final.back.Shop.ctrl;
+package com.kdt_final.back.shop.ctrl;
 
-import com.kdt_final.back.Shop.domain.CouponRequest;
-import com.kdt_final.back.Shop.domain.Mileage;
-import com.kdt_final.back.Shop.domain.MileageHistory;
-import com.kdt_final.back.Shop.service.MileageService;
+import com.kdt_final.back.shop.domain.CouponRequest;
+import com.kdt_final.back.shop.domain.Mileage;
+import com.kdt_final.back.shop.domain.MileageHistory;
+import com.kdt_final.back.shop.service.MileageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

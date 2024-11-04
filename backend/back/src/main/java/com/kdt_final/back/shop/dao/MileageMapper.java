@@ -1,7 +1,7 @@
-package com.kdt_final.back.Shop.dao;
+package com.kdt_final.back.shop.dao;
 
-import com.kdt_final.back.Shop.domain.Mileage;
-import com.kdt_final.back.Shop.domain.MileageHistory;
+import com.kdt_final.back.shop.domain.Mileage;
+import com.kdt_final.back.shop.domain.MileageHistory;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -14,4 +14,6 @@ public interface MileageMapper {
 
     // MileageHistory 관련 메서드
     List<MileageHistory> getMileageHistoryByUserId(int userId); // 사용자 ID에 따른 마일리지 내역 조회
+
+    void deductMileage(int userId, int points); // 마일리지 차감 메서드 추가
 }

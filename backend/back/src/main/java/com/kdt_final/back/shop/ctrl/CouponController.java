@@ -1,7 +1,7 @@
-package com.kdt_final.back.Shop.ctrl;
+package com.kdt_final.back.shop.ctrl;
 
-import com.kdt_final.back.Shop.domain.CouponRequest;
-import com.kdt_final.back.Shop.service.CouponService;
+import com.kdt_final.back.shop.domain.CouponRequest;
+import com.kdt_final.back.shop.service.CouponService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
