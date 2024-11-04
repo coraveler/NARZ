@@ -2,7 +2,6 @@ import React from 'react';
 import "../../css/ranking/LeaderboardHeader.css";
 import { FaMedal } from "react-icons/fa";
 
-
 const LeaderboardHeader = ({ activeRank }) => {
   return (
     <div className="header-row">
@@ -11,8 +10,6 @@ const LeaderboardHeader = ({ activeRank }) => {
           <div className="header-cell"><FaMedal /> 순위</div>
           <div className="header-cell">작성자</div>
           <div className="header-cell">제목</div>
-          <div className="header-cell">평점</div>
-          <div className="header-cell">조회수</div>
           <div className="header-cell">좋아요</div>
         </>
       )}
