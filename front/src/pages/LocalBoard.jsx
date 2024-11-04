@@ -41,6 +41,7 @@ function LocalBoard({ onParamsChange, selectedBadge }) {
         }
     };
 
+    
     const filterPosts = (posts, searchTerm) => {
         const filteredPosts = standardState
             ? posts.filter(post => post.userNickname.includes(searchTerm) || searchTerm === '')

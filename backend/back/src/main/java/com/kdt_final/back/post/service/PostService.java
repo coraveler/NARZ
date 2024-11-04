@@ -219,6 +219,9 @@ public class PostService {
             case "travelog":
                 lst = getTravelLog(params);                
                 break;
+            case "follow":
+                lst = getFollow(params);                
+                break;
             default:
                 lst = null;
                 break;
@@ -260,6 +263,31 @@ public class PostService {
             lst = postMapper.getAllTravelog(params.getUserId());
         }else{
             lst = postMapper.getTravelog(params);
+        }
+        
+        System.out.println("lst : " + lst);
+    
+        for (int i = 0; i < lst.size(); i++) {
+            String imgPath = lst.get(i).getHeaderImg();
+            if (imgPath != null) {
+                // imgPath에 baseUrl을 추가하여 전체 경로를 생성
+                lst.get(i).setHeaderImg(baseUrl + imgPath);
+            }
+             // 각 포스트의 좋아요 수를 추가
+             int likeCount = postMapper.countLike(lst.get(i).getPostId()); // 포스트 ID를 사용하여 좋아요 수 조회
+             lst.get(i).setLikeCount(likeCount); // 좋아요 수 설정
+        }
+    
+        return lst;
+    }
+
+    public List<PostResponseDTO> getFollow(PostRequestDTO params) {
+        System.out.println("debug >>>> service list()" + postMapper); 
+        List<PostResponseDTO> lst ;
+        if(params.getLocal().equals("all")){
+            lst = postMapper.getAllFollow(params.getUserId());
+        }else{
+            lst = postMapper.getFollow(params);
         }
         
         System.out.println("lst : " + lst);
