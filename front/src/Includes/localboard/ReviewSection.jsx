@@ -38,6 +38,7 @@ const ReviewSection = ({ ratingAvg, kLocal, handleArray, handleStandard, searchT
       alert("로그인 후 이용가능합니다.");
     }
   }
+  
 
   const ArrayOptions = [
     { text: '최신순', action: () => { handleArray(0); handleArrayState(0); } },
