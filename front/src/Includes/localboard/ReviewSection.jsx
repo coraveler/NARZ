@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from '../../css/ReviewSection.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { getLoginInfo } from "../../Includes/common/CommonUtil";
 
 const ReviewSection = ({ ratingAvg, kLocal, handleArray, handleStandard, searchTerm }) => {
   const navigate = useNavigate();
@@ -28,11 +29,21 @@ const ReviewSection = ({ ratingAvg, kLocal, handleArray, handleStandard, searchT
     setStandardButtonState(index);
   };
 
+  const writePost = () => {
+    let loginInfo = getLoginInfo();
+    const userId = loginInfo?.userId || null;
+    if(userId){
+      navigate("/TravelWritePage");
+    }else{
+      alert("로그인 후 이용가능합니다.");
+    }
+  }
+
   const ArrayOptions = [
     { text: '최신순', action: () => { handleArray(0); handleArrayState(0); } },
     { text: '인기순', action: () => { handleArray(1); handleArrayState(1); } },
     { text: '평점순', action: () => { handleArray(2); handleArrayState(2); } },
-    { text: '글작성', action: () => navigate("/TravelWritePage") }
+    { text: '글작성', action: writePost }
   ];
 
   const FilterOptions = [

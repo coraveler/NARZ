@@ -14,6 +14,7 @@ import { getLoginInfo } from "../Includes/common/CommonUtil";
 import LikeIcon from '../Includes/common/LikeIcon';
 import ProfileInfo from '../Includes/common/ProfileInfo';
 import { useLocation } from 'react-router-dom';
+import { RiDeleteBinLine } from "react-icons/ri";
 
 const PostPage = () => {
     const navigate = useNavigate();
@@ -110,7 +111,7 @@ const PostPage = () => {
                                         <button className="btn btn-outline-danger"
                                                 style={{marginLeft:"5px"}}
                                                 onClick={postDelete}>
-                                            삭제
+                                            삭제<RiDeleteBinLine />
                                         </button>
                                         </div>:
 
