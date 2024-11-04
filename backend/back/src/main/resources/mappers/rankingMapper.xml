@@ -5,15 +5,16 @@
 
     <!-- 랭킹 추가 -->
     <insert id="addRanking" parameterType="com.kdt_final.back.ranking.domain.RankingRequestDTO">
-        INSERT INTO ranking (author, board, rating, views, likes)
-        VALUES (#{author}, #{board}, #{rating}, #{views}, #{likes})
+        INSERT INTO ranking (author, board, likes)
+        VALUES (#{author}, #{board}, #{likes})
     </insert>
 
     <!-- 모든 랭킹 가져오기 -->
     <select id="getRankings" resultType="com.kdt_final.back.ranking.domain.RankingResponseDTO">
-        SELECT postId AS id, userId AS author, title AS board, rating, 0 AS views, 0 AS likes
-        FROM post
-        ORDER BY rating DESC
+        SELECT postId AS id, u.loginId AS author, title AS board, 0 AS likes
+        FROM post p
+        JOIN user u ON p.userId = u.userId
+        ORDER BY postId
     </select>
 
     <!-- 특정 랭킹 삭제 -->
@@ -23,8 +24,9 @@
 
     <!-- 특정 랭킹 정보 가져오기 -->
     <select id="getRankingInfo" parameterType="int" resultType="com.kdt_final.back.ranking.domain.RankingResponseDTO">
-        SELECT postId AS id, userId AS author, title AS board, rating, 0 AS views, 0 AS likes
-        FROM post
+        SELECT postId AS id, u.loginId AS author, title AS board, 0 AS likes
+        FROM post p
+        JOIN user u ON p.userId = u.userId
         WHERE postId = #{id}
     </select>
 
@@ -33,23 +35,24 @@
         UPDATE ranking
         SET author = #{author},
             board = #{board},
-            rating = #{rating},
-            views = #{views},
             likes = #{likes}
         WHERE id = #{id}
     </update>
 
     <!-- 인기 게시글 랭킹 가져오기 -->
     <select id="getPopularPostRankings" resultType="com.kdt_final.back.ranking.domain.RankingResponseDTO">
-        SELECT postId AS id, userId AS author, title AS board, rating, 0 AS views, 0 AS likes
-        FROM post
+        SELECT p.postId AS id, u.loginId AS author, p.title AS board, COUNT(pl.likeNo) AS likes
+        FROM post p
+        LEFT JOIN postLike pl ON p.postId = pl.postId
+        JOIN user u ON p.userId = u.userId
+        GROUP BY p.postId
         ORDER BY likes DESC
         LIMIT 10
     </select>
 
     <!-- 유저 활동 랭킹 가져오기 -->
     <select id="getUserActivityRankings" resultType="com.kdt_final.back.ranking.domain.RankingResponseDTO">
-        SELECT u.username AS author,  -- userId 대신 username을 사용합니다.
+        SELECT u.loginId AS author,  -- userId 대신 loginId를 사용합니다.
                COUNT(DISTINCT p.postId) AS postCount, 
                COALESCE(SUM(CASE WHEN c.commentId IS NOT NULL THEN 1 ELSE 0 END), 0) AS commentCount
         FROM user u
@@ -62,7 +65,7 @@
 
     <!-- 명예의 전당 가져오기 -->
     <select id="getHallOfFame" resultType="com.kdt_final.back.ranking.domain.RankingResponseDTO">
-        SELECT u.username AS author  -- userId 대신 username을 사용합니다.
+        SELECT u.loginId AS author  -- userId 대신 loginId를 사용합니다.
         FROM user u
         WHERE u.lastActiveDate >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)
         ORDER BY u.activityScore DESC

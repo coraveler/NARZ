@@ -1,7 +1,5 @@
 import React from 'react';
 import "../../css/ranking/LeaderboardTable.css";
-
-
 import LeaderboardHeader from './LeaderboardHeader';
 import LeaderboardRow from './LeaderboardRow';
 
@@ -19,8 +17,6 @@ const LeaderboardTable = ({ leaderboardData, activeRank }) => {
               rank={index + 1}  
               author={data.author} 
               board={activeRank === "인기 게시글 랭킹" ? data.board : undefined} 
-              rating={activeRank === "인기 게시글 랭킹" ? data.rating : undefined} 
-              views={activeRank === "인기 게시글 랭킹" ? data.views : undefined} 
               likes={activeRank === "인기 게시글 랭킹" ? data.likes : undefined} 
               postCount={activeRank === "유저 활동 랭킹" ? data.postCount : undefined}
               commentCount={activeRank === "유저 활동 랭킹" ? data.commentCount : undefined}
