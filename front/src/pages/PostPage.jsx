@@ -8,13 +8,13 @@ import { MdModeEdit } from "react-icons/md";
 import { useNavigate, useParams } from 'react-router-dom';
 import api from '../api/axios';
 import styles from '../css/PostPage.module.css';
-import Comment from '../Includes/comment/Comment';
 import BookMark from '../Includes/common/BookMark';
 import { getLoginInfo } from "../Includes/common/CommonUtil";
 import LikeIcon from '../Includes/common/LikeIcon';
 import ProfileInfo from '../Includes/common/ProfileInfo';
 import { useLocation } from 'react-router-dom';
 import { RiDeleteBinLine } from "react-icons/ri";
+import CommentList from '../Includes/comment/CommentList';
 
 const PostPage = () => {
     const navigate = useNavigate();
@@ -37,7 +37,7 @@ const PostPage = () => {
         // checkLike(postId,userId);
         // countLike(postId);
         // checkBookMark(postId,userId);
-    }, [postId]);
+    }, []);
 
     // useEffect(() => {
     //     countLike(postId);
@@ -90,7 +90,7 @@ const PostPage = () => {
                 <h1 className={styles.profileTitle}>{post.title}</h1>
                 <br/> <br/>
                 <div className={styles.profileInfo}>
-                    <ProfileInfo data={post} />
+                    <ProfileInfo userId={post.userId}/>
                     <time className={styles.profileDate}>{post.createdDate}</time>
 
                     <div className={styles.buttonDiv}>
@@ -180,10 +180,13 @@ const PostPage = () => {
                 </main>
 
                 {/* <hr style={{ width: "850px" }} /> */}
-                <Comment postId={postId}/>  {/* 반복 */}
+                {/* <Comment postId={postId}/>  반복 */}
+               
 
 
             </div>
+            
+            <CommentList postId={postId} userId={userId}/>
         </div>
     );
 };

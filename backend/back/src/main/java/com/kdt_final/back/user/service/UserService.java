@@ -187,4 +187,14 @@ public class UserService {
 
         }
     }
+
+    public UserDTO.UserResponseDTO getUserInfo(Integer userId){
+        User user = userRepository.getUserInfo(userId); // User 객체를 가져옴
+        // if (user == null) {
+        //     throw new UserNotFoundException("User not found");
+        // }
+        return UserDTO.UserResponseDTO.builder()
+                .userNickname(user.getUserNickname())
+                .build();
+    }
 }
