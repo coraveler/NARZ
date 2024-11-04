@@ -5,8 +5,6 @@ import LeaderboardTable from "../Includes/Ranking/LeaderboardTable";
 import { FaCrown } from "react-icons/fa";
 import "../css/ranking/RankingPage.css";
 
-
-
 const RankingPage = ({ initialRank = "인기 게시글 랭킹" }) => {
   const [activeRank, setActiveRank] = useState(initialRank);
   const [leaderboardData, setLeaderboardData] = useState([]);
@@ -37,10 +35,12 @@ const RankingPage = ({ initialRank = "인기 게시글 랭킹" }) => {
   return (
     <div className="ranking-section">
       <br/>
+      <br/>
       <h2 className="mainTitle"><FaCrown /> ･:*:･ ･:*:･ 당신의 순위를 확인해보세요 ･:*:･ ･:*:･ <FaCrown /> </h2>
       <br/>
       <RankingNavigation onRankChange={handleRankChange} activeRank={activeRank} />
-      <hr/>
+      
+      
       {loading ? (
         <p>Loading...</p>
       ) : (
