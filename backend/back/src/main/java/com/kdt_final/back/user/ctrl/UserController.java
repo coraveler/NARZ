@@ -1,14 +1,11 @@
 package com.kdt_final.back.user.ctrl;
 
 import com.kdt_final.back.user.dto.LoginResponseDTO;
+import com.kdt_final.back.user.dto.UpdateResponseDTO;
 import com.kdt_final.back.user.dto.UserDTO;
 import com.kdt_final.back.user.service.UserService;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,7 +33,7 @@ public class UserController {
 
 
 
-
+    //닉네임 중복체크
     @GetMapping("/check/userNickname/{userNickname}")
     public ResponseEntity <Boolean> checkDuplicateUserNickName(@PathVariable String userNickname) {
         System.out.println(userNickname);
@@ -46,7 +43,7 @@ public class UserController {
         return responseEntity;
     }
 
-
+    //아이디 중복체크
     @GetMapping("/check/loginId/{loginId}")
     public ResponseEntity<Boolean> checkDuplicateLoginId(@PathVariable String loginId){
         System.out.println(loginId);
@@ -56,20 +53,21 @@ public class UserController {
        return responseEntity;
     }
 
-
+    //회원가입
     @PostMapping
     public ResponseEntity<Boolean> createUser(@RequestBody UserDTO.UserRequestDTO userDTO) {
         System.out.println("객체확인"+userDTO);
 
-        userService.creatUser(userDTO);
+        boolean result=userService.creatUser(userDTO);
 
         ResponseEntity<Boolean> responseEntity = ResponseEntity.ok()
-                .body(true);
+                .body(result);
         return  responseEntity;
 
 
     }
 
+    //로그인
     @PostMapping("/login")
 
     public ResponseEntity<LoginResponseDTO> logIn(@RequestBody UserDTO.UserRequestDTO userRequestDTO) {
@@ -81,13 +79,6 @@ public class UserController {
 
 
     }
-
-    @GetMapping("/info/{userId}")
-    public ResponseEntity<UserDTO.UserResponseDTO> getUserInfo(@PathVariable("userId") Integer userId) {
-        UserDTO.UserResponseDTO result = userService.getUserInfo(userId);
-        return new ResponseEntity<UserDTO.UserResponseDTO>(result ,HttpStatus.OK);
-    }
-    
 
 
 }
