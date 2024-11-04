@@ -1,0 +1,26 @@
+@font-face {
+  font-family: 'GoryeongStrawberry';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/GoryeongStrawberry.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+.header-row {
+  display: flex;
+  letter-spacing: -0.45px;
+  font: 'GoryeongStrawberry'; /* 폰트 변경 */
+  padding: 8px; 
+  justify-content: center;
+  color: #FF8A2B;
+  font-weight: bold;
+  font-size: 30px;
+}
+
+
+.header-cell {
+  flex: 1;
+  padding: 8px;
+  text-align: center;
+  min-width: 200px;
+  font-family: 'GoryeongStrawberry', sans-serif; /* 폰트 변경 */
+  box-shadow: 0px 2px 0px #FFB300; /* 그림자 효과 */
+}

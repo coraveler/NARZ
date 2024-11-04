@@ -1,0 +1,96 @@
+/*폰트*/
+@font-face {
+    font-family: 'GumiRomanceTTF';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2410-1@1.0/GumiRomanceTTF.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'HakgyoansimChilpanjiugaeTTF-B';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-5@1.0/HakgyoansimChilpanjiugaeTTF-B.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'GoryeongStrawberry';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/GoryeongStrawberry.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  /* 랭킹 페이지 스타일 */
+  .ranking-section {
+    max-width: 1200px; /* 최대 너비 설정 */
+    margin: 0 auto; /* 중앙 정렬 */
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .mainTitle{
+    font-family: 'GoryeongStrawberry';
+
+  }
+  
+  /* 랭킹 제목 */
+  .ranking-title {
+    font-family: 'GumiRomanceTTF', sans-serif;
+    color: black;
+    font-size: 32px;
+    margin-top: 10px;
+  }
+  
+  /* 랭킹 주의 문구 */
+  .ranking-note {    
+    font-family: 'HakgyoansimChilpanjiugaeTTF-B';
+    color: black;
+    font-size: 14px;
+    margin-bottom: 15px;
+  }
+  
+  /* 테이블을 감싸는 컨테이너 */
+  .table-container {
+    width: 100%; /* 가로 폭 100% */
+    margin: 20px auto; /* 중앙 정렬 및 위 아래 여백 */
+    overflow-x: auto; /* 모바일에서 테이블이 넘칠 경우 스크롤 가능 */
+  }
+  
+  /* 랭킹 내역 테이블 */
+  .leaderboard-table {
+    width: 100%; /* 테이블 너비를 100%로 설정 */
+    border-collapse: collapse; /* 테두리 합치기 */
+    background-color: #ffffff;
+    margin: 0 auto; /* 테이블 중앙 정렬 */
+  }
+  
+  /* 테이블 헤더와 바디 */
+  .leaderboard-table th,
+  .leaderboard-table td {
+    padding: 15px; /* 패딩 */
+    color: #FF8A2B; /* 주황색 텍스트 색상 */
+  }
+  
+  .leaderboard-table th {
+    background-color: white; /* 헤더 배경색 */
+    font-family: 'HakgyoansimChilpanjiugaeTTF-B';
+    color: #FFB300; /* 헤더 텍스트 색상 */
+    font-weight: bold;
+    font-size: 20px;
+  }
+  
+  .leaderboard-table tr:nth-child(even) {
+    background-color: #ffffff; /* 짝수 행 배경색 */
+  }
+  
+  .leaderboard-table tr:hover {
+    background-color: #FFB300; /* 마우스 오버 시 배경색 */
+  }
+  
+  /* 테이블 헤더 */
+  .leaderboard-table thead {
+    box-shadow: 0px 2px 0px #FFB300; /* 그림자 효과 */
+    background-color: white; /* 헤더 배경색 */
+  }
+  

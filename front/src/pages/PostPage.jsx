@@ -4,16 +4,20 @@ import { Carousel } from 'react-bootstrap';
 // import { AiFillLike, AiOutlineLike } from "react-icons/ai";
 import { FaStar } from "react-icons/fa";
 // import { FaBookmark, FaRegBookmark } from "react-icons/fa6";
-import { useParams } from 'react-router-dom';
+import { MdModeEdit } from "react-icons/md";
+import { useNavigate, useParams } from 'react-router-dom';
 import api from '../api/axios';
 import styles from '../css/PostPage.module.css';
 import Comment from '../Includes/comment/Comment';
-import ProfileInfo from '../Includes/common/ProfileInfo';
 import BookMark from '../Includes/common/BookMark';
-import LikeIcon from '../Includes/common/LikeIcon';
 import { getLoginInfo } from "../Includes/common/CommonUtil";
+import LikeIcon from '../Includes/common/LikeIcon';
+import ProfileInfo from '../Includes/common/ProfileInfo';
+import { useLocation } from 'react-router-dom';
+import { RiDeleteBinLine } from "react-icons/ri";
 
 const PostPage = () => {
+    const navigate = useNavigate();
     const { postId } = useParams();
     const [post, setPost] = useState({});
     const [postImgUrl, setPostImgUrl] = useState([]);
@@ -23,6 +27,8 @@ const PostPage = () => {
     // const [likeCount, setLikeCount] = useState(false);
     let loginInfo = getLoginInfo();
     const userId = loginInfo?.userId || null;
+    const location = useLocation();
+    const trimmedUrl = location.state?.trimmedUrl || "/board/localboard/all";
 
     useEffect(() => {
         // 예: API 호출하여 postId에 해당하는 포스트 데이터 가져오기
@@ -61,6 +67,22 @@ const PostPage = () => {
         }
     }
 
+    const postDelete = async () => {
+        const isConfirmed = window.confirm("정말로 삭제하시겠습니까?");
+        if(isConfirmed){
+            try {   
+                console.log(postId);
+                const response = await api.delete(`post/delete/${postId}`);
+                console.log("debug >>> response imgUrls >>>>>>>>>>>>>>>> ", response.data);
+                navigate(trimmedUrl);
+                alert("삭제 되었습니다.");
+            } catch (err) {
+                console.log(err);
+            }
+        }
+    }
+
+    
     return (
         <div>
             <section className={styles.profileContainer}>
@@ -70,9 +92,35 @@ const PostPage = () => {
                 <div className={styles.profileInfo}>
                     <ProfileInfo data={post} />
                     <time className={styles.profileDate}>{post.createdDate}</time>
-                    <button className={styles.followButton} aria-label="Follow">
-                        + 팔로우
-                    </button>
+
+                    <div className={styles.buttonDiv}>
+                        {
+                            userId == post.userId ?
+                                        <div>
+
+                                        <button className="btn btn-outline-warning"
+                                        onClick={() => navigate(`/TravelEditPage`,{
+                                            state:{
+                                                post : post,
+                                                postImgUrl : postImgUrl
+                                            }
+                                        })}>
+                                                수정하기 <MdModeEdit /> 
+                                        </button> 
+
+                                        <button className="btn btn-outline-danger"
+                                                style={{marginLeft:"5px"}}
+                                                onClick={postDelete}>
+                                            삭제<RiDeleteBinLine />
+                                        </button>
+                                        </div>:
+
+                                        <button className="btn btn-outline-warning" aria-label="Follow"
+                                                style={{marginLeft:"5px"}}>
+                                            + 팔로우
+                                        </button>
+                        }
+                    </div>
                 </div><br/>
             </section>
            
@@ -132,7 +180,7 @@ const PostPage = () => {
                 </main>
 
                 {/* <hr style={{ width: "850px" }} /> */}
-                <Comment />  {/* 반복 */}
+                <Comment postId={postId}/>  {/* 반복 */}
 
 
             </div>

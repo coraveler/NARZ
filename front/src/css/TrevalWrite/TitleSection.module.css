@@ -1,11 +1,19 @@
+/* 폰트 */
+@font-face {
+  font-family: 'GumiRomanceTTF';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2410-1@1.0/GumiRomanceTTF.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
 .titleSection {
   background-color: #fff;
-  padding: 16px 180px;
+  padding: 70px 180px;
   color: #000;
 }
 
 .mainTitle {
-  font: 400 40px/60px Inter, -apple-system, Roboto, Helvetica, sans-serif; /* 글씨 크기를 48px로 줄임 */
+  font-family: 'GumiRomanceTTF';
   letter-spacing: -1px;
 }
 

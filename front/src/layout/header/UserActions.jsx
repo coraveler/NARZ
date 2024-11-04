@@ -5,8 +5,8 @@ import { FaRegCalendarAlt } from "react-icons/fa";
 import { MdNotificationsNone } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom"; // useNavigate 임포트
 import styled from "styled-components";
-import NotificationModal from "../../Includes/nofification/NotificationModal";
 import { getLoginInfo } from "../../Includes/common/CommonUtil";
+import NotificationModal from "../../Includes/nofification/NotificationModal";
 
 
 // UserActions 컴포넌트
@@ -14,30 +14,47 @@ const UserActions = ({ isLoggedIn }) => {
   const isMac = () => navigator.platform.toLowerCase().includes('mac');
   const navigate = useNavigate(); // 페이지 이동을 위한 useNavigate 사용
   const [notificationModalStatus, setNotificationModalStatus] = useState(false); // 알림 모달 상태 관리
-  const [notificationCount, setNotificationCount] = useState(0); // 알림 카운트 상태 관리
+  const [newNotificationStatus, setNewNotificationStatus] = useState(false);  // 새로운 알림 상태
   let loginInfo = getLoginInfo();
-  // 알림 모달 닫기 핸들러
-  const notificationModalClose = () => {
-    setNotificationModalStatus(false);
-  };
 
-  // 알림 카운트 설정 핸들러
-  const notificationCountHandler = (count) => {
-    setNotificationCount(count);
-  };
 
   const ProfileIconComponent = isMac() ? StyledCgProfileMac : StyledCgProfile;
-  
-  
+
+ 
+
+  // 새로운 알림 상태 확인
+  useEffect(()=>{
+    if(localStorage.getItem("loginInfo")){
+        const item = localStorage.getItem("loginInfo")
+        const parseItem = JSON.parse(item);
+        const userId = parseItem.data.userId
+      setTimeout(()=>{
+        if(localStorage.getItem(`todayNotificationMsg-${userId}`)==`${new Date().toDateString()}-notificationMsg-new`){
+          setNewNotificationStatus(true)
+          localStorage.setItem(`todayNotificationMsg-${userId}`, `${new Date().toDateString()}-notificationMsg`)
+        }
+      },100)
+    } else{
+      setNewNotificationStatus(false)
+    }
+
+  },[localStorage.getItem("loginInfo")])
+
+  // 알림 아이콘 실행 함수
+  const notificationHandler = () => {
+    setNotificationModalStatus(true)
+    setNewNotificationStatus(false);
+  }
+
 
   return (
     <>
       <StyledUserActions>
         {/* 알림 아이콘 */}
-        <NotificationIcon onClick={() => setNotificationModalStatus(true)}>
+        <NotificationIcon onClick={() => notificationHandler()}>
           <MdNotificationsNone />
-          {/* 알림 카운트가 0이 아니면 카운트 표시 */}
-          {notificationCount === 0 ? '' : <NotificationCount>{notificationCount}</NotificationCount>}
+          
+          {newNotificationStatus ? <NotificationCount/> : ''}
         </NotificationIcon>
 
         {/* 캘린더 아이콘 클릭 시 캘린더 페이지로 이동 */}
@@ -63,17 +80,19 @@ const UserActions = ({ isLoggedIn }) => {
         }} /> */}
 
         {/* 마일리지 및 포인트 표시 */}
-        <Container>
-          <MileageIcon><BsCoin /></MileageIcon>
-          <PointsDisplay>1,000 <span style={{ fontSize: '10px' }}></span></PointsDisplay>
-        </Container>
+        {localStorage.getItem("loginInfo") 
+        ? <Container>
+            <MileageIcon><BsCoin /></MileageIcon>
+            <PointsDisplay>1,000 <span style={{ fontSize: '10px' }}></span></PointsDisplay>
+          </Container>
+        : '' }
+        
       </StyledUserActions>
 
       {/* 알림 모달 */}
       <NotificationModal
         notificationModalStatus={notificationModalStatus}
-        notificationModalClose={notificationModalClose}
-        notificationCountHandler={notificationCountHandler}
+        notificationModalClose={()=>setNotificationModalStatus(false)}
       />
     </>
   );
@@ -107,17 +126,13 @@ const NotificationIcon = styled.div`
 
 // 알림 카운트 스타일
 const NotificationCount = styled.span`
-  width: 18px; // 카운트의 너비
-  text-align: center;
+  width: 10px; // 카운트의 너비
+  height: 10px;
   position: absolute;
-  top: -3px; // 위치 조정 (상단)
-  right: -6px; // 위치 조정 (오른쪽)
+  top: 1px; // 위치 조정 (상단)
+  right: 1px; // 위치 조정 (오른쪽)
   background-color: red; // 배경색 (빨간색)
-  color: white; // 글자색 (흰색)
   border-radius: 20px; // 동그란 모양
-  padding: 1px; // 패딩
-  font-size: 12px; // 폰트 크기
-  font-weight: bold; // 폰트 두께
 `;
 
 // 캘린더 아이콘 스타일

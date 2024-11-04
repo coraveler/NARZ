@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import styles from '../css/LoginFormPage.module.css';
+import React, { useRef, useState } from 'react';
 import { useNavigate } from "react-router-dom"; // useNavigate 임포트
+import NotificationModal from '../Includes/nofification/NotificationModal';
 import api from '../api/axios';
+import styles from '../css/LoginFormPage.module.css';
 
 const LoginFormPage = () => {
   const navigate = useNavigate();
   let [loginId,setloginId] = useState('');
   const [password,setPassword] = useState('');
- 
+  const notificationRef = useRef(null); // NotificationModal에 접근하기 위한 ref 생성
+
 
   return (
     <main className={styles.container}>
@@ -68,17 +70,20 @@ const LoginFormPage = () => {
                     
                   }
                   else {
+                    
                     let data = response.data.userResponseDTO;
                     let expire =(new Date().getTime() + (1 * 8 * 60 * 60 * 1000));
                     let loginInfo = {data,expire};
                     console.log(loginInfo);
                     localStorage.setItem("loginInfo",JSON.stringify(loginInfo));
-                    alert("로그인되었습니다.");
-                    navigate('/');            
+                    notificationRef.current.loginHandler(); // NotificationModal컴포넌트의 loginHandler()를 함수 실행
+                    // alert("로그인되었습니다.");
+                    navigate('/');
+                     
                   }
             
                 } catch (e) {
-            
+
                 }
               
 
@@ -87,6 +92,10 @@ const LoginFormPage = () => {
         <a onClick={() => navigate('/PasswordResetPage')} className={styles.forgotPassword}>Forgot password?</a>
         <a onClick={() => navigate('/SignUPFormPage')} className={styles.signUp}>아직 회원이 아니신가요? </a>
       </form>
+
+      {/* NotificationModal 컴포넌트를 ref와 함께 렌더링 */}
+      <NotificationModal ref={notificationRef}/> 
+      
     </main>
   );
 };

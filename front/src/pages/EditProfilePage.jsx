@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom"; // useNavigate 임포트
 import ColorChoiceModal from "../Includes/calendar/ColorChoiceModal";
 import { getLoginInfo } from "../Includes/common/CommonUtil";
 import ProfileCard from "../Includes/personalPage/ProfileCard";
+import { useToast } from "../Includes/toast/ToastContext";
 import styles from '../css/EditProfilePage.module.css';
 import ColorChangeModal from "./Personal/ColorChangeModal";
 
@@ -57,6 +58,7 @@ const EditProfilePage = ({ selectedBadge }) => {
     const [nickNameColor, setNickNameColor] = useState('#000000')   // 닉네임 현재 색상
     const [colorChoiceVisible, setColorChoiceVisible] = useState(false);    // 닉네임 컬러 선택 모달창 상태
     const [colorChangeModalStatus, setColorChangeModalStatus] = useState(false);    // 컬러 변경 모달창 상태
+    const { showLogoutToast } = useToast(); // Context에서 showLogoutToast 가져오기
 
     
     useEffect(()=>{
@@ -235,8 +237,10 @@ const EditProfilePage = ({ selectedBadge }) => {
                     <button onClick={() => navigate('/personal')} className={styles.FullButton}>취소</button>
                     <button onClick={() => {       
                         localStorage.removeItem('loginInfo');
-                        alert("로그아웃 되었습니다.");                 
+                        // alert("로그아웃 되었습니다.");                 
                         navigate('/');
+                        showLogoutToast();  // 로그아웃 토스트 실행
+
                     }
 
                         } className={styles.FullButton}>로그아웃</button>
