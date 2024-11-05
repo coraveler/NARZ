@@ -1,13 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import api from '../../api/axios';
+import { getLoginInfo } from "../../Includes/common/CommonUtil";
 
 const ImageOverlay = () => {
 // const [isUploading, setIsUploading] = useState(false); // 상태 추가
 const canvasRef = useRef(null);
 const fileInputRef = useRef(null);
 const [images, setImages] = useState([]);
-const userId = 0;
+let loginInfo = getLoginInfo();
+const userId = loginInfo?.userId || null;
 
 // 초기 이미지 URL 설정
 const defaultImageUrls = {
@@ -31,22 +33,9 @@ useEffect(() => {
 }, []);
 
 useEffect(() => {
-    
     userMap(images);
 }, [images]);
 
-// const userMap = (images) => {
-//     const updatedImageUrls = { ...imageUrls };
-
-//     images.forEach((image) => {
-//         const imageName = image.split('/').pop().split('.')[0]; // 파일 이름 추출
-//         if (defaultImageUrls[imageName]) {
-//             updatedImageUrls[imageName] = image; // 새로운 URL로 업데이트
-//         }
-//     });
-
-//     setImageUrls(updatedImageUrls);
-// };
 
 const userMap = (images) => {
     const updatedImageUrls = { ...imageUrls };
@@ -72,32 +61,37 @@ const fetchImages = async () => {
     }
 };
 
-// const handleFileChange = async (event) => {
-//     const file = event.target.files[0];
-//     console.log("File selected:", file); 
-//     if (file) {
-//         console.log("bbbbbbb");
-//         const newImageUrl = URL.createObjectURL(file);
-//         const key = fileInputRef.current.getAttribute("data-key");
-//         const processedImageUrl = await processImage(key, newImageUrl);
-//         console.log("Processed image URL:", processedImageUrl);
+const getUserLocalLikeCount = async (local) => {
+    try {
+        const response = await api.get(`map/localLikeCount`, {
+            params: {
+            local : local,
+            userId : userId
+        }});
+        console.log(response.data);
+        // setLikeCount(response.data);
+        return response.data; // likeCount를 반환
+    } catch (error) {
+        console.error( error);
+        return 0; // 에러 발생 시 기본값 0 반환
+    }
+};
 
-        
-//         // 서버에 최종 이미지 업로드
-//         await uploadProcessedImage(processedImageUrl, key);
-        
-//         // 파일 입력을 초기화하여 같은 파일을 다시 선택할 수 있도록 설정
-//         fileInputRef.current.value = null;
-//     }
-// };
 
-const handleImageClick = (key) => {
+const handleImageClick = async (key) => {
+    const count = await getUserLocalLikeCount(key); // likeCount를 비동기적으로 가져옴
     if (fileInputRef.current) {
         fileInputRef.current.setAttribute("data-key", key);
-        fileInputRef.current.click();
+        if (count > 10) {
+            fileInputRef.current.click();
+        } else {
+            fileInputRef.current.value = null; // 파일 입력 초기화
+            alert("지도 이미지 업로드는 각 지역별 게시글 총 좋아요 10개 이상 누적되어야 가능합니다!!");
+        }
         console.log(key);
     }
 };
+
 
 const handleFileChange = async (event) => {
     const file = event.target.files[0];
@@ -107,8 +101,6 @@ const handleFileChange = async (event) => {
         const newImageUrl = URL.createObjectURL(file);
         const key = fileInputRef.current.getAttribute("data-key");
         
-        // setIsUploading(true);
-
         try {
             console.log("try is run");
             const processedImageUrl = await processImage(key, newImageUrl);
@@ -120,7 +112,6 @@ const handleFileChange = async (event) => {
         } 
         finally {
             fileInputRef.current.value = null; // 파일 입력 초기화
-            // setIsUploading(false);
         }
     }
 };

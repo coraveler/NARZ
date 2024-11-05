@@ -54,7 +54,10 @@ const FollowButton = ({ followedId }) => {
     };
 
     useEffect(() => {
-        checkFollow();
+        if(followedId!=null){
+
+            checkFollow();
+        }
     }, [followedId])
 
 

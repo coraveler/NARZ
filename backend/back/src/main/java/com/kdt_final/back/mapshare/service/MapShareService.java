@@ -21,8 +21,7 @@ public class MapShareService {
     public boolean saveMapShareImg(MultipartFile file, int userId){
 
         MapShareRequestDTO obj = new MapShareRequestDTO();
-
-        String path = "/Users/ksiu/final-pjt/uploads/images/mapshare";
+        String path = "/Users/kang-geonhan/Documents/final-pjt/uploads/images/mapshare";
         
         UUID uuid = UUID.randomUUID();
         String fileName = file.getOriginalFilename()+"_"+uuid+".png";
@@ -36,6 +35,7 @@ public class MapShareService {
             mapShareMapper.saveMapShareImg(obj);
             return true;
         }catch(Exception e){
+
             e.printStackTrace();
             return false;
         }
@@ -45,6 +45,7 @@ public class MapShareService {
     }
 
     public List<MapShareResponseDTO> getMapShareImg(){
+        System.out.println("ASDASDASDASDASD");
         return mapShareMapper.getMapShareImg();
     }
 
