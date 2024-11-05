@@ -1,18 +1,23 @@
+import { useState } from "react";
 import { FaRegCalendarCheck } from "react-icons/fa";
 import { MdFestival, MdLandscape } from "react-icons/md";
 import { TbLocationFilled, TbRoad } from "react-icons/tb";
 import ReactModal from "react-modal";
+import MapCardDeleteModal from "./MapCardDeleteModal";
 
-function FestivalInfoModal({
-    festivalInfoModalStatus,
-    festivalInfoModalClose,
-    el // 해당 object data
-    }){
+function MapCardInfoModal({
+    mapCardInfoModalStatus,
+    mapCardInfoModalClose,
+    img,
+    getMapShareImg
+}){
+
+    const [mapCardDeleteModalStatus, setMapCardDeleteModalStatus] = useState(false);
 
     return(
         <div>
             <ReactModal
-                isOpen={festivalInfoModalStatus}
+                isOpen={mapCardInfoModalStatus}
                 style={{
                     overlay: {
                         backgroundColor: 'rgba(0, 0, 0, 0.5)',
@@ -32,32 +37,39 @@ function FestivalInfoModal({
                     <div style={{textAlign:'right'}}>
                     <button className="btn-close"
                             style={{fontSize:'20px'}}
-                            onClick={festivalInfoModalClose}/>
+                            onClick={()=>mapCardInfoModalClose()}/>
                     </div>
                     
-                    <h5 style={{width:'220px'}}><MdFestival style={{marginBottom:'5px', color:'#FFB74D'}}/> {el.title}</h5><hr/>
+                    <h5 style={{width:'220px'}}><MdFestival style={{marginBottom:'5px', color:'#FFB74D'}}/>a</h5><hr/>
 
                     <div style={{marginBottom:'14px', marginTop:'20px'}}>
                         <div style={{marginBottom:'2px'}}><FaRegCalendarCheck style={{marginBottom:'5px', color:'#FFB74D'}}/> 기간</div>
-                        <div>{el.startDate} ~ {el.endDate}</div>
+                        <div>a</div>
                     </div>
                     <div style={{marginBottom:'14px'}}>
                         <div style={{marginBottom:'2px'}}><TbLocationFilled style={{marginBottom:'3px', color:'#FFB74D'}}/> 장소</div>
-                        <div>{el.place}</div>
+                        <div>a</div>
                     </div>
                     <div style={{marginBottom:'14px'}}>
                         <div style={{marginBottom:'2px'}}><TbRoad style={{marginBottom:'3px', color:'#FFB74D'}}/> 도로명주소</div>
-                        <div>{el.roadAddress ? el.roadAddress : "정보 없음"}</div>
+                        <div>a</div>
                     </div>
                     <div style={{marginBottom:'14px'}}>
                         <div style={{marginBottom:'2px'}}><MdLandscape style={{marginBottom:'3px', color:'#FFB74D'}}/> 지번주소</div>
-                        <div>{el.landAddress ? el.landAddress : "정보 없음"}</div>
+                        <div>a</div>
                     </div>
+                    <button onClick={()=>setMapCardDeleteModalStatus(true)}>삭제</button>
 
                 </div>
             </ReactModal>
+
+            <MapCardDeleteModal 
+                mapCardDeleteModalStatus={mapCardDeleteModalStatus}
+                mapCardDeleteModalClose={()=>setMapCardDeleteModalStatus(false)}
+                img={img}
+                getMapShareImg={getMapShareImg}/>
         </div>
     )
 }
 
-export default FestivalInfoModal;
+export default MapCardInfoModal;

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kdt_final.back.mapshare.dao.MapShareMapper">
+
+    <insert id="saveMapShareImg"
+            parameterType="com.kdt_final.back.mapshare.domain.MapShareRequestDTO">
+        INSERT INTO mapShare(userId, mapImgUrl)
+        VALUES (#{userId}, #{mapImgUrl})
+    </insert>
+
+    <select id="getMapShareImg"
+            resultType="com.kdt_final.back.mapshare.domain.MapShareResponseDTO">
+        SELECT ms.mapId, ms.mapImgUrl, ms.createdDate, u.userNickname, ms.userId
+        FROM mapShare ms
+        JOIN user u ON ms.userId = u.userId;
+    </select>
+
+    <delete id="deleteMapShareImg"
+            parameterType="Integer">
+        DELETE FROM mapShare
+        WHERE mapId=#{mapId}
+    </delete>
+
+</mapper>
