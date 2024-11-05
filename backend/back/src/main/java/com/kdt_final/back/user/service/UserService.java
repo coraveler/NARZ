@@ -194,7 +194,10 @@ public class UserService {
         //     throw new UserNotFoundException("User not found");
         // }
         return UserDTO.UserResponseDTO.builder()
+                .userId(user.getUserId())
+                .userName(user.getUserName())
                 .userNickname(user.getUserNickname())
                 .build();
     }
+
 }
