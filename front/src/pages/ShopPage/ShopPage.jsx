@@ -15,7 +15,7 @@ function ShopPage() {
         },
         body: JSON.stringify({  
           couponCode: couponCode,
-          userId: 1,
+          userId: 1, //더미 사용자 ID
         }),
       });
 

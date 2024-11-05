@@ -22,14 +22,22 @@ public class MileageService {
     }
 
     public void addMileage(Mileage mileage) {
+        // 마일리지 테이블에 마일리지 적립
         mileageMapper.insertMileage(mileage);
+
+        // 마일리지 히스토리 테이블에 적립 내역 추가
+        MileageHistory history = new MileageHistory();
+        history.setUserId(mileage.getUserId());
+        history.setMileagePoints(mileage.getMileage());
+        history.setDescription("쿠폰 적립");
+        addMileageHistory(history);  // 내역 추가
     }
 
     public List<MileageHistory> getMileageHistory(int userId) {
         return mileageMapper.getMileageHistoryByUserId(userId);
     }
 
-
     public void addMileageHistory(MileageHistory mileageHistory) {
+        mileageMapper.insertMileageHistory(mileageHistory);  
     }
 }

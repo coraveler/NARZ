@@ -18,14 +18,15 @@ public class CouponService {
         this.mileageMapper = mileageMapper;
     }
 
+    public Integer getPointsByCouponCode(String couponCode) {
+        return couponMapper.getPointsByCouponCode(couponCode);
+    }
+    
     public boolean registerCoupon(CouponRequest couponRequest) {
         // 쿠폰 코드에 따른 포인트 조회
         Integer points = couponMapper.getPointsByCouponCode(couponRequest.getCouponCode());
-
-        // "test" 쿠폰 코드일 경우 1000 포인트를 지급
-        if ("test".equals(couponRequest.getCouponCode())) {
-            points = 1000; // test 쿠폰 코드에 대한 포인트
-        }
+        System.out.println("쿠폰 코드: " + couponRequest.getCouponCode());
+        System.out.println("조회된 포인트: " + points);
 
         // 포인트가 유효한 경우 마일리지 추가
         if (points != null) {

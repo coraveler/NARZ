@@ -12,19 +12,22 @@ function ShopHistory() {
   useEffect(() => {
     async function fetchMileageHistory() {
       try {
-        const userId = 'user1'; // 더미 사용자 ID
-        const response = await fetch(`/api/mileage-history/${userId}`);  // API 호출
-        const data = await response.json();  // JSON 형식으로 변환
-        setHistory(data);  // 데이터 저장
-        setLoading(false); // 로딩 완료
+        const userId = '1'; // 더미 사용자 ID
+        const response = await fetch(`/api/mileage-history/${userId}`);
+        if (!response.ok) throw new Error("Server error occurred");
+        const data = await response.json();
+        setHistory(data);
+        setLoading(false);
       } catch (error) {
         console.error("Failed to fetch mileage history:", error);
-        setLoading(false); // 오류 발생 시에도 로딩 종료
+        setLoading(false);
       }
     }
-
-    fetchMileageHistory();  // 함수 호출
+    
+  
+    fetchMileageHistory();
   }, []);
+  
 
   if (loading) {
     return <div>로딩 중...</div>;  // 데이터 로딩 중일 때 표시할 내용
@@ -50,9 +53,9 @@ function ShopHistory() {
             <tbody>
               {history.map((item, index) => (
                 <tr key={index}>
-                  <td>{item.created_at}</td>
+                  <td>{item.createdAt}</td>
                   <td>{item.description}</td>
-                  <td>{item.mileage_points}</td>
+                  <td>{item.mileagePoints}</td>
                 </tr>
               ))}
             </tbody>
