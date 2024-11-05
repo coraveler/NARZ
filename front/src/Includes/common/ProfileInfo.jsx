@@ -1,17 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../../css/ProfileInfo.module.css';
-import { getLoginInfo } from './CommonUtil'; // getLoginInfo 함수 임포트
+import api from '../../api/axios';
 
-const ProfileInfo = ({ rank }) => {
+const ProfileInfo = ({ rank, userId }) => {
+  // const [userInfo, setUserInfo] = useState({});
+
+  // useEffect(() => {
+  //   // getLoginInfo 함수를 사용하여 로그인된 사용자 정보 가져오기
+  //   const loginInfo = getLoginInfo();
+  //   if (loginInfo) {
+  //     setUserInfo(loginInfo);
+  //   }
+  // }, []);
   const [userInfo, setUserInfo] = useState({});
-
-  useEffect(() => {
-    // getLoginInfo 함수를 사용하여 로그인된 사용자 정보 가져오기
-    const loginInfo = getLoginInfo();
-    if (loginInfo) {
-      setUserInfo(loginInfo);
+  
+  const getUserInfo = async() => {
+    try {
+        const response = await api.get(`user/info/${userId}`);
+        console.log("debug >>> response,ASDASDASDASD ", response.data);
+        setUserInfo(response.data);
+    } catch (err) {
+        console.log(err);
     }
-  }, []);
+ }
+
+  useEffect( ()=>{
+    if(userId != null){
+      getUserInfo();
+    }
+  },[userId])
 
   return (
     <>
