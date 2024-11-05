@@ -18,15 +18,17 @@ public class MapShareService {
     @Autowired
     private MapShareMapper mapShareMapper;
 
+
     public boolean saveMapShareImg(MultipartFile file, int userId){
 
+        // 애플리케이션의 실행 경로를 기준으로 절대경로 만들기
+        // System.getProperty("user.dir")은 프로젝트의 루트 경로 (final-pjt)로 설정됨
+        String absolutePath = System.getProperty("user.dir") + "/uploads/images/mapshare";
+
         MapShareRequestDTO obj = new MapShareRequestDTO();
-        String path = "/Users/kang-geonhan/Documents/final-pjt/uploads/images/mapshare";
-        
         UUID uuid = UUID.randomUUID();
         String fileName = file.getOriginalFilename()+"_"+uuid+".png";
-
-        File saveFile = new File(path, fileName);
+        File saveFile = new File(absolutePath, fileName);
 
         try{
             file.transferTo(saveFile);
@@ -39,20 +41,22 @@ public class MapShareService {
             e.printStackTrace();
             return false;
         }
-
-        
-        
     }
 
+
+    // 공유 이미지 가져오기
     public List<MapShareResponseDTO> getMapShareImg(){
         System.out.println("ASDASDASDASDASD");
         return mapShareMapper.getMapShareImg();
     }
 
+
+    // 공유 이미지 삭제
     public void deleteMapShareImg(int mapId, String mapImgUrl){
+
+        String absolutePath = System.getProperty("user.dir") + "/uploads/images/mapshare";
         mapShareMapper.deleteMapShareImg(mapId);
-        String path = "/Users/ksiu/final-pjt/uploads/images/mapshare";
-        File file = new File(path, mapImgUrl);
+        File file = new File(absolutePath, mapImgUrl);
         // 파일 존재 여부 확인 후 삭제
         if (file.exists() && file.delete()) {
             System.out.println("이미지 파일 삭제 완료");

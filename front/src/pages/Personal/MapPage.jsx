@@ -18,12 +18,12 @@ function MapPage({ selectedBadge }) {
     const handleCapture = () => {
         if (overlayRef.current) {
             const element = overlayRef.current;
-            const width = 500; // 원하는 캡처 너비 (80%)
-            const height = element.offsetHeight * 1; // 원하는 캡처 높이 (80%)
+            const width = 450; // 원하는 캡처 너비 (80%)
+            const height = element.offsetHeight * 0.95; // 원하는 캡처 높이 (80%)
 
             // 캡처할 영역의 x, y 좌표를 중앙으로 설정
-            const x = (element.offsetWidth - width) / 2; 
-            const y = (element.offsetHeight - height) / 2 - 30;
+            const x = (element.offsetWidth - width) / 2 + 10; 
+            const y = (element.offsetHeight - height) / 2 - 10;
 
             const options = {
                 useCORS: true,
@@ -45,22 +45,27 @@ function MapPage({ selectedBadge }) {
                 const parseItem = JSON.parse(item);
                 const userId = parseItem.data.userId;
 
-                const formData = new FormData();
-                formData.append('mapImgUrl', blob, `map_${userId}_${now}`); // 캡처한 이미지를 추가
-                formData.append('userId', userId); // 사용자 ID 추가
-
-                try {
-                    const response = await api.post("api/mapshare", formData);
-                    if (response.status === 201) {
-                        setMapSharePageMoveModalStatus(true);
-                    } else {
-                        alert("지도 등록에 실패하였습니다. 다시 시도해 주세요.");
+                        const formData = new FormData();
+                        formData.append('mapImgUrl', blob,`map_${userId}_${now}`); // 캡처한 이미지를 추가
+                        formData.append('userId', userId); // 사용자 ID 추가
+    
+                        try {
+                            // 캡쳐한 이미지를 백엔드 서버로 전달
+                            const response = await api.post("api/mapshare", formData)
+                            if(response.status == 201){
+                                setMapSharePageMoveModalStatus(true);
+                                setShareConfirmModalStatus(false);
+                            }else{
+                                alert("지도 등록에 실패하였습니다. 다시 시도해 주세요.")
+                            }
+                            
+                        } catch (error) {
+                            console.error('Error uploading image:', error);
+                        }
                     }
-                } catch (error) {
-                    console.error('Error uploading image:', error);
-                }
-            }
-        }, 'image/png');
+                }, 'image/png');
+            });
+        }
     };
 
     return (
@@ -86,7 +91,7 @@ function MapPage({ selectedBadge }) {
             {/* 지도공유페이지이동모달 */}
             <MapShareMoveModal
                 mapSharePageMoveModalStatus={mapSharePageMoveModalStatus}
-                mapSharePagemoveModalClose={() => setMapSharePageMoveModalStatus(false)}/>
+                mapSharePagemoveModalClose={()=>setMapSharePageMoveModalStatus(false)}/>
         </div>
     );
 }
