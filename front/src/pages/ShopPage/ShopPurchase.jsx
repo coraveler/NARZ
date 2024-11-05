@@ -12,7 +12,7 @@ const ShopPurchase = () => {
   ];
 
   const handlePurchase = async (option) => {
-    const userId = 'user123'; // 더미 사용자 ID
+    const userId = '1'; // 더미 사용자 ID
     const mileagePoints = -option.price; // 사용된 포인트는 음수로 설정
     const description = `구매한 옵션: ${option.name}`;
 

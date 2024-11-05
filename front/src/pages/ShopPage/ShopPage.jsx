@@ -1,65 +1,52 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom"; 
-import styles from "../../css/Shop/Shop.module.css"; 
 import ShopNav from "./ShopNav";
+import styles from "../../css/Shop/Shop.module.css";
 
-function CouponPurchase() {
-  const [quantity, setQuantity] = useState(1); // 상태 관리
+function ShopPage() {
+  const [couponCode, setCouponCode] = useState("");
+  const [message, setMessage] = useState("");
 
-  const handleQuantityChange = (event) => {
-    setQuantity(event.target.value);
+  const handleCouponRegister = async () => {
+    try {
+      const response = await fetch("http://localhost:7777/api/coupon/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({  
+          couponCode: couponCode,
+          userId: 1, //더미 사용자 ID
+        }),
+      });
+
+      const result = await response.text();
+      setMessage(result); // 서버로부터 받은 메시지를 표시
+    } catch (error) {
+      setMessage("쿠폰 등록에 실패했습니다: " + error.message);
+    }
   };
 
   return (
-    <div className={styles['coupon-purchase']}>
-      <h2>포인트 쿠폰 구매</h2>
-      <input type="text" placeholder="구매하실 쿠폰 명칭을 입력해 주세요" />
-      <p>
-        사용안내: 포인트 사용 가이드 및 약관을 확인하세요. 구매 시 10,000 포인트가 적립됩니다.
-        <br />
-        * 10% 수수료가 추가됩니다.
-      </p>
-      <div className={styles['select-container']}>
-        <label htmlFor="quantity">구매 수량:</label>
-        <select
-          id="quantity"
-          value={quantity}
-          onChange={handleQuantityChange}
-          className={styles['quantity-select']}
-        >
-          <option value={1}>1</option>
-          <option value={2}>2</option>
-          <option value={3}>3</option>
-          <option value={4}>4</option>
-          <option value={5}>5</option>
-        </select>
-        <button className={styles['purchase-button']}>구매</button>
-      </div>
-    </div>
-  );
-}
-
-function CouponRegister() {
-  return (
-    <div className={styles['coupon-register']}>
-      <h2>포인트 쿠폰 등록</h2>
-      <br/>
-      <input type="text" placeholder="쿠폰 번호 입력" className={styles.couponInput}/>
-      <button className={styles['purchase-button']}>입력</button>
-    </div>
-  );
-}
-
-function ShopPage() {  
-  return (
-    <div className={styles['shop-page']}>
+    <div className={styles["shop-page"]}>
       <ShopNav />
-      <br/>
+      <br />
       <main>
-        <h3 className={styles['shop-title']}>-----$ 쿠폰 등록 $-----</h3> 
-        <CouponRegister />
-        <br/>
-        {/* <CouponPurchase /> */}
+        <h3 className={styles["shop-title"]}>-----$ 쿠폰 등록 $-----</h3>
+        <div className={styles["coupon-register"]}>
+          <h2>포인트 쿠폰 등록</h2>
+          <br />
+          <input
+            type="text"
+            placeholder="쿠폰 번호 입력"
+            value={couponCode}
+            onChange={(e) => setCouponCode(e.target.value)}
+            className={styles.couponInput}
+          />
+          <button className={styles["purchase-button"]} onClick={handleCouponRegister}>
+            입력
+          </button>
+          {message && <p className={styles.message}>{message}</p>}
+        </div>
       </main>
     </div>
   );
