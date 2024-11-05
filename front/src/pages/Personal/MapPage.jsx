@@ -64,10 +64,8 @@ function MapPage({ selectedBadge }) {
                         }
                     }
                 }, 'image/png');
-            });
-        }
-    };
-
+            };
+        
     return (
         <div align="center">
             {/* ProfileCard에 selectedBadge 전달 */}
