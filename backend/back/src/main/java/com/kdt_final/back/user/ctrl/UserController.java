@@ -89,5 +89,15 @@ public class UserController {
         return new ResponseEntity<UserDTO.UserResponseDTO>(result,HttpStatus.OK);
     }
     
+    @GetMapping("/profile/{userId}")
+    public ResponseEntity<UserDTO.UserResponseDTO> getUserProfile(@PathVariable("userId") Integer userId) {
+        UserDTO.UserResponseDTO userResponseDTO = userService.getUserInfo(userId);
+
+        if (userResponseDTO == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+
+        return ResponseEntity.ok(userResponseDTO);
+    }
 
 }
