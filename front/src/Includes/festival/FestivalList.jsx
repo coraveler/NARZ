@@ -25,8 +25,8 @@ function FestivalList({el}){
 
     return(
         <div>
-            <div class="card">
-                <div class="card-body">
+            <div className="card">
+                <div className="card-body">
                     <h5 className="text-hidden" style={{fontSize:'18px'}}><MdFestival style={{marginBottom:'3px', color:'#FFB74D'}}/> {el.title}</h5><hr/>
                     <div >
                         <div style={{marginBottom:'10px'}}>
