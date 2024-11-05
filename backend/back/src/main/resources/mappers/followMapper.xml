@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kdt_final.back.follow.dao.FollowMapper">
+    <!-- saveFollow --> 
+
+    <insert id="saveFollow"
+            parameterType="com.kdt_final.back.follow.domain.FollowRequestDTO">
+        INSERT INTO FOLLOWS(FOLLOWEDID, FOLLOWERID)
+        VALUES( #{followedId}, #{followerId})
+    </insert>
+
+    <!-- checkFollow --> 
+
+    <select id="checkFollow"
+            parameterType="com.kdt_final.back.follow.domain.FollowRequestDTO"
+            resultType="int">
+        SELECT COUNT(*)
+        FROM FOLLOWS
+        WHERE FOLLOWEDID=#{followedId} AND FOLLOWERID=#{followerId};
+    </select>
+
+    <!-- deleteFollow --> 
+
+    <delete id="deleteFollow"
+            parameterType="com.kdt_final.back.follow.domain.FollowRequestDTO">
+        DELETE FROM FOLLOWS
+        WHERE FOLLOWEDID=#{followedId} AND FOLLOWERID=#{followerId};
+    </delete>
+
+</mapper>
