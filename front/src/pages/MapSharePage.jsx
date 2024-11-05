@@ -20,21 +20,24 @@ function MapSharePage(){
 
     useEffect(()=>{
         getMapShareImg();
-    },[fetchMapImgs])
-
-    // useEffect(()=>{
-    //     getMapShareImg();
-    // },[])
+    },[])
 
     return(
-        <div>
-            <div><h4>나만의 지도를 공유해 보세요!</h4></div>
-            {fetchMapImgs.map(img => (
-                <MapShareCard img={img} key={img.mapId} getMapShareImg={getMapShareImg}/>
-            ))}
+        <>
+            <div >
+                <br/>
+                <div style={{textAlign:'center'}}><h4>나만의 지도를 공유해 보세요!</h4></div>
+                <div style={{justifyContent:'center', display:'flex', alignItems:'center'}}>
+                    <div style={{display:'flex', flexWrap: 'wrap',gap:'30px'}}>
+                        {fetchMapImgs.map(img => (
+                            <MapShareCard img={img} key={img.mapId} getMapShareImg={getMapShareImg}/>
+                        ))}
+                    </div>
+                </div>
 
-            
-        </div>
+                <br/>
+            </div>
+        </>
     )
 }
 

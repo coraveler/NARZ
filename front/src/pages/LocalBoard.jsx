@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
+import { getLoginInfo } from "../Includes/common/CommonUtil";
+import PaginationComponent from '../Includes/common/PaginationComponent';
+import TravelCardGrid from '../Includes/common/card/TravelCardGrid';
 import RegionSelector from '../Includes/common/region/RegionSelector';
 import ReviewSection from '../Includes/localboard/ReviewSection';
-import TravelCardGrid from '../Includes/common/card/TravelCardGrid';
-import PaginationComponent from '../Includes/common/PaginationComponent';
-import api from '../api/axios';
-import { useLocation } from 'react-router-dom';
 import ProfileCard from '../Includes/personalPage/ProfileCard';
-import { getLoginInfo } from "../Includes/common/CommonUtil";
+import api from '../api/axios';
 
 function LocalBoard({ onParamsChange, selectedBadge }) {
     const location = useLocation();

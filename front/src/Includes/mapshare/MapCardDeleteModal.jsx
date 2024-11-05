@@ -1,4 +1,4 @@
-import { TiWarningOutline } from "react-icons/ti";
+import { RiDeleteBinLine } from "react-icons/ri";
 import ReactModal from "react-modal";
 import api from "../../api/axios";
 
@@ -9,14 +9,14 @@ function MapCardDeleteModal({
     getMapShareImg
 }){
 
+    // 해당 카드 삭제
     const deleteMapCard = async () => {
         try{
             await api.delete(`/api/mapshare?mapId=${img.mapId}&mapImgUrl=${img.mapImgUrl}`)
-            getMapShareImg();
+            getMapShareImg();   // 다시 공유 이미지 가져오기
         }catch(e){
             console.log(e);
         }
-        
     }
 
     return(
@@ -35,12 +35,12 @@ function MapCardDeleteModal({
                         bottom: 'auto',
                         borderRadius: '20px',
                         padding: '20px',
-                        width: '20vw'}}}>
+                        width: '22vw'}}}>
                     
-                <div style={{textAlign:'center'}}>
-                    <TiWarningOutline style={{fontSize:'40px', color:'red'}}/><p/>
-                    <div>
-                        일정을 정말 삭제하시겠습니까?
+                <div style={{textAlign:'center', marginTop:'10px'}}>
+                    <RiDeleteBinLine style={{fontSize:'35px', color:'orange'}}/><p/>
+                    <div style={{fontWeight:'bold'}}>
+                        나만의 지도를 정말 삭제하시겠습니까?
                     </div><br/>
 
                     <button
@@ -52,9 +52,9 @@ function MapCardDeleteModal({
 
                     <button
                         className="button select-button"
-                        style={{width:"6vw", border:'2px solid #a9a3a3'}}
+                        style={{width:"6vw", border:'2px solid #a9a3a3', marginBottom:'10px'}}
                         onClick={mapCardDeleteModalClose}
-                    >닫기
+                    >취소
                     </button>
                 </div>
             </ReactModal>
