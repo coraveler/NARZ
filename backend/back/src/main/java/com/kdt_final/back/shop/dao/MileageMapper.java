@@ -16,4 +16,8 @@ public interface MileageMapper {
     List<MileageHistory> getMileageHistoryByUserId(int userId); // 사용자 ID에 따른 마일리지 내역 조회
 
     void deductMileage(int userId, int points); // 마일리지 차감 메서드 추가
+
+    
+
 }
+
