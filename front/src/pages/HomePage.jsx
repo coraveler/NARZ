@@ -80,7 +80,10 @@ function HomePage() {
       <div>
         {sections.map((section, index) => (
           <div key={index}>
-            <h3 className="section-title">{section.title}</h3>
+            {
+                ((index>1) && (userId == null)) ? undefined:
+                  <h3 className="section-title">{section.title}</h3>
+            }  
             <div >
               {section.data.length > 5 ? (
                 <p style={{ width: '920px', textAlign: "right", marginLeft: "auto", marginRight: "auto"}} >
@@ -89,7 +92,11 @@ function HomePage() {
               ):<br/>}
             </div>
             <div align="center">
-              <TravelCardGrid data={section.data} itemsPerPage={5} />
+              {
+                ((index>1) && (userId == null)) ? undefined:
+                <TravelCardGrid data={section.data} itemsPerPage={5} />                                         
+              }       
+              
             </div>
             <br />
           </div>
