@@ -59,8 +59,8 @@ function App() {
         <Route path="/mapShare" element={<MapSharePage/>}/>
         {/*쇼핑관련*/}
         <Route path="/shop" element={<ShopPage />} />
-        <Route path="/purchase" element={<ShopPurchase />} />
-        <Route path="/history" element={<ShopHistory />} />
+        <Route path="/shop/purchase" element={<ShopPurchase />} />
+        <Route path="/shop/history" element={<ShopHistory />} />
         {/*개인페이지관련*/}
         <Route path="/personal" element={<PersonalPage selectedBadge={selectedBadge} />} />
         <Route path="/personal/EditProfilePage" element={<EditProfilePage selectedBadge={selectedBadge} />} />
