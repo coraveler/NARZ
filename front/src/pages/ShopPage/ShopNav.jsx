@@ -25,18 +25,18 @@ function ShopNav() {
           </li>
           <li>
             <Link 
-              to="/purchase"
-              className={`${styles.link} ${activeLink === "/purchase" ? styles.active : ""}`}
-              onClick={() => handleLinkClick("/purchase")}
+              to="/shop/purchase"
+              className={`${styles.link} ${activeLink === "/shop/purchase" ? styles.active : ""}`}
+              onClick={() => handleLinkClick("/shop/purchase")}
             >
               포인트 상점
             </Link>
           </li>
           <li>
             <Link 
-              to="/history"
-              className={`${styles.link} ${activeLink === "/history" ? styles.active : ""}`}
-              onClick={() => handleLinkClick("/history")}
+              to="/shop/history"
+              className={`${styles.link} ${activeLink === "/shop/history" ? styles.active : ""}`}
+              onClick={() => handleLinkClick("/shop/history")}
             >
               포인트 내역
             </Link>

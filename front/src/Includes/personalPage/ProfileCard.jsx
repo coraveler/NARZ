@@ -59,7 +59,7 @@ function ProfileCard({ selectedBadge }) {
       {/* Travelog 추가 */}
       <div
         className={`${styles.profileInfo} ${
-          isCurrentPath('/personal/travelog') ? styles.activeLink : ''
+          isCurrentPath('/board/travelog') ? styles.activeLink : ''
         }`}
         onClick={handleTravelogClick}
         style={{ cursor: 'pointer', color: 'black' }}
