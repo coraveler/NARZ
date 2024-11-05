@@ -246,6 +246,7 @@ public class PostService {
             if (imgPath != null) {
                 // imgPath에 baseUrl을 추가하여 전체 경로를 생성
                 lst.get(i).setHeaderImg(baseUrl + imgPath);
+                System.out.println(baseUrl + imgPath);
             }
              // 각 포스트의 좋아요 수를 추가
              int likeCount = postMapper.countLike(lst.get(i).getPostId()); // 포스트 ID를 사용하여 좋아요 수 조회

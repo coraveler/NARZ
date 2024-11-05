@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kdt_final.back.mapimg.dao.MapMapper">
+   
+    <!--  getLikeCount -->
+    <select id="getLikeCount"
+            parameterType="com.kdt_final.back.mapimg.domain.LikeCountRequestDTO"
+            resultType="int">
+        SELECT COUNT(*)
+        FROM POSTLIKE pl
+        JOIN POST p ON p.POSTID = pl.POSTID
+        WHERE p.USERID = #{userId} AND p.LOCAL = #{local} AND p.SECRET = 0;
+    </select>
+
+</mapper>

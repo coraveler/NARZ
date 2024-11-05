@@ -9,11 +9,18 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kdt_final.back.mapimg.dao.MapMapper;
+import com.kdt_final.back.mapimg.domain.LikeCountRequestDTO;
+
 @Service
 public class MapService {
+
+    @Autowired
+    MapMapper mapMapper;
 
     // 파일 업로드 메서드
     public String uploadFile(int userId, String local, MultipartFile file) {
@@ -92,35 +99,8 @@ public class MapService {
         return imageUrls;
     }
 
-//     // 업로드할 디렉토리 경로 반환
-//     private String getUploadDir(int id_no) {
-//         // 'uploads' 디렉토리를 설정
-//         return System.getProperty("user.dir") + "/uploads/images/map/" + id_no + "/";
-//     }
+    public Integer getLikeCount(LikeCountRequestDTO params){
+        return mapMapper.getLikeCount(params);
+    }
 }
 
-//  public List<String> loadFiles(int id_no) {
-    
-//     List<String> imageUrls = new ArrayList<>();
-//     Resource resource = resourceLoader.getResource("classpath:static/images/map/" + id_no + "/");
-
-//     try {
-//         // Path 객체를 이용하여 파일 목록을 가져옴
-//         Path userDir = Paths.get(resource.getFile().getAbsolutePath());
-
-//         if (Files.exists(userDir) && Files.isDirectory(userDir)) {
-//             Files.list(userDir).forEach(filePath -> {
-//                 if (Files.isRegularFile(filePath)) {
-//                     // 파일의 이름을 가져와서 URL 형식으로 변환
-//                     String fileName = filePath.getFileName().toString();
-//                     String imageUrl = "http://localhost:7777/map/img/" + id_no + "/" + fileName; // URL 생성
-//                     imageUrls.add(imageUrl); // URL을 리스트에 추가
-//                 }
-//             });
-//         }
-//     } catch (IOException e) {
-//         e.printStackTrace(); // 에러 로그 출력
-//     }
-
-//     return imageUrls;
-// }

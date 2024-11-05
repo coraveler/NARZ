@@ -37,6 +37,7 @@ public class MapShareService {
             mapShareMapper.saveMapShareImg(obj);
             return true;
         }catch(Exception e){
+
             e.printStackTrace();
             return false;
         }
@@ -45,6 +46,7 @@ public class MapShareService {
 
     // 공유 이미지 가져오기
     public List<MapShareResponseDTO> getMapShareImg(){
+        System.out.println("ASDASDASDASDASD");
         return mapShareMapper.getMapShareImg();
     }
 

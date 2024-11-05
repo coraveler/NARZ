@@ -9,14 +9,11 @@ import api from '../../api/axios';
 import styles from '../../css/Personal/personalpage.module.css';
 
 function MapPage({ selectedBadge }) {
-
     const navigate = useNavigate();
     const overlayRef = useRef(); // 캡처할 영역을 참조하기 위한 ref
 
     const [shareConfirmModalStatus, setShareConfirmModalStatus] = useState(false);  // 공유 확인 모달 상태
     const [mapSharePageMoveModalStatus, setMapSharePageMoveModalStatus] = useState(false)   // 지도 공유 페이지 이동 모달 상태
-
-    
 
     const handleCapture = () => {
         if (overlayRef.current) {
@@ -36,13 +33,17 @@ function MapPage({ selectedBadge }) {
                 height: height,
             };
 
-            html2canvas(element, options).then(canvas => {
-                canvas.toBlob(async (blob) => {
-                    if (blob) {
-                        const now = Date.now();
-                        const item = localStorage.getItem("loginInfo");
-                        const parseItem = JSON.parse(item);
-                        const userId = parseItem.data.userId
+            html2canvas(element, options).then(canvas => handleImageUpload(canvas));
+        }
+    };
+
+    const handleImageUpload = async (canvas) => {
+        canvas.toBlob(async (blob) => {
+            if (blob) {
+                const now = Date.now();
+                const item = localStorage.getItem("loginInfo");
+                const parseItem = JSON.parse(item);
+                const userId = parseItem.data.userId;
 
                         const formData = new FormData();
                         formData.append('mapImgUrl', blob,`map_${userId}_${now}`); // 캡처한 이미지를 추가
@@ -63,11 +64,8 @@ function MapPage({ selectedBadge }) {
                         }
                     }
                 }, 'image/png');
-            });
-        }
-    };
-
-
+            };
+        
     return (
         <div align="center">
             {/* ProfileCard에 selectedBadge 전달 */}
@@ -78,20 +76,20 @@ function MapPage({ selectedBadge }) {
                 <MapOverlay />
             </div>
 
-            <button onClick={()=>setShareConfirmModalStatus(true)} style={{ marginTop: '20px' }} className={`${styles.shareButton} btn btn-outline-orange`} >
+            <button onClick={() => setShareConfirmModalStatus(true)} style={{ marginTop: '20px' }} className={`${styles.shareButton} btn btn-outline-orange`}>
                 나의 지도 자랑하기
             </button>
 
             {/* 맵 공유 선택 모달 */}
             <MapShareConfirmModal 
                 shareConfirmModalStatus={shareConfirmModalStatus}
-                shareConfirmModalClose={()=>setShareConfirmModalStatus(false)}
+                shareConfirmModalClose={() => setShareConfirmModalStatus(false)}
                 handleCapture={handleCapture}/>
-
+                
             {/* 지도공유페이지이동모달 */}
             <MapShareMoveModal
                 mapSharePageMoveModalStatus={mapSharePageMoveModalStatus}
-                mapSharePageMoveModalClose={()=>setMapSharePageMoveModalStatus(false)}/>
+                mapSharePagemoveModalClose={()=>setMapSharePageMoveModalStatus(false)}/>
         </div>
     );
 }
