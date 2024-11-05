@@ -129,7 +129,7 @@ const PostPage = () => {
                                         onClick={postDelete}>
                                         삭제<RiDeleteBinLine />
                                     </button>
-                                </div> :
+                                </div> : userId!=null &&
                                 <div>
                                 <FollowButton followedId={post.userId}/>
                                 </div>
