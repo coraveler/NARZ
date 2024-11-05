@@ -3,6 +3,7 @@ import styles from '../../../css/TravelCard.module.css';
 import { useNavigate } from "react-router-dom";
 import { FaRegStar, FaStar } from "react-icons/fa"; // 빈 별과 채워진 별 아이콘
 import { FaRegStarHalfStroke } from "react-icons/fa6"; // 반 별 아이콘
+import { IoLockClosed } from "react-icons/io5";
 import BookMark from '../BookMark';
 import LikeIcon from '../LikeIcon';
 import { getLoginInfo } from "../../../Includes/common/CommonUtil";
@@ -33,6 +34,10 @@ const TravelCard = (props) => {
   return (
     <article className={styles.travelCard}
       onClick={() => navigate(`/postpage/${props.data.postId}`, {state : {trimmedUrl:props.trimmedUrl}})}>
+      { props.data.secret ?
+                <div style={{height:'10px',marginLeft:"auto"}}>
+                    <IoLockClosed/></div>:<div style={{height:'10px',marginLeft:"auto"}}></div>
+        }
       <div style={{ width: '150px', height: '150px', overflow: 'hidden' }}> {/* overflow: hidden 추가 */}
         <img src={imageUrls} alt={`${props.data.title} view`} className={styles.cardImage} />
       </div>

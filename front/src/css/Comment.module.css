@@ -33,8 +33,9 @@
 
 .commentText {
   text-align: left; /* 텍스트 왼쪽 정렬 */
-  margin: 5px 0; /* 위아래 마진 */
-  margin-left: 10px;
+  margin: 5px 30px; /* 위아래 마진 */
+  word-wrap: break-word; /* 긴 단어를 줄바꿈 */
+  overflow-wrap: break-word; /* 긴 단어를 줄바꿈 (CSS3) */
 }
 
 .commentDateWrapper {

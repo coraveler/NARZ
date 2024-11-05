@@ -8,13 +8,14 @@ import { MdModeEdit } from "react-icons/md";
 import { useNavigate, useParams } from 'react-router-dom';
 import api from '../api/axios';
 import styles from '../css/PostPage.module.css';
-import Comment from '../Includes/comment/Comment';
 import BookMark from '../Includes/common/BookMark';
 import { getLoginInfo } from "../Includes/common/CommonUtil";
 import LikeIcon from '../Includes/common/LikeIcon';
 import ProfileInfo from '../Includes/common/ProfileInfo';
 import { useLocation } from 'react-router-dom';
 import { RiDeleteBinLine } from "react-icons/ri";
+import CommentList from '../Includes/comment/CommentList';
+import FollowButton from '../Includes/common/FollowButton';
 
 const PostPage = () => {
     const navigate = useNavigate();
@@ -30,14 +31,26 @@ const PostPage = () => {
     const location = useLocation();
     const trimmedUrl = location.state?.trimmedUrl || "/board/localboard/all";
 
+    const localMapping = {
+        "sudo": "수도권",
+        "gangwon": "강원",
+        "chungbuk": "충북",
+        "chungnam": "충남",
+        "daejeon": "대전",
+        "gyeonbuk": "경북",
+        "gyeongnam": "경남",
+        "jeonbuk": "전북",
+        "jeonnam": "전남",
+        "jeju": "제주"
+
+    };
+
     useEffect(() => {
         // 예: API 호출하여 postId에 해당하는 포스트 데이터 가져오기
         getPost(postId);
         getPostImages(postId);
-        // checkLike(postId,userId);
-        // countLike(postId);
-        // checkBookMark(postId,userId);
-    }, [postId]);
+
+    }, []);
 
     // useEffect(() => {
     //     countLike(postId);
@@ -47,9 +60,12 @@ const PostPage = () => {
         try {
             const response = await api.get(`post/view/${postId}`);
             console.log("debug >>> response, ", response.data);
-            setPost(response.data);
-            // console.log("debug >>> response, ", response.data.comments);
-            // setComments(response.data.comments);
+            const postData = response.data;
+            // post.local 값을 변환
+            if (postData.local && localMapping[postData.local]) {
+                postData.local = localMapping[postData.local];
+            }
+            setPost(postData);
         } catch (err) {
             setError('Failed to load images');
             console.log(err);
@@ -57,7 +73,7 @@ const PostPage = () => {
     };
 
     const getPostImages = async (postId) => {
-        try {   
+        try {
             const response = await api.get(`post/view/images/${postId}`);
             console.log("debug >>> response imgUrls >>>>>>>>>>>>>>>> ", response.data);
             setPostImgUrl(response.data);
@@ -69,8 +85,8 @@ const PostPage = () => {
 
     const postDelete = async () => {
         const isConfirmed = window.confirm("정말로 삭제하시겠습니까?");
-        if(isConfirmed){
-            try {   
+        if (isConfirmed) {
+            try {
                 console.log(postId);
                 const response = await api.delete(`post/delete/${postId}`);
                 console.log("debug >>> response imgUrls >>>>>>>>>>>>>>>> ", response.data);
@@ -82,52 +98,50 @@ const PostPage = () => {
         }
     }
 
-    
+
     return (
         <div>
             <section className={styles.profileContainer}>
-            <br/>
-                <h1 className={styles.profileTitle}>{post.title}</h1>
-                <br/> <br/>
+                <br />
+                <h1 className={styles.profileTitle}>{post.title} - <span style={{fontSize:'50px'}}>{post.local}</span></h1>
+                <br /> <br />
                 <div className={styles.profileInfo}>
-                    <ProfileInfo data={post} />
+                    <ProfileInfo userId={post.userId} />
                     <time className={styles.profileDate}>{post.createdDate}</time>
 
                     <div className={styles.buttonDiv}>
                         {
                             userId == post.userId ?
-                                        <div>
+                                <div>
 
-                                        <button className="btn btn-outline-warning"
-                                        onClick={() => navigate(`/TravelEditPage`,{
-                                            state:{
-                                                post : post,
-                                                postImgUrl : postImgUrl
+                                    <button className="btn btn-outline-warning"
+                                        onClick={() => navigate(`/TravelEditPage`, {
+                                            state: {
+                                                post: post,
+                                                postImgUrl: postImgUrl
                                             }
                                         })}>
-                                                수정하기 <MdModeEdit /> 
-                                        </button> 
+                                        수정하기 <MdModeEdit />
+                                    </button>
 
-                                        <button className="btn btn-outline-danger"
-                                                style={{marginLeft:"5px"}}
-                                                onClick={postDelete}>
-                                            삭제<RiDeleteBinLine />
-                                        </button>
-                                        </div>:
-
-                                        <button className="btn btn-outline-warning" aria-label="Follow"
-                                                style={{marginLeft:"5px"}}>
-                                            + 팔로우
-                                        </button>
+                                    <button className="btn btn-outline-danger"
+                                        style={{ marginLeft: "5px" }}
+                                        onClick={postDelete}>
+                                        삭제<RiDeleteBinLine />
+                                    </button>
+                                </div> : userId!=null &&
+                                <div>
+                                <FollowButton followedId={post.userId}/>
+                                </div>
                         }
                     </div>
-                </div><br/>
+                </div><br />
             </section>
-           
+
             <div align="center">
                 <main className={styles.container}>
                     <section className={styles.productWrapper}>
-                    {/* <hr style={{ width: "70%" }} /> */}
+                        {/* <hr style={{ width: "70%" }} /> */}
                         {error ? (
                             <div>{error}</div>
                         ) : (
@@ -143,32 +157,32 @@ const PostPage = () => {
                         )}
                     </section>
                     <section className={styles.ratingSection}>
-                            <div className={styles.ratingBar}>
-                               
-                                {/* <div onClick={clickLike} style={{ cursor: 'pointer' }}>
+                        <div className={styles.ratingBar}>
+
+                            {/* <div onClick={clickLike} style={{ cursor: 'pointer' }}>
                                     {
                                     likeState ? (
                                        <div> <AiFillLike />&nbsp; {likeCount} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                      ) : (<div><AiOutlineLike />&nbsp; {likeCount} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </div>)
                                 }
                                 </div> */}
-                                
-                                <LikeIcon postId={postId} userId={userId}/>
-                                <FaStar style={{color: "#FFD700"}}/>  &nbsp;{post.rating}
-                              
-                                {/* <div onClick={clickBookMark} style={{ cursor: 'pointer', marginLeft:'350px'}}>
+
+                            <LikeIcon postId={postId} userId={userId} />
+                            <FaStar style={{ color: "#FFD700" }} />  &nbsp;{post.rating}
+
+                            {/* <div onClick={clickBookMark} style={{ cursor: 'pointer', marginLeft:'350px'}}>
                                     {
                                     bookMarkState ? (
                                        <div> <FaBookmark /></div>
                                      ) : (<div><FaRegBookmark /></div>)
                                 }
                                 </div> */}
-                                <div>
-                                    <BookMark userId={userId} postId={postId} style={["350px"]}/>
-                                </div>
-                                
-                                
+                            <div>
+                                <BookMark userId={userId} postId={postId} style={["350px"]} />
                             </div>
+
+
+                        </div>
                     </section>
                     <div align="center">
                     </div>
@@ -180,10 +194,13 @@ const PostPage = () => {
                 </main>
 
                 {/* <hr style={{ width: "850px" }} /> */}
-                <Comment postId={postId}/>  {/* 반복 */}
+                {/* <Comment postId={postId}/>  반복 */}
+
 
 
             </div>
+
+            <CommentList postId={postId} userId={userId} />
         </div>
     );
 };

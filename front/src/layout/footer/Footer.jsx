@@ -34,7 +34,6 @@ function Footer() {
         <p>-Gustave Flaubert-</p>
         </div>
       </footer>
-
       <div style={{ display: 'flex', gap: '10px', fontSize: '25px', justifyContent: 'center', cursor: 'pointer', marginTop: '5px' }}>
         <img src={`${process.env.PUBLIC_URL}/Narzlog3.png`} alt="NARZ Logo" style={{ width: '50px', height: 'auto' }} />
       </div>

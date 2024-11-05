@@ -221,7 +221,7 @@
         SELECT p.POSTID, p.USERID, p.LOCAL, p.TITLE, p.RATING, p.SECRET, p.HEADERIMG, p.CONTENT, p.CREATEDDATE, u.userNickname
         FROM POST p
         JOIN USER u ON p.USERID = u.userId
-        WHERE p.SECRET = 0 AND p.USERID = #{userId}
+        WHERE p.USERID = #{userId}
     </select>   
 
     <!-- getTravelog --> 
@@ -232,7 +232,32 @@
         SELECT p.POSTID, p.USERID, p.LOCAL, p.TITLE, p.RATING, p.SECRET, p.HEADERIMG, p.CONTENT, p.CREATEDDATE, u.userNickname
         FROM POST p
         JOIN USER u ON p.USERID = u.userId
-        WHERE p.SECRET = 0 AND p.USERID = #{userId} AND p.LOCAL = #{local}
+        WHERE p.USERID = #{userId} AND p.LOCAL = #{local}
+       
+    </select>
+
+       <!-- getAllFollow --> 
+
+    <select id="getAllFollow"
+            parameterType="int"
+            resultType="com.kdt_final.back.post.domain.PostResponseDTO">
+        SELECT p.POSTID, p.USERID, p.LOCAL, p.TITLE, p.RATING, p.SECRET, p.HEADERIMG, p.CONTENT, p.CREATEDDATE, u.userNickname
+        FROM POST p
+        JOIN FOLLOWS F ON p.USERID = F.FOLLOWEDID
+        JOIN  user u ON p.userId = u.userId
+        WHERE p.SECRET = 0 AND F.FOLLOWERID = #{userId}
+    </select>   
+
+    <!-- getFollow --> 
+
+    <select id="getFollow"
+            parameterType="com.kdt_final.back.post.domain.PostRequestDTO"
+            resultType="com.kdt_final.back.post.domain.PostResponseDTO">
+        SELECT p.POSTID, p.USERID, p.LOCAL, p.TITLE, p.RATING, p.SECRET, p.HEADERIMG, p.CONTENT, p.CREATEDDATE, u.userNickname
+        FROM POST p
+        JOIN FOLLOWS F ON p.USERID = F.FOLLOWEDID
+        JOIN  user u ON p.userId = u.userId
+        WHERE p.SECRET = 0 AND F.FOLLOWERID = #{userId} AND p.LOCAL = #{local}
        
     </select>
 

@@ -1,0 +1,16 @@
+.map-share-card{
+    border-radius: 30px;
+}
+
+@font-face {
+    font-family: 'InkLipquid';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/InkLipquid.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.title-font {
+    font-size: 20px; 
+    font-weight: 400;    /* 폰트 크기 */
+    font-family: 'InkLipquid', sans-serif;
+  }

@@ -56,4 +56,8 @@ public interface PostMapper {
     public List<PostResponseDTO> getAllTravelog(int userId);
 
     public List<PostResponseDTO> getTravelog(PostRequestDTO params);
+
+    public List<PostResponseDTO> getAllFollow(int userId);
+
+    public List<PostResponseDTO> getFollow(PostRequestDTO params);
 }

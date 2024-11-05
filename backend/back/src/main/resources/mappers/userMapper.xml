@@ -46,4 +46,28 @@
     </select>
 
 
+    <update id="updateUser"
+            parameterType="com.kdt_final.back.user.domain.User">
+
+            UPDATE user
+            SET
+
+               email =#{email},
+               birthday = #{birthday},
+               phoneNum= #{phoneNum}
+
+            WHERE  loginId =#{loginId}
+
+
+    </update>
+
+    <select id="getUserInfo"
+            resultType="com.kdt_final.back.user.domain.User">
+        SELECT userNickname
+        FROM user
+        WHERE USERID = #{userId}
+    </select>
+
+
+
 </mapper>

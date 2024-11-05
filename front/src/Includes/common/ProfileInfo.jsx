@@ -1,7 +1,35 @@
-import React from 'react'; 
+import React, { useEffect, useState } from 'react';
 import styles from '../../css/ProfileInfo.module.css';
+import api from '../../api/axios';
 
-const ProfileInfo = ({ rank, data }) => {
+const ProfileInfo = ({ rank, userId }) => {
+  // const [userInfo, setUserInfo] = useState({});
+
+  // useEffect(() => {
+  //   // getLoginInfo 함수를 사용하여 로그인된 사용자 정보 가져오기
+  //   const loginInfo = getLoginInfo();
+  //   if (loginInfo) {
+  //     setUserInfo(loginInfo);
+  //   }
+  // }, []);
+  const [userInfo, setUserInfo] = useState({});
+  
+  const getUserInfo = async() => {
+    try {
+        const response = await api.get(`user/info/${userId}`);
+        console.log("debug >>> response,ASDASDASDASD ", response.data);
+        setUserInfo(response.data);
+    } catch (err) {
+        console.log(err);
+    }
+ }
+
+  useEffect( ()=>{
+    if(userId != null){
+      getUserInfo();
+    }
+  },[userId])
+
   return (
     <>
       <img
@@ -10,14 +38,10 @@ const ProfileInfo = ({ rank, data }) => {
         className={styles.profileImage}
         alt="Profile"
       />
-      {/* 칭호 표시 */}
       <p className={styles.profileRank}>{rank}</p>
-      
-      {/* 사용자 이름 표시 */}
       <p className={styles.profileName}>
-        {data?.userNickname || 'name'}  
+        {userInfo?.userNickname || '닉네임 없음'}
       </p>
-
     </>
   );
 };

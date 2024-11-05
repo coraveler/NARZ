@@ -2,10 +2,13 @@ import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import styles from '../../css/ProfileCard.module.css';
 import ProfileInfo from '../common/ProfileInfo';
+import { getLoginInfo } from "../../Includes/common/CommonUtil";
 
 function ProfileCard({ selectedBadge }) {
   const navigate = useNavigate();
   const location = useLocation(); // 현재 경로를 가져오기 위한 훅
+  let loginInfo = getLoginInfo();
+  const userId = loginInfo?.userId || null;
 
   const profileData = {
     name: '회원정보',
@@ -29,7 +32,7 @@ function ProfileCard({ selectedBadge }) {
 
   return (
     <section className={styles.profileCard}>
-      <ProfileInfo rank={selectedBadge} data={profileData} />
+      <ProfileInfo rank={selectedBadge} data={profileData} userId={userId}/>
 
       {/* 회원정보 클릭 시 EditProfilePage로 이동 */}
       <div

@@ -30,7 +30,7 @@ function FestivalInfoModal({
 
                 <div style={{textAlign:'left'}}>
                     <div style={{textAlign:'right'}}>
-                    <button class="btn-close"
+                    <button className="btn-close"
                             style={{fontSize:'20px'}}
                             onClick={festivalInfoModalClose}/>
                     </div>

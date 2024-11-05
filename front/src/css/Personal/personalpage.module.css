@@ -40,6 +40,20 @@
 .overlayContainer {
     position: relative; /* 자식 요소의 위치 기준 설정 */
     width: 100%; /* 원하는 너비 설정 */
-    height: 100%; /* 원하는 높이 설정, 필요에 따라 조정 */
+    height: 850px; /* 원하는 높이 설정, 필요에 따라 조정 */
     overflow: hidden; /* 내부 내용이 넘치지 않도록 설정 */
 }
+
+.shareButton {
+    /* position: absolute; 절대 위치 설정 */
+    /* top: 20px; 상단에서 10px 떨어진 위치 */
+    /* right: 250px; 우측에서 10px 떨어진 위치 */
+    width: 300px;
+    height: 50px;
+    color:#e5a314;
+    font-weight: bold;
+    border: 2px solid;
+    margin-bottom: 50px;
+    
+}
+
