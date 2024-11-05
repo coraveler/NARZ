@@ -26,18 +26,18 @@ function MapShareConfirmModal({
                         bottom: 'auto',
                         borderRadius: '20px',
                         padding: '20px',
-                        width: '27vw'}}}>
+                        width: '30vw'}}}>
                     
                 <div style={{textAlign:'center'}}>
                     <GiSouthKorea style={{fontSize:'60px', color:'orange', marginTop:'10px'}}/><p/>
                     <div style={{fontWeight:'bold'}}>
-                        나만의 지도를 공유하시겠습니까?
+                        나만의 지도를 다른 사람들과 공유하시겠습니까?
                     </div><p/>
                     <div>
                         지도를 공유하시게 되면 
                     </div>
                     <div>
-                    여행지도공유 페이지에 자동으로 등록됩니다.    
+                        여행지도공유 페이지에 자동으로 등록됩니다.    
                     </div><br/>
 
                     <button

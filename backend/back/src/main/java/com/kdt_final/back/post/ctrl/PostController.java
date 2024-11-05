@@ -1,7 +1,7 @@
 package com.kdt_final.back.post.ctrl;
 
-import java.util.List;
 import java.io.File;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,10 +25,8 @@ import com.kdt_final.back.post.domain.PostRequestDTO;
 import com.kdt_final.back.post.domain.PostResponseDTO;
 import com.kdt_final.back.post.domain.postBookMark.PostBookMarkRequestDTO;
 import com.kdt_final.back.post.domain.postImage.PostImageResponseDTO;
-import com.kdt_final.back.post.domain.postJoinBookMark.PostJoinBookMarkResponseDTO;
 import com.kdt_final.back.post.domain.postLike.PostLikeRequestDTO;
 import com.kdt_final.back.post.service.PostService;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 
