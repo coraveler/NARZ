@@ -1,6 +1,6 @@
 import html2canvas from 'html2canvas';
 import React, { useRef, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { getLoginInfo } from "../../Includes/common/CommonUtil";
 import MapShareConfirmModal from '../../Includes/mapshare/MapShareConfirmModal';
 import MapShareMoveModal from '../../Includes/mapshare/MapShareMoveModal';
@@ -13,7 +13,6 @@ function MapPage({ selectedBadge }) {
     const { urlUserId } = useParams(); // URL에서 userId 추출
     let loginInfo = getLoginInfo();
     const userId = loginInfo?.userId || null;
-    const navigate = useNavigate();
     const overlayRef = useRef(); // 캡처할 영역을 참조하기 위한 ref
 
     const [shareConfirmModalStatus, setShareConfirmModalStatus] = useState(false);  // 공유 확인 모달 상태
@@ -93,7 +92,7 @@ function MapPage({ selectedBadge }) {
             {/* 지도공유페이지이동모달 */}
             <MapShareMoveModal
                 mapSharePageMoveModalStatus={mapSharePageMoveModalStatus}
-                mapSharePagemoveModalClose={() => setMapSharePageMoveModalStatus(false)} />
+                mapSharePageMoveModalClose={() => setMapSharePageMoveModalStatus(false)} />
         </div>
     );
 }

@@ -45,8 +45,8 @@ function MapCardInfoModal({
 
                 <div style={{textAlign:'center'}}>
                     <div style={{display:'flex', justifyContent:'space-between'}}>
-                        {/* <div>등록일: {formDate}</div> */}
-                        <div>등록일: {date.toLocaleDateString()}-{date.toLocaleTimeString()}</div>
+                        <div>등록일: {formDate}</div>
+                        {/* <div>등록일: {date.toLocaleDateString()}-{date.toLocaleTimeString()}</div> */}
                         <div>
                             <button className="btn-close"
                                 style={{fontSize:'25px'}}
