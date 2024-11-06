@@ -1,13 +1,13 @@
 import html2canvas from 'html2canvas';
 import React, { useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { getLoginInfo } from "../../Includes/common/CommonUtil";
 import MapShareConfirmModal from '../../Includes/mapshare/MapShareConfirmModal';
 import MapShareMoveModal from '../../Includes/mapshare/MapShareMoveModal';
 import MapOverlay from '../../Includes/personalPage/MapOverlay';
 import ProfileCard from '../../Includes/personalPage/ProfileCard';
 import api from '../../api/axios';
 import styles from '../../css/Personal/personalpage.module.css';
-import { getLoginInfo } from "../../Includes/common/CommonUtil";
 
 function MapPage({ selectedBadge }) {
     const { urlUserId } = useParams(); // URL에서 userId 추출

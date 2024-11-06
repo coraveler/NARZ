@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kdt_final.back.mapshare.domain.MapLikeRequestDTO;
 import com.kdt_final.back.mapshare.domain.MapShareResponseDTO;
 import com.kdt_final.back.mapshare.service.MapShareService;
+
 
 
 
@@ -79,7 +81,54 @@ public class MapShareController {
                 .contentType(MediaType.IMAGE_PNG) // 또는 적절한 MIME 타입
                 .body(resource);
     }
+    
 
+    // 지도 공유 좋아요 추가
+    @PostMapping("/maplike")
+    public ResponseEntity<Void> addMapLike(@RequestParam("userId") int userId,
+                                            @RequestParam("mapId") int mapId) {
+        MapLikeRequestDTO obj = new MapLikeRequestDTO();
+        obj.setUserId(userId);
+        obj.setMapId(mapId);
+        
+        mapShareService.addMapLike(obj);
+        
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+    
+
+    @GetMapping("/maplike")
+    public ResponseEntity<Boolean> checkMapLike(@RequestParam("userId") int userId,
+                                                @RequestParam("mapId") int mapId) {
+        MapLikeRequestDTO obj = new MapLikeRequestDTO();
+        obj.setUserId(userId);
+        obj.setMapId(mapId);
+        boolean result = mapShareService.checkMapLike(obj);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/maplike")
+    public ResponseEntity<Void> deleteMapLike(@RequestParam("userId") int userId,
+                                                @RequestParam("mapId") int mapId) {
+        MapLikeRequestDTO obj = new MapLikeRequestDTO();
+        obj.setUserId(userId);
+        obj.setMapId(mapId);
+        mapShareService.deleteMapLike(obj);
+    
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/mapliketotal")
+    public ResponseEntity<Integer> fetchMapLikeTotal(@RequestParam("mapId") int mapId) {
+        Integer result = mapShareService.fetchMapLikeTotal(mapId);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @GetMapping("/mapshareself")
+    public ResponseEntity<List<MapShareResponseDTO>> fetchSelfMapList(@RequestParam("userId") int userId) {
+        List<MapShareResponseDTO> list = mapShareService.fetchSelfMapList(userId);
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
     
     
     

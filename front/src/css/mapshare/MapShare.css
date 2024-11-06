@@ -1,5 +1,13 @@
 .map-share-card{
     border-radius: 30px;
+    box-shadow: 6px 6px 12px rgba(220, 161, 78, 0.3);
+    border-color: #e6cb7e;
+    cursor: pointer;
+}
+
+.map-share-card:hover{
+    box-shadow: 10px 10px 20px rgba(246, 165, 52, 0.4);
+    transform: scale(1.04); /* 약간 확대: 1.05배 */
 }
 
 @font-face {
@@ -10,7 +18,66 @@
 }
 
 .title-font {
-    font-size: 20px; 
-    font-weight: 400;    /* 폰트 크기 */
+    font-size: 18px; 
+    font-weight: bold;    /* 폰트 크기 */
     font-family: 'InkLipquid', sans-serif;
-  }
+    margin-top: 15px;
+}
+
+.like-footer {
+    background-color: #f1b95f !important;
+    padding: 12px;
+    font-size: 14px;
+    font-weight: bold;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    color: white;
+    text-align: center;
+    margin-top: 10%;
+}
+
+.like-footer:hover {
+    background-color: #e99b1d !important; /* 호버 시 색상 변경 */
+}
+
+.more-btn:hover{
+    background-color: #ea9d21 !important;
+    color: white !important;
+}
+
+.map-like-popover{
+    width: 110px;
+    height: 35px;
+    margin-bottom: 15px;
+    margin-left: 55px;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.map-share-nickname{
+    padding: 8px;
+    font-size: 18px; 
+    font-weight: bold;    /* 폰트 크기 */
+    font-family: 'InkLipquid', sans-serif;
+}
+
+.view-btn{
+    border-radius: 20px;
+    font-weight: bold;
+    border: 2px solid rgb(243, 192, 97);
+    height: 50px;
+    width: 120px;
+    color: orange;
+}
+
+.view-btn-choice{
+    border-radius: 20px;
+    font-weight: bold;
+    border: 2px solid rgb(243, 192, 97);
+    height: 50px;
+    width: 120px;
+    color: white;
+    background-color: orange;
+}

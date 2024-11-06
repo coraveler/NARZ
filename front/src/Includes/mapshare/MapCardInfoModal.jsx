@@ -1,18 +1,27 @@
-import { useState } from "react";
-import { FaRegCalendarCheck } from "react-icons/fa";
-import { MdFestival, MdLandscape } from "react-icons/md";
-import { TbLocationFilled, TbRoad } from "react-icons/tb";
+import { useEffect, useState } from "react";
+import { FaHeart } from "react-icons/fa";
+import { LuPen } from "react-icons/lu";
 import ReactModal from "react-modal";
 import MapCardDeleteModal from "./MapCardDeleteModal";
+
 
 function MapCardInfoModal({
     mapCardInfoModalStatus,
     mapCardInfoModalClose,
     img,
-    getMapShareImg
+    getMapShareImg,
+    mapLikeTotal
 }){
 
     const [mapCardDeleteModalStatus, setMapCardDeleteModalStatus] = useState(false);
+
+    const date = new Date(img.createdDate)
+    let formDate = date.toLocaleDateString()
+    formDate = formDate.replace(/\.$/, ''); // 문자열 끝에 있는 점만 제거
+
+    useEffect(()=>{
+        console.log()
+    },[])
 
     return(
         <div>
@@ -31,34 +40,46 @@ function MapCardInfoModal({
                         bottom: 'auto',
                         borderRadius: '35px',
                         padding: '40px',
-                        width: '350px'}}}>
+                        width: '30vw',
+                        scrollbarWidth: 'thin'}}}>
 
-                <div style={{textAlign:'left'}}>
-                    <div style={{textAlign:'right'}}>
-                    <button className="btn-close"
-                            style={{fontSize:'20px'}}
-                            onClick={()=>mapCardInfoModalClose()}/>
+                <div style={{textAlign:'center'}}>
+                    <div style={{display:'flex', justifyContent:'space-between'}}>
+                        {/* <div>등록일: {formDate}</div> */}
+                        <div>등록일: {date.toLocaleDateString()}-{date.toLocaleTimeString()}</div>
+                        <div>
+                            <button className="btn-close"
+                                style={{fontSize:'25px'}}
+                                onClick={()=>mapCardInfoModalClose()}/>
+                        </div>
                     </div>
                     
-                    <h5 style={{width:'220px'}}><MdFestival style={{marginBottom:'5px', color:'#FFB74D'}}/>a</h5><hr/>
 
-                    <div style={{marginBottom:'14px', marginTop:'20px'}}>
-                        <div style={{marginBottom:'2px'}}><FaRegCalendarCheck style={{marginBottom:'5px', color:'#FFB74D'}}/> 기간</div>
-                        <div>a</div>
+                    <div className="title-font" style={{fontSize:'40px'}}>
+                        {img.userNickname}'s' MAP
                     </div>
-                    <div style={{marginBottom:'14px'}}>
-                        <div style={{marginBottom:'2px'}}><TbLocationFilled style={{marginBottom:'3px', color:'#FFB74D'}}/> 장소</div>
-                        <div>a</div>
-                    </div>
-                    <div style={{marginBottom:'14px'}}>
-                        <div style={{marginBottom:'2px'}}><TbRoad style={{marginBottom:'3px', color:'#FFB74D'}}/> 도로명주소</div>
-                        <div>a</div>
-                    </div>
-                    <div style={{marginBottom:'14px'}}>
-                        <div style={{marginBottom:'2px'}}><MdLandscape style={{marginBottom:'3px', color:'#FFB74D'}}/> 지번주소</div>
-                        <div>a</div>
-                    </div>
-                    <button onClick={()=>setMapCardDeleteModalStatus(true)}>삭제</button>
+
+                    <div style={{position: 'relative'}}>
+                        <img src={`http://localhost:7777/api/uploads/images/mapshare/${img.mapImgUrl}`} alt="맵 이미지" style={{width:'250px', height:'500px', marginTop:'5px'}}/>
+                        {localStorage.getItem("loginInfo") && JSON.parse(localStorage.getItem("loginInfo")).data.userId==img.userId
+                        ? <button 
+                            className="btn btn-outline-dark" 
+                            style={{width:'90px', height:'38px', position: 'absolute', right:'10px', bottom:'0'}}
+                            onClick={()=>setMapCardDeleteModalStatus(true)}
+                        >삭제
+                        </button>
+                        :''}
+                        
+                    </div><br/><br/>
+
+                
+                    <div style={{display:'flex', justifyContent:'center'}}>
+                        <div style={{marginRight:'20px', display:'flex', alignItems:'center'}}><LuPen style={{color:'orange'}}/><span style={{color:''}}>&nbsp;작성자:&nbsp;</span><span style={{fontWeight:'bold'}}>{img.userNickname}</span></div>
+                        <div style={{display:'flex', alignItems:'center'}}><FaHeart style={{color:'red'}}/><span style={{color:''}}>&nbsp;좋아요:&nbsp;</span><span style={{fontWeight:'bold'}}>{mapLikeTotal}</span></div>
+                    </div><br/>
+                    
+                    
+                   
 
                 </div>
             </ReactModal>

@@ -11,4 +11,5 @@ public class MapShareResponseDTO {
     private String mapImgUrl;
     private LocalDateTime createdDate;
     private int userId;
+    private int likeCount;
 }
