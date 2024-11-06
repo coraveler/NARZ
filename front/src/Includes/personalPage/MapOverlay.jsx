@@ -1,15 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import api from '../../api/axios';
-import { getLoginInfo } from "../../Includes/common/CommonUtil";
 
-const ImageOverlay = () => {
+// import { getLoginInfo } from "../../Includes/common/CommonUtil";
+
+const ImageOverlay = ({userId}) => {
 // const [isUploading, setIsUploading] = useState(false); // 상태 추가
 const canvasRef = useRef(null);
 const fileInputRef = useRef(null);
 const [images, setImages] = useState([]);
-let loginInfo = getLoginInfo();
-const userId = loginInfo?.userId || null;
+// let loginInfo = getLoginInfo();
+// const userId = loginInfo?.userId || null;
+
 
 // 초기 이미지 URL 설정
 const defaultImageUrls = {
@@ -29,7 +31,6 @@ const [imageUrls, setImageUrls] = useState(defaultImageUrls);
 
 useEffect(() => {
     fetchImages();
-    
 }, []);
 
 useEffect(() => {
@@ -82,7 +83,7 @@ const handleImageClick = async (key) => {
     const count = await getUserLocalLikeCount(key); // likeCount를 비동기적으로 가져옴
     if (fileInputRef.current) {
         fileInputRef.current.setAttribute("data-key", key);
-        if (count > 10) {
+        if (count >= 10) {
             fileInputRef.current.click();
         } else {
             fileInputRef.current.value = null; // 파일 입력 초기화
@@ -193,7 +194,7 @@ const uploadProcessedImage = async (processedImageUrl, key) => {
     }
 
     const formData = new FormData();
-    formData.append("userId", userId); // id_no를 변수로 사용
+    formData.append("userId", userId); 
     formData.append("file", dataURItoBlob(processedImageUrl));
     formData.append("local", key);
 
