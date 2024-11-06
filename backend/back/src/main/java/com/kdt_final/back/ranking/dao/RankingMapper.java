@@ -33,4 +33,7 @@ public interface RankingMapper {
 
     // 랭킹 업데이트
     void updateRanking(RankingRequestDTO rankingRequestDTO);
+    
+    // 주간 랭킹 초기화 메서드
+    void clearWeeklyRanking();  // 주간 랭킹 초기화 메서드
 }
