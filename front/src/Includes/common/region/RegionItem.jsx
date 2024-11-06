@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from '../../../css/RegionSelector.module.css';
 import { useNavigate, useParams } from "react-router-dom";
 
-const RegionItem = ({ iconSrc, name, href, board }) => {
+const RegionItem = ({ iconSrc, name, href, board, travelogId }) => {
   const navigate = useNavigate();
   const { local } = useParams();
   const [itemState, setItemState] = useState(0);
@@ -16,7 +16,7 @@ const RegionItem = ({ iconSrc, name, href, board }) => {
 }, [local]);
 
   return (
-    <div onClick={() => navigate(href)}>
+    <div onClick={() => navigate(href, { state: {travelogId:travelogId}})}>
       <img loading="lazy" src={iconSrc} alt="" className={itemState ? styles.selectIcon : styles.regionIcon} /><p/>
       <span className={itemState ? styles.selectName : styles.regionName}>{name}</span>
     </div>

@@ -27,6 +27,7 @@ function LocalBoard({ onParamsChange, selectedBadge }) {
     const userId = loginInfo?.userId || null;
     const fullUrl = window.location.href;
     const trimmedUrl = fullUrl.replace("http://localhost:3000", "");
+    const travelogId = location.state?.travelogId || null;
 
     const getPost = async () => {
         try {
@@ -111,11 +112,19 @@ function LocalBoard({ onParamsChange, selectedBadge }) {
 
     const getBoardPost = async () => {
         try {
+            const effectiveUserId = travelogId != null ? travelogId : userId;
             const response = await api.get(`post/get/${board}/${local}`, {
-                params: { userId } // userId를 params로 전달
+                params: { userId: effectiveUserId } // userId를 params로 전달
             });
             console.log(response.data);
-            const filteredPosts = filterPosts(response.data, searchTerm);
+            // userId와 travelogId가 일치하는 경우 secret이 1인 포스트 제거
+            let filteredPosts = response.data;
+
+            if (userId !== travelogId && board === "travelog") {
+                filteredPosts = filteredPosts.filter(post => post.secret !== 1);
+            }
+
+            filteredPosts = filterPosts(filteredPosts, searchTerm);
             setOriginalPost(filteredPosts);
             updatePostOrder(filteredPosts); // 정렬된 포스트 업데이트
             averageRating(filteredPosts.map(post => post.rating));
@@ -123,6 +132,22 @@ function LocalBoard({ onParamsChange, selectedBadge }) {
             console.log(err);
         }
     };
+
+    // const getBoardPost = async () => {
+    //     try {
+    //         const effectiveUserId = travelogId != null ? travelogId : userId;
+    //         const response = await api.get(`post/get/${board}/${local}`, {
+    //             params: { userId: effectiveUserId } // userId를 params로 전달
+    //         });
+    //         console.log(response.data);
+    //         const filteredPosts = filterPosts(response.data, searchTerm);
+    //         setOriginalPost(filteredPosts);
+    //         updatePostOrder(filteredPosts); // 정렬된 포스트 업데이트
+    //         averageRating(filteredPosts.map(post => post.rating));
+    //     } catch (err) {
+    //         console.log(err);
+    //     }
+    // };
 
 
     useEffect(() => {
@@ -170,13 +195,13 @@ function LocalBoard({ onParamsChange, selectedBadge }) {
             {
                 board == "travelog" &&
                 (<div align="center">
-                    <ProfileCard selectedBadge={selectedBadge} />
+                    <ProfileCard selectedBadge={selectedBadge} userId={travelogId != null ? travelogId : userId} />
                 </div>)
             }
 
             <br />
             <div>
-                <RegionSelector board={board} searchTerm={searchTerm} />
+                <RegionSelector board={board} searchTerm={searchTerm} travelogId={travelogId} />
             </div>
             <div>
                 <div >
@@ -189,7 +214,7 @@ function LocalBoard({ onParamsChange, selectedBadge }) {
                         board={board}
                     />
                 </div>
-                <div style={{width: "100%", display: 'flex', alignItems: 'center'}}>
+                <div style={{ width: "100%", display: 'flex', alignItems: 'center' }}>
                     <h4 style={{ width: "900px", margin: '0px auto', fontFamily: 'Ownglyph_ryuttung-Rg' }}>
                         {searchTerm && `검색어: ${searchTerm}`}
                     </h4>

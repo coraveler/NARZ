@@ -63,12 +63,16 @@ function App() {
         <Route path="/shop/history" element={<ShopHistory />} />
         {/*개인페이지관련*/}
         <Route path="/personal" element={<PersonalPage selectedBadge={selectedBadge} />} />
+        <Route path="/personal/:urlUserId" element={<PersonalPage selectedBadge={selectedBadge} />} />
         <Route path="/personal/EditProfilePage" element={<EditProfilePage selectedBadge={selectedBadge} />} />
         <Route path="/profile" element={<ProfileCard selectedBadge={selectedBadge} />} />
         <Route path="/personal/AchievementPage" element={<AchievementPage selectedBadge={selectedBadge} onBadgeSelect={setSelectedBadge} />} />
         <Route path="/personal/map" element={<MapPage selectedBadge={selectedBadge} />} />
+        <Route path="/personal/map/:urlUserId" element={<MapPage selectedBadge={selectedBadge} />} />
         <Route path="/personal/follower" element={<FollowerPage selectedBadge={selectedBadge} />} />
         <Route path="/personal/following" element={<FollowingPage selectedBadge={selectedBadge} />} />
+        <Route path="/personal/follower/:urlUserId" element={<FollowerPage selectedBadge={selectedBadge} />} />
+        <Route path="/personal/following/:urlUserId" element={<FollowingPage selectedBadge={selectedBadge} />} />
         <Route path="/personal/travelog" element={<TravelogPage selectedBadge={selectedBadge}/>} />
         {/* 랭킹페이지 관련 */}
         <Route path="/ranking/popular" element={<RankingPage initialRank="인기 게시글 랭킹" />} />

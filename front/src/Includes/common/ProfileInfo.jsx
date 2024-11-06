@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../../css/ProfileInfo.module.css';
 import api from '../../api/axios';
+import { useNavigate } from 'react-router-dom';
 
 const ProfileInfo = ({ rank, userId }) => {
+  const navigate = useNavigate();
   // const [userInfo, setUserInfo] = useState({});
 
   // useEffect(() => {
@@ -32,15 +34,17 @@ const ProfileInfo = ({ rank, userId }) => {
 
   return (
     <>
+    <div onClick={()=>(navigate(`/personal/${userId}`))}>
       <img
         loading="lazy"
         src="https://cdn.builder.io/api/v1/image/assets/TEMP/b27a83d8c5cb2603bbe525f37e40638c4662ab944e1735d12e70886d6fa4e375?placeholderIfAbsent=true&apiKey=c7f1d91a917e4e2ba5370da6919a77db"
         className={styles.profileImage}
         alt="Profile"
       />
+      </div>
       <p className={styles.profileRank}>{rank}</p>
       <p className={styles.profileName}>
-        {userInfo?.userNickname || '닉네임 없음'}
+        {userInfo?.userNickname || ''}
       </p>
     </>
   );

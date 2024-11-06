@@ -4,7 +4,7 @@ import styles from '../../../css/RegionSelector.module.css';
 
 
 
-const RegionSelector = ({board,searchTerm}) => {
+const RegionSelector = ({board,searchTerm, travelogId}) => {
   // board = null ?? "localboard";
 
   const regions = [
@@ -25,7 +25,7 @@ const RegionSelector = ({board,searchTerm}) => {
     <nav className={styles.container}>
       <h2 className={styles['visually-hidden']}>지역 선택</h2>
       {regions.map((region, index) => (
-        <RegionItem key={index} iconSrc={region.iconSrc} name={region.name} href={searchTerm ? (region.href+"?searchTerm="+searchTerm):(region.href)} board={board} />
+        <RegionItem key={index} iconSrc={region.iconSrc} name={region.name} href={searchTerm ? (region.href+"?searchTerm="+searchTerm):(region.href)} board={board} travelogId={travelogId}/>
       ))}
     </nav>
   );
