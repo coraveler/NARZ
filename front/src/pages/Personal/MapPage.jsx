@@ -1,6 +1,5 @@
 import html2canvas from 'html2canvas';
 import React, { useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import MapShareConfirmModal from '../../Includes/mapshare/MapShareConfirmModal';
 import MapShareMoveModal from '../../Includes/mapshare/MapShareMoveModal';
 import MapOverlay from '../../Includes/personalPage/MapOverlay';
@@ -9,7 +8,7 @@ import api from '../../api/axios';
 import styles from '../../css/Personal/personalpage.module.css';
 
 function MapPage({ selectedBadge }) {
-    const navigate = useNavigate();
+    
     const overlayRef = useRef(); // 캡처할 영역을 참조하기 위한 ref
 
     const [shareConfirmModalStatus, setShareConfirmModalStatus] = useState(false);  // 공유 확인 모달 상태
@@ -89,7 +88,7 @@ function MapPage({ selectedBadge }) {
             {/* 지도공유페이지이동모달 */}
             <MapShareMoveModal
                 mapSharePageMoveModalStatus={mapSharePageMoveModalStatus}
-                mapSharePagemoveModalClose={()=>setMapSharePageMoveModalStatus(false)}/>
+                mapSharePageMoveModalClose={()=>setMapSharePageMoveModalStatus(false)}/>
         </div>
     );
 }

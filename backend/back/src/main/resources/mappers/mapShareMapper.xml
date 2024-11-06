@@ -11,9 +11,11 @@
 
     <select id="getMapShareImg"
             resultType="com.kdt_final.back.mapshare.domain.MapShareResponseDTO">
-        SELECT ms.mapId, ms.mapImgUrl, ms.createdDate, u.userNickname, ms.userId
+        SELECT ms.mapId, ms.mapImgUrl, ms.createdDate, u.userNickname, ms.userId, COALESCE(COUNT(msl.mapLikeId), 0) AS likeCount
         FROM mapShare ms
-        JOIN user u ON ms.userId = u.userId;
+        JOIN user u ON ms.userId = u.userId
+        LEFT JOIN mapShareLike msl ON ms.mapId = msl.mapId
+        GROUP BY ms.mapId, ms.mapImgUrl, ms.createdDate, u.userNickname, ms.userId
     </select>
 
     <delete id="deleteMapShareImg"
@@ -22,4 +24,42 @@
         WHERE mapId=#{mapId}
     </delete>
 
+    <insert id="addMapLike"
+            parameterType="com.kdt_final.back.mapshare.domain.MapLikeRequestDTO">
+        INSERT INTO mapShareLike(userId, mapId)
+        VALUES (#{userId}, #{mapId})
+    </insert>
+
+    <select id="checkMapLike"
+            parameterType="com.kdt_final.back.mapshare.domain.MapLikeRequestDTO"
+            resultType="boolean">
+        SELECT 
+        IF(EXISTS (SELECT 1 FROM mapShareLike WHERE userId = #{userId} AND mapId = #{mapId}), 'TRUE', 'FALSE') 
+        AS result;
+    </select>
+
+    <delete id="deleteMapLike"
+            parameterType="com.kdt_final.back.mapshare.domain.MapLikeRequestDTO">
+        DELETE FROM mapShareLike
+        WHERE userId=#{userId} AND mapId=#{mapId}
+    </delete>
+
+    <select id="fetchMapLikeTotal"
+            parameterType="Integer"
+            resultType="Integer">
+        SELECT COUNT(*)
+        FROM mapShareLike
+        WHERE mapId=#{mapId}
+    </select>
+
+    <select id="fetchSelfMapList"
+            parameterType="int"
+            resultType="com.kdt_final.back.mapshare.domain.MapShareResponseDTO">
+        SELECT ms.mapId, ms.mapImgUrl, ms.createdDate, u.userNickname, ms.userId, COALESCE(COUNT(msl.mapLikeId), 0) AS likeCount
+        FROM mapShare ms
+        JOIN user u ON ms.userId = u.userId
+        LEFT JOIN mapShareLike msl ON ms.mapId = msl.mapId
+        WHERE ms.userId = #{userId}
+        GROUP BY ms.mapId, ms.mapImgUrl, ms.createdDate, u.userNickname, ms.userId
+    </select>
 </mapper>

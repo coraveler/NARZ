@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kdt_final.back.mapshare.dao.MapShareMapper;
+import com.kdt_final.back.mapshare.domain.MapLikeRequestDTO;
 import com.kdt_final.back.mapshare.domain.MapShareRequestDTO;
 import com.kdt_final.back.mapshare.domain.MapShareResponseDTO;
 
@@ -64,4 +65,26 @@ public class MapShareService {
             System.out.println("이미지 파일 삭제 실패 또는 파일이 존재하지 않음");
         }
     }
+
+
+    public void addMapLike(MapLikeRequestDTO params){
+        mapShareMapper.addMapLike(params);
+    }
+
+    public boolean checkMapLike(MapLikeRequestDTO params){
+        return mapShareMapper.checkMapLike(params);
+    }
+
+    public void deleteMapLike(MapLikeRequestDTO params){
+        mapShareMapper.deleteMapLike(params);
+    }
+
+    public Integer fetchMapLikeTotal(Integer mapId){
+        return mapShareMapper.fetchMapLikeTotal(mapId);
+    }
+
+    public List<MapShareResponseDTO> fetchSelfMapList(int userId){
+        return mapShareMapper.fetchSelfMapList(userId);
+    }
+
 }
