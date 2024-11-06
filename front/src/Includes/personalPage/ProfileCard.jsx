@@ -55,6 +55,7 @@ function ProfileCard({ selectedBadge, userId }) {
   }
   }
 
+
   useEffect(() => {
     getCountFollower();
     getCountFollowing();

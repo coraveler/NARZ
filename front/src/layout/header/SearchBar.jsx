@@ -2,10 +2,13 @@ import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { getLoginInfo } from "../../Includes/common/CommonUtil";
 
-const SearchBar = ({board, local}) => {
+const SearchBar = ({board, local, userId}) => {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState(""); // 검색어 상태 관리
+  let loginInfo = getLoginInfo();
+  const loginUserId = loginInfo?.userId || null;
 
   const handleInputChange = (e) => {
     setSearchTerm(e.target.value); // 입력값 업데이트
@@ -13,6 +16,8 @@ const SearchBar = ({board, local}) => {
 
   const handleSearch = (e) => {
     e.preventDefault();
+    console.log("ASDASDASDASD"+userId);
+    console.log("ASDASDASDASD"+loginUserId);
     if (searchTerm.trim() !== "") {
         console.log("Searching for:", searchTerm);
         console.log(board + "/" + local);
@@ -20,9 +25,16 @@ const SearchBar = ({board, local}) => {
         const searchParams = new URLSearchParams();
         searchParams.set('searchTerm', searchTerm);
         
-        if (board === 'localboard' || board === 'bookmark') {
+        if (board === 'localboard' || board === 'bookmark' || board ==='follow'  ) {              
+              navigate(`board/${board}/${local}?${searchParams.toString()}`);
+        }else if(board ==='travelog'){  
+          if(loginUserId===userId){
             navigate(`board/${board}/${local}?${searchParams.toString()}`);
-        } else {
+          }else{
+            navigate(`board/${board}/${local}?${searchParams.toString()}`,{state: {travelogId:userId}});
+          }
+        } 
+        else {
             navigate(`board/localboard/all?${searchParams.toString()}`);
         }
         setSearchTerm('');

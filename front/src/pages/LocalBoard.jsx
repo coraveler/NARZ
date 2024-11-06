@@ -133,23 +133,6 @@ function LocalBoard({ onParamsChange, selectedBadge }) {
         }
     };
 
-    // const getBoardPost = async () => {
-    //     try {
-    //         const effectiveUserId = travelogId != null ? travelogId : userId;
-    //         const response = await api.get(`post/get/${board}/${local}`, {
-    //             params: { userId: effectiveUserId } // userId를 params로 전달
-    //         });
-    //         console.log(response.data);
-    //         const filteredPosts = filterPosts(response.data, searchTerm);
-    //         setOriginalPost(filteredPosts);
-    //         updatePostOrder(filteredPosts); // 정렬된 포스트 업데이트
-    //         averageRating(filteredPosts.map(post => post.rating));
-    //     } catch (err) {
-    //         console.log(err);
-    //     }
-    // };
-
-
     useEffect(() => {
         // console.log(userId);
         if (board === "localboard") {
@@ -175,9 +158,9 @@ function LocalBoard({ onParamsChange, selectedBadge }) {
 
     useEffect(() => {
         if (onParamsChange) {
-            onParamsChange(board, local);
+            onParamsChange(board, local,travelogId);
         }
-    }, [board, local, onParamsChange]);
+    }, [board, local,travelogId, onParamsChange]);
 
     useEffect(() => {
         const params = new URLSearchParams(location.search);

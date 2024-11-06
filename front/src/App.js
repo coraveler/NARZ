@@ -35,18 +35,20 @@ function App() {
   const [selectedBadge, setSelectedBadge] = useState('여행 초보자');
   const [board, setBoard] = useState(null);
   const [local, setLocal] = useState(null);
+  const [travelogUserId, setTravelogUserId] = useState(null);
 
   return (
     <BrowserRouter>
-      <TravelHeader board={board} local={local}/>
+      <TravelHeader board={board} local={local} userId={travelogUserId}/>
       <Routes>
         <Route path="/" element={<HomePage/>} />
         <Route path="/calendar" element={<CalendarPage />} />
         <Route path="/board/:board/:local"  element={<LocalBoard 
                                             selectedBadge={selectedBadge}
-                                            onParamsChange={(boardParam, localParam) => {
+                                            onParamsChange={(boardParam, localParam, travelogUserIdParam) => {
                                             setBoard(boardParam);
                                             setLocal(localParam);
+                                            setTravelogUserId(travelogUserIdParam);
                                            }}/>}/>
         <Route path="/SignUpFormPage" element={<SignUpFormPage />} />
         <Route path="/PasswordResetPage" element={<PasswordResetPage />} />
