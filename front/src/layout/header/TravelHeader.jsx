@@ -5,7 +5,7 @@ import NavigationLink from "./NavigationLink";
 import SearchBar from "./SearchBar";
 import UserActions from "./UserActions";
 
-const TravelHeader = ({board, local}) => {
+const TravelHeader = ({board, local, userId}) => {
   const navLinks = [
     { text: "여행노트", href: "/board/localboard/all" },
     { text: "랭킹", href: "/ranking" },
@@ -27,10 +27,10 @@ const TravelHeader = ({board, local}) => {
           </div>
           
           {navLinks.map((link, index) => (
-            <NavigationLink key={index} {...link} />
+            <NavigationLink key={index} {...link} userId={userId}/>
           ))}
         </nav>
-        <SearchBar board={board} local={local}/>
+        <SearchBar board={board} local={local} userId={userId}/>
         <UserActions />
       </div>
     </div>

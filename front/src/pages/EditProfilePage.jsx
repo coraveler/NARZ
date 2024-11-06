@@ -10,6 +10,8 @@ import api from '../api/axios';
 
 
 const EditProfilePage = ({ selectedBadge }) => {
+    let loginInfo = getLoginInfo();
+    const userId = loginInfo?.userId || null;
     
     const navigate = useNavigate();
     // 초기 이미지 URL 저장
@@ -145,7 +147,7 @@ const EditProfilePage = ({ selectedBadge }) => {
     return (
         <div >
             {/* ProfileCard에 selectedBadge 전달 */}
-            <ProfileCard selectedBadge={selectedBadge} />
+            <ProfileCard selectedBadge={selectedBadge} userId={userId}/>
             <main className={styles.mainContainer}>
                 <div className={styles.ImageContainer}>
                     <img src={profileImage} alt="Profile" />

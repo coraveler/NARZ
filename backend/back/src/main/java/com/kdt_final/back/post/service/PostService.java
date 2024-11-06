@@ -213,7 +213,6 @@ public class PostService {
         List<PostResponseDTO> lst ;
         switch (board) {
             case "bookmark":
-                // System.err.println("ASDASDASDASDASDASD");
                 lst = getBookMark(params);
                 break;
             case "travelog":
