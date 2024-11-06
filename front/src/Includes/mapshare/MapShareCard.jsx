@@ -5,7 +5,7 @@ import api from "../../api/axios";
 import '../../css/mapshare/MapShare.css';
 import MapCardInfoModal from "./MapCardInfoModal";
 
-function MapShareCard({img, getMapShareImg}){
+function MapShareCard({img, getMapShareImg, fetchSelfMapShareImg, currentViewMethod, currentViewChange}){
 
     const [mapCardInfoModalStatus, setMapCardInfoModalStatus] = useState(false);
     const [mapLikeStatus, setMapLikeStatus] = useState(false);
@@ -134,7 +134,10 @@ function MapShareCard({img, getMapShareImg}){
                 mapCardInfoModalStatus={mapCardInfoModalStatus}
                 mapCardInfoModalClose={()=>setMapCardInfoModalStatus(false)}
                 getMapShareImg={getMapShareImg}
-                mapLikeTotal={mapLikeTotal}/>
+                mapLikeTotal={mapLikeTotal}
+                fetchSelfMapShareImg={fetchSelfMapShareImg}
+                currentViewMethod={currentViewMethod}
+                currentViewChange={currentViewChange}/>
         </div>
     )
 }

@@ -6,7 +6,10 @@ function MapCardDeleteModal({
     mapCardDeleteModalStatus,
     mapCardDeleteModalClose,
     img,
-    getMapShareImg
+    getMapShareImg,
+    fetchSelfMapShareImg,
+    currentViewMethod,
+    currentViewChange
 }){
 
     // 해당 카드 삭제
@@ -14,7 +17,15 @@ function MapCardDeleteModal({
         try{
             const response = await api.delete(`/api/mapshare?mapId=${img.mapId}&mapImgUrl=${img.mapImgUrl}`)
             response.status==200?alert("삭제가 완료되었습니다"):alert("삭제 중 오류가 발생했습니다. 다시 시도해 주세요.")
-            getMapShareImg();   // 다시 공유 이미지 가져오기
+            if(currentViewMethod=="전체 보기"){
+                getMapShareImg();   // 다시 공유 이미지 가져오기
+            }else if(currentViewMethod=="내가 등록한 지도 보기"){
+                fetchSelfMapShareImg();
+            }else{
+                getMapShareImg();
+                currentViewChange();
+            }
+            
         }catch(e){
             console.log(e);
         }

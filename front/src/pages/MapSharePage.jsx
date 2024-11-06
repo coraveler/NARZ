@@ -146,7 +146,13 @@ function MapSharePage(){
                     <div style={{maxWidth: '1010px'}}>
                         <div style={{display:'flex', flexWrap: 'wrap', gap:'40px'}}>
                             {fetchMapImgs.slice(0, visibleCount).map(img => (
-                                <MapShareCard img={img} key={img.mapId} getMapShareImg={getMapShareImg}/>
+                                <MapShareCard 
+                                    img={img} 
+                                    key={img.mapId} 
+                                    getMapShareImg={getMapShareImg} 
+                                    fetchSelfMapShareImg={fetchSelfMapShareImg}
+                                    currentViewMethod={currentViewMethod}
+                                    currentViewChange={()=>setCurrentViewMethod('전체 보기')}/>
                             ))}
                         </div>
                     </div><br/><br/><br/>

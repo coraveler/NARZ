@@ -10,7 +10,10 @@ function MapCardInfoModal({
     mapCardInfoModalClose,
     img,
     getMapShareImg,
-    mapLikeTotal
+    mapLikeTotal,
+    fetchSelfMapShareImg,
+    currentViewMethod,
+    currentViewChange
 }){
 
     const [mapCardDeleteModalStatus, setMapCardDeleteModalStatus] = useState(false);
@@ -88,7 +91,10 @@ function MapCardInfoModal({
                 mapCardDeleteModalStatus={mapCardDeleteModalStatus}
                 mapCardDeleteModalClose={()=>setMapCardDeleteModalStatus(false)}
                 img={img}
-                getMapShareImg={getMapShareImg}/>
+                getMapShareImg={getMapShareImg}
+                fetchSelfMapShareImg={fetchSelfMapShareImg}
+                currentViewMethod={currentViewMethod}
+                currentViewChange={currentViewChange}/>
         </div>
     )
 }
