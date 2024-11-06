@@ -25,7 +25,7 @@ function LocalBoard({ onParamsChange, selectedBadge }) {
     const [msg, setMsg] = useState("불러올 수 있는 데이터가 없습니다");
     let loginInfo = getLoginInfo();
     const userId = loginInfo?.userId || null;
-    const fullUrl =  window.location.href;
+    const fullUrl = window.location.href;
     const trimmedUrl = fullUrl.replace("http://localhost:3000", "");
 
     const getPost = async () => {
@@ -40,7 +40,7 @@ function LocalBoard({ onParamsChange, selectedBadge }) {
         }
     };
 
-    
+
     const filterPosts = (posts, searchTerm) => {
         const filteredPosts = standardState
             ? posts.filter(post => post.userNickname.includes(searchTerm) || searchTerm === '')
@@ -179,21 +179,24 @@ function LocalBoard({ onParamsChange, selectedBadge }) {
                 <RegionSelector board={board} searchTerm={searchTerm} />
             </div>
             <div>
-                <ReviewSection
-                    ratingAvg={ratingAvg}
-                    kLocal={kLocal}
-                    handleArray={handleArray}
-                    searchTerm={searchTerm}
-                    handleStandard={handleStandard}
-                />
-            </div>
-            <div style={{ width: "100%", display: 'flex', alignItems: 'center' }}>
-                <span style={{ width: "900px", margin: '0px auto', backgroundColor: 'white' }}>
-                    {searchTerm ? `검색어: ${searchTerm}` : ""}
-                </span>
+                <div >
+                    <ReviewSection
+                        ratingAvg={ratingAvg}
+                        kLocal={kLocal}
+                        handleArray={handleArray}
+                        searchTerm={searchTerm}
+                        handleStandard={handleStandard}
+                        board={board}
+                    />
+                </div>
+                <div style={{width: "100%", display: 'flex', alignItems: 'center'}}>
+                    <h4 style={{ width: "900px", margin: '0px auto', fontFamily: 'Ownglyph_ryuttung-Rg' }}>
+                        {searchTerm && `검색어: ${searchTerm}`}
+                    </h4>
+                </div>
             </div>
             <br /><br />
-            <div align="center">
+            <div align="center" >
                 <TravelCardGrid
                     data={post}
                     page={page}
