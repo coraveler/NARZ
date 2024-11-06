@@ -15,7 +15,7 @@ const NavigationLink = ({ text, href }) => {
   const handleActive = () => {
     switch(href){
       case "/board/localboard/all":
-        return location.pathname.includes('/localboard');
+        return location.pathname.includes('/board') && !location.pathname.includes('/board/travelog');
       case "/personal":
         if(location.pathname.includes('/travelog')){
           return location.pathname.includes('/travelog');
