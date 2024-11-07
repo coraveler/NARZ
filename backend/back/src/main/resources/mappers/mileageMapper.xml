@@ -24,4 +24,12 @@
     <select id="getMileageHistoryByUserId" parameterType="int" resultType="com.kdt_final.back.shop.domain.MileageHistory">
         SELECT * FROM mileageHistory WHERE userId = #{userId}
     </select>
+
+     <!-- 마일리지 차감 -->
+    <update id="deductMileage" parameterType="map">
+        UPDATE mileage 
+        SET mileage = mileage - #{points} 
+        WHERE userId = #{userId}
+    </update>
+    
 </mapper>

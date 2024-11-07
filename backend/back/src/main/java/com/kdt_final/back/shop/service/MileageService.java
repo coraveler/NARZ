@@ -3,7 +3,6 @@ package com.kdt_final.back.shop.service;
 import com.kdt_final.back.shop.dao.MileageMapper;
 import com.kdt_final.back.shop.domain.Mileage;
 import com.kdt_final.back.shop.domain.MileageHistory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,7 +11,6 @@ import java.util.List;
 public class MileageService {
     private final MileageMapper mileageMapper;
 
-    @Autowired
     public MileageService(MileageMapper mileageMapper) {
         this.mileageMapper = mileageMapper;
     }

@@ -3,7 +3,6 @@ package com.kdt_final.back.shop.ctrl;
 import com.kdt_final.back.shop.domain.Mileage;
 import com.kdt_final.back.shop.domain.MileageHistory;
 import com.kdt_final.back.shop.service.MileageService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,7 +12,6 @@ import java.util.List;
 public class MileageController {
     private final MileageService mileageService;
 
-    @Autowired
     public MileageController(MileageService mileageService) {
         this.mileageService = mileageService;
     }

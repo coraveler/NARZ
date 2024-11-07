@@ -1,21 +1,41 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from '../../css/Shop/ShopPurchase.module.css';
 import ShopNav from './ShopNav';
 
 const ShopPurchase = () => {
+  const [userId, setUserId] = useState(null);
+
+  const handleLogin = (userId) => {
+    localStorage.setItem("userId", userId);
+    console.log("로그인 후 userId:", localStorage.getItem("userId"));  // 제대로 저장되었는지 확인
+  }
+  
+  useEffect(() => {
+    const storedUserId = localStorage.getItem("userId");
+    if (storedUserId) {
+      setUserId(storedUserId);  // 로그인된 사용자 ID가 있으면 상태에 저장
+    }
+  }, []);
+
   const options = [
     { name: "닉네임 변경", price: 10000 },
     { name: "닉네임 컬러 변경", price: 10000 },
     { name: "프로필 사진 변경", price: 10000 },
-    { name : "포인트 쿠폰 구매", price : 10000}
+    { name: "포인트 쿠폰 구매", price: 10000 }
   ];
 
   const handlePurchase = async (option) => {
-    const userId = '1'; // 더미 사용자 ID
+    console.log("현재 userId:", userId);  // 로그로 확인
+
+    if (!userId) {
+      alert("로그인된 사용자가 없습니다.");
+      return;
+    }
+  
     const mileagePoints = -option.price; // 사용된 포인트는 음수로 설정
     const description = `구매한 옵션: ${option.name}`;
-
+  
     try {
       const response = await fetch('http://localhost:7777/api/mileage/history', {
         method: 'POST',
@@ -28,7 +48,7 @@ const ShopPurchase = () => {
           description: description,
         }),
       });
-
+  
       if (response.ok) {
         alert('구매가 완료되었습니다!');
       } else {
@@ -45,7 +65,7 @@ const ShopPurchase = () => {
       <ShopNav />
       <div className={styles['shop-purchase']}>
         <h3>-----$ 포인트 상점 $-----</h3>
-        <br/>
+        <br />
         <div className={styles['options-container']}>
           {options.map((option, index) => (
             <div key={index} className={styles['option-card']}>
@@ -57,7 +77,6 @@ const ShopPurchase = () => {
         </div>
       </div>
     </div>
-    
   );
 };
 
