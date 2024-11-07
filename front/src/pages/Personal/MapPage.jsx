@@ -69,6 +69,7 @@ function MapPage({ selectedBadge }) {
         }, 'image/png');
     };
 
+
     return (
         <div align="center">
             {/* ProfileCard에 selectedBadge 전달 */}
@@ -78,11 +79,15 @@ function MapPage({ selectedBadge }) {
             <div ref={overlayRef} className={styles.overlayContainer}>
                 <MapOverlay userId={urlUserId!=null ? urlUserId:userId}/>
             </div>
-
-            <button onClick={() => setShareConfirmModalStatus(true)} style={{ marginTop: '20px' }} className={`${styles.shareButton} btn btn-outline-orange`}>
+            
+            {urlUserId 
+            ?''
+            :<button onClick={() => setShareConfirmModalStatus(true)} 
+                style={{ marginTop: '20px' }} 
+                className={`${styles.shareButton} btn btn-outline-orange`}>
                 나의 지도 자랑하기
-            </button>
-
+            </button>}
+            
             {/* 맵 공유 선택 모달 */}
             <MapShareConfirmModal
                 shareConfirmModalStatus={shareConfirmModalStatus}
