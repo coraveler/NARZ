@@ -103,9 +103,11 @@ function MapSharePage() {
                 <br />
                 <div style={{ width: '52%', display: 'flex', justifyContent: 'space-between' }}>
                     <div style={{ textAlign: 'left' }}>
+                        <br/>
                         <h4 className="title">
-                            <TbMapHeart style={{ fontSize: '50px', color: 'orange', marginLeft: '5px', marginBottom: '5px' }} /> 전국 지도 자랑 <TbMapHeart style={{ fontSize: '50px', color: 'orange', marginLeft: '5px', marginBottom: '5px' }} />
+                            <TbMapHeart style={{ fontSize: '50px', color: 'orange', marginLeft: '5px', marginBottom: '5px' }} /> -- 전국 지도 자랑 -- <TbMapHeart style={{ fontSize: '50px', color: 'orange', marginLeft: '5px', marginBottom: '5px' }} />
                         </h4>
+                        <h5 className="subtitle">-내가 채워 넣어놨던 지도를 자랑해주세요-</h5>
                     </div>
                 </div>
 
