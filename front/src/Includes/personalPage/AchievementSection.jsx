@@ -2,11 +2,15 @@ import React, { useState, useEffect } from "react";
 import styles from '../../css/Personal/AchievementSection.module.css';
 
 function AchievementSection({ onBadgeSelect }) {
-  // 페이지가 로드될 때 localStorage에서 선택된 인덱스를 불러옴
+  const defaultBadge = "여행 초보자";
+  
   const [clickedIndex, setClickedIndex] = useState(() => {
     const savedIndex = localStorage.getItem('selectedBadgeIndex');
     return savedIndex !== null ? parseInt(savedIndex, 10) : null;
   });
+
+  // resetButton 클릭 상태를 저장하는 상태 변수
+  const [isResetClicked, setIsResetClicked] = useState(false);
 
   const achievements = [
     { title: "지도 모두 채우기", badge: "전국 일주자" },
@@ -20,17 +24,27 @@ function AchievementSection({ onBadgeSelect }) {
 
   const handleClick = (index, badge) => {
     setClickedIndex(index);
+    setIsResetClicked(false); // 다른 버튼 클릭 시 리셋 버튼 상태 초기화
     onBadgeSelect(badge);
-    // 선택된 인덱스를 localStorage에 저장
     localStorage.setItem('selectedBadgeIndex', index);
     localStorage.setItem('selectedBadge', badge);
   };
 
-  // 페이지가 로드될 때 선택된 칭호를 상위 컴포넌트로 전달
+  const resetToDefaultBadge = () => {
+    setClickedIndex(null);
+    setIsResetClicked(true); // resetButton이 클릭됨을 표시
+    onBadgeSelect(defaultBadge);
+    localStorage.setItem('selectedBadgeIndex', null);
+    localStorage.setItem('selectedBadge', defaultBadge);
+  };
+
   useEffect(() => {
     const savedBadge = localStorage.getItem('selectedBadge');
     if (savedBadge) {
       onBadgeSelect(savedBadge);
+    } else {
+      onBadgeSelect(defaultBadge);
+      localStorage.setItem('selectedBadge', defaultBadge);
     }
   }, [onBadgeSelect]);
 
@@ -51,6 +65,23 @@ function AchievementSection({ onBadgeSelect }) {
           </li>
         ))}
       </ul>
+      <button 
+          className={styles.resetButton} 
+          onClick={resetToDefaultBadge}
+          style={{
+            marginLeft: '93%',
+            backgroundColor: 'white',
+            color: '#FF8A2B',
+            border: 'none',
+            padding: '8px 14px',
+            borderRadius: '8px',
+            fontSize: '12px',
+            outline: '1px solid #FF8A2B',
+            cursor: 'pointer'
+          }}
+        >
+          리셋
+        </button>
     </section>
   );
 }
