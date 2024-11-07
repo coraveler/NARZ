@@ -97,14 +97,21 @@ const PostPage = () => {
             }
         }
     }
-
+    const renderContent = (text) => {
+        return text.split('\n').map((line, index) => (
+          <span key={index}>
+            {line}
+            <br />
+          </span>
+        ));
+      };
 
     return (
         <div>
             <section className={styles.profileContainer}>
                 <br />
-                <h1 className={styles.profileTitle}>{post.title} - <span style={{fontSize:'50px'}}>{post.local}</span></h1>
-                <br /> <br />
+                <h2 className={styles.profileTitle}>{post.title} - {post.local} </h2>
+                <br />
                 <div className={styles.profileInfo}>
                     <ProfileInfo userId={post.userId} />
                     <time className={styles.profileDate}>{post.createdDate}</time>
@@ -121,13 +128,15 @@ const PostPage = () => {
                                                 postImgUrl: postImgUrl
                                             }
                                         })}>
-                                        수정하기 <MdModeEdit />
+                                        {/* 수정하기 */}
+                                         <MdModeEdit />
                                     </button>
 
                                     <button className="btn btn-outline-danger"
                                         style={{ marginLeft: "5px" }}
                                         onClick={postDelete}>
-                                        삭제<RiDeleteBinLine />
+                                        {/* 삭제 */}
+                                        <RiDeleteBinLine />
                                     </button>
                                 </div> : userId!=null &&
                                 <div>
@@ -149,7 +158,7 @@ const PostPage = () => {
                                 {postImgUrl.length > 0 && postImgUrl.map((img, index) => (
                                     <Carousel.Item key={index}>
                                         <div className='slidercontents'>
-                                            <img style={{ width: "600px", height: "400px" }} src={img.imagePath} alt={`Slide ${index + 1}`} />
+                                            <img style={{ width: "500px", height: "350px" }} src={img.imagePath} alt={`Slide ${index + 1}`} />
                                         </div>
                                     </Carousel.Item>
                                 ))}
@@ -188,7 +197,7 @@ const PostPage = () => {
                     </div>
                     <section className={styles.contentSection}>
                         <div className={styles.textContainer}>
-                            {post.content}
+                            {post.content && renderContent(post.content)}
                         </div>
                     </section>
                 </main>
