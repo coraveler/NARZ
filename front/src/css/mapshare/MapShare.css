@@ -21,10 +21,15 @@
 .title {    
     font-family: 'GoryeongStrawberry';
     font-size: 50px;
+    margin-left: 200px;
+    width: fit-content; /* 텍스트 길이에 맞게 너비 조정 */
+}
+.subtitle {    
+    font-family: 'GoryeongStrawberry';
+    font-size: 20px;
     margin-left: 300px;
     width: fit-content; /* 텍스트 길이에 맞게 너비 조정 */
 }
-
 .button{
     font-family: 'insungitCutelivelyjisu';
     color: #f1b95f ;
@@ -82,9 +87,18 @@
 .title-font {
     font-size: 18px; 
     font-weight: bold;    /* 폰트 크기 */
-    font-family: 'HakgyoansimByeolbichhaneulTTF-B', sans-serif;
+    font-family: 'InkLipquid', sans-serif;
     margin-top: 15px;
 }
+
+.deleteButton{
+    background-color: white;
+}
+
+.deleteButton:hover{
+    background-color: white;
+}
+
 
 .like-footer {
     background-color: #f1b95f !important;
