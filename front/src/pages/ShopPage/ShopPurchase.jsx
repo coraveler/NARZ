@@ -7,14 +7,16 @@ const ShopPurchase = () => {
   const [userId, setUserId] = useState(null);
 
   const handleLogin = (userId) => {
-    localStorage.setItem("userId", userId);
-    console.log("로그인 후 userId:", localStorage.getItem("userId"));  // 제대로 저장되었는지 확인
+    const loginInfo = { data: { userId: userId } }; // 예시로 loginInfo를 설정
+    localStorage.setItem("loginInfo", JSON.stringify(loginInfo));
+    console.log("로그인 후 userId:", userId);  // 제대로 저장되었는지 확인
   }
-  
+
   useEffect(() => {
-    const storedUserId = localStorage.getItem("userId");
-    if (storedUserId) {
-      setUserId(storedUserId);  // 로그인된 사용자 ID가 있으면 상태에 저장
+    const storedLoginInfo = localStorage.getItem("loginInfo");
+    if (storedLoginInfo) {
+      const parsedLoginInfo = JSON.parse(storedLoginInfo);
+      setUserId(parsedLoginInfo.data.userId);  // userId를 상태에 설정
     }
   }, []);
 
@@ -32,10 +34,10 @@ const ShopPurchase = () => {
       alert("로그인된 사용자가 없습니다.");
       return;
     }
-  
+
     const mileagePoints = -option.price; // 사용된 포인트는 음수로 설정
     const description = `구매한 옵션: ${option.name}`;
-  
+
     try {
       const response = await fetch('http://localhost:7777/api/mileage/history', {
         method: 'POST',
@@ -43,12 +45,12 @@ const ShopPurchase = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          user_id: userId,
-          mileage_points: mileagePoints,
+          userId: userId,
+          mileagePoints: mileagePoints,
           description: description,
         }),
       });
-  
+
       if (response.ok) {
         alert('구매가 완료되었습니다!');
       } else {
