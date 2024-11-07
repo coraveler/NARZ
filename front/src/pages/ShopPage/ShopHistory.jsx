@@ -12,7 +12,7 @@ function ShopHistory() {
   useEffect(() => {
     async function fetchMileageHistory() {
       try {
-        const userId = '1'; // 더미 사용자 ID
+        const userId = 3; // 더미 사용자 ID
         const response = await fetch(`http://localhost:7777/api/mileage/history/${userId}`, {
           cache: "no-cache" // 캐시 비활성화
         });

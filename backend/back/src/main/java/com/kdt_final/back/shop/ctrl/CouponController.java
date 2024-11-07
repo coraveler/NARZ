@@ -4,7 +4,6 @@ import com.kdt_final.back.shop.domain.CouponRequest;
 import com.kdt_final.back.shop.domain.MileageHistory;
 import com.kdt_final.back.shop.service.CouponService;
 import com.kdt_final.back.shop.service.MileageService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -13,7 +12,6 @@ public class CouponController {
     private final CouponService couponService;
     private final MileageService mileageService;
 
-    @Autowired
     public CouponController(CouponService couponService, MileageService mileageService) {
         this.couponService = couponService;
         this.mileageService = mileageService;
