@@ -18,5 +18,7 @@ public class User {
     private String email;
     private String birthday;
     private String phoneNum;
+    private String userColor;
+    private String userCode;
 
 }

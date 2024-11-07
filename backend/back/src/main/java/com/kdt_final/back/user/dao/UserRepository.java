@@ -17,4 +17,11 @@ public interface UserRepository  {
     public User findByLoginIdAndPassword(String loginId, String password);
     public void updateUser(User user );
     public User getUserInfo(Integer userId);
+    public User findUserByLoginIdAndEmail(String loginId, String email);
+    public void updateCode(String email, String userCode);
+    public List<User> findAllByUserEmail(String email);
+    public User findCodeByLoginId(String loginId, String userCode);
+    public Integer updatePassword(String loginId,String password);
+    public void deleteCode(String loginId);
+
 }

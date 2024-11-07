@@ -35,7 +35,7 @@ public class UserController {
 
 
 
-    //닉네임 중복체크
+//닉네임 중복체크
     @GetMapping("/check/userNickname/{userNickname}")
     public ResponseEntity <Boolean> checkDuplicateUserNickName(@PathVariable("userNickname") String userNickname) {
         System.out.println(userNickname);
@@ -45,7 +45,7 @@ public class UserController {
         return responseEntity;
     }
 
-    //아이디 중복체크
+//아이디 중복체크
     @GetMapping("/check/loginId/{loginId}")
     public ResponseEntity<Boolean> checkDuplicateLoginId(@PathVariable("loginId") String loginId){
         System.out.println(loginId);
@@ -55,7 +55,17 @@ public class UserController {
        return responseEntity;
     }
 
-    //회원가입
+//이메일 중복체크
+    @GetMapping("/check/email/{email}")
+    public ResponseEntity<Boolean> checkDuplicateEmail(@PathVariable("email") String email){
+        System.out.println(email);
+
+        Boolean result=userService.checkDuplicateEmail((email));
+        ResponseEntity<Boolean> responseEntity=ResponseEntity.ok().body(result);
+        return responseEntity;
+    }
+
+//회원가입
     @PostMapping
     public ResponseEntity<Boolean> createUser(@RequestBody UserDTO.UserRequestDTO userDTO) {
         System.out.println("객체확인"+userDTO);
@@ -69,7 +79,7 @@ public class UserController {
 
     }
 
-    //로그인
+//로그인
     @PostMapping("/login")
 
     public ResponseEntity<LoginResponseDTO> logIn(@RequestBody UserDTO.UserRequestDTO userRequestDTO) {
@@ -81,6 +91,20 @@ public class UserController {
 
 
     }
+//회원정보수정
+    @PatchMapping
+
+    public ResponseEntity<UpdateResponseDTO> updateUser(@RequestBody UserDTO.UserRequestDTO userDTO) {
+
+        System.out.println(userDTO);
+
+        UpdateResponseDTO result=userService.updateUser(userDTO);
+        return ResponseEntity.ok()
+                .body(result);
+
+    }
+
+
 
     @GetMapping("/info/{userId}")
     public ResponseEntity<UserDTO.UserResponseDTO> getUserInfo(@PathVariable("userId") Integer userId) {
@@ -88,7 +112,7 @@ public class UserController {
 
         return new ResponseEntity<UserDTO.UserResponseDTO>(result,HttpStatus.OK);
     }
-    
+
     @GetMapping("/profile/{userId}")
     public ResponseEntity<UserDTO.UserResponseDTO> getUserProfile(@PathVariable("userId") Integer userId) {
         UserDTO.UserResponseDTO userResponseDTO = userService.getUserInfo(userId);
@@ -98,6 +122,45 @@ public class UserController {
         }
 
         return ResponseEntity.ok(userResponseDTO);
+    }
+
+//비밀번호재설정 회원확인
+    @PostMapping("/checkUserInfo")
+    public ResponseEntity<Boolean> getPassword(@RequestBody UserDTO.UserRequestDTO userDTO) {
+
+        System.out.println(userDTO);
+        Boolean result=userService.checkUser(userDTO);
+        System.out.println(result);
+        ResponseEntity<Boolean> responseEntity = ResponseEntity.ok()
+                .body(result);
+        return  responseEntity;
+
+
+    }
+//인증코드 확인
+    @PostMapping("/checkUserCode")
+    public ResponseEntity<Boolean> checkUserCode(@RequestBody UserDTO.UserRequestDTO userDTO) {
+
+        System.out.println(userDTO);
+        Boolean result=userService.checkUserCode(userDTO);
+        ResponseEntity<Boolean> responseEntity = ResponseEntity.ok()
+                .body(result);
+        return  responseEntity;
+
+    }
+
+//비밀번호재설정
+
+    @PatchMapping("/updatePassword")
+    public ResponseEntity<UpdateResponseDTO > updatePassword(@RequestBody UserDTO.UserRequestDTO userDTO) {
+        System.out.println(userDTO);
+
+
+        UpdateResponseDTO result=userService.updatePassword(userDTO);
+        return ResponseEntity.ok()
+                .body(result);
+
+
     }
 
 }

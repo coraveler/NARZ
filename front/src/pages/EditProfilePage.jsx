@@ -128,7 +128,7 @@ const EditProfilePage = ({ selectedBadge }) => {
 
        let loginInfo = getLoginInfo();
        if(loginInfo==null){
-        alert("로그인 먼저 해주세요");
+        // alert("로그인 먼저 해주세요");
         navigate('/LoginFormPage');
        }else{
         setName(loginInfo.userName);        
@@ -238,6 +238,10 @@ const EditProfilePage = ({ selectedBadge }) => {
                                 name={"email"}
                                 value={email}
                                 placeholder="Email"
+                                readOnly={isReadOnly}
+                                style={{
+                                    backgroundColor: isReadOnly ? "#e9e6e6f5" : "white"  // readOnly 상태에 따라 배경색 변경
+                                }}
                                 onChange={handleInputChange} // handleInputChange를 직접 호출
                                 />
                                 {errors.email && <span className={styles.ErrorText}>{errors.email}</span>}
