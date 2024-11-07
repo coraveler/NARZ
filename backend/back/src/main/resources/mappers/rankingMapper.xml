@@ -3,7 +3,7 @@
 
 <mapper namespace="com.kdt_final.back.ranking.dao.RankingMapper">
 
-      <!-- 랭킹 추가 -->
+    <!-- 랭킹 추가 (인기 게시글 랭킹) -->
     <insert id="addRanking" parameterType="com.kdt_final.back.ranking.domain.RankingRequestDTO">
         INSERT INTO weeklyranking (author, board, likes, rankingType, weekOf)
         VALUES (#{author}, #{board}, #{likes}, #{rankType}, #{weekOf})
@@ -22,10 +22,9 @@
 
     <!-- 모든 랭킹 가져오기 -->
     <select id="getRankings" resultType="com.kdt_final.back.ranking.domain.RankingResponseDTO">
-        SELECT postId AS id, u.userNickname AS author, title AS board, 0 AS likes
-        FROM post p
-        JOIN user u ON p.userId = u.userId
-        ORDER BY postId
+        SELECT id, author, board, likes, postCount, commentCount, rankingType, weekOf
+        FROM weeklyranking
+        ORDER BY id
     </select>
 
     <!-- 특정 랭킹 삭제 -->
@@ -35,10 +34,9 @@
 
     <!-- 특정 랭킹 정보 가져오기 -->
     <select id="getRankingInfo" parameterType="int" resultType="com.kdt_final.back.ranking.domain.RankingResponseDTO">
-        SELECT postId AS id, u.userNickname AS author, title AS board, 0 AS likes
-        FROM post p
-        JOIN user u ON p.userId = u.userId
-        WHERE postId = #{id}
+        SELECT id, author, board, likes, postCount, commentCount, rankingType, weekOf
+        FROM weeklyranking
+        WHERE id = #{id}
     </select>
 
     <!-- 랭킹 수정 -->
@@ -46,7 +44,9 @@
         UPDATE weeklyranking
         SET author = #{author},
             board = #{board},
-            likes = #{likes}
+            likes = #{likes},
+            postCount = #{postCount},
+            commentCount = #{commentCount}
         WHERE id = #{id}
     </update>
 
@@ -86,7 +86,5 @@
         ORDER BY postCount DESC, commentCount DESC
         LIMIT 3
     </select>
-
-   
 
 </mapper>
