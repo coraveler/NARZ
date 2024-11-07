@@ -141,19 +141,23 @@ function MapSharePage(){
                         ?<button className="btn btn-outline-orange view-btn-choice" style={{width:'80px'}}>랜덤</button>
                         :<button className="btn btn-outline-orange view-btn" style={{width:'80px'}}>랜덤</button>}
                     </div>
-                </div><br/><br/>
+                </div><br/><br/><br/>
                 <div>
                     <div style={{maxWidth: '1010px'}}>
                         <div style={{display:'flex', flexWrap: 'wrap', gap:'40px'}}>
-                            {fetchMapImgs.slice(0, visibleCount).map(img => (
-                                <MapShareCard 
-                                    img={img} 
-                                    key={img.mapId} 
-                                    getMapShareImg={getMapShareImg} 
-                                    fetchSelfMapShareImg={fetchSelfMapShareImg}
-                                    currentViewMethod={currentViewMethod}
-                                    currentViewChange={()=>setCurrentViewMethod('전체 보기')}/>
-                            ))}
+                            
+                            {fetchMapImgs.length == 0
+                                ? <div><br/><h5>아직 등록된 지도가 없어요! 😅</h5></div>
+                                : fetchMapImgs.slice(0, visibleCount).map(img => (
+                                    <MapShareCard 
+                                        img={img} 
+                                        key={img.mapId} 
+                                        getMapShareImg={getMapShareImg} 
+                                        fetchSelfMapShareImg={fetchSelfMapShareImg}
+                                        currentViewMethod={currentViewMethod}
+                                        currentViewChange={()=>setCurrentViewMethod('전체 보기')}/>
+                                ))
+                            }
                         </div>
                     </div><br/><br/><br/>
                     {/* "더 보기" 버튼 */}
