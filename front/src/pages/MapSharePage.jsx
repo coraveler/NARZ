@@ -55,7 +55,16 @@ function MapSharePage(){
 
     // 좋아요순 정렬 함수
     const likeSort = (ary) => {
-        setFetchMapImgs(ary.sort((a,b) => b.likeCount -a.likeCount));
+        setFetchMapImgs(
+            ary.sort((a, b) => {
+                if (b.likeCount === a.likeCount) {
+                    // 좋아요가 같으면, 최신순으로 정렬
+                    return new Date(b.createdDate) - new Date(a.createdDate);
+                }
+                // 좋아요수가 다르면, 좋아요수로 내림차순 정렬
+                return b.likeCount - a.likeCount;
+            })
+        );
     }
 
     // 랜덤 정렬 함수
