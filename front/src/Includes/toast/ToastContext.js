@@ -19,19 +19,19 @@ export const ToastProvider = ({ children }) => {
     // 로그인 토스트 실행
     const showLoginToast = () => {
         setLoginToastStatus(true);
-        setTimeout(() => setLoginToastStatus(false), 5000); // 5초 후 자동으로 닫기
+        setTimeout(() => setLoginToastStatus(false), 3000); // 5초 후 자동으로 닫기
     };
 
     // 로그아웃 토스트 실행
     const showLogoutToast = () => {
         setLogoutToastStatus(true);
-        setTimeout(() => setLogoutToastStatus(false), 5000); // 5초 후 자동으로 닫기
+        setTimeout(() => setLogoutToastStatus(false), 3000); // 5초 후 자동으로 닫기
     }
 
     // 알림 토스트 실행
     const showNotificationToast = () => {
         setNotificationToastStatus(true);
-        setTimeout(()=>setNotificationToastStatus(false), 5000)
+        setTimeout(()=>setNotificationToastStatus(false), 3000)
     }
 
     // 메시지 길이 가져오는 함수

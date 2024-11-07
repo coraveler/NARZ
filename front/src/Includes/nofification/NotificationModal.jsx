@@ -48,11 +48,16 @@ const NotificationModal = forwardRef(({
         const source = new EventSource(`http://localhost:7777/api/sse?userId=${userId}`);
         source.addEventListener("message", (event) => {
             let getSchedules = JSON.parse(event.data);
-            if(getSchedules.length == 0){
-                localStorage.setItem(`todayNotificationMsg-${userId}`, `${new Date().toDateString()}-notificationMsg`)
-            }
             const schedules = getSchedules.filter(sch => new Date(`${sch.startDate}T${sch.startTime}`) > afterOneHours && new Date(sch.startDate) < afterWeek)
             schedules.sort((a,b) => new Date(`${a.startDate}T${a.startTime}`) - new Date(`${b.startDate}T${b.startTime}`))
+
+            // 오늘 일정 유무에 따른 로컬스토리지 데이터 저장(알림 표시를 위함)
+            if(schedules.length != 0){
+                localStorage.setItem(`todayNotificationMsg-${userId}`, `${new Date().toDateString()}-notificationMsg-new`)  
+            } else{
+                localStorage.setItem(`todayNotificationMsg-${userId}`, `${new Date().toDateString()}-notificationMsg`) 
+            }
+            
             showNotificationToast()  // 일정 알림 토스트
             getMsgLength(schedules.length); // 일정 길이
             saveMsgHandler(schedules, userId, userNickname)   // 일정을 메시지화하여 저장하기
@@ -61,7 +66,6 @@ const NotificationModal = forwardRef(({
         source.onerror = () => {
             source.close(); //연결 끊기
         };
-        localStorage.setItem(`todayNotificationMsg-${userId}`, `${new Date().toDateString()}-notificationMsg-new`)    // 로컬스토리지에 이력 저장
     }
 
     // 부모 컴포넌트에서 loginHandler 함수를 호출할 수 있도록 ref를 사용하여 노출합니다.
@@ -79,7 +83,6 @@ const NotificationModal = forwardRef(({
             if(localStorage.getItem(`todayNotificationMsg-${userId}`)){
                 if(localStorage.getItem(`todayNotificationMsg-${userId}`)!=`${new Date().toDateString()}-notificationMsg`){
                     fetchSchedule(userId, userNickname);
-                    localStorage.setItem(`todayNotificationMsg-${userId}`, `${new Date().toDateString()}-notificationMsg-new`)
                 }else{
                     showLoginToast() // 로그인 토스트
                 }
