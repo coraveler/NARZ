@@ -4,13 +4,19 @@
     font-weight: normal;
     font-style: normal;
 }
+@font-face {
+    font-family: 'InkLipquid';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/InkLipquid.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 
 .centeredMap {
     text-align: center;  /* 텍스트 중앙 정렬 */
     margin-top: 50px;    /* 위쪽 여백 */
     font-size: 50px; 
     font-weight: 400;    /* 폰트 크기 */
-    font-family: 'Cafe24Lovingu', sans-serif;
+    font-family: 'InkLipquid', sans-serif;
   }
 
 .writeButtonContainer {
