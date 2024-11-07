@@ -66,7 +66,7 @@ const LoginFormPage = () => {
                   console.debug('response.data',response.data);
             
                   if (response.data.isLogin == false) {
-                    //alert("정보가 일치하지 않습니다.");
+                    alert("정보가 일치하지 않습니다.");
                     
                   }
                   else {

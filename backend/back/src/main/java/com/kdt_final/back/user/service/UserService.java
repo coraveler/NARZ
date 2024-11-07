@@ -37,7 +37,7 @@ public class UserService {
         return userResponseDTOS;
     }
 
-
+//회원가입
     public Boolean creatUser(UserDTO.UserRequestDTO userRequestDTO) {
 
 
@@ -90,7 +90,7 @@ public class UserService {
 
 
     }
-
+//닉네임 중복체크
     public Boolean checkDuplicateUserNickName(String userNickname) {
         List<User> allByUserNickname = userRepository.findAllByUserNickname(userNickname);
 
@@ -100,7 +100,7 @@ public class UserService {
         return false;
 
     }
-
+//아이디 중복체크
     public Boolean checkDuplicateLoginId(String loginId) {
         List<User> allByLoginId = userRepository.findAllByLoginId(loginId);
         if (allByLoginId == null || allByLoginId.isEmpty()) {
@@ -108,8 +108,16 @@ public class UserService {
         }
         return false;
     }
+//이메일 중복체크
+    public Boolean checkDuplicateEmail(String email) {
+        List<User> allByEmail = userRepository.findAllByUserEmail(email);
+        if (allByEmail == null || allByEmail.isEmpty()) {
+            return true;
+        }
+        return false;
+    }
 
-
+//로그인
     public LoginResponseDTO login(UserDTO.UserRequestDTO userRequestDTO) {
 
         String loginId = userRequestDTO.getLoginId();
@@ -141,7 +149,7 @@ public class UserService {
         }
     }
 
-
+//회원정보수정
     public UpdateResponseDTO updateUser(UserDTO.UserRequestDTO userDTO) {
 
         if (!userDTO.getEmail().matches("^[\\w-\\.]+@[\\w-]+\\.[a-zA-Z]{2,}$")) {
@@ -199,5 +207,79 @@ public class UserService {
                 .userNickname(user.getUserNickname())
                 .build();
     }
+
+
+//비빌번호 재설정 아이디/메일로 회원 유무 확인
+    public Boolean checkUser(UserDTO.UserRequestDTO userDTO) {
+
+
+        String loginId = userDTO.getLoginId();
+        String email = userDTO.getEmail();
+        User loginResult = userRepository.findUserByLoginIdAndEmail(loginId, email);
+
+        if ( loginResult==null ) {
+            return false;
+        }
+        else return true;
+    }
+
+//인증코드 확인
+    public Boolean checkUserCode(UserDTO.UserRequestDTO userDTO) {
+        String loginId = userDTO.getLoginId();
+        String userCode = userDTO.getUserCode();
+
+        User user=userRepository.findCodeByLoginId(loginId,userCode);
+
+        if (userCode.equals(user.getUserCode())) {
+            return true;
+        }
+        else return false;
+    }
+
+
+//비밀번호재설정
+    public UpdateResponseDTO updatePassword(UserDTO.UserRequestDTO userDTO) {
+
+        if (!userDTO.getPassword().matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$")) {
+            return UpdateResponseDTO
+                    .builder()
+                    .isUpdate(false)
+                    .build();
+        } else if (!userDTO.getPasswordConfirm().equals(userDTO.getPassword())) {
+            return UpdateResponseDTO
+                    .builder()
+                    .isUpdate(false)
+                    .build();
+        } else {
+
+            String loginId = userDTO.getLoginId();
+            String password = userDTO.getPassword();
+
+
+            Integer updatePwResult = userRepository.updatePassword(loginId, password);
+
+            if (updatePwResult == 1) {
+                deleteCode(loginId);//DB에 저장된 인증코드 삭제
+
+                return UpdateResponseDTO
+                        .builder()
+                        .isUpdate(true)
+                        .build();
+
+            } else return UpdateResponseDTO
+                    .builder()
+                    .isUpdate(false)
+                    .build();
+        }
+
+    }
+
+//DB에 저장된 인증번호 삭제
+        public void deleteCode (String loginId){
+
+            userRepository.deleteCode(loginId);
+
+        }
+
 
 }

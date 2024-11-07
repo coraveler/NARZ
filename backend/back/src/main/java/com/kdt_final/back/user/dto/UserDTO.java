@@ -22,7 +22,8 @@ public class UserDTO {
         public String email;
         public String birthday;
         public String phoneNum;
-
+        public String userColor;
+        public String userCode;
 
     }
 
@@ -40,7 +41,8 @@ public class UserDTO {
         public String email;
         public String birthday;
         public String phoneNum;
-
+        public String userColor;
+        public String userCode;
 
     }
 }

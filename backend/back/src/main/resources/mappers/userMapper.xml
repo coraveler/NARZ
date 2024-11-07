@@ -68,6 +68,65 @@
         WHERE USERID = #{userId}
     </select>
 
+    <select id="findUserByLoginIdAndEmail"
+            resultType="com.kdt_final.back.user.domain.User">
+        SELECT userId, loginId,password, userName, userNickname, email, birthday, phoneNum
+        FROM user
+        where loginId =#{loginId} and email = #{email}
+    </select>
+
+    <update id="updateCode"
+            parameterType="com.kdt_final.back.user.domain.User">
+
+        UPDATE user
+        SET
+
+            userCode =#{userCode}
+
+
+        WHERE email =#{email}
+
+
+    </update>
+
+    <select id="findAllByUserEmail"
+            parameterType="String"
+            resultType="com.kdt_final.back.user.domain.User">
+        SELECT  email
+        FROM user where email =#{email}
+    </select>
+
+    <select id="findCodeByLoginId"
+            parameterType="String"
+            resultType="com.kdt_final.back.user.domain.User">
+        SELECT  userCode
+        FROM user where loginId =#{loginId}
+    </select>
+
+    <update id="updatePassword"
+            parameterType="String">
+
+        UPDATE user
+        SET
+
+            password =#{password}
+
+        WHERE loginId =#{loginId}
+
+
+    </update>
+
+
+    <delete id="deleteCode">
+        UPDATE user
+        SET
+
+        userCode = NULL
+
+
+        WHERE loginId =#{loginId}
+
+    </delete>
 
 
 </mapper>
