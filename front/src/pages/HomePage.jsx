@@ -16,6 +16,7 @@ function HomePage() {
   const userId = loginInfo?.userId || null;
 
   const getBookMarkPost = async () => {
+    
     try {
       const response = await api.get(`post/get/bookmark/all`, {
         params: {

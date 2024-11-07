@@ -24,6 +24,14 @@ const Comment = ({comment, deleteComment}) => {
         }
     }
 }
+const renderContent = (text) => {
+  return text.split('\n').map((line, index) => (
+    <span key={index}>
+      {line}
+      <br />
+    </span>
+  ));
+};
 
   return (
     <section className={styles.commentSection}>
@@ -38,11 +46,13 @@ const Comment = ({comment, deleteComment}) => {
             <span className={styles.commentorName}>vname</span> */}
           <ProfileInfo userId={comment.userId}/>
             {
-              userId == comment.userId && <button className={'btn btn-outline-danger'} style={{marginLeft:'auto'}} onClick={handleDeleteComment}>삭제<RiDeleteBinLine style={{marginBottom:'3px'}}/></button>
+              userId == comment.userId && <button className={'btn btn-outline-danger'} style={{marginLeft:'auto'}} onClick={handleDeleteComment}>
+                {/* 삭제 */}
+                <RiDeleteBinLine style={{marginBottom:'3px'}}/></button>
             }
           
         </div>
-        <p className={styles.commentText}>{comment.comment}</p>
+        <p className={styles.commentText}>{comment.comment &&renderContent(comment.comment) }</p>
         <div className={styles.commentDateWrapper}>
           <time className={styles.commentDate} >
             {comment.createdDate}

@@ -162,7 +162,7 @@ public class PostController {
     }
 
     @GetMapping("/get/{board}/{local}")
-    public ResponseEntity<List<PostResponseDTO>> getBookMark(@RequestParam("userId") Integer userId, @PathVariable("board") String board, @PathVariable("local") String local) {
+    public ResponseEntity<List<PostResponseDTO>> getBoardPost(@RequestParam("userId") Integer userId, @PathVariable("board") String board, @PathVariable("local") String local) {
         System.err.println(userId+", "+board+", "+local);
         PostRequestDTO params = new PostRequestDTO();
         params.setUserId(userId);
@@ -170,4 +170,10 @@ public class PostController {
         List<PostResponseDTO> result = postService.getBoardPost(params, board);  
         return new ResponseEntity<List<PostResponseDTO>>(result,HttpStatus.OK);
     }
+
+    // @GetMapping("/get/{userId}/all")
+    // public ResponseEntity<List<PostResponseDTO>> getPersonalPost(@RequestParam String param) {
+    //     return new String();
+    // }
+    
 }

@@ -28,4 +28,47 @@
         WHERE FOLLOWEDID=#{followedId} AND FOLLOWERID=#{followerId};
     </delete>
 
+    <!-- getFollowers -->
+
+     <select id="getFollowers"
+             parameterType="int"
+             resultType="int">
+        SELECT FOLLOWERID
+        FROM FOLLOWS
+        WHERE FOLLOWEDID=#{userId}
+
+    </select>
+
+    <!-- getFollowings -->
+
+     <select id="getFollowings"
+             parameterType="int"
+             resultType="int">
+        SELECT FOLLOWEDID
+        FROM FOLLOWS
+        WHERE FOLLOWERID=#{userId}
+
+    </select>
+
+    <!-- countFollower -->
+
+     <select id="countFollower"
+             parameterType="int"
+             resultType="int">
+        SELECT COUNT(*)
+        FROM FOLLOWS
+        WHERE FOLLOWEDID=#{userId}
+
+    </select>
+
+    <!-- countFollowing -->
+
+     <select id="countFollowing"
+             parameterType="int"
+             resultType="int">
+        SELECT COUNT(*)
+        FROM FOLLOWS
+        WHERE FOLLOWERID=#{userId}
+
+    </select>
 </mapper>

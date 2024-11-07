@@ -4,7 +4,6 @@ import com.kdt_final.back.shop.dao.CouponMapper;
 import com.kdt_final.back.shop.dao.MileageMapper;
 import com.kdt_final.back.shop.domain.CouponRequest;
 import com.kdt_final.back.shop.domain.Mileage;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -12,7 +11,6 @@ public class CouponService {
     private final CouponMapper couponMapper;
     private final MileageMapper mileageMapper;
 
-    @Autowired
     public CouponService(CouponMapper couponMapper, MileageMapper mileageMapper) {
         this.couponMapper = couponMapper;
         this.mileageMapper = mileageMapper;
