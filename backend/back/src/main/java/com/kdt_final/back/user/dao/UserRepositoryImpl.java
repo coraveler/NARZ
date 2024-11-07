@@ -60,4 +60,34 @@ public class UserRepositoryImpl implements UserRepository {
 
     }
 
+    @Override
+    public User findUserByLoginIdAndEmail(String loginId, String email) {
+        return userMapper.findUserByLoginIdAndEmail(loginId, email);
+    }
+    @Override
+    public void updateCode(String email, String userCode) {
+        userMapper.updateCode(email, userCode);
+    }
+
+    @Override
+    public List<User> findAllByUserEmail(String email) {
+        return userMapper.findAllByUserEmail(email);
+    }
+
+    @Override
+    public User findCodeByLoginId(String loginId, String userCode) {
+        return userMapper.findCodeByLoginId(loginId,userCode);
+    }
+
+    @Override
+    public Integer updatePassword(String loginId, String password) {
+        return  userMapper.updatePassword(loginId, password);
+    }
+
+    @Override
+    public void deleteCode(String loginId) {
+        userMapper.deleteCode(loginId);
+    }
+
+
 }

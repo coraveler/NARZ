@@ -10,10 +10,11 @@ function SignUpFormPage({ ...props }) {
   const formFields = [
     { label: "Nickname", type: "text", hasButton: true, key: "userNickname" },
     { label: "ID", type: "text", hasButton: true, key: "loginId" },
+    { label: "Email", type: "email", hasButton: true, key: "email" },
     { label: "Password", type: "password", key: "password" },
     { label: "Confirm Password", type: "password", key: "passwordConfirm" },
     { label: "Name", type: "text", key: "userName" },
-    { label: "Email", type: "email", key: "email" },
+   
     { label: "Phone", type: "tel", key: "phoneNum" }
   ];
 
@@ -21,16 +22,18 @@ function SignUpFormPage({ ...props }) {
   const [formData, setFormData] = useState({
     userNickname: "",
     loginId: "",
+    email: "",
     password: "",
     passwordConfirm: "",
     userName: "",
-    email: "",
+   
     phoneNum: ""
   });
 
 //중복확인 여부를 저장
   const [isIdChecked, setIsIdChecked] = useState(false);
   const [isNicknameChecked, setIsNicknameChecked] = useState(false);
+  const [isEmailChecked, setIsEmailChecked] = useState(false);
 
   // 오류 메시지를 저장
   const [errors, setErrors] = useState({});
@@ -77,8 +80,8 @@ function SignUpFormPage({ ...props }) {
   // 폼 제출 핸들러
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!isIdChecked || !isNicknameChecked) {
-      alert("아이디와 닉네임 중복확인을 완료해주세요.");
+    if (!isIdChecked || !isNicknameChecked || !isEmailChecked) {
+      alert("아이디와 닉네임, 이메일 중복확인을 완료해주세요.");
       return;
     }
 
@@ -121,30 +124,42 @@ function SignUpFormPage({ ...props }) {
                   placeholder="Value"
                   disabled={
                     (field.key === "password" || field.key === "passwordConfirm" || 
-                     field.key === "userName" || field.key === "email" || field.key === "phoneNum") &&
-                    (!isIdChecked || !isNicknameChecked)
+                     field.key === "userName" ||  field.key === "phoneNum") &&
+                    (!isIdChecked || !isNicknameChecked|| !isEmailChecked)
                   }
                 />
                 {errors[field.key] && <span className={styles.Error}>{errors[field.key]}</span>}
                 {field.hasButton && (
-                  <button
+                    <button
                     onClick={async (event) => {
                       event.preventDefault();
-
+                
                       let url = "";
-
-                      if (field.key === "userNickname") {
-                        url = `user/check/userNickname/${formData.userNickname}`;
-                      } else if (field.key === "loginId") {
-                        url = `user/check/loginId/${formData.loginId}`;
+                      let key = field.key;
+                
+                      // 중복확인 요청 전에 유효성 검사 수행
+                      const validationError = validateInput(key, formData[key]);
+                      if (validationError) {
+                       
+                        return; // 유효하지 않으면 중복 확인 요청을 보내지 않음
                       }
-
+                
+                      // 유효성 검사 통과 시 URL 설정
+                      if (key === "userNickname") {
+                        url = `user/check/userNickname/${formData.userNickname}`;
+                      } else if (key === "loginId") {
+                        url = `user/check/loginId/${formData.loginId}`;
+                      } else if (key === "email") {
+                        url = `user/check/email/${formData.email}`;
+                      }
+                
                       try {
                         const response = await api.get(url);
                         if (response.data === true) {
                           alert("사용가능합니다.");
-                          if (field.key === "userNickname") setIsNicknameChecked(true);
-                          else if (field.key === "loginId") setIsIdChecked(true);
+                          if (key === "userNickname") setIsNicknameChecked(true);
+                          else if (key === "loginId") setIsIdChecked(true);
+                          else if (key === "email") setIsEmailChecked(true); 
                         } else {
                           alert("중복입니다.");
                         }
