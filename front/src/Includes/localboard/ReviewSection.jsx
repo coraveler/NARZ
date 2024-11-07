@@ -81,6 +81,12 @@ const ReviewSection = ({ ratingAvg, kLocal, handleArray, handleStandard, searchT
 
   const [selectedOption, setSelectedOption] = useState('최신순'); // 초기값 설정
 
+  useEffect(() => {
+    // arrayButtonState에 따라 selectedOption 업데이트
+    const options = ['최신순', '인기순', '평점순'];
+    setSelectedOption(options[arrayButtonState]);
+  }, [arrayButtonState]);
+
   const handleSelect = (option) => {
     setSelectedOption(option.text); // 선택된 옵션의 텍스트로 상태 업데이트
     option.action(); // 선택된 옵션의 액션 호출
