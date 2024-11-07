@@ -183,7 +183,7 @@ function FormSection({post, postImgUrl}) {
         placeholder="지역을 선택하세요"
         required
         options={["수도권","충북", "충남", "전북", "전남", "경남", "경북", "제주", "강원", "대전"]}
-        value={local}
+        value={post? post.local:local}
         onChange={handleLocalChange}
       />
       { 
