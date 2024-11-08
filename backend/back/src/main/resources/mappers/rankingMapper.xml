@@ -3,15 +3,26 @@
 
 <mapper namespace="com.kdt_final.back.ranking.dao.RankingMapper">
 
-    <!-- 랭킹 추가 -->
+      <!-- 랭킹 추가 -->
     <insert id="addRanking" parameterType="com.kdt_final.back.ranking.domain.RankingRequestDTO">
-        INSERT INTO weeklyranking (author, board, likes)
-        VALUES (#{author}, #{board}, #{likes})
+        INSERT INTO weeklyranking (author, board, likes, rankingType, weekOf)
+        VALUES (#{author}, #{board}, #{likes}, #{rankType}, #{weekOf})
+    </insert>
+
+    <!-- 주간 랭킹 초기화 -->
+    <delete id="clearWeeklyRanking">
+        DELETE FROM weeklyranking;
+    </delete>
+
+    <!-- 유저 활동 랭킹 추가 -->
+    <insert id="addRankingUserActivity" parameterType="com.kdt_final.back.ranking.domain.RankingRequestDTO">
+        INSERT INTO weeklyranking (author, postCount, commentCount, rankingType, weekOf)
+        VALUES (#{author}, #{postCount}, #{commentCount}, #{rankType}, #{weekOf})
     </insert>
 
     <!-- 모든 랭킹 가져오기 -->
     <select id="getRankings" resultType="com.kdt_final.back.ranking.domain.RankingResponseDTO">
-        SELECT postId AS id, u.loginId AS author, title AS board, 0 AS likes
+        SELECT postId AS id, u.userNickname AS author, title AS board, 0 AS likes
         FROM post p
         JOIN user u ON p.userId = u.userId
         ORDER BY postId
@@ -24,7 +35,7 @@
 
     <!-- 특정 랭킹 정보 가져오기 -->
     <select id="getRankingInfo" parameterType="int" resultType="com.kdt_final.back.ranking.domain.RankingResponseDTO">
-        SELECT postId AS id, u.loginId AS author, title AS board, 0 AS likes
+        SELECT postId AS id, u.userNickname AS author, title AS board, 0 AS likes
         FROM post p
         JOIN user u ON p.userId = u.userId
         WHERE postId = #{id}
@@ -41,7 +52,7 @@
 
     <!-- 인기 게시글 랭킹 가져오기 -->
     <select id="getPopularPostRankings" resultType="com.kdt_final.back.ranking.domain.RankingResponseDTO">
-        SELECT p.postId AS id, u.loginId AS author, p.title AS board, COUNT(pl.likeNo) AS likes
+        SELECT p.postId AS id, u.userNickname AS author, p.title AS board, COUNT(pl.likeNo) AS likes
         FROM post p
         LEFT JOIN postLike pl ON p.postId = pl.postId
         JOIN user u ON p.userId = u.userId
@@ -52,7 +63,7 @@
 
     <!-- 유저 활동 랭킹 가져오기 -->
     <select id="getUserActivityRankings" resultType="com.kdt_final.back.ranking.domain.RankingResponseDTO">
-        SELECT u.loginId AS author,
+        SELECT u.userNickname AS author,
                COUNT(DISTINCT p.postId) AS postCount, 
                COALESCE(SUM(CASE WHEN c.commentId IS NOT NULL THEN 1 ELSE 0 END), 0) AS commentCount
         FROM user u
@@ -65,7 +76,7 @@
 
     <!-- 명예의 전당 가져오기 (유저 활동 랭킹 1,2,3위) -->
     <select id="getHallOfFame" resultType="com.kdt_final.back.ranking.domain.RankingResponseDTO">
-        SELECT u.loginId AS author,
+        SELECT u.userNickname AS author,
                COUNT(DISTINCT p.postId) AS postCount, 
                COALESCE(SUM(CASE WHEN c.commentId IS NOT NULL THEN 1 ELSE 0 END), 0) AS commentCount
         FROM user u
@@ -76,9 +87,6 @@
         LIMIT 3
     </select>
 
-    <!-- 주간 랭킹 초기화 -->
-    <delete id="clearWeeklyRanking">
-        DELETE FROM weeklyranking;
-    </delete>
+   
 
 </mapper>
