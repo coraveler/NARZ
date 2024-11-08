@@ -18,6 +18,13 @@ html, body {
     font-weight: normal;
     font-style: normal;
 }
+
+@font-face {
+  font-family: 'RixXladywatermelonR';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-4@1.0/RixXladywatermelonR.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
 .profileContainer {
     /* max-width: none !important; */
     display: flex;
@@ -205,6 +212,7 @@ html, body {
 }
 
 .textContainer {
+    font-family: 'RixXladywatermelonR';
     width: 600px; /* 고정 너비 설정 */
     max-width: calc(100% - 60px); /* 최대 너비 설정 (좌우 공백을 고려) */
     text-align: left; /* 텍스트 왼쪽 정렬 */

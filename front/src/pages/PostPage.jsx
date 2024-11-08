@@ -110,8 +110,9 @@ const PostPage = () => {
         <div className={styles.full}>
             <br/>
             <section className={styles.profileContainer}>
-                <h1 className={styles.profileTitle}>{post.title}  </h1> 
-                <h1 className={styles.subTitle}> {post.local} </h1>
+                <br/>
+                <h1 className={styles.profileTitle}> {post.local} </h1>
+                <h1 className={styles.subTitle}>{post.title}  </h1> 
                 <br />
                 <div className={styles.profileInfo}>
                     <ProfileInfo userId={post.userId} />
