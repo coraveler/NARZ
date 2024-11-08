@@ -2,8 +2,7 @@ import axios from "axios";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 
 import { BiSolidMessageDetail } from "react-icons/bi";
-import { FcDataBackup } from "react-icons/fc";
-import { LuAlarmCheck } from "react-icons/lu";
+import { FcAlarmClock, FcDataBackup } from "react-icons/fc";
 import ReactModal from "react-modal";
 import { useToast } from "../toast/ToastContext";
 import NotificationList from "./NotificationList";
@@ -175,7 +174,7 @@ const NotificationModal = forwardRef(({
                     {todayAry.length > 0 && (
                         <>
                             <div style={{marginLeft:'5px', marginBottom:'3px', fontWeight:'600', marginTop:'5px', display:'flex', alignItems:'center'}}>
-                                <LuAlarmCheck style={{fontSize:'18px', color:'rgba(204, 153, 255, 0.9)', marginRight:'2px'}}/> 오늘
+                                <FcAlarmClock style={{fontSize:'16px', color:'rgba(204, 153, 255, 0.9)', marginRight:'2px'}}/> 오늘
                             </div>
                             {todayAry.map((msg) => (
                                 <div style={{ marginBottom: '8px', borderRadius:'18px', backgroundColor:'rgba(211, 211, 211, 0.2)'}} key={msg.msgId}>
