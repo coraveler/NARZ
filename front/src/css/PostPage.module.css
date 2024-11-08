@@ -5,9 +5,21 @@ html, body {
   overflow-x: hidden; /* 수평 스크롤바 숨기기 */
 }
 
+@font-face {
+  font-family: 'UhBeeSe_hyun';
+  src: url('https://gcore.jsdelivr.net/gh/projectnoonnu/noonfonts_five@.2.0/UhBeeSe_hyun.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'insungitCutelivelyjisu';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/insungitCutelivelyjisu.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
 .profileContainer {
     /* max-width: none !important; */
-    background-color: #fff;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -20,6 +32,10 @@ html, body {
     overflow: hidden; 
   }
   
+  .full{
+    margin: 0 500px; 
+
+  }
   @media (max-width: 991px) {
     .profileContainer {
       padding: 0 20px;
@@ -27,16 +43,21 @@ html, body {
   }
   
   .profileTitle {
-    text-align: left;
-    background-color: #fff;
+    font-family: 'insungitCutelivelyjisu';
+    text-align: center;
     height: 50px;
     width: 100%;
     max-width: 1366px;
-    font-size: 50px;
+    font-size: 20px;
     font-weight: 700;
     /* white-space: nowrap; */
     line-height: 1;
     margin-left: 15px;
+  }
+
+  .subTitle{
+    font-family: 'insungitCutelivelyjisu';
+    font-size: 50px;
   }
   
   @media (max-width: 991px) {
@@ -97,7 +118,7 @@ html, body {
     margin: auto 0;
     padding: 20px 0px;
   }
-  
+
   @media (max-width: 991px) {
     .productImage {
       max-width: 100%;
