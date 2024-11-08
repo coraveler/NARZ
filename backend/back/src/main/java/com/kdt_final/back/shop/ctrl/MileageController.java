@@ -3,6 +3,8 @@ package com.kdt_final.back.shop.ctrl;
 import com.kdt_final.back.shop.domain.Mileage;
 import com.kdt_final.back.shop.domain.MileageHistory;
 import com.kdt_final.back.shop.service.MileageService;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,4 +38,10 @@ public class MileageController {
         return mileageService.getMileageHistory(userId);
     }
 
+    @GetMapping("/total/{userId}")
+    public ResponseEntity<Integer> getTotalMileage(@PathVariable int userId) {
+        int totalMileage = mileageService.getTotalMileage(userId);
+        return ResponseEntity.ok(totalMileage);
+    }
+    
 }
