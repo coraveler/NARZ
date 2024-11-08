@@ -25,11 +25,20 @@
         SELECT * FROM mileageHistory WHERE userId = #{userId}
     </select>
 
-     <!-- 마일리지 차감 -->
+    <!-- 마일리지 차감 -->
     <update id="deductMileage" parameterType="map">
-        UPDATE mileage 
-        SET mileage = mileage - #{points} 
-        WHERE userId = #{userId}
+    UPDATE mileage 
+    SET mileage = mileage - #{points} 
+    WHERE userId = #{userId} AND mileage >= #{points}
     </update>
-    
+
+    <!-- 마일리지 총액 -->
+    <select id="getTotalMileage" parameterType="int" resultType="int">
+    SELECT IFNULL(SUM(mileagePoints), 0) 
+    FROM mileageHistory 
+    WHERE userId = #{userId}
+    </select>
+
+
+
 </mapper>

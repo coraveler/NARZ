@@ -12,6 +12,9 @@ public interface MileageMapper {
     void insertMileage(Mileage mileage);     // 마일리지 추가
     void insertMileageHistory(MileageHistory mileageHistory); // 마일리지 내역 추가
 
+    // 사용자별 총 마일리지 계산 메서드
+    int getTotalMileage(int userId);
+
     // MileageHistory 관련 메서드
     List<MileageHistory> getMileageHistoryByUserId(int userId); // 사용자 ID에 따른 마일리지 내역 조회
 
