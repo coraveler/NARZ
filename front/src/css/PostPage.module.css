@@ -144,7 +144,6 @@ html, body {
     flex-wrap: wrap;
     padding: 20px 0px;
     border-top: 1px solid lightgray; /* 위쪽 테두리 */
-    border-bottom: 1px solid lightgray; /* 아래쪽 테두리 */
     
   }
   
@@ -177,6 +176,7 @@ html, body {
   min-width: 100%; /* 최소 너비를 100%로 설정 */
   min-height: 30px; /* 높이 설정 */
   gap: 10px; /* 아이콘 사이의 간격 */
+  font-size: 22px;
 }
 
 
