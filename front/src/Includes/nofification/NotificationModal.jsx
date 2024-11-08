@@ -1,9 +1,13 @@
 import axios from "axios";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 
+import { BiSolidMessageDetail } from "react-icons/bi";
+import { FcAlarmClock, FcDataBackup } from "react-icons/fc";
 import ReactModal from "react-modal";
 import { useToast } from "../toast/ToastContext";
 import NotificationList from "./NotificationList";
+
+
 
 const NotificationModal = forwardRef(({
     notificationModalStatus,
@@ -157,7 +161,8 @@ const NotificationModal = forwardRef(({
                         width: '500px'}}}>
 
                 <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', margin:'auto 10px auto 10px'}}>
-                    <h3 style={{fontWeight:'bold'}}>알림</h3>
+                    
+                    <h3 style={{fontWeight:'bold'}}><BiSolidMessageDetail style={{fontSize:'30px', color:'rgba(255, 180, 0, 0.9)'}}/> 알림</h3>
                     <div>
                         <button className="btn-close"
                                 style={{fontSize:'25px', marginBottom:'25px'}}
@@ -168,9 +173,11 @@ const NotificationModal = forwardRef(({
                 ?<div style={{maxHeight:'600px', overflowY:'auto', padding:'0px 5px'}}>
                     {todayAry.length > 0 && (
                         <>
-                            <div style={{marginLeft:'10px', marginBottom:'2px'}}>오늘</div>
+                            <div style={{marginLeft:'5px', marginBottom:'3px', fontWeight:'600', marginTop:'5px', display:'flex', alignItems:'center'}}>
+                                <FcAlarmClock style={{fontSize:'16px', color:'rgba(204, 153, 255, 0.9)', marginRight:'2px'}}/> 오늘
+                            </div>
                             {todayAry.map((msg) => (
-                                <div style={{ marginBottom: '8px' }} key={msg.msgId}>
+                                <div style={{ marginBottom: '8px', borderRadius:'18px', backgroundColor:'rgba(211, 211, 211, 0.2)'}} key={msg.msgId}>
                                     <NotificationList index={msg.msgId} deleteMessage={deleteMessage} msg={msg} msgId={msg.msgId} />
                                 </div>
                             ))}
@@ -178,9 +185,11 @@ const NotificationModal = forwardRef(({
                     )}
                     {previousDayAry.length > 0 && (
                         <>
-                            <div style={{marginLeft:'10px', marginBottom:'2px', marginTop:'20px'}}>지난 알림</div>
+                            <div style={{marginLeft:'5px', marginBottom:'3px', marginTop:'25px', fontWeight:'600', display:'flex', alignItems:'center'}}>
+                                <FcDataBackup style={{fontSize:'20px', marginRight:'3px'}}/> 지난 알림
+                            </div>
                             {previousDayAry.map((msg) => (
-                                <div style={{ marginBottom: '8px' }} key={msg.msgId}>
+                                <div style={{ marginBottom: '8px', color:'gray' }} key={msg.msgId}>
                                     <NotificationList index={msg.msgId} deleteMessage={deleteMessage} msg={msg} msgId={msg.msgId} />
                                 </div>
                             ))}

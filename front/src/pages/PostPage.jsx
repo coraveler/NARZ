@@ -107,10 +107,12 @@ const PostPage = () => {
       };
 
     return (
-        <div>
+        <div className={styles.full}>
+            <br/>
             <section className={styles.profileContainer}>
-                <br />
-                <h2 className={styles.profileTitle}>{post.title} - {post.local} </h2>
+                <br/>
+                <h1 className={styles.profileTitle}> {post.local} </h1>
+                <h1 className={styles.subTitle}>{post.title}  </h1> 
                 <br />
                 <div className={styles.profileInfo}>
                     <ProfileInfo userId={post.userId} />
@@ -208,8 +210,9 @@ const PostPage = () => {
 
 
             </div>
-
+            <br/>   
             <CommentList postId={postId} userId={userId} />
+            <br/>
         </div>
     );
 };

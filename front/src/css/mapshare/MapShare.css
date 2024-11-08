@@ -1,3 +1,75 @@
+@font-face {
+    font-family: 'InkLipquid';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/InkLipquid.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'insungitCutelivelyjisu';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/insungitCutelivelyjisu.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'GoryeongStrawberry';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/GoryeongStrawberry.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+.title {    
+    font-family: 'GoryeongStrawberry';
+    font-size: 50px;
+    margin-left: 200px;
+    width: fit-content; /* 텍스트 길이에 맞게 너비 조정 */
+}
+.subtitle {    
+    font-family: 'GoryeongStrawberry';
+    font-size: 20px;
+    margin-left: 300px;
+    width: fit-content; /* 텍스트 길이에 맞게 너비 조정 */
+}
+.button{
+    font-family: 'insungitCutelivelyjisu';
+    color: #f1b95f ;
+    background-color: white;
+    border: 1px solid rgb(243, 192, 97);
+}
+.button:active {
+    background-color: #f1b95f; /* 클릭 시 배경색 변경 */
+    color: white; /* 클릭 시 글자색 변경 */
+    border-color: #f1b95f; /* 클릭 시 테두리 색 변경 */
+}
+
+/* 선택된 상태 유지 */
+.button.selected {
+    background-color: #f1b95f;
+    color: white;
+    border-color: #f1b95f;
+}
+
+.select-wrapper {
+    display: flex;
+    justify-content: flex-end; /* 오른쪽 정렬 */
+}
+
+.select-container {
+    margin-left: 700px;
+}
+
+.custom-select {
+    width: 100px;
+    border-radius: 8px;
+    padding: 10px;
+    margin-top: 30%;
+    color: #1f1f1f;
+    border-color: #f1b95f; /* 클릭 시 테두리 색 변경 */
+    font-family: 'insungitCutelivelyjisu';
+
+}
+
+
 .map-share-card{
     border-radius: 30px;
     box-shadow: 6px 6px 12px rgba(220, 161, 78, 0.3);
@@ -10,12 +82,7 @@
     transform: scale(1.04); /* 약간 확대: 1.05배 */
 }
 
-@font-face {
-    font-family: 'InkLipquid';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/InkLipquid.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
+
 
 .title-font {
     font-size: 18px; 
@@ -23,6 +90,15 @@
     font-family: 'InkLipquid', sans-serif;
     margin-top: 15px;
 }
+
+.deleteButton{
+    background-color: white;
+}
+
+.deleteButton:hover{
+    background-color: white;
+}
+
 
 .like-footer {
     background-color: #f1b95f !important;
@@ -61,23 +137,4 @@
     font-size: 18px; 
     font-weight: bold;    /* 폰트 크기 */
     font-family: 'InkLipquid', sans-serif;
-}
-
-.view-btn{
-    border-radius: 20px;
-    font-weight: bold;
-    border: 2px solid rgb(243, 192, 97);
-    height: 50px;
-    width: 120px;
-    color: orange;
-}
-
-.view-btn-choice{
-    border-radius: 20px;
-    font-weight: bold;
-    border: 2px solid rgb(243, 192, 97);
-    height: 50px;
-    width: 120px;
-    color: white;
-    background-color: orange;
 }

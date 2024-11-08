@@ -3,7 +3,7 @@ import { FaHeart } from "react-icons/fa";
 import { LuPen } from "react-icons/lu";
 import ReactModal from "react-modal";
 import MapCardDeleteModal from "./MapCardDeleteModal";
-
+import { FaTrashAlt } from "react-icons/fa";
 
 function MapCardInfoModal({
     mapCardInfoModalStatus,
@@ -63,27 +63,35 @@ function MapCardInfoModal({
                     </div>
 
                     <div style={{position: 'relative'}}>
-                        <img src={`http://localhost:7777/api/uploads/images/mapshare/${img.mapImgUrl}`} alt="맵 이미지" style={{width:'250px', height:'500px', marginTop:'5px'}}/>
-                        {localStorage.getItem("loginInfo") && JSON.parse(localStorage.getItem("loginInfo")).data.userId==img.userId
-                        ? <button 
-                            className="btn btn-outline-dark" 
-                            style={{width:'90px', height:'38px', position: 'absolute', right:'10px', bottom:'0'}}
-                            onClick={()=>setMapCardDeleteModalStatus(true)}
-                        >삭제
-                        </button>
-                        :''}
-                        
+                        <img src={`http://localhost:7777/api/uploads/images/mapshare/${img.mapImgUrl}`} alt="맵 이미지" style={{width:'250px', height:'500px', marginTop:'5px'}}/>    
                     </div><br/><br/>
 
                 
-                    <div style={{display:'flex', justifyContent:'center'}}>
-                        <div style={{marginRight:'20px', display:'flex', alignItems:'center'}}><LuPen style={{color:'orange'}}/><span style={{color:''}}>&nbsp;작성자:&nbsp;</span><span style={{fontWeight:'bold'}}>{img.userNickname}</span></div>
-                        <div style={{display:'flex', alignItems:'center'}}><FaHeart style={{color:'red'}}/><span style={{color:''}}>&nbsp;좋아요:&nbsp;</span><span style={{fontWeight:'bold'}}>{mapLikeTotal}</span></div>
-                    </div><br/>
+                    <div style={{ display: 'flex', justifyContent: 'center', position: 'relative' }}>
+                    <div style={{ marginRight: '20px', display: 'flex', alignItems: 'center' }}>
+                        <LuPen style={{ color: 'orange' }} />
+                        <span>&nbsp;작성자:&nbsp;</span>
+                        <span style={{ fontWeight: 'bold' }}>{img.userNickname}</span>
+                    </div>
                     
-                    
-                   
-
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        <FaHeart style={{ color: 'red' }} />
+                        <span>&nbsp;좋아요:&nbsp;</span>
+                        <span style={{ fontWeight: 'bold' }}>{mapLikeTotal}</span>
+                        
+                        {/* 삭제 버튼을 좋아요 옆에 배치 */}
+                        {localStorage.getItem("loginInfo") && JSON.parse(localStorage.getItem("loginInfo")).data.userId === img.userId && (
+                            <button
+                                className="deletebutton"
+                                style={{ width: '50px', height: '38px', outline: 'none', border: 'none',  backgroundColor: 'white' }}
+                                onClick={() => setMapCardDeleteModalStatus(true)}
+                            >
+                                <FaTrashAlt />
+                            </button>
+                        )}
+                    </div>
+                </div>
+                <br />
                 </div>
             </ReactModal>
 
