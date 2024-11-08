@@ -1,9 +1,13 @@
   .travelWritePage {
     margin: 0 auto; /* 가운데 정렬 */
     padding: 10px; /* 좌우와 상하에 여백 추가 */
-    max-width: 1300px; /* 페이지의 최대 너비를 900px로 설정 */
+    max-width: 1000px; /* 페이지의 최대 너비를 900px로 설정 */
     
-    border-radius: 8px; /* 모서리를 둥글게 설정 */
+    border-radius: 40px; /* 모서리를 둥글게 설정 */
+
+   border: 3px solid gray;
+   margin-top: 2%;
+   margin-bottom: 2%;
   }
   
   @media (max-width: 768px) {
