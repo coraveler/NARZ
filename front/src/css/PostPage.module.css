@@ -33,7 +33,7 @@ html, body {
   }
   
   .full{
-    margin: 0 500px; 
+    margin: 0 20%; 
 
   }
   @media (max-width: 991px) {
