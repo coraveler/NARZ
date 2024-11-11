@@ -42,7 +42,7 @@ const ProfileInfo = ({ rank, userId }) => {
         alt="Profile"
       />
       </div>
-      <p className={styles.profileRank}>{rank}</p>&nbsp;
+      <p className={styles.profileRank}>{rank}</p>
       <p className={styles.profileName}>
         {userInfo?.userNickname || ''}
       </p>
