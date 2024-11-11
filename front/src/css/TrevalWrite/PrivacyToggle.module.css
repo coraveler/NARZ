@@ -3,6 +3,9 @@
   align-items: center;
   margin-top: 20px;
   padding: 20px 0;
+  position: absolute;
+  top: -130px;
+  right: 50px;
 }
 
 .label {

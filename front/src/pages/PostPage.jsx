@@ -5,17 +5,16 @@ import { Carousel } from 'react-bootstrap';
 import { FaStar } from "react-icons/fa";
 // import { FaBookmark, FaRegBookmark } from "react-icons/fa6";
 import { MdModeEdit } from "react-icons/md";
-import { useNavigate, useParams } from 'react-router-dom';
-import api from '../api/axios';
-import styles from '../css/PostPage.module.css';
+import { RiDeleteBinLine } from "react-icons/ri";
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import CommentList from '../Includes/comment/CommentList';
 import BookMark from '../Includes/common/BookMark';
 import { getLoginInfo } from "../Includes/common/CommonUtil";
+import FollowButton from '../Includes/common/FollowButton';
 import LikeIcon from '../Includes/common/LikeIcon';
 import ProfileInfo from '../Includes/common/ProfileInfo';
-import { useLocation } from 'react-router-dom';
-import { RiDeleteBinLine } from "react-icons/ri";
-import CommentList from '../Includes/comment/CommentList';
-import FollowButton from '../Includes/common/FollowButton';
+import api from '../api/axios';
+import styles from '../css/PostPage.module.css';
 
 const PostPage = () => {
     const navigate = useNavigate();
@@ -107,10 +106,12 @@ const PostPage = () => {
       };
 
     return (
-        <div>
+        <div className={styles.full}>
+            <br/>
             <section className={styles.profileContainer}>
-                <br />
-                <h2 className={styles.profileTitle}>{post.title} - {post.local} </h2>
+                <br/>
+                <h1 className={styles.profileTitle}> {post.local} </h1>
+                <h1 className={styles.subTitle}>{post.title}  </h1> 
                 <br />
                 <div className={styles.profileInfo}>
                     <ProfileInfo userId={post.userId} />
@@ -165,7 +166,7 @@ const PostPage = () => {
                             </Carousel>
                         )}
                     </section>
-                    <section className={styles.ratingSection}>
+                    <section className={styles.ratingSection} >
                         <div className={styles.ratingBar}>
 
                             {/* <div onClick={clickLike} style={{ cursor: 'pointer' }}>
@@ -177,7 +178,7 @@ const PostPage = () => {
                                 </div> */}
 
                             <LikeIcon postId={postId} userId={userId} />
-                            <FaStar style={{ color: "#FFD700" }} />  &nbsp;{post.rating}
+                            <FaStar style={{ color: "#FFD700", marginRight:'3px' }} /> {post.rating}
 
                             {/* <div onClick={clickBookMark} style={{ cursor: 'pointer', marginLeft:'350px'}}>
                                     {
@@ -208,8 +209,9 @@ const PostPage = () => {
 
 
             </div>
-
+            <br/>   
             <CommentList postId={postId} userId={userId} />
+            <br/>
         </div>
     );
 };

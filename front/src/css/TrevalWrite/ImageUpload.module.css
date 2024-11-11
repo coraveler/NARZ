@@ -1,7 +1,8 @@
 .imageUpload {
   display: flex;
   flex-direction: column; /* 세로 배치 */
-  margin-top: 20px;
+  margin-top: 10px;
+  margin-bottom: 40px;
 }
 
 .label {
@@ -21,7 +22,7 @@
   display: flex; /* 아이콘과 텍스트를 가로로 배치 */
   align-items: center;
   border-radius: 8px;
-  background-color: #f3f3f3;
+  background-color: #ffffff;
   padding: 4px 8px; /* 패딩 감소로 버튼 크기 조정 */
   font: inherit;
   border: 1px solid #FF8A2B;
@@ -30,6 +31,11 @@
   font-size: 17px; /* 글씨 크기를 줄여서 작은 버튼 만들기 */
   width: 100px; /* 버튼의 가로 크기 조정 */
   justify-content: center; /* 텍스트를 가운데 정렬 */
+}
+
+.uploadButton:hover{
+  background-color: #FF8A2B;
+  color: white;
 }
 
 .fileInput {

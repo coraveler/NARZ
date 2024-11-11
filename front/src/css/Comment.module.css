@@ -1,8 +1,9 @@
 .commentSection {
   display: flex;
   justify-content: center; /* 댓글 전체 중앙 정렬 */
-  padding: 10px 20px; /* 상하 및 좌우 공백 */
+  padding: 0px 20px; /* 상하 및 좌우 공백 */
   background-color: transparent; /* 배경색 없음 */
+  
 }
 
 .commentContent {

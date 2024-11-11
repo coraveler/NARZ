@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
-import TitleSection from "../Includes/FormComponents/TitleSection";
-import FormSection from "../Includes/FormComponents/FormSection";
-import styles from "../css/TrevalWrite/TravelWritePage.module.css";
+import React from "react";
 import { useLocation } from 'react-router-dom';
+import FormSection from "../Includes/FormComponents/FormSection";
+import TitleSection from "../Includes/FormComponents/TitleSection";
+import styles from "../css/TrevalWrite/TravelWritePage.module.css";
 
 function TravelWritePage() {
   const location = useLocation();
@@ -11,7 +11,7 @@ function TravelWritePage() {
   
   return (
     <div className={styles.travelWritePage}>
-      <TitleSection post={post}/>
+      <TitleSection post={post}/><hr/>
       <FormSection post={post} postImgUrl={postImgUrl}/>
       <br/>
     </div>

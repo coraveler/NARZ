@@ -1,12 +1,12 @@
-import React, {useEffect,useState} from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"; // 페이지 이동을 위한 useNavigate 훅
+import { getLoginInfo } from "../../Includes/common/CommonUtil";
 import api from '../../api/axios';
 import styles from '../../css/TrevalWrite/FormSection.module.css';
 import FormField from "./FormField";
 import ImageUpload from "./ImageUpload";
 import PrivacyToggle from "./PrivacyToggle";
 import RatingField from "./RatingField";
-import { getLoginInfo } from "../../Includes/common/CommonUtil";
 
 function FormSection({post, postImgUrl}) {
   const navigate = useNavigate(); // 페이지 이동을 위한 useNavigate 훅
@@ -176,7 +176,7 @@ function FormSection({post, postImgUrl}) {
       <p className={styles.requiredFieldNote}>
         <span className={styles.requiredStar}>*</span> 은 필수입니다.
       </p>
-      <FormField label="제목" type="text" required placeholder="제목을 입력하세요." value={title} onChange={handleTitleChange}/>
+      
       <FormField
         label="지역"
         type="select"
@@ -186,21 +186,24 @@ function FormSection({post, postImgUrl}) {
         value={post? post.local:local}
         onChange={handleLocalChange}
       />
+      <FormField label="제목" type="text" required placeholder="제목을 입력하세요." value={title} onChange={handleTitleChange}/>
+      <FormField label="내용" type="textarea" required value={content} onChange={handleContentChange}/>
       { 
         post != null ? 
         <div>
           <RatingField onChange={handleRatingChange} postRating={post.rating}/>
           <ImageUpload onChange={handleImageUpload} postImgUrl={existingImages}/>
+          
           <PrivacyToggle onChange={handleSecretChange} secret={post.secret}/> 
         </div>:
         <div>
-            <RatingField onChange={handleRatingChange} />
-            <ImageUpload onChange={handleImageUpload}/>
-            <PrivacyToggle onChange={handleSecretChange} />
+          <RatingField onChange={handleRatingChange} />
+          <ImageUpload onChange={handleImageUpload}/>
+          
+          <PrivacyToggle onChange={handleSecretChange} />
         </div>
       }
-      
-      <FormField label="내용" type="textarea" required value={content} onChange={handleContentChange}/>
+      <hr/>
       <div className={styles.formActions}>
         {
           post!=null ? <button type="submit" className={styles.submitButton}>글 수정</button> :

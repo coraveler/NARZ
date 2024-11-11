@@ -43,6 +43,6 @@ public class CommentController {
     public void deleteComment(@PathVariable("commentId") Integer commentId){
         commentService.deleteComment(commentId);  
     }
-    
+
 
 }
