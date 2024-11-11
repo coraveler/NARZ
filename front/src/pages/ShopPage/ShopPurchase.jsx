@@ -24,7 +24,7 @@ const ShopPurchase = () => {
     { name: "닉네임 변경", price: 10000 },
     { name: "닉네임 컬러 변경", price: 10000 },
     { name: "프로필 사진 변경", price: 10000 },
-    { name: "포인트 쿠폰 구매", price: 10000 }
+    { name: "싸이버거 구매", price: 10000 }
   ];
 
   const handlePurchase = async (option) => {
@@ -72,7 +72,7 @@ const ShopPurchase = () => {
           {options.map((option, index) => (
             <div key={index} className={styles['option-card']}>
               <h4>{option.name}</h4>
-              <p>가격: {option.price}M</p>
+              <p>가격: {option.price}P</p>
               <button className={styles['purchase-button']} onClick={() => handlePurchase(option)}>구매</button>
             </div>
           ))}

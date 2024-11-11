@@ -12,61 +12,66 @@ import axios from "axios";
 // UserActions 컴포넌트
 const UserActions = ({ isLoggedIn }) => {
   const [totalMileage, setTotalMileage] = useState(null); // 상태 선언: totalMileage와 setTotalMileage 추가
+  const [isLoading, setIsLoading] = useState(true); // 로딩 상태 추가
   const isMac = () => navigator.platform.toLowerCase().includes("mac");
   const navigate = useNavigate(); // 페이지 이동을 위한 useNavigate 사용
   const [notificationModalStatus, setNotificationModalStatus] = useState(false); // 알림 모달 상태 관리
   const [newNotificationStatus, setNewNotificationStatus] = useState(false); // 새로운 알림 상태
   const ProfileIconComponent = isMac() ? StyledCgProfileMac : StyledCgProfile; //Mac인 경우와 아닌 경우의 프로필 아이콘 컴포넌트 설정
 
-  // 포인트 조회 기능
-  useEffect(() => {
-    const fetchMileage = async () => {
-      try {
-        // 로컬 스토리지에서 직접 로그인 정보 확인
-        const loginInfoStr = localStorage.getItem("loginInfo");
-        console.log("로그인 정보:", loginInfoStr); // 로그인 정보 출력
+  // 마일리지 조회 함수 정의
+  const fetchMileage = async () => {
+    try {
+      if (localStorage.getItem("loginInfo")) {
+        const item = localStorage.getItem("loginInfo");
+        const parseItem = JSON.parse(item);
+        const userId = parseItem.data.userId;
 
-        if (!loginInfoStr) {
-          console.error("로그인 정보가 없습니다.");
-          return;
-        }
+        console.log("마일리지 조회 시도:", userId); // 디버깅 로그
 
-        const loginInfo = JSON.parse(loginInfoStr);
-        const userId = loginInfo.data.userId;
-        console.log("현재 userId:", userId); // userId 출력
+        const response = await axios.get(
+          `http://localhost:7777/api/mileage/total/${userId}`
+        );
+        console.log("마일리지 응답:", response.data); // 디버깅 로그
 
-        // API 호출 전 URL 로그
-        const url = `http://localhost:7777/api/mileage/total/${userId}`;
-        console.log("API URL:", url);
-
-        const response = await axios.get(url);
-        console.log("API 응답 전체:", response); // 전체 응답 객체 출력
-        console.log("API 응답 데이터:", response.data); // 응답 데이터만 출력
-
-        // 응답 구조 체크
-        if (
-          response.data &&
-          (typeof response.data.totalMileage === "number" ||
-            typeof response.data === "number")
-        ) {
-          const mileage =
-            typeof response.data.totalMileage === "number"
-              ? response.data.totalMileage
-              : response.data;
-          console.log("설정할 마일리지 값:", mileage); // 설정할 마일리지 값 출력
-          setTotalMileage(mileage);
+        if (response.data && response.data !== undefined) {
+          setTotalMileage(response.data);
+          setIsLoading(false);
         } else {
-          console.error("예상치 못한 응답 구조:", response.data);
-          setTotalMileage(0);
+          console.error("마일리지 데이터 형식이 잘못됨:", response.data);
+          setIsLoading(false);
+          setTotalMileage(0); // 기본값 설정
         }
-      } catch (error) {
-        console.error("마일리지 조회 중 오류 발생:", error);
-        console.error("오류 상세:", error.response); // 오류 응답 상세 출력
-        setTotalMileage(0);
+      } else {
+        setIsLoading(false);
+        setTotalMileage(0); // 로그인 정보 없을 때 기본값
+        console.log("로그인 정보 없음");
       }
+    } catch (error) {
+      console.error("마일리지 조회 실패:", error);
+      setIsLoading(false);
+      setTotalMileage(0); // 에러 시 기본값
+    }
+  };
+
+  // 초기 마일리지 조회
+  useEffect(() => {
+    fetchMileage();
+  }, []);
+
+  // 실시간 마일리지 업데이트 처리
+  useEffect(() => {
+    const handlePointUpdate = () => {
+      fetchMileage();
     };
 
-    fetchMileage();
+    window.addEventListener("pointsUpdated", handlePointUpdate);
+    const intervalId = setInterval(fetchMileage, 10000);
+
+    return () => {
+      window.removeEventListener("pointsUpdated", handlePointUpdate);
+      clearInterval(intervalId);
+    };
   }, []);
 
   // 새로운 알림 상태 확인
@@ -129,12 +134,13 @@ const UserActions = ({ isLoggedIn }) => {
             <BsCoin />
           </MileageIcon>
           <PointsDisplay>
-            {totalMileage !== null ? (
-              <>
-                {totalMileage} <span style={{ fontSize: "10px" }}>Points</span>
-              </>
-            ) : (
+            {isLoading ? (
               "로딩 중..."
+            ) : (
+              <>
+                {totalMileage?.toLocaleString()}{" "}
+                <span style={{ fontSize: "10px" }}>Points</span>
+              </>
             )}
           </PointsDisplay>
         </Container>
