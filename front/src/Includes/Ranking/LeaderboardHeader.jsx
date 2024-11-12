@@ -1,6 +1,6 @@
 import React from 'react';
-import "../../css/ranking/LeaderboardHeader.css";
 import { FaMedal } from "react-icons/fa";
+import "../../css/ranking/LeaderboardHeader.css";
 
 const LeaderboardHeader = ({ activeRank }) => {
   return (
@@ -23,8 +23,8 @@ const LeaderboardHeader = ({ activeRank }) => {
       )}
       {activeRank === "명예의 전당" && (
         <>
-          <div className="header-cell"><FaMedal /> 순위</div>
-          <div className="header-cell">작성자</div>
+          {/* <div className="header-cell"><FaMedal /> 순위</div>
+          <div className="header-cell">작성자</div> */}
         </>
       )}
     </div>

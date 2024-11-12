@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import styles from '../../css/ProfileInfo.module.css';
-import api from '../../api/axios';
 import { useNavigate } from 'react-router-dom';
+import api from '../../api/axios';
+import styles from '../../css/ProfileInfo.module.css';
 
 const ProfileInfo = ({ rank, userId }) => {
   const navigate = useNavigate();

@@ -12,6 +12,7 @@
     letter-spacing: -0.39px;
     font: 400 17px Inter,'GoryeongStrawberry';
     padding: 16px;
+    align-items: center;
   }
   
   .row-wrapper:nth-child(even) {

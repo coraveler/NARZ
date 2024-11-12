@@ -1,10 +1,10 @@
-import React from 'react';
-import styles from '../../css/Comment.module.css';
-import ProfileInfo from '../common/ProfileInfo';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import React from 'react';
+import { RiDeleteBinLine } from "react-icons/ri";
 import { getLoginInfo } from "../../Includes/common/CommonUtil";
 import api from '../../api/axios';
-import { RiDeleteBinLine } from "react-icons/ri";
+import styles from '../../css/Comment.module.css';
+import ProfileInfo from '../common/ProfileInfo';
 
 const Comment = ({comment, deleteComment}) => {
 
