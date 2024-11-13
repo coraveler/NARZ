@@ -9,7 +9,7 @@ import styles from '../css/EditProfilePage.module.css';
 import ColorChangeModal from "./Personal/ColorChangeModal";
 
 
-const EditProfilePage = ({ selectedBadge }) => {
+const EditProfilePage = ({ selectedBadge, nc }) => {
     let loginInfo = getLoginInfo();
     const userId = loginInfo?.userId || null;
     
@@ -147,9 +147,6 @@ const EditProfilePage = ({ selectedBadge }) => {
         setIsReadOnly(true);
         fetchNicknameColor();
        }
-       
-
-
     },[])
 
     const changeNicknameColor = async() => {
@@ -184,6 +181,17 @@ const EditProfilePage = ({ selectedBadge }) => {
         }
     }
     
+
+
+        const chatLogout = async () => {
+        try {
+            await nc.disconnect();
+            console.log("채팅 로그아웃 성공");
+        }
+        catch(e){
+            console.error("채팅 로그아웃 실패:", e);
+        }
+    }
 
     return (
         <div >
@@ -388,6 +396,7 @@ const EditProfilePage = ({ selectedBadge }) => {
                     <button onClick={() => navigate('/personal')} className={styles.FullButton}>취소</button>
                     <button onClick={() => {       
                         localStorage.removeItem('loginInfo');
+                        chatLogout();
                         // alert("로그아웃 되었습니다.");                 
                         navigate('/');
                         showLogoutToast();  // 로그아웃 토스트 실행

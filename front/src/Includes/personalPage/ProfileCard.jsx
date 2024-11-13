@@ -5,8 +5,9 @@ import api from '../../api/axios';
 import styles from '../../css/ProfileCard.module.css';
 import FollowButton from '../common/FollowButton';
 import ProfileInfo from '../common/ProfileInfo';
+import SendMessageIcon from '../../layout/nChat/ChatIcons/SendMessageIcon';
 
-function ProfileCard({ selectedBadge, userId, profileInfoRef }) {
+function ProfileCard({ selectedBadge, userId, profileInfoRef, openChatWindow, nc }) {
   let loginInfo = getLoginInfo();
   const loginUserId = loginInfo?.userId || null;
   const navigate = useNavigate();
@@ -136,7 +137,10 @@ function ProfileCard({ selectedBadge, userId, profileInfoRef }) {
 
       {
         loginUserId != userId &&
+        <>
         <FollowButton followedId={userId}/>
+        <SendMessageIcon openChatWindow={openChatWindow} userId={userId} nc={nc}/>
+        </>
       }
 
     </section>

@@ -118,6 +118,7 @@ public class UserController {
     @GetMapping("/info/{userId}")
     public ResponseEntity<UserDTO.UserResponseDTO> getUserInfo(@PathVariable("userId") Integer userId) {
         UserDTO.UserResponseDTO result = userService.getUserInfo(userId);
+        System.out.println(result);
 
         return new ResponseEntity<UserDTO.UserResponseDTO>(result,HttpStatus.OK);
     }
