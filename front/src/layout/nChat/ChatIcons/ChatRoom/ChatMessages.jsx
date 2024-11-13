@@ -24,6 +24,7 @@ const ChatMessages = ({ messages, loginId, nc }) => {
     };
 
     useEffect(() => {
+        console.log(messages);
         if (messages) {
             messages.forEach((message, index) => {
                 if (message.node && message.node.sender) {

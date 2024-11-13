@@ -2,12 +2,12 @@ import React, { useRef, useEffect, useState } from "react";
 import { AiOutlineSend } from "react-icons/ai";
 import ChatMessages from "./ChatMessages";
 
-const ChatRoomContent = ({ loginId, recipientId, nc, messages, channel }) => {
+const ChatRoomContent = ({ loginId, recipientId, nc, channel }) => {
   const messagesEndRef = useRef(null);
   const [message, setMessage] = useState("");
   const [channalId, setChannalId] = useState("");
   const [updateMessage, setUpdateMessage] = useState([]);
-  const [friendState, setFriendState] = useState(false);
+  const [friendState, setFriendState] = useState(null);
 
   // 채팅 내용이 갱신될 때 자동으로 스크롤을 맨 아래로 내리기 위한 함수
   const scrollToBottom = () => {
@@ -16,11 +16,11 @@ const ChatRoomContent = ({ loginId, recipientId, nc, messages, channel }) => {
 
   // 컴포넌트가 마운트되거나 메시지가 업데이트 될 때마다 자동으로 스크롤 내리기
   useEffect(() => {
-    console.log(messages);
+    // console.log(messages);
     scrollToBottom();
     console.log(recipientId);
-    setUpdateMessage(messages);
-  }, [messages]); // 채팅 메시지가 바뀔 때마다 호출되도록 할 수도 있음
+    // setUpdateMessage(messages);
+  }, [channel]); // 채팅 메시지가 바뀔 때마다 호출되도록 할 수도 있음
 
 
   const handleMessage = (e) => {
@@ -64,6 +64,26 @@ const ChatRoomContent = ({ loginId, recipientId, nc, messages, channel }) => {
     }
   }
 
+  // const sendMessage = async (channelId) => {
+  //   try {
+  //     console.log("Sending message:", message);
+
+  //     const response = await nc.sendMessage(channelId, {
+  //       type: "text",
+  //       message: message,
+  //     });
+
+  //     if (response) {
+  //       console.log("Message sent successfully:", response);
+  //       setMessage(""); // 입력창 초기화
+  //       // await getMessages(channelId);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error sending message:", error);
+  //   }
+
+  // };
+
   const sendMessage = async (channelId) => {
     try {
       console.log("Sending message:", message);
@@ -75,19 +95,46 @@ const ChatRoomContent = ({ loginId, recipientId, nc, messages, channel }) => {
 
       if (response) {
         console.log("Message sent successfully:", response);
+
+        // 기존 messages에 새 메시지 추가하여 실시간 반영
+        setUpdateMessage((prevMessages) => [
+          ...prevMessages,
+          { node: response },
+        ]);
+
         setMessage(""); // 입력창 초기화
-        // await getMessages(channelId);
       }
     } catch (error) {
       console.error("Error sending message:", error);
     }
-
   };
+
+  // 초기 로드 시 모든 메시지를 가져오기
+  const getMessages = async (channelId) => {
+    const filter = { channel_id: channelId };
+    const sort = { created_at: 1 };
+    const option = { offset: 0, per_page: 100 };
+    try {
+      const response = await nc.getMessages(filter, sort, option);
+      setUpdateMessage(response.edges); // 메시지 초기 로드
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // 최초 로딩 시 getMessages 호출
+  useEffect(() => {
+    if (channel) {
+      getMessages(channel.id);
+    }
+  }, [channalId]);
 
   const requestFriend = async () => {
     try {
       const response = await nc.requestFriend(recipientId);
       console.log(response);
+      setFriendState("requested");
     } catch (error) {
       console.error(error);
     }
@@ -95,15 +142,13 @@ const ChatRoomContent = ({ loginId, recipientId, nc, messages, channel }) => {
 
   const getFriendships = async () => {
     console.log(recipientId);
-    const filter = { status: "accepted", user_id: loginId, friend_id: recipientId}; // pending: 대기 중
+    const filter = { user_id: loginId, friend_id: recipientId }; // pending: 대기 중
     const sort = { created_at: -1 };
     const option = { offset: 0, limit: 100 };
     try {
       const friends = await nc.getFriendships(filter, sort, option);
-      console.log(friends);
-      if(friends.totalCount > 0) {
-        setFriendState(true);
-      }
+      console.log(friends.edges[0].node.status);
+      setFriendState(friends.edges[0].node.status);
     } catch (error) {
       console.error(error);
     }
@@ -111,27 +156,25 @@ const ChatRoomContent = ({ loginId, recipientId, nc, messages, channel }) => {
 
   useEffect(() => {
     getFriendships();
-  },[loginId, recipientId])
+  }, [loginId, recipientId])
 
-  // const getMessages = async (channelId) => {
-  //   const filter = { channel_id: channelId };
-  //   const sort = { created_at: -1 };
-  //   const option = { offset: 0, per_page: 100 };
-  //   try {
-  //     const response = await nc.getMessages(filter, sort, option);
-  //     setUpdateMessage(response.edges);
-  //     console.log(response);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
-
-  const acceptFriend = async() => {
+  const acceptFriend = async () => {
     console.log(recipientId);
-    try{
+    try {
       const response = await nc.acceptFriend(recipientId);
       console.log(response);
-    }catch(error){
+      setFriendState("accepted");
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  const rejectFriend = async () => {
+    console.log(recipientId);
+    try {
+      const response = await nc.rejectFriend(recipientId);
+      console.log(response);
+      setFriendState("rejected");
+    } catch (error) {
       console.error(error);
     }
   }
@@ -142,24 +185,26 @@ const ChatRoomContent = ({ loginId, recipientId, nc, messages, channel }) => {
     }
   }, [updateMessage]);
 
+ 
+  
 
   const clickSendBtn = async () => {
+    
     let channelId = channalId;
-
-    if(!friendState){
+    if (friendState == null) {
       if (!channelId) {
         channelId = await createChannal();
         setChannalId(channelId);  // 새로 생성한 채널 ID 상태 업데이트
       }
-  
-      if (channelId ) {
+
+      if (channelId) {
         await subscribeChannel(channelId);
-        // await getMessages(channelId);  // 메시지 가져오기가 완료될 때까지 대기
         await requestFriend();
       }
-      // setFriendState(false);
-    }else{
+    } else {
       sendMessage(channel.id);
+      console.log(channel);
+      console.log(updateMessage);
     }
   };
 
@@ -176,7 +221,7 @@ const ChatRoomContent = ({ loginId, recipientId, nc, messages, channel }) => {
         }}
       >
         {/* Mock messages here; replace with real messages */}
-        <ChatMessages messages={updateMessage && updateMessage} loginId={loginId} nc={nc} />
+        <ChatMessages messages={updateMessage} loginId={loginId} nc={nc} />
 
 
         {/* 스크롤을 아래로 내리기 위한 ref */}
@@ -186,19 +231,9 @@ const ChatRoomContent = ({ loginId, recipientId, nc, messages, channel }) => {
 
       {/* 채팅 입력 및 전송 버튼 */}
       {
-        (messages?.length === 1) && !friendState ?
-        
-          channel?.last_message.sender.id === loginId ? (
-            <div>상대방이 친구요청을 수락하면 채팅이 가능합니다.</div>
-          ) : 
-          <div>
-            <button onClick={acceptFriend}>수락</button>
-            <button>거절</button>
-          </div>
-        
-          
-
-          : <div
+        friendState === "accepted" || friendState == null ? (
+          // 친구 관계가 수락된 경우 채팅 입력창 표시
+          <div
             style={{
               display: "flex",
               alignItems: "center",
@@ -206,9 +241,9 @@ const ChatRoomContent = ({ loginId, recipientId, nc, messages, channel }) => {
               backgroundColor: "#fff",
               borderTop: "1px solid #ddd",
               position: 'absolute',
-              bottom: 0,  // 하단에 고정되도록
-              flexShrink: 0, // 축소되지 않도록
-              zIndex: 10, // 다른 요소들 위로 올라오게
+              bottom: 0,
+              flexShrink: 0,
+              zIndex: 10,
               width: '100%'
             }}
           >
@@ -224,6 +259,11 @@ const ChatRoomContent = ({ loginId, recipientId, nc, messages, channel }) => {
               }}
               value={message}
               onChange={handleMessage}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  clickSendBtn();
+                }
+              }}
             />
             <button
               style={{
@@ -236,10 +276,30 @@ const ChatRoomContent = ({ loginId, recipientId, nc, messages, channel }) => {
               }}
               onClick={clickSendBtn}
             >
-
               <AiOutlineSend size={20} />
             </button>
-          </div>}
+          </div>
+
+        ) : friendState === "requested" || friendState === "pending" ? (
+
+          channel?.last_message.sender.id === loginId ?
+            <div>상대방이 친구요청을 수락하면 채팅이 가능합니다.</div>
+            :
+            // 친구 요청이 수락되지 않은 경우, 수락/거절 버튼 표시
+            <div align="center">
+              <span>친구 신청이 왔습니다.</span>
+              <br />
+              <button onClick={acceptFriend}>수락</button>
+              <button onClick={rejectFriend}>거절</button>
+            </div>
+        ) :
+          channel?.last_message.sender.id === loginId ?
+            <div>상대방이 친구요청을 수락하면 채팅이 가능합니다.</div> :
+            <div>친구신청을 거절했습니다.</div>
+
+
+
+      }
     </div>
   );
 };

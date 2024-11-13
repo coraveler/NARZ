@@ -166,6 +166,7 @@ public class UserService {
         } else {
             User user = new User();
 
+            user.setUserId(userDTO.getUserId());
             user.setLoginId(userDTO.getLoginId());
             user.setUserName(userDTO.getUserName());
             user.setPassword(userDTO.getPassword());
@@ -173,7 +174,6 @@ public class UserService {
             user.setUserNickname(userDTO.getUserNickname());
             user.setPhoneNum(userDTO.getPhoneNum());
             user.setBirthday(userDTO.getBirthday());
-
 
             userRepository.updateUser(user);
 

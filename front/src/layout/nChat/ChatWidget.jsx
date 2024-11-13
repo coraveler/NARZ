@@ -37,6 +37,21 @@ const ChatWidget = ({ nc, loginId, recipientId, projectId, apiKey, isChatOpen, t
     }
   }
 
+  // const markRead = async () => {
+   
+  //   try {
+  //     nc.markRead(channelId, {
+  //       user_id: message.sender.id,
+  //       message_id: message.message_id,
+  //       sort_id: message.sort_id
+  //     });
+  //     const unread = await nc.unreadCount([CHANNEL_ID]);
+  //   } catch (error) {
+
+  //   }
+  // }
+
+
   useEffect(() => {
     if (channel) {
       console.log(channel);
@@ -87,7 +102,7 @@ const ChatWidget = ({ nc, loginId, recipientId, projectId, apiKey, isChatOpen, t
       {isChatOpen && (
         <div className={styles.chatWindow} >
           <div className={styles.chatBody}>
-            {activeTab === "friends" && <ChatFriends loginId={loginId} projectId={projectId} apiKey={apiKey} nc={nc}/>}
+            {activeTab === "friends" && <ChatFriends loginId={loginId} projectId={projectId} apiKey={apiKey} nc={nc} />}
             {activeTab === "chatContent" && (
               <ChatChating
                 recipientId={channel ? null : recipientId}
