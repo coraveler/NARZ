@@ -19,54 +19,43 @@ const UserActions = ({ isLoggedIn }) => {
   const [newNotificationStatus, setNewNotificationStatus] = useState(false); // 새로운 알림 상태
   const ProfileIconComponent = isMac() ? StyledCgProfileMac : StyledCgProfile; //Mac인 경우와 아닌 경우의 프로필 아이콘 컴포넌트 설정
 
+  useEffect(() => {
+    const storedLoginInfo = localStorage.getItem("loginInfo");
+    if (storedLoginInfo) {
+      const { userId } = JSON.parse(storedLoginInfo).data;
+      fetchMileage(userId);
+    } else {
+      setIsLoading(false);
+      setTotalMileage(0);
+    }
+  }, []);
+
   // 마일리지 조회 함수 정의
-  const fetchMileage = async () => {
+  const fetchMileage = async (userId) => {
     try {
-      if (localStorage.getItem("loginInfo")) {
-        const item = localStorage.getItem("loginInfo");
-        const parseItem = JSON.parse(item);
-        const userId = parseItem.data.userId;
-
-        console.log("마일리지 조회 시도:", userId); // 디버깅 로그
-
-        const response = await axios.get(
-          `http://localhost:7777/api/mileage/total/${userId}`
-        );
-        console.log("마일리지 응답:", response.data); // 디버깅 로그
-
-        if (response.data && response.data !== undefined) {
-          setTotalMileage(response.data);
-          setIsLoading(false);
-        } else {
-          console.error("마일리지 데이터 형식이 잘못됨:", response.data);
-          setIsLoading(false);
-          setTotalMileage(0); // 기본값 설정
-        }
-      } else {
-        setIsLoading(false);
-        setTotalMileage(0); // 로그인 정보 없을 때 기본값
-        console.log("로그인 정보 없음");
-      }
+      const response = await axios.get(`http://localhost:7777/api/mileage/total/${userId}`);
+      console.log("마일리지 응답 데이터:", response.data);
+      setTotalMileage(response.data ?? 0);
     } catch (error) {
       console.error("마일리지 조회 실패:", error);
+      setTotalMileage(0);
+    } finally {
       setIsLoading(false);
-      setTotalMileage(0); // 에러 시 기본값
     }
   };
-
-  // 초기 마일리지 조회
-  useEffect(() => {
-    fetchMileage();
-  }, []);
 
   // 실시간 마일리지 업데이트 처리
   useEffect(() => {
     const handlePointUpdate = () => {
-      fetchMileage();
+      const storedLoginInfo = localStorage.getItem("loginInfo");
+      if (storedLoginInfo) {
+        const { userId } = JSON.parse(storedLoginInfo).data;
+        fetchMileage(userId);
+      }
     };
 
     window.addEventListener("pointsUpdated", handlePointUpdate);
-    const intervalId = setInterval(fetchMileage, 10000);
+    const intervalId = setInterval(handlePointUpdate, 10000);
 
     return () => {
       window.removeEventListener("pointsUpdated", handlePointUpdate);

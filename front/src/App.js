@@ -25,6 +25,7 @@ import ShopPage from "./pages/ShopPage/ShopPage";
 import ShopPurchase from "./pages/ShopPage/ShopPurchase";
 import SignUpFormPage from "./pages/SignUpFormPage";
 import TravelWritePage from "./pages/TravelWritePage";
+import { AuthProvider } from "./context/AuthContext";
 
 // function Header({board, local}) {
 //   console.log(board+"/"+local);
@@ -38,6 +39,7 @@ function App() {
   const [travelogUserId, setTravelogUserId] = useState(null);
 
   return (
+    <AuthProvider>
     <BrowserRouter>
       <TravelHeader board={board} local={local} userId={travelogUserId}/>
       <Routes>
@@ -85,6 +87,7 @@ function App() {
       </Routes>
       <Footer />
     </BrowserRouter>
+    </AuthProvider>
   );
 }
 
