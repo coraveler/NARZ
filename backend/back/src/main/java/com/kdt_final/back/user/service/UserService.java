@@ -203,6 +203,7 @@ public class UserService {
         // }
         return UserDTO.UserResponseDTO.builder()
                 .userId(user.getUserId())
+                .loginId(user.getLoginId())
                 .userName(user.getUserName())
                 .userNickname(user.getUserNickname())
                 .build();

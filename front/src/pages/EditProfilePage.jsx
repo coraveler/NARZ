@@ -9,7 +9,7 @@ import ColorChangeModal from "./Personal/ColorChangeModal";
 import api from '../api/axios';
 
 
-const EditProfilePage = ({ selectedBadge }) => {
+const EditProfilePage = ({ selectedBadge, nc }) => {
     let loginInfo = getLoginInfo();
     const userId = loginInfo?.userId || null;
     
@@ -140,10 +140,18 @@ const EditProfilePage = ({ selectedBadge }) => {
         setBirthday(loginInfo.birthday);
         setIsReadOnly(true);
        }
-       
-
-
     },[])
+
+        const chatLogout = async () => {
+        try {
+            await nc.disconnect();
+            console.log("채팅 로그아웃 성공");
+        }
+        catch(e){
+            console.error("채팅 로그아웃 실패:", e);
+        }
+    }
+
     return (
         <div >
             {/* ProfileCard에 selectedBadge 전달 */}
@@ -341,6 +349,7 @@ const EditProfilePage = ({ selectedBadge }) => {
                     <button onClick={() => navigate('/personal')} className={styles.FullButton}>취소</button>
                     <button onClick={() => {       
                         localStorage.removeItem('loginInfo');
+                        chatLogout();
                         // alert("로그아웃 되었습니다.");                 
                         navigate('/');
                         showLogoutToast();  // 로그아웃 토스트 실행
