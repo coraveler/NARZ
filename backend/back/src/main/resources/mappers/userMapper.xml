@@ -63,7 +63,7 @@
 
     <select id="getUserInfo"
             resultType="com.kdt_final.back.user.domain.User">
-        SELECT userNickname,userColor
+        SELECT userNickname, userColor, achievement
         FROM user
         WHERE USERID = #{userId}
     </select>
