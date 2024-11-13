@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../../api/axios';
 import styles from '../../css/ProfileInfo.module.css';
 
-const ProfileInfo = ({ rank, userId }) => {
+const ProfileInfo = forwardRef(({ rank, userId }, ref) => {
   const navigate = useNavigate();
   // const [userInfo, setUserInfo] = useState({});
 
@@ -15,12 +15,18 @@ const ProfileInfo = ({ rank, userId }) => {
   //   }
   // }, []);
   const [userInfo, setUserInfo] = useState({});
+
+  // 부모 컴포넌트에서 함수를 호출할 수 있도록 ref를 사용하여 노출합니다.
+  useImperativeHandle(ref, ()=>({
+    getUserInfo
+  }))
   
   const getUserInfo = async() => {
     try {
         const response = await api.get(`user/info/${userId}`);
         console.log("debug >>> response,ASDASDASDASD ", response.data);
         setUserInfo(response.data);
+        console.log("유저 색상은 --> ",response.data.userColor)
     } catch (err) {
         console.log(err);
     }
@@ -31,6 +37,10 @@ const ProfileInfo = ({ rank, userId }) => {
       getUserInfo();
     }
   },[userId])
+
+
+
+  
 
   return (
     <>
@@ -43,11 +53,11 @@ const ProfileInfo = ({ rank, userId }) => {
       />
       </div>
       <p className={styles.profileRank}>{rank}</p>
-      <p className={styles.profileName}>
+      <p className={styles.profileName} style={{color: userInfo.userColor}}>
         {userInfo?.userNickname || ''}
       </p>
     </>
   );
-};
+});
 
 export default ProfileInfo;

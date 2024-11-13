@@ -63,7 +63,7 @@
 
     <select id="getUserInfo"
             resultType="com.kdt_final.back.user.domain.User">
-        SELECT userNickname
+        SELECT userNickname,userColor
         FROM user
         WHERE USERID = #{userId}
     </select>
@@ -127,6 +127,22 @@
         WHERE loginId =#{loginId}
 
     </delete>
+
+    <update id="changeNicknameColor"
+            parameterType="com.kdt_final.back.user.dto.UserDTO">
+        UPDATE user
+        SET userColor = #{userColor}
+        WHERE userId = #{userId}
+
+    </update>
+
+    <select id="fetchNicknameColor"
+            parameterType="int"
+            resultType="String">
+        SELECT userColor
+        FROM user
+        WHERE userId = #{userId}
+    </select>
 
 
 

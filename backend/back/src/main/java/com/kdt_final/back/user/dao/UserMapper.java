@@ -1,12 +1,12 @@
 package com.kdt_final.back.user.dao;
 
 
-import com.kdt_final.back.user.domain.User;
-import com.kdt_final.back.user.dto.UserDTO;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import java.util.List;
+import com.kdt_final.back.user.domain.User;
+import com.kdt_final.back.user.dto.UserDTO;
 
 @Mapper
 public interface UserMapper {
@@ -24,6 +24,8 @@ public interface UserMapper {
     public User findCodeByLoginId(String loginId, String userCode);
     public Integer updatePassword(String loginId, String password);
     public void deleteCode(String loginId);
+    public void changeNicknameColor(UserDTO.UserRequestDTO userId);
+    public String fetchNicknameColor(int userId);
 }
 
 

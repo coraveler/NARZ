@@ -25,5 +25,7 @@ public interface UserRepository  {
     public void deleteCode(String loginId);
     public void updateAchievement(Integer userId, String achievementName);
     int getUserPostCount(Integer userId);
-    List<String> getUserPostRegions(Integer userId);
+    List<String> getUserPostRegions(Integer userId);    public void changeNicknameColor(UserDTO.UserRequestDTO userId);
+    public String fetchNicknameColor(int userId);
+
 }
