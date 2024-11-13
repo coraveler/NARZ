@@ -20,5 +20,5 @@ public class User {
     private String phoneNum;
     private String userColor;
     private String userCode;
-
+    private String achievement;
 }

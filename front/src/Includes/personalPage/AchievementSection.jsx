@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from '../../css/Personal/AchievementSection.module.css';
-import { getLoginInfo } from '../../Includes/common/CommonUtil'; // 로그인 정보 가져오기
+import { getLoginInfo } from '../../Includes/common/CommonUtil';
 import { setAchievement } from '../../api/achievement';
 
 function AchievementSection({ onBadgeSelect }) {
@@ -18,8 +18,7 @@ function AchievementSection({ onBadgeSelect }) {
     { id: 3, title: "댓글 100개 이상 작성하기", badge: "댓글 마스터" },
     { id: 4, title: "모든 지역 게시물 작성", badge: "전국 정복자" },
     { id: 5, title: "유저 활동 랭킹 1등 달성", badge: "최고 활동러" },
-    { id: 6, title: "인기 게시글 1등 달성", badge: "핫한 작가님" },
-    { id: 7, title: "1등 5회 이상 달성", badge: "랭킹 챔피언" }
+    { id: 6, title: "인기 게시글 1등 달성", badge: "핫한 작가님" }
   ];
 
   const userInfo = getLoginInfo();
@@ -34,36 +33,23 @@ function AchievementSection({ onBadgeSelect }) {
     try {
       const response = await setAchievement(userId, achievementId);
       console.log("API Response:", response);
-  
-      // response가 문자열인지 확인하여 성공 여부 판별
-      if (typeof response === "string" && response.includes("Achievement set successfully")) {
-          console.log("Achievement set successfully.");
+
+      if (response?.status === 200 || (typeof response === "string" && response.includes("Achievement set successfully"))) {
           setClickedIndex(index);
           setIsResetClicked(false);
-          onBadgeSelect(badge);
-          localStorage.setItem('selectedBadgeIndex', index);
-          localStorage.setItem('selectedBadge', badge);
-          alert("도전과제가 성공적으로 설정되었습니다.");
-      } else if (response?.status === 200) {
-          console.log("Achievement set successfully with status 200.");
-          setClickedIndex(index);
-          setIsResetClicked(false);
-          onBadgeSelect(badge);
+          onBadgeSelect(badge);  // 칭호 업데이트
           localStorage.setItem('selectedBadgeIndex', index);
           localStorage.setItem('selectedBadge', badge);
           alert("도전과제가 성공적으로 설정되었습니다.");
       }
-  } catch (error) {
+    } catch (error) {
       if (error.response && error.response.status === 400) {
-          console.error("Achievement setting failed: Achievement requirements not met.");
           alert("도전과제 설정에 실패했습니다. 조건이 충족되지 않았습니다.");
       } else {
-          console.error("Error setting achievement:", error);
           alert("도전과제 설정 중 오류가 발생했습니다.");
       }
-  }
-}
-
+    }
+  };
 
   const resetToDefaultBadge = () => {
     setClickedIndex(null);
@@ -101,22 +87,12 @@ function AchievementSection({ onBadgeSelect }) {
         ))}
       </ul>
       <button 
-          className={styles.resetButton} 
-          onClick={resetToDefaultBadge}
-          style={{
-            marginLeft: '93%',
-            backgroundColor: 'white',
-            color: '#FF8A2B',
-            border: 'none',
-            padding: '8px 14px',
-            borderRadius: '8px',
-            fontSize: '12px',
-            outline: '1px solid #FF8A2B',
-            cursor: 'pointer'
-          }}
-        >
-          리셋
-        </button>
+        className={styles.resetButton} 
+        onClick={resetToDefaultBadge}
+        style={{ marginLeft: '93%', backgroundColor: 'white', color: '#FF8A2B', border: 'none', padding: '8px 14px', borderRadius: '8px', fontSize: '12px', outline: '1px solid #FF8A2B', cursor: 'pointer' }}
+      >
+        리셋
+      </button>
     </section>
   );
 }

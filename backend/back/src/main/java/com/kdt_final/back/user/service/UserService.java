@@ -207,6 +207,7 @@ public class UserService {
                 .userName(user.getUserName())
                 .userNickname(user.getUserNickname())
                 .userColor(user.getUserColor())
+                .achievement(user.getAchievement() != null ? user.getAchievement() : "여행초보자")
                 .build();
     }
 
