@@ -1,14 +1,13 @@
 package com.kdt_final.back.user.dao;
 
+import java.util.List;
+
+import org.springframework.stereotype.Repository;
+
 import com.kdt_final.back.user.domain.User;
 import com.kdt_final.back.user.dto.UserDTO;
 
 import lombok.RequiredArgsConstructor;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
@@ -87,6 +86,16 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public void deleteCode(String loginId) {
         userMapper.deleteCode(loginId);
+    }
+
+    @Override
+    public void changeNicknameColor(UserDTO.UserRequestDTO userId){
+        userMapper.changeNicknameColor(userId);
+    }
+
+    @Override
+    public String fetchNicknameColor(int userId){
+        return userMapper.fetchNicknameColor(userId);
     }
 
 

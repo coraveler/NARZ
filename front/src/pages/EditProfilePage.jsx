@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom"; // useNavigate 임포트
 import ColorChoiceModal from "../Includes/calendar/ColorChoiceModal";
 import { getLoginInfo } from "../Includes/common/CommonUtil";
 import ProfileCard from "../Includes/personalPage/ProfileCard";
 import { useToast } from "../Includes/toast/ToastContext";
+import api from '../api/axios';
 import styles from '../css/EditProfilePage.module.css';
 import ColorChangeModal from "./Personal/ColorChangeModal";
-import api from '../api/axios';
 
 
 const EditProfilePage = ({ selectedBadge }) => {
@@ -47,23 +47,29 @@ const EditProfilePage = ({ selectedBadge }) => {
         setColorChangeModalStatus(false);
     }
 
+    // 자식 컴포넌트에 대한 참조
+    const profileInfoRef = useRef();
+
     // 닉네임 색상 변경 완료 클릭시 실행
     const colorChangeComplete = () => {
-        alert("변경이 완료되었습니다.")
+        
         setColorChangeModalStatus(false);
+        changeNicknameColor();
     }
 
     const [userName, setName] = useState('');
-    const [userNickname, setNickName] = useState('');
+    const [userNickname, setNickName] = useState('#000000');
     const [email, setEmail] = useState('');
     const [phoneNum, setPhone] = useState('');
     const [birthday, setBirthday] = useState('');
   
-    const [nickNameColor, setNickNameColor] = useState('#000000')   // 닉네임 현재 색상
+    const [fetchNameColor, setFetchNameColor] = useState('') // 가져온 유저 닉네임 색상
+    const [nickNameColor, setNickNameColor] = useState('')   // 닉네임 현재 색상
     const [colorChoiceVisible, setColorChoiceVisible] = useState(false);    // 닉네임 컬러 선택 모달창 상태
     const [colorChangeModalStatus, setColorChangeModalStatus] = useState(false);    // 컬러 변경 모달창 상태
     const { showLogoutToast } = useToast(); // Context에서 showLogoutToast 가져오기
     const [isReadOnly, setIsReadOnly] = useState(false);
+    
 
     const getTodayDate = () => {
         const today = new Date();
@@ -139,15 +145,50 @@ const EditProfilePage = ({ selectedBadge }) => {
         setPhone(loginInfo.phoneNum);
         setBirthday(loginInfo.birthday);
         setIsReadOnly(true);
+        fetchNicknameColor();
        }
        
 
 
     },[])
+
+    const changeNicknameColor = async() => {
+        console.log(nickNameColor)
+        if(loginInfo){
+            const data = {
+                userId: loginInfo.userId,
+                userColor: nickNameColor
+            }
+            try{
+                const response = await api.patch('/user/nicknameColor', data)
+                response.status == 200 ? alert("변경이 완료되었습니다.") : alert("변경 중 오류가 발생했습니다.")
+                profileInfoRef.current.getUserInfo();  // 자식 컴포넌트의 메서드 접근
+                fetchNicknameColor();
+                
+            }catch(e){
+                console.log(e);
+            }
+        }
+    }
+
+    const fetchNicknameColor = async() => {
+        if(loginInfo){
+            try{
+                const response = await api.get(`/user/nicknameColor?userId=${loginInfo.userId}`)
+                setNickNameColor(response.data)
+                setFetchNameColor(response.data)
+                
+            }catch(e){
+                console.log(e);
+            }
+        }
+    }
+    
+
     return (
         <div >
             {/* ProfileCard에 selectedBadge 전달 */}
-            <ProfileCard selectedBadge={selectedBadge} userId={userId}/>
+            <ProfileCard selectedBadge={selectedBadge} userId={userId} profileInfoRef={profileInfoRef}/>
             <main className={styles.mainContainer}>
                 <div className={styles.ImageContainer}>
                     <img src={profileImage} alt="Profile" />
@@ -227,7 +268,13 @@ const EditProfilePage = ({ selectedBadge }) => {
                     </div>
 
                     <div className={styles.FieldWrapper}>
-                        <button type="button" className={styles.AutoButton} onClick={()=>setColorChangeModalStatus(true)}>색상 선택 완료</button>
+                        <button type="button" 
+                            className={styles.AutoButton} 
+                            onClick={()=>{
+                                setColorChangeModalStatus(true);
+                            }}
+                        >색상 선택 완료
+                        </button>
                     </div>
 
                     <div className={styles.FieldWrapper}>
@@ -363,6 +410,8 @@ const EditProfilePage = ({ selectedBadge }) => {
                 colorChangeModalStatus={colorChangeModalStatus}
                 colorChangeModalClose={colorChangeModalClose}
                 colorChangeComplete={colorChangeComplete}
+                fetchNameColor={fetchNameColor}
+                nickNameColor={nickNameColor}
             />
 
             

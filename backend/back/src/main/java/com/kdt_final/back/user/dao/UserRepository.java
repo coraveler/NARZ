@@ -23,5 +23,7 @@ public interface UserRepository  {
     public User findCodeByLoginId(String loginId, String userCode);
     public Integer updatePassword(String loginId,String password);
     public void deleteCode(String loginId);
+    public void changeNicknameColor(UserDTO.UserRequestDTO userId);
+    public String fetchNicknameColor(int userId);
 
 }

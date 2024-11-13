@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import styles from '../../css/ProfileCard.module.css';
-import ProfileInfo from '../common/ProfileInfo';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { getLoginInfo } from "../../Includes/common/CommonUtil";
-import FollowButton from '../common/FollowButton';
 import api from '../../api/axios';
+import styles from '../../css/ProfileCard.module.css';
+import FollowButton from '../common/FollowButton';
+import ProfileInfo from '../common/ProfileInfo';
 
-function ProfileCard({ selectedBadge, userId }) {
+function ProfileCard({ selectedBadge, userId, profileInfoRef }) {
   let loginInfo = getLoginInfo();
   const loginUserId = loginInfo?.userId || null;
   const navigate = useNavigate();
@@ -64,7 +64,7 @@ function ProfileCard({ selectedBadge, userId }) {
 
   return (
     <section className={styles.profileCard}>
-      <ProfileInfo rank={selectedBadge} data={profileData} userId={userId} />
+      <ProfileInfo rank={selectedBadge} data={profileData} userId={userId} ref={profileInfoRef} />
 
       {/* 회원정보 클릭 시 EditProfilePage로 이동 */}
       {
