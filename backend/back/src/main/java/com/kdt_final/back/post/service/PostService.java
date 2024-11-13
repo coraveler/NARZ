@@ -305,4 +305,13 @@ public class PostService {
     
         return lst;
     }
+    
+    public int getUserPostCount(Integer userId) {
+        return postMapper.countUserPosts(userId);
+    }
+
+    public List<String> getUserPostRegions(Integer userId) {
+        return postMapper.selectUserPostRegions(userId);
+    }
+
 }

@@ -1,16 +1,17 @@
 package com.kdt_final.back.user.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import com.kdt_final.back.user.dao.UserRepository;
 import com.kdt_final.back.user.domain.User;
 import com.kdt_final.back.user.dto.LoginResponseDTO;
 import com.kdt_final.back.user.dto.UpdateResponseDTO;
 import com.kdt_final.back.user.dto.UserDTO;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
@@ -206,6 +207,8 @@ public class UserService {
                 .loginId(user.getLoginId())
                 .userName(user.getUserName())
                 .userNickname(user.getUserNickname())
+                .userColor(user.getUserColor())
+                .achievement(user.getAchievement() != null ? user.getAchievement() : "여행초보자")
                 .build();
     }
 
@@ -282,5 +285,16 @@ public class UserService {
 
         }
 
+        // 유저 닉네임 색상 변경
+        public void changeNicknameColor(UserDTO.UserRequestDTO userId){
+            userRepository.changeNicknameColor(userId);
+        }
 
+        // 유저 닉네임 색상 가져오기
+        public String fetchNicknameColor(int userId){
+            return userRepository.fetchNicknameColor(userId);
+        }
+
+        //칭호
+        
 }

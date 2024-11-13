@@ -1,27 +1,30 @@
 package com.kdt_final.back.user.dao;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+
 import com.kdt_final.back.user.domain.User;
 import com.kdt_final.back.user.dto.UserDTO;
 
 import lombok.RequiredArgsConstructor;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
 public class UserRepositoryImpl implements UserRepository {
 
     private final UserMapper userMapper;
+    
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
+    
     @Override
     public List<User> findUserAll() {
 
         return userMapper.findUserAll();
-
-
     }
 
 
@@ -40,8 +43,6 @@ public class UserRepositoryImpl implements UserRepository {
     public List<User> findAllByLoginId(String loginId) {
         return userMapper.findAllByLoginId(loginId);
     }
-
-
 
     @Override
     public User findByLoginIdAndPassword(String loginId, String password) {
@@ -89,5 +90,33 @@ public class UserRepositoryImpl implements UserRepository {
         userMapper.deleteCode(loginId);
     }
 
+    @Override
+    public void changeNicknameColor(UserDTO.UserRequestDTO userId){
+        userMapper.changeNicknameColor(userId);
+    }
 
+    @Override
+    public String fetchNicknameColor(int userId){
+        return userMapper.fetchNicknameColor(userId);
+    }
+
+    @Override
+    public void updateAchievement(Integer userId, String achievementName) {
+        String sql = "UPDATE user SET achievement = ? WHERE userId = ?";
+        jdbcTemplate.update(sql, achievementName, userId);
+    }
+
+    @Override
+    public int getUserPostCount(Integer userId) {
+        String sql = "SELECT COUNT(*) FROM POST WHERE USERID = ?";
+        return jdbcTemplate.queryForObject(sql, Integer.class, userId);
+    }
+
+    @Override
+    public List<String> getUserPostRegions(Integer userId) {
+        String sql = "SELECT DISTINCT local FROM POST WHERE USERID = ?";
+        return jdbcTemplate.queryForList(sql, String.class, userId);
+    }
 }
+
+
