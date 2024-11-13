@@ -293,5 +293,6 @@ public class UserService {
             return userRepository.fetchNicknameColor(userId);
         }
 
-
+        //칭호
+        
 }
