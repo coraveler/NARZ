@@ -23,5 +23,7 @@ public interface UserRepository  {
     public User findCodeByLoginId(String loginId, String userCode);
     public Integer updatePassword(String loginId,String password);
     public void deleteCode(String loginId);
-
+    public void updateAchievement(Integer userId, String achievementName);
+    int getUserPostCount(Integer userId);
+    List<String> getUserPostRegions(Integer userId);
 }
