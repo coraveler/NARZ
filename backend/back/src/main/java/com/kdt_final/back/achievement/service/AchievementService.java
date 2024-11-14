@@ -53,8 +53,14 @@ public class AchievementService {
     private boolean isMapComplete(Integer userId) {
         try {
             String basePath = "C:/kdt_workspace/teamprject/final-pjt/uploads/images/map/" + userId;
-            boolean isComplete = REQUIRED_REGIONS.stream().allMatch(region -> Files.exists(Paths.get(basePath, region + ".png")));
-            System.out.println("@@@@ AchievementService - Map Complete Check for userId: " + userId + ": " + isComplete);
+
+            // 파일 개수를 계산하여 10개 이상일 경우 true 반환
+            long fileCount = Files.list(Paths.get(basePath))
+                                   .filter(Files::isRegularFile) // 정규 파일만 카운트
+                                   .count();
+
+            boolean isComplete = fileCount >= 10;
+            System.out.println("@@@@ AchievementService - Map Complete Check for userId: " + userId + " - File Count: " + fileCount + " - isComplete: " + isComplete);
             return isComplete;
         } catch (Exception e) {
             System.err.println("@@@@ Error in isMapComplete: " + e.getMessage());
@@ -83,9 +89,8 @@ public class AchievementService {
     
         // 전체 지역이 커버되었는지 여부
         boolean allCovered = userRegions.containsAll(REQUIRED_REGIONS);
-        System.out.println("@@@@ AchievementService - All Regions Covered for userId: zzz " + userId + ": " + allCovered);
+        System.out.println("@@@@ AchievementService - All Regions Covered for userId: " + userId + ": " + allCovered);
         
         return allCovered;
     }
-    
 }
