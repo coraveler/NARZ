@@ -98,23 +98,6 @@ function AchievementSection({ onBadgeSelect }) {
           </li>
         ))}
       </ul>
-      <button 
-          className={styles.resetButton} 
-          onClick={resetToDefaultBadge}
-          style={{
-            marginLeft: '93%',
-            backgroundColor: 'white',
-            color: '#FF8A2B',
-            border: 'none',
-            padding: '8px 14px',
-            borderRadius: '8px',
-            fontSize: '12px',
-            outline: '1px solid #FF8A2B',
-            cursor: 'pointer'
-          }}
-        >
-          리셋
-        </button>
     </section>
   );
 }
