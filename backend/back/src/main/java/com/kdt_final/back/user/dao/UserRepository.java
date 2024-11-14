@@ -27,5 +27,5 @@ public interface UserRepository  {
     int getUserPostCount(Integer userId);
     List<String> getUserPostRegions(Integer userId);    public void changeNicknameColor(UserDTO.UserRequestDTO userId);
     public String fetchNicknameColor(int userId);
-
+    int updateAchievementByUserId(int userId, String badgeName);
 }

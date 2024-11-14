@@ -42,11 +42,11 @@ const ProfileInfo = forwardRef(({ userId }, ref) => {
       <p
         className={styles.profileRank}
         style={{
-          fontFamily: userInfo.achievement === "여행초보자" ? 'JSArirangHON-Regular' : 'Cafe24ClassicType-Regular',
-          color: userInfo.achievement === "여행초보자" ? '#a67c00' : '#f2ac2e',
+          fontFamily: userInfo.achievement === "여행 초보자" ? 'JSArirangHON-Regular' : 'Cafe24ClassicType-Regular',
+          color: userInfo.achievement === "여행 초보자" ? '#a67c00' : '#f2ac2e',
         }}
       >
-        {userInfo.achievement || "여행초보자"}
+        {userInfo.achievement || "여행 초보자"}
       </p>
       <p className={styles.profileName} style={{ color: userInfo.userColor }}>
         {userInfo?.userNickname || ''}
