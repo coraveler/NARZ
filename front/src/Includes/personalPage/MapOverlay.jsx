@@ -83,7 +83,7 @@ const handleImageClick = async (key) => {
     const count = await getUserLocalLikeCount(key); // likeCount를 비동기적으로 가져옴
     if (fileInputRef.current) {
         fileInputRef.current.setAttribute("data-key", key);
-        if (count >= 10) {
+        if (count >= 1) {
             fileInputRef.current.click();
         } else {
             fileInputRef.current.value = null; // 파일 입력 초기화
