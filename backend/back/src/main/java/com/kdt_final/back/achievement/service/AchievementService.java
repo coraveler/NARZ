@@ -1,13 +1,15 @@
 package com.kdt_final.back.achievement.service;
 
-import com.kdt_final.back.comment.service.CommentService;
-import com.kdt_final.back.user.dao.UserRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.kdt_final.back.comment.service.CommentService;
+import com.kdt_final.back.user.dao.UserRepository;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
@@ -52,7 +54,7 @@ public class AchievementService {
 
     private boolean isMapComplete(Integer userId) {
         try {
-            String basePath = "=/uploads/images/map/" + userId;
+            String basePath = System.getProperty("user.dir") + "/uploads/images/map/" + userId;
 
             // 파일 개수를 계산하여 10개 이상일 경우 true 반환
             long fileCount = Files.list(Paths.get(basePath))

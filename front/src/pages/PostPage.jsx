@@ -209,7 +209,7 @@ const PostPage = () => {
 
 
             </div>
-            <br/>   
+            <br/>
             <CommentList postId={postId} userId={userId} />
             <br/>
         </div>
