@@ -52,7 +52,7 @@ public class AchievementService {
 
     private boolean isMapComplete(Integer userId) {
         try {
-            String basePath = "C:/kdt_workspace/teamprject/final-pjt/uploads/images/map/" + userId;
+            String basePath = "=/uploads/images/map/" + userId;
 
             // 파일 개수를 계산하여 10개 이상일 경우 true 반환
             long fileCount = Files.list(Paths.get(basePath))
