@@ -24,7 +24,8 @@ function FestivalMapModal({
                         bottom: 'auto',
                         borderRadius: '35px',
                         padding: '40px',
-                        width: '600px'}}}>
+                        width: '600px'}}}
+                    closeTimeoutMS={200}>
 
                 <div style={{textAlign:'left'}}>
                     <div style={{textAlign:'right'}}>

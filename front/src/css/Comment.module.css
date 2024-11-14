@@ -18,8 +18,11 @@
 .commentorInfo {
   display: flex;
   align-items: center; /* 수직 중앙 정렬 */
-  margin-bottom: 5px; /* 아래쪽 마진 */
 }
+
+.commentorInfo > *:nth-child(2) {
+}
+
 
 .commentorAvatar {
   width: 40px; /* 아바타 크기 */

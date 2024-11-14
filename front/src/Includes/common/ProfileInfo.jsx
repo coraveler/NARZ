@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import api from '../../api/axios';
 import styles from '../../css/ProfileInfo.module.css';
 
-const ProfileInfo = forwardRef(({ userId }, ref) => {
+const ProfileInfo = forwardRef(({ userId, fontSize }, ref) => {
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState({});
 
@@ -39,10 +39,10 @@ const ProfileInfo = forwardRef(({ userId }, ref) => {
         />
       </div>
       {/* achievement를 가져와서 null일 경우 기본값 설정 */}
-      <p className={styles.profileRank}>
+      <p className={styles.profileRank} style={{fontSize:fontSize}}>
         {userInfo.achievement || "여행 초보자"}
       </p>
-      <p className={styles.profileName} style={{ color: userInfo.userColor }}>
+      <p className={styles.profileName} style={{ color: userInfo.userColor, fontSize:fontSize }}>
         {userInfo?.userNickname || ''}
       </p>
     </>
