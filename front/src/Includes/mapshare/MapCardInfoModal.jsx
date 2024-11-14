@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import { FaHeart } from "react-icons/fa";
+import { FaHeart, FaTrashAlt } from "react-icons/fa";
 import { LuPen } from "react-icons/lu";
 import ReactModal from "react-modal";
 import MapCardDeleteModal from "./MapCardDeleteModal";
-import { FaTrashAlt } from "react-icons/fa";
 
 function MapCardInfoModal({
     mapCardInfoModalStatus,
@@ -44,7 +43,8 @@ function MapCardInfoModal({
                         borderRadius: '35px',
                         padding: '40px',
                         width: '30vw',
-                        scrollbarWidth: 'thin'}}}>
+                        scrollbarWidth: 'thin'}}}
+                    closeTimeoutMS={200}>
 
                 <div style={{textAlign:'center'}}>
                     <div style={{display:'flex', justifyContent:'space-between'}}>

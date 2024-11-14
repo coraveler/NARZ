@@ -4,6 +4,7 @@ import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { BiSolidMessageDetail } from "react-icons/bi";
 import { FcAlarmClock, FcDataBackup } from "react-icons/fc";
 import ReactModal from "react-modal";
+import '../../css/modal/Modal.css';
 import { useToast } from "../toast/ToastContext";
 import NotificationList from "./NotificationList";
 
@@ -158,7 +159,11 @@ const NotificationModal = forwardRef(({
                         bottom: 'auto',
                         borderRadius: '35px',
                         padding: '30px',
-                        width: '500px'}}}>
+                        width: '500px'
+                    }
+                }}
+            closeTimeoutMS={200} // 모달이 닫힐 때 애니메이션 시간 설정
+            >
 
                 <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', margin:'auto 10px auto 10px'}}>
                     
