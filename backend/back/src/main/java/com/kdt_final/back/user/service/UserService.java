@@ -19,6 +19,8 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+
+
     public List<UserDTO.UserResponseDTO> findUserAll() {
         List<User> userAll = userRepository.findUserAll();
 
@@ -296,5 +298,14 @@ public class UserService {
         }
 
         //칭호
+        public boolean updateUserAchievement(int userId, String badgeName) {
+            try {
+                int updatedRows = userRepository.updateAchievementByUserId(userId, badgeName);
+                return updatedRows > 0;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
         
 }
