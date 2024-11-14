@@ -21,7 +21,8 @@ function ColorChangeModal({colorChangeModalStatus,colorChangeModalClose,colorCha
                         bottom: 'auto',
                         borderRadius: '20px',
                         padding: '20px',
-                        width: '25vw'}}}>
+                        width: '25vw'}}}
+                    closeTimeoutMS={200}>
                     
                 <div style={{textAlign:'center'}}>
                     <PiSealWarningBold style={{fontSize:'40px', color:'orange'}}/><p/>
