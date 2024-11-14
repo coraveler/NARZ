@@ -75,7 +75,7 @@ html, body {
   }
   
   .profileInfo {
-    width: 800px;
+    width: 750px;
     /* background-color: black; */
     display: flex;
     align-items: flex-start; /* 'left'는 잘못된 값입니다. 'center' 또는 'flex-start'로 수정 */

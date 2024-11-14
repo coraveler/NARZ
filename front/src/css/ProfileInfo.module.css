@@ -6,6 +6,20 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'DungGeunMo';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Cafe24ClassicType-Regular';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-2@1.0/Cafe24ClassicType-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
 /* 프로필 이미지 스타일 */
 .profileImage {
   aspect-ratio: 1;
@@ -15,7 +29,7 @@
   border-radius: 50%;
   align-self: stretch;
   margin: auto 0;
-  margin-right: 10px;
+  margin-right: 20px;
 }
 
 /* 프로필 이름 스타일 */
@@ -25,16 +39,16 @@
   font-weight: 400;
   align-self: stretch;
   width: 140px;
-  margin: auto 0;
+  margin: auto 18px;
   text-shadow: 0px 0px 4px rgba(92, 92, 92, 0.514);
 }
 
 /* 칭호 스타일 */
 .profileRank {
-  font-family: 'GumiRomanceTTF', sans-serif; /* 폰트 적용 */
-  font-size: 20px;
+  font-family: 'Cafe24ClassicType-Regular';
+  font-size: 25px;
   font-weight: 400;
-  color: #333;
+  color: 	#f2ac2e;
   margin: 10px 0; /* 사진과 name 사이에 간격 추가 */
   text-align: center;
   text-shadow: 0px 0px 4px rgba(92, 92, 92, 0.514);

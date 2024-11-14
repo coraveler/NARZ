@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import styles from '../../../css/TravelCard.module.css';
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
 import { FaRegStar, FaStar } from "react-icons/fa"; // 빈 별과 채워진 별 아이콘
 import { FaRegStarHalfStroke } from "react-icons/fa6"; // 반 별 아이콘
 import { IoLockClosed } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
+import { getLoginInfo } from "../../../Includes/common/CommonUtil";
+import styles from '../../../css/TravelCard.module.css';
 import BookMark from '../BookMark';
 import LikeIcon from '../LikeIcon';
-import { getLoginInfo } from "../../../Includes/common/CommonUtil";
 
 const TravelCard = (props) => {
   const navigate = useNavigate();
