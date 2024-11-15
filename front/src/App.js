@@ -29,13 +29,13 @@ import ChatWidget from "./layout/nChat/ChatWidget";
 import ChatLogin from "./layout/nChat/ChatLogin";
 import { getLoginInfo } from "./Includes/common/CommonUtil";
 import ChatRoomList from "./layout/nChat/ChatPage/ChatRoomList";
-import api from "./api/axios";
-// import MakeChat from "./layout/nChat/MakeChat";
+import MakeChat from "./layout/nChat/ChatMakeChannal";
+import { AuthProvider } from './context/AuthContext';
 
-// function Header({board, local}) {
-//   console.log(board+"/"+local);
-//   return <TravelHeader board={board} local={local}/>;
-// }
+function Header({board, local}) {
+  console.log(board+"/"+local);
+  return <TravelHeader board={board} local={local}/>;
+}
 
 function App() {
   const [selectedBadge, setSelectedBadge] = useState("여행 초보자");
@@ -243,6 +243,7 @@ function App() {
   }, [channels]);  
 
   return (
+    <AuthProvider>
     <BrowserRouter>
       <TravelHeader board={board} local={local} userId={travelogUserId} />
       {chatInstance && loginId && userNickname && (
@@ -383,6 +384,7 @@ function App() {
 
       <Footer />
     </BrowserRouter>
+    </AuthProvider>
   );
 }
 

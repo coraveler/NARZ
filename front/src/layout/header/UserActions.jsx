@@ -5,92 +5,132 @@ import { FaRegCalendarAlt } from "react-icons/fa";
 import { MdNotificationsNone } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom"; // useNavigate 임포트
 import styled from "styled-components";
-import { getLoginInfo } from "../../Includes/common/CommonUtil";
 import NotificationModal from "../../Includes/nofification/NotificationModal";
 import axios from "axios";
+import { FaSync } from "react-icons/fa";
 
 // UserActions 컴포넌트
 const UserActions = ({ isLoggedIn }) => {
-  const [totalMileage, setTotalMileage] = useState(null); // 상태 선언: totalMileage와 setTotalMileage 추가
+  const [totalMileage, setTotalMileage] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [eventSource, setEventSource] = useState(null); // SSE 연결 상태 관리
+  const [loginInfo, setLoginInfo] = useState(null); // loginInfo를 상태로 정의
   const isMac = () => navigator.platform.toLowerCase().includes("mac");
   const navigate = useNavigate(); // 페이지 이동을 위한 useNavigate 사용
   const [notificationModalStatus, setNotificationModalStatus] = useState(false); // 알림 모달 상태 관리
   const [newNotificationStatus, setNewNotificationStatus] = useState(false); // 새로운 알림 상태
   const ProfileIconComponent = isMac() ? StyledCgProfileMac : StyledCgProfile; //Mac인 경우와 아닌 경우의 프로필 아이콘 컴포넌트 설정
+  const [refreshToggle, setRefreshToggle] = useState(false);
 
-  // 포인트 조회 기능
-  useEffect(() => {
-    const fetchMileage = async () => {
-      try {
-        // 로컬 스토리지에서 직접 로그인 정보 확인
-        const loginInfoStr = localStorage.getItem("loginInfo");
-        console.log("로그인 정보:", loginInfoStr); // 로그인 정보 출력
-
-        if (!loginInfoStr) {
-          console.error("로그인 정보가 없습니다.");
-          return;
-        }
-
-        const loginInfo = JSON.parse(loginInfoStr);
-        const userId = loginInfo.data.userId;
-        console.log("현재 userId:", userId); // userId 출력
-
-        // API 호출 전 URL 로그
-        const url = `http://localhost:7777/api/mileage/total/${userId}`;
-        console.log("API URL:", url);
-
-        const response = await axios.get(url);
-        console.log("API 응답 전체:", response); // 전체 응답 객체 출력
-        console.log("API 응답 데이터:", response.data); // 응답 데이터만 출력
-
-        // 응답 구조 체크
-        if (
-          response.data &&
-          (typeof response.data.totalMileage === "number" ||
-            typeof response.data === "number")
-        ) {
-          const mileage =
-            typeof response.data.totalMileage === "number"
-              ? response.data.totalMileage
-              : response.data;
-          console.log("설정할 마일리지 값:", mileage); // 설정할 마일리지 값 출력
-          setTotalMileage(mileage);
-        } else {
-          console.error("예상치 못한 응답 구조:", response.data);
-          setTotalMileage(0);
-        }
-      } catch (error) {
-        console.error("마일리지 조회 중 오류 발생:", error);
-        console.error("오류 상세:", error.response); // 오류 응답 상세 출력
+  const fetchMileage = async () => {
+    try {
+      const loginInfoStr = localStorage.getItem("loginInfo");
+      if (!loginInfoStr) {
         setTotalMileage(0);
+        return;
+      }
+      const loginInfo = JSON.parse(loginInfoStr);
+      const userId = loginInfo.data.userId;
+      const response = await fetch(
+        `http://localhost:7777/api/mileage/total/${userId}`,
+        {
+          credentials: "include",
+        }
+      );
+      const data = await response.json();
+      console.log("Mileage fetched:", data);
+      setTotalMileage(data);
+    } catch (error) {
+      console.error("Error fetching mileage:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchMileage();
+  }, [refreshToggle]);
+
+  useEffect(() => {
+    let eventSource = null;
+
+    const fetchInitialMileage = async (userId) => {
+      try {
+        const response = await fetch(
+          `http://localhost:7777/api/mileage/total/${userId}`,
+          {
+            credentials: "include",
+          }
+        );
+        const data = await response.json();
+        console.log("Initial mileage fetched:", data);
+        setTotalMileage(data);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error fetching initial mileage:", error);
+        setIsLoading(false);
       }
     };
 
-    fetchMileage();
-  }, []);
+    const connectSSE = () => {
+      const loginInfoStr = localStorage.getItem("loginInfo");
+      if (!loginInfoStr) {
+        setIsLoading(false);
+        setTotalMileage(0);
+        return;
+      }
 
-  // 새로운 알림 상태 확인
-  useEffect(() => {
-    if (localStorage.getItem("loginInfo")) {
-      const item = localStorage.getItem("loginInfo");
-      const parseItem = JSON.parse(item);
-      const userId = parseItem.data.userId;
-      setTimeout(() => {
-        if (
-          localStorage.getItem(`todayNotificationMsg-${userId}`) ==
-          `${new Date().toDateString()}-notificationMsg-new`
-        ) {
-          setNewNotificationStatus(true);
-          localStorage.setItem(
-            `todayNotificationMsg-${userId}`,
-            `${new Date().toDateString()}-notificationMsg`
-          );
+      try {
+        const loginInfo = JSON.parse(loginInfoStr);
+        const userId = loginInfo.data.userId;
+
+        if (!userId) {
+          console.error("User ID not found");
+          setIsLoading(false);
+          return;
         }
-      }, 100);
-    } else {
-      setNewNotificationStatus(false);
-    }
-  }, [localStorage.getItem("loginInfo")]);
+
+        fetchInitialMileage(userId); // 초기 마일리지 가져오기
+
+        eventSource = new EventSource(
+          `http://localhost:7777/api/mileage/sse/${userId}`,
+          { withCredentials: true }
+        );
+
+        eventSource.onopen = () => {
+          console.log("SSE 연결 성공");
+        };
+
+        eventSource.onmessage = (event) => {
+          console.log("Received SSE data:", event.data);
+          const mileageValue = parseInt(event.data);
+          if (!isNaN(mileageValue)) {
+            console.log("Updating mileage to:", mileageValue);
+            setTotalMileage(mileageValue);
+          } else {
+            console.error("Invalid mileage value received:", event.data);
+          }
+        };
+
+        eventSource.onerror = (error) => {
+          console.error("SSE 연결 오류:", error);
+          eventSource.close();
+          setIsLoading(false);
+          // 일정 시간 후 재연결 시도
+          setTimeout(connectSSE, 5000);
+        };
+      } catch (error) {
+        console.error("Error setting up SSE:", error);
+        setIsLoading(false);
+      }
+    };
+
+    connectSSE();
+
+    return () => {
+      if (eventSource) {
+        eventSource.close();
+      }
+    };
+  }, []);
 
   // 알림 아이콘 실행 함수
   const notificationHandler = () => {
@@ -129,14 +169,18 @@ const UserActions = ({ isLoggedIn }) => {
             <BsCoin />
           </MileageIcon>
           <PointsDisplay>
-            {totalMileage !== null ? (
-              <>
-                {totalMileage} <span style={{ fontSize: "10px" }}>Points</span>
-              </>
+            {totalMileage === null ? (
+              "마일리지 정보를 불러오는 중..."
             ) : (
-              "로딩 중..."
+              <>
+                {totalMileage.toLocaleString()}{" "}
+                <span style={{ fontSize: "10px" }}>Points</span>
+              </>
             )}
           </PointsDisplay>
+          <RefreshButton onClick={() => setRefreshToggle(!refreshToggle)}>
+            <FaSync />
+          </RefreshButton>
         </Container>
       </StyledUserActions>
 
@@ -254,4 +298,16 @@ const Container = styled.div`
   justify-content: space-between; // 요소 간격 조정
   width: 100%; // 컨테이너 너비
   border-color: #555555; // 테두리 색상
+`;
+
+// 새로고침 아이콘 스타일
+const RefreshButton = styled.button`
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #555;
+  &:hover {
+    color: #ffb74d;
+  }
 `;
