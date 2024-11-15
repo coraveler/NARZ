@@ -8,7 +8,7 @@ const ProfileInfo = forwardRef(({ userId }, ref) => {
   const [userInfo, setUserInfo] = useState({});
 
   useImperativeHandle(ref, () => ({
-    getUserInfo
+    getUserInfo,
   }));
   
   const getUserInfo = async () => {
@@ -38,8 +38,14 @@ const ProfileInfo = forwardRef(({ userId }, ref) => {
           alt="Profile"
         />
       </div>
-      {/* achievement를 가져와서 null일 경우 기본값 설정 */}
-      <p className={styles.profileRank}>
+      {/* achievement가 "여행 초보자"일 경우 폰트와 색상을 다르게 설정 */}
+      <p
+        className={styles.profileRank}
+        style={{
+          fontFamily: userInfo.achievement === "여행 초보자" ? 'JSArirangHON-Regular' : 'Cafe24ClassicType-Regular',
+          color: userInfo.achievement === "여행 초보자" ? '#a67c00' : '#f2ac2e',
+        }}
+      >
         {userInfo.achievement || "여행 초보자"}
       </p>
       <p className={styles.profileName} style={{ color: userInfo.userColor }}>

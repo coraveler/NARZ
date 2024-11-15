@@ -26,7 +26,8 @@ function FestivalInfoModal({
                         bottom: 'auto',
                         borderRadius: '35px',
                         padding: '40px',
-                        width: '350px'}}}>
+                        width: '350px'}}}
+                    closeTimeoutMS={200}>
 
                 <div style={{textAlign:'left'}}>
                     <div style={{textAlign:'right'}}>

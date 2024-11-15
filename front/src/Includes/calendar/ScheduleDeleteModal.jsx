@@ -44,7 +44,8 @@ function ScheduleDeleteModal({
                         bottom: 'auto',
                         borderRadius: '20px',
                         padding: '20px',
-                        width: '20vw'}}}>
+                        width: '20vw'}}}
+                    closeTimeoutMS={200}>
                     
                 <div style={{textAlign:'center'}}>
                     <TiWarningOutline style={{fontSize:'40px', color:'red'}}/><p/>

@@ -117,6 +117,12 @@ public class UserRepositoryImpl implements UserRepository {
         String sql = "SELECT DISTINCT local FROM POST WHERE USERID = ?";
         return jdbcTemplate.queryForList(sql, String.class, userId);
     }
+
+    @Override
+    public int updateAchievementByUserId(int userId, String badgeName) {
+        String sql = "UPDATE user SET achievement = ? WHERE userId = ?";
+        return jdbcTemplate.update(sql, badgeName, userId);
+    }
 }
 
 

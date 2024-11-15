@@ -122,6 +122,7 @@ function FormSection({post, postImgUrl}) {
 };
   const handleLocalChange = (event) => {
     setLocal(event.target.value);
+    setCurrentLocal(event.target.value)
   };
 
   const handleTitleChange = (event) => {
@@ -162,14 +163,18 @@ function FormSection({post, postImgUrl}) {
     if (post != null) {
       console.log(post);
       setTitle(post.title);
-      const mappedLocal = Object.keys(localMapping).find(key => localMapping[key] === post.local);
-      setLocal(mappedLocal || '');
       setRating(post.rating);
       setSecret(post.secret);
       setContent(post.content);
       setExistingImages(postImgUrl || []); 
+      setCurrentLocal(post.local)
+      setLocal(post.local || '');
     }
   }, [post]); // post가 변경될 때마다 실행
+
+
+  // 가져온 현재 지역
+  const [currentLocal, setCurrentLocal] = useState('');
   
   return (
     <form className={styles.formSection} onSubmit={post != null ? handleEdit :handleSubmit}>
@@ -183,7 +188,7 @@ function FormSection({post, postImgUrl}) {
         placeholder="지역을 선택하세요"
         required
         options={["수도권","충북", "충남", "전북", "전남", "경남", "경북", "제주", "강원", "대전"]}
-        value={post? post.local:local}
+        value={post? currentLocal:local}
         onChange={handleLocalChange}
       />
       <FormField label="제목" type="text" required placeholder="제목을 입력하세요." value={title} onChange={handleTitleChange}/>
