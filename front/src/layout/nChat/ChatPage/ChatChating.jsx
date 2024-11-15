@@ -30,7 +30,7 @@ const ChatChating = ({ loginId, recipientId, exitChatRoom, nc, projectId, apiKey
       useEffect(() => {
         getChatUserInfo();
         console.log(recipientId);
-      },[ channel, recipientId])
+      },[channel, recipientId])
 
     return (
         <div >
