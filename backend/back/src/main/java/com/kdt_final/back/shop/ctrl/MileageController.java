@@ -19,7 +19,6 @@ public class MileageController {
     private final MileageService mileageService;
     private final ConcurrentHashMap<Integer, SseEmitter> sseEmitters = new ConcurrentHashMap<>(); // 유저별 SSE 관리용 Map
     private final ConcurrentHashMap<Integer, AtomicBoolean> emitterStatus = new ConcurrentHashMap<>(); // 유저별 emitter 상태
-                                                                                                       // 추적용
 
     public MileageController(MileageService mileageService) {
         this.mileageService = mileageService;
@@ -58,20 +57,14 @@ public class MileageController {
         System.out.println("SSE Connection requested for userId: " + userId);
 
         // 기존 연결 정리
-        SseEmitter oldEmitter = sseEmitters.get(userId);
-        if (oldEmitter != null) {
-            oldEmitter.complete();
-            sseEmitters.remove(userId);
-            emitterStatus.remove(userId);
-        }
+        cleanupExistingConnection(userId);
 
-        // 새로운 SseEmitter 생성 (timeout 증가)
+        // 새로운 SseEmitter 생성
         SseEmitter emitter = new SseEmitter(Long.MAX_VALUE);
         sseEmitters.put(userId, emitter);
 
-        // 상태 초기화 (true로 설정)
-        AtomicBoolean status = new AtomicBoolean(true);
-        emitterStatus.put(userId, status);
+         // 상태 초기화 (null 체크 및 기본값 설정)
+         AtomicBoolean status = emitterStatus.computeIfAbsent(userId, k -> new AtomicBoolean(true));
 
         // 초기 데이터 전송
         try {
@@ -81,16 +74,21 @@ public class MileageController {
                     .data(initialMileage));
             System.out.println("Initial mileage sent for userId " + userId + ": " + initialMileage);
         } catch (Exception e) {
-            System.err.println("Error sending initial mileage: " + e.getMessage());
-            emitter.completeWithError(e);
+            handleEmitterError(userId, emitter, e);
             return emitter;
         }
 
         // SSE 전송 쓰레드
         Thread sseThread = new Thread(() -> {
-            int lastMileage = -1; // 초기값을 -1로 설정하여 첫 비교에서 항상 전송되도록 함
+            int lastMileage = -1;
 
-            while (status.get() && !Thread.currentThread().isInterrupted()) {
+            while (!Thread.currentThread().isInterrupted()) {
+                // Thread-safe한 방식으로 status 확인
+                AtomicBoolean currentStatus = emitterStatus.get(userId);
+                if (currentStatus == null || !currentStatus.get()) {
+                    break;
+                }
+
                 try {
                     int currentMileage = mileageService.getTotalMileage(userId);
 
@@ -104,9 +102,7 @@ public class MileageController {
 
                     Thread.sleep(1000);
                 } catch (Exception e) {
-                    System.err.println("SSE Error for userId " + userId + ": " + e.getMessage());
-                    emitter.completeWithError(e);
-                    status.set(false);
+                    handleEmitterError(userId, emitter, e);
                     break;
                 }
             }
@@ -116,33 +112,57 @@ public class MileageController {
         sseThread.setDaemon(true);
         sseThread.start();
 
-        // 연결 종료 처리
-        emitter.onCompletion(() -> {
-            System.out.println("SSE completed for userId: " + userId);
-            status.set(false);
-            sseEmitters.remove(userId);
-            emitterStatus.remove(userId);
-            sseThread.interrupt();
-        });
-
-        emitter.onTimeout(() -> {
-            System.out.println("SSE timeout for userId: " + userId);
-            status.set(false);
-            sseEmitters.remove(userId);
-            emitterStatus.remove(userId);
-            emitter.complete();
-            sseThread.interrupt();
-        });
-
-        emitter.onError((e) -> {
-            System.err.println("SSE error for userId " + userId + ": " + e.getMessage());
-            status.set(false);
-            sseEmitters.remove(userId);
-            emitterStatus.remove(userId);
-            sseThread.interrupt();
-        });
+        // 이벤트 핸들러 설정
+        setupEmitterEventHandlers(userId, emitter, status, sseThread);
 
         return emitter;
     }
 
+    private void cleanupExistingConnection(int userId) {
+        SseEmitter oldEmitter = sseEmitters.get(userId);
+        if (oldEmitter != null) {
+            oldEmitter.complete();
+            sseEmitters.remove(userId);
+            // 상태 객체는 삭제하지 않고, false로 설정만 해둡니다
+            AtomicBoolean status = emitterStatus.get(userId);
+            if (status != null) {
+                status.set(false);  // 상태만 종료
+            }
+        }
+    }
+    private void handleEmitterError(int userId, SseEmitter emitter, Exception e) {
+        System.err.println("Error for userId " + userId + ": " + e.getMessage());
+        emitterStatus.remove(userId);
+        sseEmitters.remove(userId);
+        emitter.completeWithError(e);
+    }
+
+    private void setupEmitterEventHandlers(int userId, SseEmitter emitter, AtomicBoolean status, Thread sseThread) {
+        emitter.onCompletion(() -> {
+            System.out.println("SSE completed for userId: " + userId);
+            cleanup(userId, status, sseThread);
+        });
+
+        emitter.onTimeout(() -> {
+            System.out.println("SSE timeout for userId: " + userId);
+            cleanup(userId, status, sseThread);
+            emitter.complete();
+        });
+
+        emitter.onError((e) -> {
+            System.err.println("SSE error for userId " + userId + ": " + e.getMessage());
+            cleanup(userId, status, sseThread);
+        });
+    }
+
+       private void cleanup(int userId, AtomicBoolean status, Thread sseThread) {
+        // 상태 객체를 삭제하지 않고 false로 설정합니다
+        if (status != null) {
+            status.set(false);
+        }
+        sseEmitters.remove(userId);
+        emitterStatus.remove(userId);
+        sseThread.interrupt();
+    }
 }
+
