@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
 import api from "../../../../api/axios";
 import ChatLoginUserInfo from "../../ChatLoginUserInfo";
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 
-const ChatRoom = ({ channel, openChatWindow, changeActiveTab, nc, loginId }) => {
+const ChatRoom = ({ channel, openChatWindow, changeActiveTab }) => {
   const [userInfo, setUserInfo] = useState();
   const projectId = 'ebd01e35-1e25-4f95-a0c3-3f26ebe44438';
   const apiKey = '050ebb353a64ef3bb8daa191045bcbe02e0c62aeac210c47';
@@ -100,7 +104,7 @@ const ChatRoom = ({ channel, openChatWindow, changeActiveTab, nc, loginId }) => 
 
   const openChatRoom = () => {
     openChatWindow(null, channel);
-    changeActiveTab();
+    changeActiveTab("chats");
   }
 
   return (
@@ -108,6 +112,7 @@ const ChatRoom = ({ channel, openChatWindow, changeActiveTab, nc, loginId }) => 
     <div
       onClick={openChatRoom}
       style={{
+        display: "flex",
         border: "1px solid #ccc",   // Light grey border
         borderRadius: "8px",         // Rounded corners
         padding: "10px",             // Padding inside the box
@@ -117,6 +122,12 @@ const ChatRoom = ({ channel, openChatWindow, changeActiveTab, nc, loginId }) => 
       }}
     >
       <ChatLoginUserInfo userInfo={userInfo} timeDisplay={timeDisplay} msg={channel.last_message.content} unread={channel.unread} />
+
+      <NavDropdown id="basic-nav-dropdown"  onClick={(e) => e.stopPropagation()} style={{marginLeft:"auto"}}>
+
+              <NavDropdown.Item>나가기</NavDropdown.Item>
+             
+      </NavDropdown>
 
     </div>
 

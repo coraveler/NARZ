@@ -13,6 +13,7 @@ const ChatWidget = ({ nc, loginId, recipientId, projectId, apiKey, isChatOpen, t
   const [activeTab, setActiveTab] = useState("friends");
   const [messages, setMessages] = useState([]);
   const[totalUnread, setTotalUnread] = useState(0);
+  const [state, setState] = useState(null);
 
   useEffect(() => {
     if ((isChatOpen && openFromButton)) {
@@ -23,8 +24,9 @@ const ChatWidget = ({ nc, loginId, recipientId, projectId, apiKey, isChatOpen, t
   }, [isChatOpen]);
 
   
-  const changeActiveTab = () => {
+  const changeActiveTab = (state) => {
     setActiveTab("chatContent");
+    setState(state);
   }
 
   const getMessages = async (channelId) => {
@@ -60,7 +62,11 @@ const ChatWidget = ({ nc, loginId, recipientId, projectId, apiKey, isChatOpen, t
 
 
   const exitChatRoom = () => {
-    setActiveTab("chats");
+    if(state =="chats"){
+      setActiveTab("chats");
+    }else{
+      setActiveTab("friends");
+    }
   };
 
 
@@ -109,14 +115,14 @@ const ChatWidget = ({ nc, loginId, recipientId, projectId, apiKey, isChatOpen, t
           <IoClose size={24} color="white" />
         ) : (
           <>
-          <AiOutlineMessage size={24} color="white" />{totalUnread}</>
+          <AiOutlineMessage size={24} color="white" />{totalUnread>0 && totalUnread}</>
         )}
       </button>
 
       {isChatOpen && (
         <div className={styles.chatWindow} >
           <div className={styles.chatBody}>
-            {activeTab === "friends" && <ChatFriends loginId={loginId} projectId={projectId} apiKey={apiKey} nc={nc} />}
+            {activeTab === "friends" && <ChatFriends loginId={loginId} projectId={projectId} apiKey={apiKey} nc={nc} openChatWindow={openChatWindow} changeActiveTab={changeActiveTab} channels={channels} />}
             {activeTab === "chatContent" && (
               <ChatChating
                 recipientId={channel ? null : recipientId}

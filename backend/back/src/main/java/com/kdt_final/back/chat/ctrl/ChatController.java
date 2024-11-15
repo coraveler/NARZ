@@ -49,4 +49,10 @@ public class ChatController {
         Integer result = chatService.getTotalUnread(loginId);
         return new ResponseEntity<Integer>(result,HttpStatus.OK);
     }
+
+    @GetMapping("/getUserId/{loginId}")
+    public ResponseEntity<Integer> getUserId(@PathVariable("loginId") String loginId) {
+        Integer result = chatService.getUserId(loginId);
+        return new ResponseEntity<Integer>(result,HttpStatus.OK);
+    }
 }

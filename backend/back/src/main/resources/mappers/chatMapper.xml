@@ -41,4 +41,13 @@
         FROM unread
         WHERE LOGINID = #{loginId};
     </select>
+
+    <!-- getUserId -->
+    <select id="getUserId"
+            parameterType="String"
+            resultType="int">
+        SELECT USERID
+        FROM USER
+        WHERE LOGINID = #{loginId};
+    </select>
 </mapper>

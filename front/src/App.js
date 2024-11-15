@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import "./App.css";
 import ProfileCard from "./Includes/personalPage/ProfileCard";
 import Footer from "./layout/footer/Footer";
@@ -242,8 +242,6 @@ function App() {
     }
   }, [channels]);  
 
-  
-
   return (
     <BrowserRouter>
       <TravelHeader board={board} local={local} userId={travelogUserId} />
@@ -253,6 +251,7 @@ function App() {
           loginId={loginId}
           userNickname={userNickname}
           handleChatLoginSuccess={handleChatLoginSuccess}
+          // key={loginId}
         />
       )}
       <Routes>

@@ -15,4 +15,6 @@ public interface ChatMapper {
     public void saveTotalUnread(ChatRequestDTO params);
 
     public Integer getTotalUnread(String loginId);
+
+    public Integer getUserId(String loginId);
 }

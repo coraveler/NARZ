@@ -28,4 +28,8 @@ public class ChatService {
     public Integer getTotalUnread(String loginId){
         return chatMapper.getTotalUnread(loginId);
     }
+
+    public Integer getUserId(String loginId){
+        return chatMapper.getUserId(loginId);
+    }
 }
