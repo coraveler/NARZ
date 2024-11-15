@@ -37,8 +37,6 @@ public class MileageService {
         addMileageHistory(history); // 내역 추가
     }
 
-    
-
     public List<MileageHistory> getMileageHistory(int userId) {
         return mileageMapper.getMileageHistoryByUserId(userId);
     }

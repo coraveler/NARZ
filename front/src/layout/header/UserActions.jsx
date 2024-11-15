@@ -7,11 +7,12 @@ import { Link, useNavigate } from "react-router-dom"; // useNavigate 임포트
 import styled from "styled-components";
 import NotificationModal from "../../Includes/nofification/NotificationModal";
 import axios from "axios";
+import { FaSync } from "react-icons/fa";
 
 // UserActions 컴포넌트
 const UserActions = ({ isLoggedIn }) => {
-  const [totalMileage, setTotalMileage] = useState(0);
-  const [isLoading, setIsLoading] = useState(true); // 로딩 상태 추가
+  const [totalMileage, setTotalMileage] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [eventSource, setEventSource] = useState(null); // SSE 연결 상태 관리
   const [loginInfo, setLoginInfo] = useState(null); // loginInfo를 상태로 정의
   const isMac = () => navigator.platform.toLowerCase().includes("mac");
@@ -19,62 +20,117 @@ const UserActions = ({ isLoggedIn }) => {
   const [notificationModalStatus, setNotificationModalStatus] = useState(false); // 알림 모달 상태 관리
   const [newNotificationStatus, setNewNotificationStatus] = useState(false); // 새로운 알림 상태
   const ProfileIconComponent = isMac() ? StyledCgProfileMac : StyledCgProfile; //Mac인 경우와 아닌 경우의 프로필 아이콘 컴포넌트 설정
+  const [refreshToggle, setRefreshToggle] = useState(false);
+
+  const fetchMileage = async () => {
+    try {
+      const loginInfoStr = localStorage.getItem("loginInfo");
+      if (!loginInfoStr) {
+        setTotalMileage(0);
+        return;
+      }
+      const loginInfo = JSON.parse(loginInfoStr);
+      const userId = loginInfo.data.userId;
+      const response = await fetch(
+        `http://localhost:7777/api/mileage/total/${userId}`,
+        {
+          credentials: "include",
+        }
+      );
+      const data = await response.json();
+      console.log("Mileage fetched:", data);
+      setTotalMileage(data);
+    } catch (error) {
+      console.error("Error fetching mileage:", error);
+    }
+  };
 
   useEffect(() => {
+    fetchMileage();
+  }, [refreshToggle]);
+
+  useEffect(() => {
+    let eventSource = null;
+
+    const fetchInitialMileage = async (userId) => {
+      try {
+        const response = await fetch(
+          `http://localhost:7777/api/mileage/total/${userId}`,
+          {
+            credentials: "include",
+          }
+        );
+        const data = await response.json();
+        console.log("Initial mileage fetched:", data);
+        setTotalMileage(data);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error fetching initial mileage:", error);
+        setIsLoading(false);
+      }
+    };
+
     const connectSSE = () => {
-        const loginInfoStr = localStorage.getItem("loginInfo");
-        if (!loginInfoStr) {
-            setIsLoading(false);
-            setTotalMileage(0);
-            return;
+      const loginInfoStr = localStorage.getItem("loginInfo");
+      if (!loginInfoStr) {
+        setIsLoading(false);
+        setTotalMileage(0);
+        return;
+      }
+
+      try {
+        const loginInfo = JSON.parse(loginInfoStr);
+        const userId = loginInfo.data.userId;
+
+        if (!userId) {
+          console.error("User ID not found");
+          setIsLoading(false);
+          return;
         }
 
-        try {
-            const loginInfo = JSON.parse(loginInfoStr);
-            const userId = loginInfo.data.userId;
+        fetchInitialMileage(userId); // 초기 마일리지 가져오기
 
-            if (!userId) {
-                console.error("User ID not found");
-                setIsLoading(false);
-                return;
-            }
+        eventSource = new EventSource(
+          `http://localhost:7777/api/mileage/sse/${userId}`,
+          { withCredentials: true }
+        );
 
-            const newEventSource = new EventSource(
-                `http://localhost:7777/api/mileage/sse/${userId}`,
-                { withCredentials: true }
-            );
+        eventSource.onopen = () => {
+          console.log("SSE 연결 성공");
+        };
 
-            newEventSource.onopen = () => {
-                console.log("SSE 연결 성공");
-                setIsLoading(false);
-            };
+        eventSource.onmessage = (event) => {
+          console.log("Received SSE data:", event.data);
+          const mileageValue = parseInt(event.data);
+          if (!isNaN(mileageValue)) {
+            console.log("Updating mileage to:", mileageValue);
+            setTotalMileage(mileageValue);
+          } else {
+            console.error("Invalid mileage value received:", event.data);
+          }
+        };
 
-            newEventSource.onmessage = (event) => {
-                console.log("Received SSE data:", event.data);
-                const mileageValue = parseInt(event.data) || 0;
-                setTotalMileage(mileageValue);
-            };
-
-            newEventSource.onerror = (error) => {
-                console.error("SSE 연결 오류:", error);
-                newEventSource.close();
-                // 3초 후 재연결 시도
-                setTimeout(connectSSE, 3000);
-            };
-
-            return () => {
-                newEventSource.close();
-            };
-        } catch (error) {
-            console.error("Error setting up SSE:", error);
-            setIsLoading(false);
-            // 3초 후 재연결 시도
-            setTimeout(connectSSE, 3000);
-        }
+        eventSource.onerror = (error) => {
+          console.error("SSE 연결 오류:", error);
+          eventSource.close();
+          setIsLoading(false);
+          // 일정 시간 후 재연결 시도
+          setTimeout(connectSSE, 5000);
+        };
+      } catch (error) {
+        console.error("Error setting up SSE:", error);
+        setIsLoading(false);
+      }
     };
 
     connectSSE();
-}, []);
+
+    return () => {
+      if (eventSource) {
+        eventSource.close();
+      }
+    };
+  }, []);
 
   // 알림 아이콘 실행 함수
   const notificationHandler = () => {
@@ -113,15 +169,18 @@ const UserActions = ({ isLoggedIn }) => {
             <BsCoin />
           </MileageIcon>
           <PointsDisplay>
-            {isLoading ? (
-              "로딩 중..."
+            {totalMileage === null ? (
+              "마일리지 정보를 불러오는 중..."
             ) : (
               <>
-                {totalMileage?.toLocaleString()}{" "}
+                {totalMileage.toLocaleString()}{" "}
                 <span style={{ fontSize: "10px" }}>Points</span>
               </>
             )}
           </PointsDisplay>
+          <RefreshButton onClick={() => setRefreshToggle(!refreshToggle)}>
+            <FaSync />
+          </RefreshButton>
         </Container>
       </StyledUserActions>
 
@@ -239,4 +298,16 @@ const Container = styled.div`
   justify-content: space-between; // 요소 간격 조정
   width: 100%; // 컨테이너 너비
   border-color: #555555; // 테두리 색상
+`;
+
+// 새로고침 아이콘 스타일
+const RefreshButton = styled.button`
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #555;
+  &:hover {
+    color: #ffb74d;
+  }
 `;
