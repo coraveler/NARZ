@@ -30,10 +30,11 @@ const ChatLoginUserInfo = ({ userInfo, timeDisplay, msg, state, unread }) => {
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: state === 'login' ? 'flex-end' : 'flex-start' }}>
                     {state !== 'login' && (
                         <img src={profileImage} alt="Profile" style={{ width: state ? '30px' : '45px', marginRight: state ? '10px' : '20px' }}
-                            onClick={() => {
-                                navigate(`/personal/${userId}`);
+                            // onClick={() => {
+                                // navigate(`/personal/${userId}`);
                                 // window.location.reload();
-                            }} />
+                            // }} 
+                            />
                     )}
                     <div style={{ textAlign: state === 'login' ? 'right' : 'left' }}>
                         <div>
@@ -78,7 +79,8 @@ const ChatLoginUserInfo = ({ userInfo, timeDisplay, msg, state, unread }) => {
                         onClick={() => {
                             navigate(`/personal/${userId}`);
                             // window.location.reload();
-                            }} />
+                            }} 
+                            />
                     {userInfo && <h4>{userInfo.name}</h4>}
                 </div>
             )}

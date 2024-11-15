@@ -48,7 +48,7 @@ const ChatWidget = ({ nc, loginId, recipientId, projectId, apiKey, isChatOpen, t
   }, [channels]);  
 
   useEffect(() => {
-    if(activeTab=="chat"){
+    if(activeTab!=="friends"){
       handleChatChange(activeTab);
     }
   }, [activeTab]);  
@@ -136,7 +136,7 @@ const ChatWidget = ({ nc, loginId, recipientId, projectId, apiKey, isChatOpen, t
                 channel={channel}
               />
             )}
-            {activeTab === "chats" && <ChatRoomList openChatWindow={openChatWindow} loginId={loginId} nc={nc} changeActiveTab={changeActiveTab} channels={channels} />}
+            {activeTab === "chats" && <ChatRoomList openChatWindow={openChatWindow} loginId={loginId} nc={nc} changeActiveTab={changeActiveTab} channels={channels}/>}
             {activeTab === "settings" && <ChatSetting />}
           </div>
 
