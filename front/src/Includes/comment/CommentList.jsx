@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import Comment from './Comment';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import api from '../../api/axios';
+import React, { useEffect, useState } from 'react';
+import { BiMessageEdit } from 'react-icons/bi';
 import { getLoginInfo } from "../../Includes/common/CommonUtil";
+import api from '../../api/axios';
+import Comment from './Comment';
 
 const CommentList = ({ postId, userId }) => {
     const [comment, setComment] = useState("");
@@ -64,22 +65,30 @@ const CommentList = ({ postId, userId }) => {
             </style>
             
             <div className="comment-section">
-                {
-                    comments.map((item, index) => (
-                        <div key={index}>
-                            <Comment comment={item} deleteComment={deleteComment} />
-                            <hr style={{ color: "gray" }} />
-                        </div>
-                    ))
-                }
+                <hr/>
                 {
                     loginState &&
-                    <div style={{ width: '600px', margin: '0px auto' }}>
-                        <textarea className="form-control" id="exampleFormControlTextarea1" rows="3" value={comment} onChange={handleComment} />
-                        <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '10px' }}>
-                            <button className="btn btn-outline-warning" onClick={saveComment}>등록</button>
+                    <div style={{ width: '90%', margin: '40px auto', display:'flex', marginBottom:'40px' }}>
+                        <textarea 
+                            placeholder='댓글을 입력해 주세요'
+                            className="form-control" 
+                            id="exampleFormControlTextarea1" 
+                            rows="3" value={comment} 
+                            onChange={handleComment} 
+                            style={{height:'35px'}}
+                        />
+                        <div style={{ display: 'flex', justifyContent: 'flex-end', marginLeft:'5px' }}>
+                            <button className="btn btn-outline-warning" onClick={saveComment} style={{width:'45px'}}><BiMessageEdit/></button>
                         </div>
                     </div>
+                }
+                {
+                    comments.map((item, index) => (
+                        <div key={index} style={{padding:'0px 0px', display:'flex', flexDirection:'column', alignItems:'center' }}>
+                            <Comment comment={item} deleteComment={deleteComment} /><p/>
+                            {/* <hr style={{ color: "gray" }} /> */}
+                        </div>
+                    ))
                 }
             </div>
         </div>
