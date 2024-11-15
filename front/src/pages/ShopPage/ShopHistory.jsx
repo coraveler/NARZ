@@ -6,7 +6,6 @@ import ShopNav from './ShopNav';
 const ShopHistory = () => {
   const { user } = useAuth();  // AuthContext에서 user 가져오기
   const [history, setHistory] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!user) {
@@ -24,19 +23,13 @@ const ShopHistory = () => {
 
         const data = await response.json();
         setHistory(data);
-        setLoading(false);
       } catch (error) {
         console.error("Failed to fetch mileage history:", error);
-        setLoading(false);
       }
     };
 
     fetchMileageHistory();
   }, [user]);  // user가 변경될 때마다 호출
-
-  if (loading) {
-    return <div>로딩 중...</div>;
-  }
 
   return (
     <div>
