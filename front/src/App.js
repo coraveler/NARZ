@@ -31,6 +31,7 @@ import { getLoginInfo } from "./Includes/common/CommonUtil";
 import ChatRoomList from "./layout/nChat/ChatPage/ChatRoomList";
 import MakeChat from "./layout/nChat/ChatMakeChannal";
 import { AuthProvider } from './context/AuthContext';
+import api from "./api/axios";
 
 function Header({board, local}) {
   console.log(board+"/"+local);
@@ -242,10 +243,16 @@ function App() {
     }
   }, [channels]);  
 
+  const [refreshMileage, setRefreshMileage] = useState(false);
+
+  const handleRefreshMileage = () => {
+    setRefreshMileage((state) => !state);
+  }
+
   return (
     <AuthProvider>
     <BrowserRouter>
-      <TravelHeader board={board} local={local} userId={travelogUserId} />
+      <TravelHeader board={board} local={local} userId={travelogUserId} refreshMileage={refreshMileage} />
       {chatInstance && loginId && userNickname && (
         <ChatLogin
           nc={chatInstance}
@@ -284,8 +291,8 @@ function App() {
         <Route path="/festival" element={<FestivalPage />} />
         <Route path="/mapShare" element={<MapSharePage />} />
         {/*쇼핑관련*/}
-        <Route path="/shop" element={<ShopPage />} />
-        <Route path="/shop/purchase" element={<ShopPurchase />} />
+        <Route path="/shop" element={<ShopPage handleRefreshMileage={handleRefreshMileage}/>} />
+        <Route path="/shop/purchase" element={<ShopPurchase handleRefreshMileage={handleRefreshMileage} />} />
         <Route path="/shop/history" element={<ShopHistory />} />
         {/*개인페이지관련*/}
         <Route

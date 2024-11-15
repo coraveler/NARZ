@@ -50,4 +50,30 @@
         FROM USER
         WHERE LOGINID = #{loginId};
     </select>
+
+       <!-- saveExitChatRoomTime -->
+    <insert id="saveExitChatRoomTime"
+            parameterType="com.kdt_final.back.chat.domain.exitchatrommtime.ChatExitRoomTimeRequestDTO">
+        INSERT INTO exitchatroomtime (LOGINID, CHANNELID, CREATEDAT)
+        VALUES ( #{loginId}, #{channelId}, #{createdAt} )
+        ON DUPLICATE KEY UPDATE  
+            CREATEDAT = #{createdAt};
+    </insert>
+
+    <!-- getExitChatRoomTime -->
+    <select id="getExitChatRoomTime"
+            parameterType="com.kdt_final.back.chat.domain.exitchatrommtime.ChatExitRoomTimeRequestDTO"
+            resultType = "String">
+        SELECT CREATEDAT
+        FROM exitchatroomtime
+        WHERE CHANNELID = #{channelId} AND LOGINID = #{loginId}
+    </select>
+
+       <!-- saveExitChatRoomTime -->
+    <delete id="deleteExitChatRoomTime"
+            parameterType="com.kdt_final.back.chat.domain.exitchatrommtime.ChatExitRoomTimeRequestDTO">
+        DELETE FROM exitchatroomtime
+        WHERE CHANNELID = #{channelId} AND LOGINID = #{loginId}
+    </delete>
+
 </mapper>

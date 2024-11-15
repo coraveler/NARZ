@@ -7,6 +7,7 @@ import ChatFrendsBox from "../ChatFrendsBox";
 const ChatFriends = ({ loginId, projectId, apiKey, nc, openChatWindow, changeActiveTab, channels }) => {
   const [userInfo, setUserInfo] = useState();
   const [friends, setFriedns] = useState([]);
+  const [friendChange, setFriendChange] = useState(false);
 
   const getChatUserInfo = async () => {
     try {
@@ -44,7 +45,12 @@ const ChatFriends = ({ loginId, projectId, apiKey, nc, openChatWindow, changeAct
   useEffect(() => {
     getChatUserInfo();
     getFriendships();
-  }, [loginId])
+  }, [loginId,friendChange])
+
+
+  const handleChangeFriends = () =>{
+    setFriendChange((state) => !state);
+  }
 
   return (
     <div>
@@ -68,14 +74,15 @@ const ChatFriends = ({ loginId, projectId, apiKey, nc, openChatWindow, changeAct
             if (matchedChannel) {
               return (
                 <div key={index}>
-                  {/* <p>Friend: {friend.node.friend.name}</p> */}
-                  {/* <p>Channel ID: {matchedChannel.id}</p> */}
                   {/* 필요한 채널 정보 추가 */}
                   <ChatFrendsBox 
                     friend={friend.node.friend}
                     channel={matchedChannel}
                     openChatWindow={openChatWindow}
-                    changeActiveTab={changeActiveTab} />
+                    changeActiveTab={changeActiveTab}
+                    nc={nc} 
+                    loginId={loginId}
+                    handleChangeFriends={handleChangeFriends}/>
                 </div>
               );
             } else {

@@ -3,7 +3,7 @@ import { useAuth } from "../../context/AuthContext";
 import styles from "../../css/Shop/ShopPurchase.module.css";
 import ShopNav from "./ShopNav";
 
-const ShopPurchase = () => {
+const ShopPurchase = ({ handleRefreshMileage }) => {
   const [userId, setUserId] = useState(null);
   const [isLoading, setIsLoading] = useState(true); // 로딩 상태 추가
   const { user, userMileage, setUserMileage } = useAuth(); // AuthContext에서 userMileage와 setUserMileage 가져오기
@@ -29,6 +29,34 @@ const ShopPurchase = () => {
     { name: "구매4", price: 40000 },
     { name: "구매5", price: 50000 },
   ];
+  
+  useEffect(() => {
+    fetchMileage();
+  },[])
+
+  const fetchMileage = async () => {
+    try {
+      const loginInfoStr = localStorage.getItem("loginInfo");
+      // if (!loginInfoStr) {
+      //   setTotalMileage(0);
+      //   return;
+      // }
+      const loginInfo = JSON.parse(loginInfoStr);
+      const userId = loginInfo.data.userId;
+      const response = await fetch(
+        `http://localhost:7777/api/mileage/total/${userId}`,
+        {
+          credentials: "include",
+        }
+      );
+      const data = await response.json();
+      console.log("Mileage fetched:", data);
+      setUserMileage(data);
+    } catch (error) {
+      console.error("Error fetching mileage:", error);
+    }
+  };
+
 
   const handlePurchase = async (option) => {
     if (!userId) {
@@ -62,6 +90,7 @@ const ShopPurchase = () => {
       if (response.ok) {
         alert("구매가 완료되었습니다!");
         setUserMileage(userMileage + mileagePoints); // 잔여 포인트 업데이트
+        handleRefreshMileage();
       } else {
         const errorData = await response.json();
         console.error("Error data:", errorData);
