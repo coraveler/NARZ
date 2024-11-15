@@ -91,3 +91,8 @@
   color: #007bff;
   border-bottom: 2px solid #007bff;
 }
+
+.chatContent {
+  max-height: 410px; /* 원하는 최대 높이를 설정 */
+  overflow-y: auto;
+}

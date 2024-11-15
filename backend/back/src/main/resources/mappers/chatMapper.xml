@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kdt_final.back.chat.dao.ChatMapper">
+    
+    <!-- lastChatSave -->
+    <insert id="saveLastChat"
+            parameterType="com.kdt_final.back.chat.domain.ChatRequestDTO">
+        INSERT INTO CHATCHECKLASTMSG (CHANNELID, LOGINID, SENDERID, MESSAGEID, SORTID)
+        VALUES ( #{channelId}, #{loginId}, #{senderId}, #{messageId}, #{sortId} )
+        ON DUPLICATE KEY UPDATE  
+            SENDERID = #{senderId},
+            LOGINID = #{loginId},
+            MESSAGEID = #{messageId},
+            SORTID = #{sortId};
+    </insert>
+
+    <!-- getLastChat -->
+    <select id="getLastChat"
+            parameterType="com.kdt_final.back.chat.domain.ChatRequestDTO"
+            resultType="com.kdt_final.back.chat.domain.ChatResponseDTO">
+        SELECT SENDERID, MESSAGEID, SORTID, CHANNELID
+        FROM CHATCHECKLASTMSG
+        WHERE CHANNELID = #{channelId} AND LOGINID = #{loginId}
+    </select>
+
+    <!-- saveTotalUnread -->
+    <insert id="saveTotalUnread"
+            parameterType="com.kdt_final.back.chat.domain.ChatRequestDTO">
+        INSERT INTO unread (LOGINID, TOTALUNREAD)
+        VALUES ( #{loginId}, #{totalUnread} )
+        ON DUPLICATE KEY UPDATE  
+            TOTALUNREAD = #{totalUnread};
+    </insert>
+
+    <!-- getTotalUnread -->
+    <select id="getTotalUnread"
+            parameterType="String"
+            resultType="int">
+        SELECT totalUnread
+        FROM unread
+        WHERE LOGINID = #{loginId};
+    </select>
+
+    <!-- getUserId -->
+    <select id="getUserId"
+            parameterType="String"
+            resultType="int">
+        SELECT USERID
+        FROM USER
+        WHERE LOGINID = #{loginId};
+    </select>
+</mapper>
