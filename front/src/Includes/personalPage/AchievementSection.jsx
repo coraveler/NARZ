@@ -56,24 +56,21 @@ function AchievementSection({ onBadgeSelect }) {
       return;
     }
 
-    
     try {
       const response = await setAchievement(userId, achievementId);
       console.log("API Response:", response);
 
+      setUnlockedAchievements((prevState) => ({
+        ...prevState,
+        [achievementId]: true
+      }));
+      setClickedIndex(index);
+      onBadgeSelect(badge);
 
-        setUnlockedAchievements((prevState) => ({
-          ...prevState,
-          [achievementId]: true
-        }));
-        setClickedIndex(index);
-        onBadgeSelect(badge);  // 칭호를 변경한 후 onBadgeSelect로 사용자 정보 업데이트
+      localStorage.setItem(savedIndexKey, index);
+      localStorage.setItem(savedBadgeKey, badge);
 
-        localStorage.setItem(savedIndexKey, index);
-        localStorage.setItem(savedBadgeKey, badge);
-
-        window.alert("칭호를 바꾸셨습니다.");
-     
+      window.alert("칭호를 바꾸셨습니다.");
     } catch (error) {
       console.error("Error setting achievement:", error);
       window.alert("도전과제 설정 중 오류가 발생했습니다.");
@@ -87,7 +84,11 @@ function AchievementSection({ onBadgeSelect }) {
         {achievements.map((achievement, index) => (
           <li key={achievement.id} className={styles.achievementItem}>
             <span className={styles.achievementTitle}>{achievement.title}</span>
-            <span className={styles.achievementBadge}>{achievement.badge}</span>
+            <span
+              className={`${achievement.badge === "여행 초보자" ? styles.beginnerBadge : styles.achievementBadge}`}
+            >
+              {achievement.badge}
+            </span>
             <button
               className={`${styles.selectButton} ${clickedIndex === index ? styles.clicked : ''}`}
               onClick={() => handleClick(index, achievement.id, achievement.badge)}
