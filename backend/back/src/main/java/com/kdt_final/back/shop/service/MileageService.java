@@ -17,7 +17,12 @@ public class MileageService {
     }
 
     public Mileage getMileageByUserId(int userId) {
-        return mileageMapper.getMileageByUserId(userId);
+        List<Mileage> mileageList = mileageMapper.getMileageByUserId(userId);
+        if (mileageList != null && !mileageList.isEmpty()) {
+            return mileageList.get(0); // 첫 번째 마일리지 반환
+        } else {
+            return null; // 데이터가 없으면 null 반환
+        }
     }
 
     public void addMileage(Mileage mileage) {
@@ -40,8 +45,8 @@ public class MileageService {
         mileageMapper.insertMileageHistory(mileageHistory);
     }
 
-     // 마일리지 Mapper로 총 마일리지 값 가져오기
-     public int getTotalMileage(int userId) {
+    // 마일리지 Mapper로 총 마일리지 값 가져오기
+    public int getTotalMileage(int userId) {
         Integer totalMileage = mileageMapper.getTotalMileage(userId);
         return totalMileage != null ? totalMileage : 0; // null인 경우 0 반환
     }
