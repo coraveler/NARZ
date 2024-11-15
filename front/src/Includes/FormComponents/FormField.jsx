@@ -4,6 +4,8 @@ import styles from '../../css/TrevalWrite/FormField.module.css';
 function FormField({ label, type, placeholder, required, options, value, onChange }) {
   const id = `${label.toLowerCase()}-input`;
 
+  
+
   return (
     <div className={styles.formField}>
       <label htmlFor={id} className={styles.label}>

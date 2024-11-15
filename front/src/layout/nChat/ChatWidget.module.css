@@ -1,0 +1,93 @@
+.chatWidgetContainer {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+}
+
+.chatButton {
+  background-color: #007bff;
+  border: none;
+  border-radius: 50%;
+  padding: 12px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
+  z-index: 1000;
+}
+
+.chatButton:hover {
+  background-color: #0056b3;
+}
+
+.chatWindow {
+  position: absolute;
+  bottom: 60px; /* 채팅 버튼 위에 위치 */
+  right: 0;
+  width: 350px;
+  height: 550px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.chatHeader {
+  background-color: #f1f1f1;
+  padding: 15px;
+  border-radius: 8px 8px 0 0;
+  /* align-items: center; */
+  /* justify-content: space-between; */
+}
+
+.chatHeader h3 {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.chatHeader button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.chatBody {
+  flex: 1;
+  /* overflow-y: auto; */
+  /* padding: 15px; */
+}
+
+.chatFooterTabs {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 15px;
+  background-color: #f8f8f8;
+  border-radius: 0 0 8px 8px;
+  width: 100%;
+  position: sticky;
+  bottom: 0;
+}
+
+.tabButton {
+  background: none;
+  border: none;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 10px;
+  transition: color 0.3s ease;
+}
+
+.tabButton:hover {
+  color: #007bff;
+}
+
+.activeTab {
+  color: #007bff;
+  border-bottom: 2px solid #007bff;
+}

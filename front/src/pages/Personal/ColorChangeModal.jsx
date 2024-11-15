@@ -1,7 +1,9 @@
 import { PiSealWarningBold } from "react-icons/pi";
 import ReactModal from "react-modal";
 
-function ColorChangeModal({colorChangeModalStatus,colorChangeModalClose,colorChangeComplete}){
+function ColorChangeModal({colorChangeModalStatus,colorChangeModalClose,colorChangeComplete, nickNameColor, fetchNameColor}){
+
+    
     return(
         <div>
             <ReactModal
@@ -19,7 +21,8 @@ function ColorChangeModal({colorChangeModalStatus,colorChangeModalClose,colorCha
                         bottom: 'auto',
                         borderRadius: '20px',
                         padding: '20px',
-                        width: '25vw'}}}>
+                        width: '25vw'}}}
+                    closeTimeoutMS={200}>
                     
                 <div style={{textAlign:'center'}}>
                     <PiSealWarningBold style={{fontSize:'40px', color:'orange'}}/><p/>
@@ -29,7 +32,14 @@ function ColorChangeModal({colorChangeModalStatus,colorChangeModalClose,colorCha
                     <button
                         className="button select-button"
                         style={{width:"7vw", border:'2px solid #a9a3a3'}}
-                        onClick={colorChangeComplete}
+                        onClick={()=>{
+                            if(nickNameColor == fetchNameColor){
+                                alert('기존 색상과 동일합니다. 색상을 변경해 주세요')
+                            }else{
+                                colorChangeComplete()
+                            }
+                            
+                        }}
                     >변경
                     </button>&nbsp;&nbsp;
 

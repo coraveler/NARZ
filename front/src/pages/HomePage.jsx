@@ -7,8 +7,9 @@ import { IoMdArrowDropright } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import '../css/Homepage.css';
 import { getLoginInfo } from "../Includes/common/CommonUtil";
+import ChatMakeChannel from '../layout/nChat/ChatMakeChannal';
 
-function HomePage() {
+function HomePage({nc}) {
   const navigate = useNavigate();
   const [bookMarkPost, setBookMarkPost] = useState([]);
   const [followPost, setFollowPost] = useState([]);
@@ -74,9 +75,8 @@ function HomePage() {
     <div>
       <BackgroundSlider />
       <br />
-
+      {/* <ChatMakeChannel nc={nc}/> */}
       <RegionSelector board={'localboard'}/>
-
       <br />
       <div>
         {sections.map((section, index) => (

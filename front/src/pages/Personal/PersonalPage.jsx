@@ -8,7 +8,7 @@ import api from "../../api/axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { IoMdArrowDropright } from "react-icons/io";
 
-function PersonalPage({ selectedBadge }) {
+function PersonalPage({ selectedBadge, openChatWindow, nc }) {
     const navigate = useNavigate();
     const { urlUserId } = useParams(); // URL에서 userId 추출
     let loginInfo = getLoginInfo();
@@ -69,7 +69,7 @@ function PersonalPage({ selectedBadge }) {
     return (
         <div align="center">
             {/* ProfileCard에 selectedBadge 전달 */}
-            <ProfileCard selectedBadge={selectedBadge} userId={userId} />
+            <ProfileCard selectedBadge={selectedBadge} userId={userId} openChatWindow={openChatWindow} nc={nc}/>
 
             <div className={styles.centeredMap}>
                 {userInfo ? `${userInfo.userNickname}'s Map` : "Loading..."}

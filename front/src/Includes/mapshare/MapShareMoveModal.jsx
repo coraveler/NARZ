@@ -26,7 +26,8 @@ function MapShareMoveModal({
                         bottom: 'auto',
                         borderRadius: '20px',
                         padding: '20px',
-                        width: '25vw'}}}>
+                        width: '25vw'}}}
+                    closeTimeoutMS={200}>
                     
                 <div style={{textAlign:'center'}}>
                     <FaRegSquareCheck style={{fontSize:'40px', color:'orange', marginTop:'10px'}}/><p/>

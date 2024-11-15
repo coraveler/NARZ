@@ -43,6 +43,7 @@ public class UserDTO {
         public String phoneNum;
         public String userColor;
         public String userCode;
+        private String achievement;
 
     }
 }

@@ -3,8 +3,9 @@ import { useNavigate } from "react-router-dom"; // useNavigate 임포트
 import NotificationModal from '../Includes/nofification/NotificationModal';
 import api from '../api/axios';
 import styles from '../css/LoginFormPage.module.css';
+import ChatLogin from '../layout/nChat/ChatLogin';
 
-const LoginFormPage = () => {
+const LoginFormPage = ({nc}) => {
   const navigate = useNavigate();
   let [loginId,setloginId] = useState('');
   const [password,setPassword] = useState('');
@@ -78,8 +79,8 @@ const LoginFormPage = () => {
                     localStorage.setItem("loginInfo",JSON.stringify(loginInfo));
                     notificationRef.current.loginHandler(); // NotificationModal컴포넌트의 loginHandler()를 함수 실행
                     // alert("로그인되었습니다.");
-                    navigate('/');
-                     
+                    //  navigate('/');
+                     window.location.href = '/';
                   }
                 } catch (e) {
             

@@ -108,7 +108,8 @@ function ScheduleUpdateModal({
                         bottom: 'auto',
                         borderRadius: '20px',
                         padding: '20px',
-                        width: '30vw'}}}>
+                        width: '30vw'}}}
+                    closeTimeoutMS={200}>
 
                 <div style={{textAlign:'center'}}>
 

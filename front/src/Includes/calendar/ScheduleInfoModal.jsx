@@ -70,7 +70,8 @@ function ScheduleInfoModal({
                         bottom: 'auto',
                         borderRadius: '20px',
                         padding: '30px',
-                        width: '25vw'}}}>
+                        width: '25vw'}}}
+                    closeTimeoutMS={200}>
 
                 <div style={{textAlign:'left'}}>
                     <div style={{textAlign:'right'}}>

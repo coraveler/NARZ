@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Param;
 
 import com.kdt_final.back.post.domain.PostRequestDTO;
 import com.kdt_final.back.post.domain.PostResponseDTO;
@@ -60,4 +62,11 @@ public interface PostMapper {
     public List<PostResponseDTO> getAllFollow(int userId);
 
     public List<PostResponseDTO> getFollow(PostRequestDTO params);
+
+      @Select("SELECT COUNT(*) FROM post WHERE user_id = #{userId}")
+    int countUserPosts(@Param("userId") Integer userId);
+
+    @Select("SELECT DISTINCT local FROM post WHERE user_id = #{userId}")
+    List<String> selectUserPostRegions(@Param("userId") Integer userId);
+
 }
