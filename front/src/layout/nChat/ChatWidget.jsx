@@ -7,10 +7,12 @@ import ChatChating from "./ChatPage/ChatChating";
 import ChatSetting from "./ChatPage/ChatSetting";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ChatRoomList from "./ChatPage/ChatRoomList";
+import api from "../../api/axios";
 
-const ChatWidget = ({ nc, loginId, recipientId, projectId, apiKey, isChatOpen, toggleChatWindow, openFromButton, channel, openChatWindow }) => {
+const ChatWidget = ({ nc, loginId, recipientId, projectId, apiKey, isChatOpen, toggleChatWindow, openFromButton, channel, channels, openChatWindow, handleChatChange}) => {
   const [activeTab, setActiveTab] = useState("friends");
   const [messages, setMessages] = useState([]);
+  const[totalUnread, setTotalUnread] = useState(0);
 
   useEffect(() => {
     if ((isChatOpen && openFromButton)) {
@@ -20,6 +22,7 @@ const ChatWidget = ({ nc, loginId, recipientId, projectId, apiKey, isChatOpen, t
     }
   }, [isChatOpen]);
 
+  
   const changeActiveTab = () => {
     setActiveTab("chatContent");
   }
@@ -37,20 +40,16 @@ const ChatWidget = ({ nc, loginId, recipientId, projectId, apiKey, isChatOpen, t
     }
   }
 
-  // const markRead = async () => {
-   
-  //   try {
-  //     nc.markRead(channelId, {
-  //       user_id: message.sender.id,
-  //       message_id: message.message_id,
-  //       sort_id: message.sort_id
-  //     });
-  //     const unread = await nc.unreadCount([CHANNEL_ID]);
-  //   } catch (error) {
 
-  //   }
-  // }
+  useEffect(() => {
+    console.log("Updated channels:", channels);
+  }, [channels]);  
 
+  useEffect(() => {
+    if(activeTab=="chat"){
+      handleChatChange(activeTab);
+    }
+  }, [activeTab]);  
 
   useEffect(() => {
     if (channel) {
@@ -68,6 +67,20 @@ const ChatWidget = ({ nc, loginId, recipientId, projectId, apiKey, isChatOpen, t
   const ClickFooterTab = (option) => {
     setActiveTab(option);
   };
+
+  const getTotalUnread = async() => {
+    try{
+      const response = await api.get(`chat/getTotalUnread/${loginId}`);
+      console.log(response.data);
+      setTotalUnread(response.data);
+    }catch(error){
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    getTotalUnread();
+  },[channel,channels])
 
 
   return (
@@ -95,7 +108,8 @@ const ChatWidget = ({ nc, loginId, recipientId, projectId, apiKey, isChatOpen, t
         {isChatOpen ? (
           <IoClose size={24} color="white" />
         ) : (
-          <AiOutlineMessage size={24} color="white" />
+          <>
+          <AiOutlineMessage size={24} color="white" />{totalUnread}</>
         )}
       </button>
 
@@ -116,7 +130,7 @@ const ChatWidget = ({ nc, loginId, recipientId, projectId, apiKey, isChatOpen, t
                 channel={channel}
               />
             )}
-            {activeTab === "chats" && <ChatRoomList openChatWindow={openChatWindow} loginId={loginId} nc={nc} changeActiveTab={changeActiveTab} />}
+            {activeTab === "chats" && <ChatRoomList openChatWindow={openChatWindow} loginId={loginId} nc={nc} changeActiveTab={changeActiveTab} channels={channels} />}
             {activeTab === "settings" && <ChatSetting />}
           </div>
 

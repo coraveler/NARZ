@@ -29,6 +29,7 @@ import ChatWidget from "./layout/nChat/ChatWidget";
 import ChatLogin from "./layout/nChat/ChatLogin";
 import { getLoginInfo } from "./Includes/common/CommonUtil";
 import ChatRoomList from "./layout/nChat/ChatPage/ChatRoomList";
+import api from "./api/axios";
 // import MakeChat from "./layout/nChat/MakeChat";
 
 // function Header({board, local}) {
@@ -52,6 +53,44 @@ function App() {
   // const [chatUserId, setChatUserId] = useState(null);
   const[channel, setChannel] = useState(null);
   const[recipientId, setRecipientId]= useState(null);
+  const [channels, setChannels] = useState([]);
+  const [isChatLoginSuccessful, setIsChatLoginSuccessful] = useState(false);
+  const [chatChange, setChatChange] = useState();  
+
+  const handleChatLoginSuccess = (isSuccessful) => {
+    setIsChatLoginSuccessful(isSuccessful);
+  };
+
+  const handleChatChange = (state) => {
+    setChatChange(state);
+  }
+  
+  useEffect(() => {
+    if(loginId){
+
+    
+    const initializeChat = async () => {
+      if (!chatInstance ) {
+        const ncloudchat = window.ncloudchat;
+        const newChatInstance = new ncloudchat.Chat();
+        await newChatInstance.initialize("ebd01e35-1e25-4f95-a0c3-3f26ebe44438");
+        setChatInstance(newChatInstance);
+      }
+    };
+  
+    initializeChat();
+  }
+  }, []);
+
+  useEffect(() => {
+    // chatInstance가 존재할 때만 getChannels 호출
+    if (chatInstance && isChatLoginSuccessful) {
+      getChannels();
+      console.log(channels);
+      // const intervalId = setInterval(getChannels, 10000); // 10초마다 새로 고침
+      // return () => clearInterval(intervalId); // 컴포넌트 언마운트 시 타이머 정리
+    }
+  }, [isChatLoginSuccessful, channel, isChatOpen, openFromButton, chatChange] );
 
   const toggleChatWindow = (state) => {
     setIsChatOpen(state);
@@ -78,20 +117,132 @@ function App() {
     
   };
 
- 
-
-  useEffect(() => {
-    if (!chatInstance) {
-      const ncloudchat = window.ncloudchat;
-      const newChatInstance = new ncloudchat.Chat();
-      newChatInstance.initialize("ebd01e35-1e25-4f95-a0c3-3f26ebe44438");
-      setChatInstance(newChatInstance);
-    }
-  }, []);
-
   useEffect(() => {
     // chennal 업데이트가 있을 때 ChatWidget이 렌더링되도록 함
-  }, [channel]);
+  }, [channel, channels]);
+
+
+  const getChannels = async () => {
+    const filter = { state: true, members: loginId };
+    const sort = { created_at: -1 };
+    const option = { offset: 0, per_page: 100 };
+
+
+    console.log("ASDASDASDASD");
+    try {
+      const channels = await chatInstance.getChannels(filter, sort, option);
+      console.log(channels.edges);
+    
+      // 모든 채널을 순회하면서 멤버를 필터링하고 업데이트
+      const updatedChannels = channels.edges.map(channel => {
+        const filteredMembers = channel.node.members.filter(member => member !== loginId);
+        const membersString = filteredMembers.join(", "); // 배열을 하나의 문자열로 변환
+    
+        return {
+          ...channel.node,  // 기존 채널 정보 그대로 가져오기
+          members: membersString, // 필터링된 멤버 문자열로 교체
+          unread: 0
+        };
+      });
+    
+      // 채널을 last_message.created_at 기준으로 정렬 (내림차순)
+      const sortedChannels = updatedChannels.sort((a, b) => {
+        const dateA = new Date(a.last_message.created_at); // Date 객체로 변환
+        const dateB = new Date(b.last_message.created_at); // Date 객체로 변환
+    
+        return dateB - dateA; // 내림차순 정렬: 최신 메시지가 위로 오도록
+      });
+    
+      setChannels(sortedChannels);  // 모든 채널 데이터 업데이트
+      await getLastChat(sortedChannels);
+      console.log("Updated Channels Data:", sortedChannels); // 결과 출력
+    } catch (error) {
+      console.error("Error message:", error);
+    }
+    
+  };
+
+  const getLastChat = async (channels) => {
+    let unreadCount = 0; 
+
+    for(const channel of channels){
+      try {
+        const response = await api.get(`chat/getLastChat/${loginId}/${channel.id}`);
+        console.log(response.data);
+        const unreadForChannel = await markReadAndGetUnread(response.data ,channel);
+        unreadCount += unreadForChannel;
+      
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    console.log(unreadCount);
+    // setTotalUnread(unreadCount);
+    await saveTotalUnread(unreadCount);
+  }
+
+  const markReadAndGetUnread = async (data, channel) => {
+    console.log(channel);
+    let unreadCountForChannel = 0;
+    console.log(data);
+    if(data){
+      try {
+        // 각 메시지에 대해 마크 읽기 처리
+        await chatInstance.markRead(data.channelId, {
+          user_id: data.senderId,
+          message_id: data.messageId,
+          sort_id: data.sortId
+        });
+        // console.log(`Marked message ${message.message_id} as read.`);
+      } catch (error) {
+        console.error(`Error marking message as read:`, error);
+      }
+      try {
+        const unread = await chatInstance.unreadCount(data.channelId);
+        console.log(`Unread count for channel ${data.channelId}:`, unread);
+        setChannels(prevChannels => 
+          prevChannels.map(ch => 
+            ch.id === channel.id ? { ...ch, unread:unread.unread } : ch
+          )
+        );
+        unreadCountForChannel = unread.unread;
+      } catch (error) {
+        console.error(`Error getting unread count for channel ${data.channelId}:`, error);
+      }
+    }else{
+      setChannels(prevChannels => 
+        prevChannels.map(ch => 
+          ch.id === channel.id ? { ...ch, unread: 1 } : ch
+        )
+      );
+      console.log(`Unread count for channel ${data}:`, 1);
+      unreadCountForChannel = 1;
+    }
+    return unreadCountForChannel;
+  };
+
+  const saveTotalUnread = async(unread) => {
+    console.log(unread);
+    const data = {
+      loginId: loginId,
+      totalUnread: unread
+    }
+    try{
+      const response = await api.post(`chat/saveTotalUnread`,data);
+      console.log(response);
+    }catch(error){  
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    // channels 상태가 업데이트되었을 때
+    if (channels && channels.length > 0) {
+      console.log("Updated channels with unread counts:", channels);
+    }
+  }, [channels]);  
+
+  
 
   return (
     <BrowserRouter>
@@ -101,6 +252,7 @@ function App() {
           nc={chatInstance}
           loginId={loginId}
           userNickname={userNickname}
+          handleChatLoginSuccess={handleChatLoginSuccess}
         />
       )}
       <Routes>
@@ -213,7 +365,7 @@ function App() {
 
         {/* <Route path="/board/bookmark/:local" element={<LocalBoard />}/> */}
       </Routes>
-      {loginInfo && (
+      {isChatLoginSuccessful && (
         <ChatWidget
           nc={chatInstance}
           loginId={loginId}
@@ -224,7 +376,9 @@ function App() {
           toggleChatWindow={toggleChatWindow}
           openFromButton={openFromButton}
           channel={channel}
+          channels={channels}
           openChatWindow={openChatWindow}
+          handleChatChange={handleChatChange}
         />
       )}
 

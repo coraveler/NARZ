@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { AiOutlineSend } from "react-icons/ai";
 import ChatMessages from "./ChatMessages";
+import api from "../../../../api/axios";
 
 const ChatRoomContent = ({ loginId, recipientId, nc, channel }) => {
   const messagesEndRef = useRef(null);
@@ -179,17 +180,36 @@ const ChatRoomContent = ({ loginId, recipientId, nc, channel }) => {
     }
   }
 
+  const saveLastChat = async(message) => {
+    const data = {
+      channelId: message?.channel_id,
+      senderId: message?.sender.id,
+      messageId: message?.message_id,
+      sortId: message?.sort_id,
+      loginId: loginId
+    }
+    try{
+      const response = await api.post(`chat/saveLastChat`,data);
+      console.log(response);
+    }catch(error){  
+      console.error(error);
+    }
+  }
+
   useEffect(() => {
     if (updateMessage?.length > 0) {
       scrollToBottom();
+      console.log(updateMessage[updateMessage.length-1]?.node);
+      saveLastChat(updateMessage[updateMessage.length-1]?.node);
     }
+    
   }, [updateMessage]);
 
- 
-  
+
+
 
   const clickSendBtn = async () => {
-    
+
     let channelId = channalId;
     if (friendState == null) {
       if (!channelId) {
@@ -280,22 +300,34 @@ const ChatRoomContent = ({ loginId, recipientId, nc, channel }) => {
             </button>
           </div>
 
-        ) : friendState === "requested" || friendState === "pending" ? (
+        ) : friendState === "requested" ? (
+          <div>상대방이 친구요청을 수락하면 채팅이 가능합니다.</div>
+        ) : friendState === "pending" ?
+          <div align="center">
+            <span>친구 신청이 왔습니다.</span>
+            <br />
+            <button onClick={acceptFriend}>수락</button>
+            <button onClick={rejectFriend}>거절</button>
+          </div> : friendState === "rejected" &&
+          <div>상대방이 친구요청을 수락하면 채팅이 가능합니다.</div>
 
-          channel?.last_message.sender.id === loginId ?
-            <div>상대방이 친구요청을 수락하면 채팅이 가능합니다.</div>
-            :
-            // 친구 요청이 수락되지 않은 경우, 수락/거절 버튼 표시
-            <div align="center">
-              <span>친구 신청이 왔습니다.</span>
-              <br />
-              <button onClick={acceptFriend}>수락</button>
-              <button onClick={rejectFriend}>거절</button>
-            </div>
-        ) :
-          channel?.last_message.sender.id === loginId ?
-            <div>상대방이 친구요청을 수락하면 채팅이 가능합니다.</div> :
-            <div>친구신청을 거절했습니다.</div>
+
+        // (
+
+        //   channel?.last_message.sender.id === loginId ?
+        //     <div>상대방이 친구요청을 수락하면 채팅이 가능합니다.</div>
+        //     :
+        //     // 친구 요청이 수락되지 않은 경우, 수락/거절 버튼 표시
+        //     <div align="center">
+        //       <span>친구 신청이 왔습니다.</span>
+        //       <br />
+        //       <button onClick={acceptFriend}>수락</button>
+        //       <button onClick={rejectFriend}>거절</button>
+        //     </div>
+        // ) :
+        //   channel?.last_message.sender.id === loginId ?
+        //     <div>상대방이 친구요청을 수락하면 채팅이 가능합니다.</div> :
+        //     <div>친구신청을 거절했습니다.</div>
 
 
 

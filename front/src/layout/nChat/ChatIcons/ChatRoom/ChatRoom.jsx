@@ -6,7 +6,7 @@ const ChatRoom = ({ channel, openChatWindow, changeActiveTab, nc, loginId }) => 
   const [userInfo, setUserInfo] = useState();
   const projectId = 'ebd01e35-1e25-4f95-a0c3-3f26ebe44438';
   const apiKey = '050ebb353a64ef3bb8daa191045bcbe02e0c62aeac210c47';
-  const [unread, setUnread] = useState([]);
+  // const [unread, setUnread] = useState();
 
   const getChatUserInfo = async () => {
     try {
@@ -27,47 +27,47 @@ const ChatRoom = ({ channel, openChatWindow, changeActiveTab, nc, loginId }) => 
     }
   };
 
-  const getMessages = async() => {
-    const filter = { channel_id: channel.id };
-    const sort = { created_at: 1 };
-    const option = { offset: 0, per_page: 100 };
-    try{
-      const messages = await nc.getMessages(filter, sort, option);
-      console.log(messages);
-      markReadAndGetUnread(messages.edges,channel.id)
-    }catch(error){
-      console.error(error);
-    }
-  }
+  // const getLastChat = async () => {
+  //   try {
+  //     const response = await api.get(`chat/getLastChat/${loginId}/${channel.id}`);
+  //     console.log(response.data);
+  //     markReadAndGetUnread(response.data);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
 
-  const markReadAndGetUnread = async (messages, channelId) => {
-    for (const message of messages) {
-      try {
-        // 각 메시지에 대해 마크 읽기 처리
-        await nc.markRead(channelId, {
-          user_id: message.node.sender.id,
-          message_id: message.node.message_id,
-          sort_id: message.node.sort_id
-        });
-        // console.log(`Marked message ${message.message_id} as read.`);
-      } catch (error) {
-        console.error(`Error marking message ${message.message_id} as read:`, error);
-      }
-    }
-    
-      try {
-        const unread = await nc.unreadCount(channelId);
-        setUnread(unread);
-        console.log(`Unread count for channel ${channelId}:`, unread);
-      } catch (error) {
-        console.error(`Error getting unread count for channel ${channelId}:`, error);
-      }
-  };
+  // const markReadAndGetUnread = async (data) => {
+  //   if(data){
+  //     try {
+  //       // 각 메시지에 대해 마크 읽기 처리
+  //       await nc.markRead(data.channelId, {
+  //         user_id: data.senderId,
+  //         message_id: data.messageId,
+  //         sort_id: data.sortId
+  //       });
+  //       // console.log(`Marked message ${message.message_id} as read.`);
+  //     } catch (error) {
+  //       console.error(`Error marking message as read:`, error);
+  //     }
+  //     try {
+  //       const unread = await nc.unreadCount(data.channelId);
+  //       setUnread(unread);
+  //       console.log(`Unread count for channel ${data.channelId}:`, unread);
+  //     } catch (error) {
+  //       console.error(`Error getting unread count for channel ${data.channelId}:`, error);
+  //     }
+  //   }else{
+  //     console.log("asd");
+  //     setUnread(1);
+  //     console.log(unread);
+  //   }
+  // };
 
 
-  useEffect(() => {
-    getMessages();
-  }, [channel])
+  // useEffect(() => {
+  //   getLastChat();
+  // }, [channel])
 
   const setTime = (createdAt) => {
     const messageTime = new Date(createdAt).getTime();
@@ -106,7 +106,7 @@ const ChatRoom = ({ channel, openChatWindow, changeActiveTab, nc, loginId }) => 
   return (
 
     <div
-      onClick={openChatRoom} 
+      onClick={openChatRoom}
       style={{
         border: "1px solid #ccc",   // Light grey border
         borderRadius: "8px",         // Rounded corners
@@ -116,8 +116,8 @@ const ChatRoom = ({ channel, openChatWindow, changeActiveTab, nc, loginId }) => 
         margin: "10px"
       }}
     >
-        <ChatLoginUserInfo userInfo={userInfo} timeDisplay={timeDisplay} msg={channel.last_message.content} unread={unread.user_id!==loginId ? unread:null }/>
-        
+      <ChatLoginUserInfo userInfo={userInfo} timeDisplay={timeDisplay} msg={channel.last_message.content} unread={channel.unread} />
+
     </div>
 
   );

@@ -50,12 +50,14 @@ const ChatFriends = ({ loginId, projectId, apiKey, nc }) => {
         <ChatLoginUserInfo userInfo={userInfo} projectId={projectId} apiKey={apiKey} />
 
       </div>
+      <div className={styles.chatContent}>
       <p>친구 목록을 표시합니다.</p>
       {
         friends.map((friend, index) => (
           <p>{friend.node.friend.name}</p>
         ))
       }
+      </div>
     </div>
   );
 };

@@ -41,7 +41,8 @@ const ChatLoginUserInfo = ({ userInfo, timeDisplay, msg, state, unread }) => {
                             }}>
                               <small>{msg}</small>
                               <div>
-                                {unread && unread?.unread!=0 ? unread.unread :''}
+                                {unread > 0 ? unread :''}
+                                {/* {unread} */}
                               </div>
                             </div>
                         )}
