@@ -10,7 +10,7 @@ import axios from "axios";
 import { FaSync } from "react-icons/fa";
 
 // UserActions 컴포넌트
-const UserActions = ({ isLoggedIn }) => {
+const UserActions = ({ refreshMileage }) => {
   const [totalMileage, setTotalMileage] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [eventSource, setEventSource] = useState(null); // SSE 연결 상태 관리
@@ -47,90 +47,90 @@ const UserActions = ({ isLoggedIn }) => {
 
   useEffect(() => {
     fetchMileage();
-  }, [refreshToggle]);
+  }, [refreshToggle, refreshMileage]);
 
-  useEffect(() => {
-    let eventSource = null;
+  // useEffect(() => {
+  //   let eventSource = null;
 
-    const fetchInitialMileage = async (userId) => {
-      try {
-        const response = await fetch(
-          `http://localhost:7777/api/mileage/total/${userId}`,
-          {
-            credentials: "include",
-          }
-        );
-        const data = await response.json();
-        console.log("Initial mileage fetched:", data);
-        setTotalMileage(data);
-        setIsLoading(false);
-      } catch (error) {
-        console.error("Error fetching initial mileage:", error);
-        setIsLoading(false);
-      }
-    };
+  //   // const fetchInitialMileage = async (userId) => {
+  //   //   try {
+  //   //     const response = await fetch(
+  //   //       `http://localhost:7777/api/mileage/total/${userId}`,
+  //   //       {
+  //   //         credentials: "include",
+  //   //       }
+  //   //     );
+  //   //     const data = await response.json();
+  //   //     console.log("Initial mileage fetched:", data);
+  //   //     // setTotalMileage(data);
+  //   //     setIsLoading(false);
+  //   //   } catch (error) {
+  //   //     console.error("Error fetching initial mileage:", error);
+  //   //     setIsLoading(false);
+  //   //   }
+  //   // };
 
-    const connectSSE = () => {
-      const loginInfoStr = localStorage.getItem("loginInfo");
-      if (!loginInfoStr) {
-        setIsLoading(false);
-        setTotalMileage(0);
-        return;
-      }
+  //   const connectSSE = () => {
+  //     const loginInfoStr = localStorage.getItem("loginInfo");
+  //     if (!loginInfoStr) {
+  //       setIsLoading(false);
+  //       setTotalMileage(0);
+  //       return;
+  //     }
 
-      try {
-        const loginInfo = JSON.parse(loginInfoStr);
-        const userId = loginInfo.data.userId;
+  //     try {
+  //       const loginInfo = JSON.parse(loginInfoStr);
+  //       const userId = loginInfo.data.userId;
 
-        if (!userId) {
-          console.error("User ID not found");
-          setIsLoading(false);
-          return;
-        }
+  //       if (!userId) {
+  //         console.error("User ID not found");
+  //         setIsLoading(false);
+  //         return;
+  //       }
 
-        fetchInitialMileage(userId); // 초기 마일리지 가져오기
+  //       // fetchInitialMileage(userId); // 초기 마일리지 가져오기
 
-        eventSource = new EventSource(
-          `http://localhost:7777/api/mileage/sse/${userId}`,
-          { withCredentials: true }
-        );
+  //       eventSource = new EventSource(
+  //         `http://localhost:7777/api/mileage/sse/${userId}`,
+  //         { withCredentials: true }
+  //       );
 
-        eventSource.onopen = () => {
-          console.log("SSE 연결 성공");
-        };
+  //       eventSource.onopen = () => {
+  //         console.log("SSE 연결 성공");
+  //       };
 
-        eventSource.onmessage = (event) => {
-          console.log("Received SSE data:", event.data);
-          const mileageValue = parseInt(event.data);
-          if (!isNaN(mileageValue)) {
-            console.log("Updating mileage to:", mileageValue);
-            setTotalMileage(mileageValue);
-          } else {
-            console.error("Invalid mileage value received:", event.data);
-          }
-        };
+  //       eventSource.onmessage = (event) => {
+  //         console.log("Received SSE data:", event.data);
+  //         const mileageValue = parseInt(event.data);
+  //         if (!isNaN(mileageValue)) {
+  //           console.log("Updating mileage to:", mileageValue);
+  //           setTotalMileage(mileageValue);
+  //         } else {
+  //           console.error("Invalid mileage value received:", event.data);
+  //         }
+  //       };
 
-        eventSource.onerror = (error) => {
-          console.error("SSE 연결 오류:", error);
-          eventSource.close();
-          setIsLoading(false);
-          // 일정 시간 후 재연결 시도
-          setTimeout(connectSSE, 5000);
-        };
-      } catch (error) {
-        console.error("Error setting up SSE:", error);
-        setIsLoading(false);
-      }
-    };
+  //       eventSource.onerror = (error) => {
+  //         console.error("SSE 연결 오류:", error);
+  //         eventSource.close();
+  //         setIsLoading(false);
+  //         // 일정 시간 후 재연결 시도
+  //         setTimeout(connectSSE, 5000);
+  //       };
+  //     } catch (error) {
+  //       console.error("Error setting up SSE:", error);
+  //       setIsLoading(false);
+  //     }
+  //   };
 
-    connectSSE();
+  //   connectSSE();
 
-    return () => {
-      if (eventSource) {
-        eventSource.close();
-      }
-    };
-  }, []);
+  //   return () => {
+  //     if (eventSource) {
+  //       eventSource.close();
+  //     }
+  //   };
+  // }, [refreshMileage]);
 
   // 알림 아이콘 실행 함수
   const notificationHandler = () => {
@@ -173,7 +173,7 @@ const UserActions = ({ isLoggedIn }) => {
               "마일리지 정보를 불러오는 중..."
             ) : (
               <>
-                {totalMileage.toLocaleString()}{" "}
+                {totalMileage?.toLocaleString()}{" "}
                 <span style={{ fontSize: "10px" }}>Points</span>
               </>
             )}

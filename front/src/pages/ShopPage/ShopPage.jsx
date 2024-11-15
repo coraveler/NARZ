@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import ShopNav from "./ShopNav";
-import styles from "../../css/Shop/Shop.module.css";
+import styles from "../../css/Shop/Shop.module.css";  
 
-function ShopPage() {
+function ShopPage({handleRefreshMileage}) {
   const [couponCode, setCouponCode] = useState("");
   const [message, setMessage] = useState("");
 
@@ -31,6 +31,7 @@ function ShopPage() {
 
       const result = await response.text();
       setMessage(result); // 서버로부터 받은 메시지를 표시
+      handleRefreshMileage();
     } catch (error) {
       setMessage("쿠폰 등록에 실패했습니다: " + error.message);
     }
