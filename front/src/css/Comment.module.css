@@ -1,18 +1,21 @@
 .commentSection {
   display: flex;
   justify-content: center; /* 댓글 전체 중앙 정렬 */
-  padding: 0px 20px; /* 상하 및 좌우 공백 */
+  padding: 0px 0px; /* 상하 및 좌우 공백 */
   background-color: transparent; /* 배경색 없음 */
-  
+  box-shadow: 2px 2px 5px gray;
+  border-radius: 20px;
+  width: 90%;
 }
 
 .commentContent {
   display: flex;
   flex-direction: column; /* 세로 방향으로 배치 */
-  width: 600px; /* 자동 너비 */
+  width: 800px; /* 자동 너비 */
   max-width: calc(100% - 60px); /* 최대 너비 설정 (좌우 공백을 고려) */
-  margin: 0; /* 마진 제거 */
+  padding: 10px; /* 마진 제거 */
   text-align: left; /* 텍스트 왼쪽 정렬 */
+  width: 100%;
 }
 
 .commentorInfo {
@@ -37,7 +40,7 @@
 
 .commentText {
   text-align: left; /* 텍스트 왼쪽 정렬 */
-  margin: 5px 30px; /* 위아래 마진 */
+  margin: 0px 30px; /* 위아래 마진 */
   word-wrap: break-word; /* 긴 단어를 줄바꿈 */
   overflow-wrap: break-word; /* 긴 단어를 줄바꿈 (CSS3) */
   
