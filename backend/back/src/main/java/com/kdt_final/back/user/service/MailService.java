@@ -1,7 +1,9 @@
 package com.kdt_final.back.user.service;
 
-import com.kdt_final.back.user.dao.UserRepository;
+import com.kdt_final.back.user.dao.email.MemoryEmailRepository;
+import com.kdt_final.back.user.dao.user.UserRepository;
 import com.kdt_final.back.user.domain.User;
+import com.kdt_final.back.user.dto.UserDTO;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +20,7 @@ public class MailService {
     private final JavaMailSender javaMailSender;
     private static final String senderEmail = "yunsemi563@gmail.com";
     private final UserRepository userRepository;
+    private final MemoryEmailRepository emailRepository;
 
     // 랜덤으로 숫자 생성
     public String createNumber() {
@@ -67,9 +70,57 @@ public class MailService {
     }
 //발송된 코드 DB에 저장
     private void updateCode(String sendEmail, String number) {
+              userRepository.updateCode(sendEmail, number);
 
-      userRepository.updateCode(sendEmail, number);
+
+    }
+
+    // 메일 발송
+    public Boolean sendSignUPMessage(String sendEmail) throws MessagingException {
+
+        if(!userRepository.findAllByUserEmail(sendEmail).isEmpty()){
+            return false;
+        }
+         else {
+            String number = createNumber(); // 랜덤 인증번호 생성
+            saveCode(sendEmail, number);
+            MimeMessage message = createMail(sendEmail, number); // 메일 생성
+            try {
+                javaMailSender.send(message); // 메일 발송
+            } catch (MailException e) {
+                e.printStackTrace();
+                throw new IllegalArgumentException("메일 발송 중 오류가 발생했습니다.");
+            }
+
+            return true;
+
+        }
 
 
+    }
+
+    public void saveCode(String sendEmail, String number) {
+
+        User user=new User();
+        user.setEmail(sendEmail);
+        user.setEmailCode(number);
+        emailRepository.saveCode(user);
+
+    }
+
+    // 인증 코드 확인
+    public Boolean checkEmailCode(UserDTO.UserRequestDTO userDTO) {
+        String emailCode = userDTO.getEmailCode(); // 사용자가 입력한 인증 코드
+        String email=userDTO.getEmail();
+        String storedCode = emailRepository.findCodeByEmail(email); // 저장된 인증 코드 가져오기
+        System.out.println(storedCode);
+
+        if( emailCode.equals(storedCode)){
+            emailRepository.deleEmailCode(email);
+            return true;
+
+
+        }
+        else return false;
     }
 }

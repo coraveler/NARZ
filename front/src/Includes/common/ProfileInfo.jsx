@@ -33,7 +33,9 @@ const ProfileInfo = forwardRef(({ userId }, ref) => {
       <div onClick={() => navigate(`/personal/${userId}`)}>
         <img
           loading="lazy"
-          src="https://cdn.builder.io/api/v1/image/assets/TEMP/b27a83d8c5cb2603bbe525f37e40638c4662ab944e1735d12e70886d6fa4e375?placeholderIfAbsent=true&apiKey=c7f1d91a917e4e2ba5370da6919a77db"
+          // src="https://cdn.builder.io/api/v1/image/assets/TEMP/b27a83d8c5cb2603bbe525f37e40638c4662ab944e1735d12e70886d6fa4e375?placeholderIfAbsent=true&apiKey=c7f1d91a917e4e2ba5370da6919a77db"
+          src={`http://localhost:7777/profileImages/${userInfo.profileImage}`}
+          //src={userInfo.profileImage}
           className={styles.profileImage}
           alt="Profile"
         />
