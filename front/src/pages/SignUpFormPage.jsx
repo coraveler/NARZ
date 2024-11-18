@@ -89,7 +89,9 @@ function SignUpFormPage({ ...props }) {
 
   const handleSendVerificationCode = async () => {
     try {
+  
       const response = await api.post('/sendVerificationCode', { email: formData.email }, { withCredentials: true });
+      
       if (response.data === true) {
         alert("인증 코드가 이메일로 발송되었습니다.");
         
