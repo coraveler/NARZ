@@ -82,14 +82,17 @@ const CommentList = ({ postId, userId }) => {
                         </div>
                     </div>
                 }
-                {
-                    comments.map((item, index) => (
-                        <div key={index} style={{padding:'0px 0px', display:'flex', flexDirection:'column', alignItems:'center' }}>
-                            <Comment comment={item} deleteComment={deleteComment} /><p/>
-                            {/* <hr style={{ color: "gray" }} /> */}
-                        </div>
-                    ))
-                }
+                <div style={{maxHeight:'800px', overflowY:'auto'}}>
+                    <p/>
+                    {
+                        comments.map((item, index) => (
+                            <div key={index} style={{padding:'0px 0px', display:'flex', flexDirection:'column', alignItems:'center' }}>
+                                <Comment comment={item} deleteComment={deleteComment} /><p/>
+                                {/* <hr style={{ color: "gray" }} /> */}
+                            </div>
+                        ))
+                    }
+                </div>
             </div>
         </div>
     );

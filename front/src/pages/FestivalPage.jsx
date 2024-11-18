@@ -64,7 +64,7 @@ function FestivalPage() {
                         {currentAry.map((el)=>{return <FestivalList key={el.id} el={el}/>})}
                     </div>
                 </div>
-            </div>
+            </div><p/>
             <div>
                 <div style={{display:'flex', justifyContent:'center', marginRight:'35px', marginBottom:'20px'}}>
                     <nav>
@@ -89,7 +89,7 @@ function FestivalPage() {
                         </ul>
                     </nav>
                 </div>
-            </div>
+            </div><br/><br/>
         </>
     );
 }
