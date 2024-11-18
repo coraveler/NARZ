@@ -21,6 +21,9 @@ const ChatWidget = ({ nc, loginId, recipientId, projectId, apiKey, isChatOpen, t
     } else {
       setActiveTab("friends");
     }
+    if(!isChatOpen){
+      setActiveTab(null);
+    }
   }, [isChatOpen]);
 
   
