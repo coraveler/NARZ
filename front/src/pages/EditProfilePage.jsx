@@ -217,7 +217,7 @@ const EditProfilePage = ({ selectedBadge, nc }) => {
                         </label>
                         <button
                             className={styles.deleteButton}
-                            onClick={() => setProfileImage(`http://localhost:7777/profileImages/${loginInfo.loginId}`)}
+                            onClick={() => setProfileImage(`http://localhost:7777/profileImages/default.png`)}
                         >
                             삭제
                         </button>
