@@ -24,6 +24,8 @@ public class UserDTO {
         public String phoneNum;
         public String userColor;
         public String userCode;
+        public String profileImage;
+        public String emailCode;
 
     }
 
@@ -44,6 +46,9 @@ public class UserDTO {
         public String userColor;
         public String userCode;
         private String achievement;
+        public String profileImage;
+        public String emailCode;
+
 
     }
 }

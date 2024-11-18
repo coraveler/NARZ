@@ -1,11 +1,20 @@
 package com.kdt_final.back.user.service;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
+import jakarta.xml.bind.DatatypeConverter;
 import org.springframework.stereotype.Service;
 
-import com.kdt_final.back.user.dao.UserRepository;
+import com.kdt_final.back.user.dao.user.UserRepository;
 import com.kdt_final.back.user.domain.User;
 import com.kdt_final.back.user.dto.LoginResponseDTO;
 import com.kdt_final.back.user.dto.UpdateResponseDTO;
@@ -13,10 +22,14 @@ import com.kdt_final.back.user.dto.UserDTO;
 
 import lombok.RequiredArgsConstructor;
 
+import javax.imageio.ImageIO;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
 
+    private final String profileImagesFolder = "/profileImages";
+    private final String profileImagesPath = System.getProperty("user.dir") + "/uploads/images"+profileImagesFolder;
     private final UserRepository userRepository;
 
 
@@ -50,7 +63,7 @@ public class UserService {
        else if(userRequestDTO.getLoginId().equals(checkDuplicateLoginId(userRequestDTO.getLoginId()))) {
             return false;
         }
-        else if (!userRequestDTO.getLoginId().matches("^[a-zA-Z0-9]*$")) {
+        else if (!userRequestDTO.getLoginId().matches("^[a-zA-Z0-9]{5,}$")) {
             return false;
         }
 
@@ -81,7 +94,7 @@ public class UserService {
             user.setUserNickname(userRequestDTO.getUserNickname());
             user.setPhoneNum(userRequestDTO.getPhoneNum());
             user.setBirthday(userRequestDTO.getBirthday());
-
+            user.setProfileImage("default.png");
 
             userRepository.createUser(user);
 
@@ -143,6 +156,7 @@ public class UserService {
                     .phoneNum(user.getPhoneNum())
                     .userName(user.getUserName())
                     .birthday(user.getBirthday())
+                    .profileImage(user.getProfileImage())
                     .build();
             LoginResponseDTO loginResponseDTO = LoginResponseDTO.builder()
                     .isLogin(true)
@@ -154,6 +168,8 @@ public class UserService {
 
 //회원정보수정
     public UpdateResponseDTO updateUser(UserDTO.UserRequestDTO userDTO) {
+
+
 
         if (!userDTO.getEmail().matches("^[\\w-\\.]+@[\\w-]+\\.[a-zA-Z]{2,}$")) {
             return UpdateResponseDTO
@@ -168,6 +184,9 @@ public class UserService {
         } else {
             User user = new User();
 
+            String result =saveProfileImage(userDTO.getProfileImage(),userDTO.getLoginId());
+
+
             user.setUserId(userDTO.getUserId());
             user.setLoginId(userDTO.getLoginId());
             user.setUserName(userDTO.getUserName());
@@ -176,24 +195,28 @@ public class UserService {
             user.setUserNickname(userDTO.getUserNickname());
             user.setPhoneNum(userDTO.getPhoneNum());
             user.setBirthday(userDTO.getBirthday());
+            user.setProfileImage(result);
 
             userRepository.updateUser(user);
 
 
-                UserDTO.UserResponseDTO userResponseDTO = UserDTO.UserResponseDTO.builder()
-                        .userId(user.getUserId())
-                        .loginId(user.getLoginId())
-                        .userNickname(user.getUserNickname())
-                        .email(user.getEmail())
-                        .phoneNum(user.getPhoneNum())
-                        .userName(user.getUserName())
-                        .birthday(user.getBirthday())
-                        .build();
-                UpdateResponseDTO updateResponseDTO = UpdateResponseDTO.builder()
-                        .isUpdate(true)
-                        .userResponseDTO(userResponseDTO)
-                        .build();
-                return updateResponseDTO;
+            UserDTO.UserResponseDTO userResponseDTO = UserDTO.UserResponseDTO.builder()
+                    .userId(user.getUserId())
+                    .loginId(user.getLoginId())
+                    .userNickname(user.getUserNickname())
+                    .email(user.getEmail())
+                    .phoneNum(user.getPhoneNum())
+                    .userName(user.getUserName())
+                    .birthday(user.getBirthday())
+                    .profileImage(user.getProfileImage())
+                    .build();
+            UpdateResponseDTO updateResponseDTO = UpdateResponseDTO.builder()
+                    .isUpdate(true)
+                    .userResponseDTO(userResponseDTO)
+                    .build();
+
+
+            return updateResponseDTO;
 
 
         }
@@ -211,6 +234,7 @@ public class UserService {
                 .userNickname(user.getUserNickname())
                 .userColor(user.getUserColor())
                 .achievement(user.getAchievement() != null ? user.getAchievement() : "여행초보자")
+                .profileImage(user.getProfileImage())
                 .build();
     }
 
@@ -298,6 +322,41 @@ public class UserService {
         }
 
         //칭호
+<<<<<<< HEAD
+
+
+
+    public String saveProfileImage(String base64, String loginId) {
+        if(base64.contains(profileImagesFolder))
+            return base64.split(profileImagesFolder+"/")[1];
+
+        String data =base64.split(";base64,")[1];
+        String fileFormat = base64.split(";base64,")[0].split("data:image/")[1];
+
+        byte[] imageBytes = DatatypeConverter.parseBase64Binary(data);
+
+        String fileName =  UUID.randomUUID().toString()+"."+fileFormat;
+        File file = new File(profileImagesPath, fileName);
+
+
+        try {
+            BufferedImage bufImg = ImageIO.read(new ByteArrayInputStream(imageBytes));
+            ImageIO.write(bufImg, fileFormat, file);
+            deleteOrgProfileImage(loginId);
+            userRepository.saveFileName(fileName);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return fileName;
+    }
+
+    public void deleteOrgProfileImage(String loginId) throws IOException {
+        User user = userRepository.findByLoginId(loginId);
+        Path path = Paths.get(profileImagesPath+"/"+user.getProfileImage());
+        Files.deleteIfExists(path);
+    }
+=======
         public boolean updateUserAchievement(int userId, String badgeName) {
             try {
                 int updatedRows = userRepository.updateAchievementByUserId(userId, badgeName);
@@ -308,4 +367,5 @@ public class UserService {
             }
         }
         
+>>>>>>> ec38dedafdaa681a9a867f3b6237958efef9d17e
 }

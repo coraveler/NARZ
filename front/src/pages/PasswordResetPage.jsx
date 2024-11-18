@@ -100,7 +100,7 @@ function PasswordResetPage() {
                       const response = await api.post('user/checkUserInfo', 이메일확인, {
                         headers: { withCredentials: true }
                       });
-                      if (response.data) {
+                      if (response.data==true) {
                         alert("인증번호가 발송되었습니다.");
                         await api.post('emailCheck', { email });
                       } else {
@@ -128,6 +128,10 @@ function PasswordResetPage() {
                   type="text"
                   placeholder="Enter verification code"
                   onChange={(event) => setuserCode(event.target.value)}
+                  disabled={isCodeVerified}
+                  style={{
+                    backgroundColor: isCodeVerified ? "#e9e6e6f5" : "white"
+                  }}
                 />
                 <button
                   onClick={async (event) => {
@@ -142,6 +146,7 @@ function PasswordResetPage() {
                       if (response.data) {
                         alert("이메일 인증이 완료되었습니다.");
                         setIsCodeVerified(true);
+                        
                       } else {
                         alert("인증번호가 틀렸습니다.");
                       }

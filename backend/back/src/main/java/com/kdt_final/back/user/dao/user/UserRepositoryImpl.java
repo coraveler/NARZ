@@ -1,4 +1,4 @@
-package com.kdt_final.back.user.dao;
+package com.kdt_final.back.user.dao.user;
 
 import java.util.List;
 
@@ -42,6 +42,11 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public List<User> findAllByLoginId(String loginId) {
         return userMapper.findAllByLoginId(loginId);
+    }
+
+    @Override
+    public User findByLoginId(String loginId) {
+        return userMapper.findByLoginId(loginId);
     }
 
     @Override
@@ -101,6 +106,11 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    public void saveFileName(String fileName) {
+
+    }
+
+    @Override
     public void updateAchievement(Integer userId, String achievementName) {
         String sql = "UPDATE user SET achievement = ? WHERE userId = ?";
         jdbcTemplate.update(sql, achievementName, userId);
@@ -118,11 +128,16 @@ public class UserRepositoryImpl implements UserRepository {
         return jdbcTemplate.queryForList(sql, String.class, userId);
     }
 
+<<<<<<< HEAD:backend/back/src/main/java/com/kdt_final/back/user/dao/user/UserRepositoryImpl.java
+
+
+=======
     @Override
     public int updateAchievementByUserId(int userId, String badgeName) {
         String sql = "UPDATE user SET achievement = ? WHERE userId = ?";
         return jdbcTemplate.update(sql, badgeName, userId);
     }
+>>>>>>> ec38dedafdaa681a9a867f3b6237958efef9d17e:backend/back/src/main/java/com/kdt_final/back/user/dao/UserRepositoryImpl.java
 }
 
 

@@ -21,4 +21,6 @@ public class User {
     private String userColor;
     private String userCode;
     private String achievement;
+    private String profileImage;
+    private String emailCode;
 }
