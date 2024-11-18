@@ -24,4 +24,6 @@ public interface MileageMapper {
 
     void deductMileage(@Param("userId") int userId, @Param("points") int points); // 마일리지 차감 메서드 추가
 
+    Mileage findByUserIdAndCouponCode(@Param("userId") int userId, @Param("couponCode") String couponCode);
+
 }

@@ -199,9 +199,6 @@ const UserActions = ({ refreshMileage }) => {
               </>
             )}
           </PointsDisplay>
-          <RefreshButton onClick={() => setRefreshToggle(!refreshToggle)}>
-            <FaSync />
-          </RefreshButton>
         </Container>
       </StyledUserActions>
 
@@ -319,16 +316,4 @@ const Container = styled.div`
   justify-content: space-between; // 요소 간격 조정
   width: 100%; // 컨테이너 너비
   border-color: #555555; // 테두리 색상
-`;
-
-// 새로고침 아이콘 스타일
-const RefreshButton = styled.button`
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 16px;
-  color: #555;
-  &:hover {
-    color: #ffb74d;
-  }
 `;
