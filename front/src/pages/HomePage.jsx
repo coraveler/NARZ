@@ -5,7 +5,7 @@ import BackgroundSlider from '../Includes/common/BackgroundSlider';
 import { getLoginInfo } from "../Includes/common/CommonUtil";
 import TravelCardGrid from '../Includes/common/card/TravelCardGrid';
 import RegionSelector from '../Includes/common/region/RegionSelector';
-import NotificationModal from '../Includes/nofification/NotificationModal';
+import NotificationModal from '../Includes/notification/NotificationModal';
 import api from '../api/axios';
 import '../css/Homepage.css';
 

@@ -11,7 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import jakarta.xml.bind.DatatypeConverter;
+import javax.imageio.ImageIO;
+
 import org.springframework.stereotype.Service;
 
 import com.kdt_final.back.user.dao.user.UserRepository;
@@ -20,9 +21,8 @@ import com.kdt_final.back.user.dto.LoginResponseDTO;
 import com.kdt_final.back.user.dto.UpdateResponseDTO;
 import com.kdt_final.back.user.dto.UserDTO;
 
+import jakarta.xml.bind.DatatypeConverter;
 import lombok.RequiredArgsConstructor;
-
-import javax.imageio.ImageIO;
 
 @Service
 @RequiredArgsConstructor

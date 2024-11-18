@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { FaUserFriends } from "react-icons/fa";
 import { TbMapHeart } from "react-icons/tb";
 import MapShareCard from "../Includes/mapshare/MapShareCard";
 import api from "../api/axios";
@@ -101,13 +100,14 @@ function MapSharePage() {
                 position: 'relative'
             }}>
                 <br />
-                <div style={{ width: '52%', display: 'flex', justifyContent: 'space-between' }}>
-                    <div style={{ textAlign: 'left' }}>
+                <div style={{ width: '52%', display: 'flex', justifyContent: 'center',  }}>
+                    <div style={{ textAlign: 'center', display: 'flex', justifyContent: 'center', flexDirection:'column', alignItems:'center' }}>
                         <br/>
                         <h4 className="title">
                             <TbMapHeart style={{ fontSize: '50px', color: 'orange', marginLeft: '5px', marginBottom: '5px' }} /> -- 전국 지도 자랑 -- <TbMapHeart style={{ fontSize: '50px', color: 'orange', marginLeft: '5px', marginBottom: '5px' }} />
                         </h4>
-                        <h5 className="subtitle">-내가 채워 넣어놨던 지도를 자랑해주세요-</h5>
+                        <div><p className="subtitle" >-내가 채워 넣어놨던 지도를 자랑해주세요-</p></div>
+                        
                     </div>
                 </div>
 

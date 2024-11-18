@@ -17,7 +17,7 @@ public interface ChatMapper {
     
     public Integer getTotalUnread(String loginId);
     
-    public Integer getUserId(String loginId);
+    public ChatResponseDTO getUserId(String loginId);
 
     public void saveExitChatRoomTime(ChatExitRoomTimeRequestDTO params);
     

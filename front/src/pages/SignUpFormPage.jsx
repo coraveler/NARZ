@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import styles from '../css/SignUpFormPage.module.css';
 import { useNavigate } from "react-router-dom";
 import api from '../api/axios';
+import styles from '../css/SignUpFormPage.module.css';
 import ChatAddUser from "../layout/nChat/ChatAddUser";
-import { FormLabel } from "react-bootstrap";
 
 function SignUpFormPage({ ...props }) {
   const navigate = useNavigate();
@@ -143,7 +142,7 @@ function SignUpFormPage({ ...props }) {
   };
 
   return (
-    <main>
+    <main><br/>
       <section className={styles.FormContainer}>
         <h1 className={styles.FormTitle}>회원정보를 입력해주세요</h1>
 
@@ -217,7 +216,7 @@ function SignUpFormPage({ ...props }) {
             }}
           />
         )}
-      </section>
+      </section><br/>
     </main>
   );
 }

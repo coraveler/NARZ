@@ -8,4 +8,6 @@ public class ChatResponseDTO {
     private String senderId;
     private String messageId;
     private String sortId;
+    private Integer userId;
+    private String profileImage;
 }

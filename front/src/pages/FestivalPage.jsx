@@ -43,9 +43,9 @@ function FestivalPage() {
     
     return (
         <>
-            <div style={{display:'flex', justifyContent:'center', marginTop:'50px'}}>
+            <div style={{display:'flex', justifyContent:'center', marginTop:'50px', paddingRight:'5%'}}>
                 
-                <div style={{padding:'20px'}}>
+                <div style={{padding:'20px', paddingLeft:''}}>
                     <img src="img/festival/festival_img.png" style={{width:'220px', height:'700px', borderRadius:'20px', }}/>
                 </div>
 
@@ -55,7 +55,7 @@ function FestivalPage() {
                             <h1 className="font-face" style={{color:'#FF8A2B'}}>축제 일정 &nbsp;<ImBullhorn style={{marginBottom:'10px', color:'#FF6F00'}}/></h1><br/>
                             <h5 className="font-face-2" style={{fontWeight:'bold'}}>다가오는 축제들을 만나보세요! <LiaSmileWink style={{marginBottom:'5px', fontSize:'30px', color:'#FFB74D'}}/></h5>
                         </div>
-                        <div style={{flex:2}}>
+                        <div>
                             <img src='img/festival/festival_img_3.png' style={{width:'400px', height:'120px'}}/>
                         </div>
                     </div>
@@ -64,7 +64,7 @@ function FestivalPage() {
                         {currentAry.map((el)=>{return <FestivalList key={el.id} el={el}/>})}
                     </div>
                 </div>
-            </div>
+            </div><p/>
             <div>
                 <div style={{display:'flex', justifyContent:'center', marginRight:'35px', marginBottom:'20px'}}>
                     <nav>
@@ -89,7 +89,7 @@ function FestivalPage() {
                         </ul>
                     </nav>
                 </div>
-            </div>
+            </div><br/><br/>
         </>
     );
 }

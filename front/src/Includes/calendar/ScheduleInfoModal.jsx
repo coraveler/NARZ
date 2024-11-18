@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { GrClose } from "react-icons/gr";
+import { IoPaperPlane, IoPaperPlaneOutline } from "react-icons/io5";
+import { MdContentCopy } from "react-icons/md";
 import ReactModal from "react-modal";
 import ScheduleDeleteModal from "./ScheduleDeleteModal";
 import ScheduleUpdateModal from "./ScheduleUpdateModal";
+
 
 
 function ScheduleInfoModal({
@@ -86,14 +89,14 @@ function ScheduleInfoModal({
 
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <div style={{ flex: 1 }}>
-                            <div style={{ marginBottom: '20px' }}>시작</div>
-                            <div style={{ marginBottom: '20px' }}>종료</div>
-                            <div>내용</div>
+                            <div style={{ marginBottom: '20px', display:'flex', alignItems:'center' }}><IoPaperPlaneOutline style={{color:'black'}}/>&nbsp;시작</div>
+                            <div style={{ marginBottom: '20px', display:'flex', alignItems:'center' }}><IoPaperPlane style={{color:'black'}}/>&nbsp;종료</div>
+                            <div style={{display:'flex', alignItems:'center'}}><MdContentCopy style={{color:'black'}}/>&nbsp;내용</div>
                         </div>
                         <div style={{ flex: 5 }}>
                             <div style={{ marginBottom: '20px' }}>{schStart}</div>
                             <div style={{ marginBottom: '20px' }}>{schEnd}</div>
-                            <div>{schContent?schContent:"없음"}</div>
+                            <div style={{whiteSpace:'pre'}}>{schContent?schContent:"없음"}</div>
                         </div>
                     </div><br/><hr/><p/>
                     
