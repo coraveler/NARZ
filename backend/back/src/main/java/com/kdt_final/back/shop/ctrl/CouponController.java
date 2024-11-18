@@ -47,6 +47,12 @@ public class CouponController {
 
     @PostMapping("/use")
     public String useCoupon(@RequestBody CouponRequest couponRequest) {
+        // 사용자가 이미 해당 쿠폰을 사용했는지 체크
+        boolean isCouponUsed = couponService.isCouponUsed(couponRequest.getUserId(), couponRequest.getCouponCode());
+        if (isCouponUsed) {
+            return "이 쿠폰은 이미 사용되었습니다.";
+        }
+
         String result = couponService.useCoupon(couponRequest.getUserId(), couponRequest.getCouponCode());
         return result;
     }

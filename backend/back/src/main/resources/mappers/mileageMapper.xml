@@ -41,6 +41,10 @@
     WHERE userId = #{userId}
     </select>
 
-
+    <!-- 쿠폰 등록여부 조회 -->
+    <select id="findByUserIdAndCouponCode" resultType="Mileage">
+        SELECT * FROM mileage 
+        WHERE userId = #{userId} AND couponCode = #{couponCode}
+    </select>
 
 </mapper>

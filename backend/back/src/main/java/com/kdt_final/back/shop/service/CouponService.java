@@ -28,38 +28,37 @@ public class CouponService {
     }
 
     public boolean registerCoupon(CouponRequest couponRequest) {
-        // 이미 사용자가 해당 쿠폰을 등록한 적이 있는지 확인
-        UserCoupon existingUserCoupon = userCouponMapper.findByUserIdAndCouponCode(couponRequest.getUserId(), couponRequest.getCouponCode());
-    
-        if (existingUserCoupon != null) {
-            // 이미 등록된 쿠폰이 있다면 등록을 막음
-            return false; // 이미 등록된 쿠폰이기 때문에 다시 등록할 수 없음
+        // 이미 사용자가 해당 쿠폰으로 마일리지를 적립했는지 확인
+        Mileage existingMileage = mileageMapper.findByUserIdAndCouponCode(couponRequest.getUserId(),
+                couponRequest.getCouponCode());
+
+        if (existingMileage != null) {
+            // 이미 마일리지 적립된 경우
+            return false;
         }
-    
+
+        // 쿠폰 코드에 따른 포인트 조회
         Integer points = couponMapper.getPointsByCouponCode(couponRequest.getCouponCode());
-    
+
         if (points != null) {
-            // 마일리지 처리 로직
+            // 마일리지 추가
             Mileage mileage = new Mileage();
             mileage.setUserId(couponRequest.getUserId());
             mileage.setMileage(points);
             mileage.setChangeHistory("쿠폰 등록: " + couponRequest.getCouponCode());
             mileageMapper.insertMileage(mileage);
-    
+
             // 사용자 쿠폰 등록
             UserCoupon userCoupon = new UserCoupon();
             userCoupon.setUserId(couponRequest.getUserId());
             userCoupon.setCouponId(couponRequest.getCouponId());
-            userCoupon.setIsUsed(false); // 아직 사용되지 않은 쿠폰
-            userCoupon.setUsedDate(null); // 사용 날짜는 null로 설정
-    
+            userCoupon.setIsUsed(false);
             userCouponMapper.insertUserCoupon(userCoupon);
-    
-            return true; // 등록 성공
+
+            return true;
         }
-        return false; // 쿠폰 코드가 유효하지 않은 경우
+        return false; // 유효하지 않은 쿠폰
     }
-    
 
     public String useCoupon(int userId, String couponCode) {
         Coupon coupon = couponMapper.findByCouponCode(couponCode);
@@ -68,6 +67,7 @@ public class CouponService {
             return "유효하지 않은 쿠폰 코드입니다.";
         }
 
+        // 사용자가 이미 해당 쿠폰을 사용했는지 체크
         UserCoupon userCoupon = userCouponMapper.findByUserIdAndCouponId(userId, coupon.getCouponId());
 
         if (userCoupon != null && userCoupon.getIsUsed()) {
@@ -80,12 +80,10 @@ public class CouponService {
             userCoupon.setCouponId(coupon.getCouponId());
             userCoupon.setIsUsed(true);
             userCoupon.setUsedDate(LocalDateTime.now());
-            System.out.println("Inserting user coupon: " + userCoupon); // 디버그 로그
             userCouponMapper.insertUserCoupon(userCoupon);
         } else {
             userCoupon.setIsUsed(true);
             userCoupon.setUsedDate(LocalDateTime.now());
-            System.out.println("Updating user coupon: " + userCoupon); // 디버그 로그   
             userCouponMapper.updateUserCoupon(userCoupon);
         }
 

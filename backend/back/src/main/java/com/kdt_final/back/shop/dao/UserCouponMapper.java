@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Update;
 
 @Mapper
 public interface UserCouponMapper {
-
+    
     @Select("SELECT * FROM UserCoupon WHERE userId = #{userId} AND couponId = (SELECT couponId FROM Coupon WHERE couponCode = #{couponCode})")
     UserCoupon findByUserIdAndCouponCode(int userId, String couponCode);
 
