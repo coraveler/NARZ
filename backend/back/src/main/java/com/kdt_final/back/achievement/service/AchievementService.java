@@ -1,8 +1,10 @@
 package com.kdt_final.back.achievement.service;
 
+import com.kdt_final.back.comment.service.CommentService;
+import com.kdt_final.back.user.dao.user.UserRepository;
 import com.kdt_final.back.achievement.dao.AchievementRepository;
 import com.kdt_final.back.achievement.domain.Achievement;
-import com.kdt_final.back.user.dao.UserRepository;
+// import com.kdt_final.back.user.dao.UserRepository;
 import com.kdt_final.back.comment.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -1,90 +1,120 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.kdt_final.back.user.dao.UserMapper">
+<mapper namespace="com.kdt_final.back.user.dao.user.UserMapper">
 
     <select id="findUserAll"
             resultType="com.kdt_final.back.user.domain.User">
-        SELECT userId, loginId,password, userName, userNickname, email, birthday, phoneNum
+        SELECT userId,
+               loginId,
+               password,
+               userName,
+               userNickname,
+               email,
+               birthday,
+               phoneNum
         FROM user
     </select>
 
     <insert id="createUser"
             parameterType="com.kdt_final.back.user.domain.User">
-        INSERT INTO user(loginId,password, userName, userNickname, email, birthday, phoneNum)
-        VALUES
-       (#{loginId}, #{password}, #{userName}, #{userNickname}, #{email}, #{birthday}, #{phoneNum})
+        INSERT INTO user(loginId, password, userName, userNickname, email, birthday, phoneNum, profileImage)
+        VALUES (#{loginId}, #{password}, #{userName}, #{userNickname}, #{email}, #{birthday}, #{phoneNum}, #{profileImage})
 
     </insert>
 
     <select id="findAllByUserNickname"
             parameterType="String"
             resultType="com.kdt_final.back.user.domain.User">
-        SELECT  userNickname
-        FROM user where userNickname =#{userNickname}
+        SELECT userNickname
+        FROM user
+        where userNickname = #{userNickname}
     </select>
 
     <select id="findAllByLoginId"
             parameterType="String"
             resultType="com.kdt_final.back.user.domain.User">
-        SELECT  loginId
-        FROM user where loginId =#{loginId}
+        SELECT loginId
+        FROM user
+        where loginId = #{loginId}
+    </select>
+    <select id="findByLoginId"
+            parameterType="String"
+            resultType="com.kdt_final.back.user.domain.User">
+        SELECT *
+        FROM user
+        where loginId = #{loginId}
     </select>
 
 
     <select id="findUserByLoginId"
             parameterType="com.kdt_final.back.user.domain.User">
-         SELECT loginId,password
-          FROM user
+        SELECT loginId, password
+        FROM user
     </select>
 
     <select id="findByLoginIdAndPassword"
             parameterType="com.kdt_final.back.user.domain.User">
-        SELECT userId, loginId,password, userName, userNickname, email, birthday, phoneNum
+        SELECT userId,
+               loginId,
+               password,
+               userName,
+               userNickname,
+               email,
+               birthday,
+               phoneNum,
+               profileImage
         FROM user
-        where loginId =#{loginId} and password = #{password}
+        where loginId = #{loginId}
+          and password = #{password}
     </select>
 
 
     <update id="updateUser"
             parameterType="com.kdt_final.back.user.domain.User">
 
-            UPDATE user
-            SET
+        UPDATE user
+        SET email        =#{email},
+            birthday     = #{birthday},
+            phoneNum= #{phoneNum},
+            profileImage = #{profileImage}
 
-               email =#{email},
-               birthday = #{birthday},
-               phoneNum= #{phoneNum}
-
-            WHERE  loginId =#{loginId}
+        WHERE loginId = #{loginId}
 
 
     </update>
 
     <select id="getUserInfo"
             resultType="com.kdt_final.back.user.domain.User">
-        SELECT userNickname, loginId, userColor, achievement
+        SELECT userNickname, loginId, userColor, achievement, profileImage
         FROM user
         WHERE USERID = #{userId}
     </select>
 
     <select id="findUserByLoginIdAndEmail"
             resultType="com.kdt_final.back.user.domain.User">
-        SELECT userId, loginId,password, userName, userNickname, email, birthday, phoneNum
+        SELECT userId,
+               loginId,
+               password,
+               userName,
+               userNickname,
+               email,
+               birthday,
+               phoneNum,
+               profileImage
         FROM user
-        where loginId =#{loginId} and email = #{email}
+        where loginId = #{loginId}
+          and email = #{email}
     </select>
 
     <update id="updateCode"
             parameterType="com.kdt_final.back.user.domain.User">
 
         UPDATE user
-        SET
-
-            userCode =#{userCode}
+        SET userCode =#{userCode}
 
 
-        WHERE email =#{email}
+        WHERE email = #{email}
 
 
     </update>
@@ -92,26 +122,26 @@
     <select id="findAllByUserEmail"
             parameterType="String"
             resultType="com.kdt_final.back.user.domain.User">
-        SELECT  email
-        FROM user where email =#{email}
+        SELECT email
+        FROM user
+        where email = #{email}
     </select>
 
     <select id="findCodeByLoginId"
             parameterType="String"
             resultType="com.kdt_final.back.user.domain.User">
-        SELECT  userCode
-        FROM user where loginId =#{loginId}
+        SELECT userCode
+        FROM user
+        where loginId = #{loginId}
     </select>
 
     <update id="updatePassword"
             parameterType="String">
 
         UPDATE user
-        SET
+        SET password =#{password}
 
-            password =#{password}
-
-        WHERE loginId =#{loginId}
+        WHERE loginId = #{loginId}
 
 
     </update>
@@ -119,12 +149,10 @@
 
     <delete id="deleteCode">
         UPDATE user
-        SET
-
-        userCode = NULL
+        SET userCode = NULL
 
 
-        WHERE loginId =#{loginId}
+        WHERE loginId = #{loginId}
 
     </delete>
 
@@ -143,7 +171,6 @@
         FROM user
         WHERE userId = #{userId}
     </select>
-
 
 
 </mapper>

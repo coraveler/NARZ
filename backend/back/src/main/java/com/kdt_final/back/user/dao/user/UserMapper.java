@@ -1,4 +1,4 @@
-package com.kdt_final.back.user.dao;
+package com.kdt_final.back.user.dao.user;
 
 
 import java.util.List;
@@ -15,6 +15,7 @@ public interface UserMapper {
     public void createUser(User user);
     public List<User> findAllByUserNickname(String userNickname);
     public  List<User> findAllByLoginId(String loginId);
+    public User findByLoginId(String loginId);
     public User findByLoginIdAndPassword(String loginId, String password);
     public void updateUser(User user);
     public User getUserInfo(Integer userId);
@@ -26,6 +27,8 @@ public interface UserMapper {
     public void deleteCode(String loginId);
     public void changeNicknameColor(UserDTO.UserRequestDTO userId);
     public String fetchNicknameColor(int userId);
+    public void saveFileName(String fileName);
+
 }
 
 

@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useEffect, useState } from 'react';
 import { Carousel } from 'react-bootstrap';
 // import { AiFillLike, AiOutlineLike } from "react-icons/ai";
-import { FaStar } from "react-icons/fa";
+import { FaRegCircle, FaStar } from "react-icons/fa";
 // import { FaBookmark, FaRegBookmark } from "react-icons/fa6";
 import { MdModeEdit } from "react-icons/md";
 import { RiDeleteBinLine } from "react-icons/ri";
@@ -108,106 +108,119 @@ const PostPage = () => {
     return (
         <div className={styles.full}>
             <br/>
-            <section className={styles.profileContainer}>
-                <br/>
-                <h1 className={styles.profileTitle}> {post.local} </h1>
-                <h1 className={styles.subTitle}>{post.title}  </h1> 
-                <br />
-                <div className={styles.profileInfo}>
-                    <ProfileInfo userId={post.userId} />
-                    <time className={styles.profileDate}>{post.createdDate}</time>
+            <div style={{border:'3px solid gray', borderRadius:'50px'}}>
+                <div style={{textAlign:'center', marginTop:'4px', fontSize:'20px', paddingLeft:'50px', marginBottom:'40px'}}>
+                    <span><FaRegCircle />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <span><FaRegCircle />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <span><FaRegCircle />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <span><FaRegCircle />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <span><FaRegCircle />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <span><FaRegCircle />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <span><FaRegCircle />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <span><FaRegCircle />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <span><FaRegCircle />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                </div>
+                <section className={styles.profileContainer}>
+                    <br/>
+                    <h1 className={styles.subTitle}>{post.title}  </h1> 
+                    <h1 className={styles.profileTitle}> - {post.local} - </h1>
+                    <br />
+                    <div className={styles.profileInfo}>
+                        <ProfileInfo userId={post.userId} fontSize={21}/>
+                        <time className={styles.profileDate}>{post.createdDate}</time>
 
-                    <div className={styles.buttonDiv}>
-                        {
-                            userId == post.userId ?
+                        <div className={styles.buttonDiv}>
+                            {
+                                userId == post.userId ?
+                                    <div>
+
+                                        <button className="btn btn-outline-warning"
+                                            onClick={() => navigate(`/TravelEditPage`, {
+                                                state: {
+                                                    post: post,
+                                                    postImgUrl: postImgUrl
+                                                }
+                                            })}>
+                                            {/* 수정하기 */}
+                                            <MdModeEdit />
+                                        </button>
+
+                                        <button className="btn btn-outline-danger"
+                                            style={{ marginLeft: "5px" }}
+                                            onClick={postDelete}>
+                                            {/* 삭제 */}
+                                            <RiDeleteBinLine />
+                                        </button>
+                                    </div> : userId!=null &&
+                                    <div>
+                                    <FollowButton followedId={post.userId}/>
+                                    </div>
+                            }
+                        </div>
+                    </div><br />
+                </section>
+
+                <div align="center">
+                    <main className={styles.container}>
+                        <section className={styles.productWrapper}>
+                            {/* <hr style={{ width: "70%" }} /> */}
+                            {error ? (
+                                <div>{error}</div>
+                            ) : (
+                                <Carousel interval={null}>
+                                    {postImgUrl.length > 0 && postImgUrl.map((img, index) => (
+                                        <Carousel.Item key={index}>
+                                            <div className='slidercontents'>
+                                                <img style={{ width: "500px", height: "350px" }} src={img.imagePath} alt={`Slide ${index + 1}`} />
+                                            </div>
+                                        </Carousel.Item>
+                                    ))}
+                                </Carousel>
+                            )}
+                        </section>
+                        <section className={styles.ratingSection} >
+                            <div className={styles.ratingBar}>
+
+                                {/* <div onClick={clickLike} style={{ cursor: 'pointer' }}>
+                                        {
+                                        likeState ? (
+                                        <div> <AiFillLike />&nbsp; {likeCount} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                        ) : (<div><AiOutlineLike />&nbsp; {likeCount} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </div>)
+                                    }
+                                    </div> */}
+
+                                <LikeIcon postId={postId} userId={userId} />
+                                <FaStar style={{ color: "#FFD700", marginRight:'10px' }} /> {post.rating}
+
+                                {/* <div onClick={clickBookMark} style={{ cursor: 'pointer', marginLeft:'350px'}}>
+                                        {
+                                        bookMarkState ? (
+                                        <div> <FaBookmark /></div>
+                                        ) : (<div><FaRegBookmark /></div>)
+                                    }
+                                    </div> */}
                                 <div>
-
-                                    <button className="btn btn-outline-warning"
-                                        onClick={() => navigate(`/TravelEditPage`, {
-                                            state: {
-                                                post: post,
-                                                postImgUrl: postImgUrl
-                                            }
-                                        })}>
-                                        {/* 수정하기 */}
-                                         <MdModeEdit />
-                                    </button>
-
-                                    <button className="btn btn-outline-danger"
-                                        style={{ marginLeft: "5px" }}
-                                        onClick={postDelete}>
-                                        {/* 삭제 */}
-                                        <RiDeleteBinLine />
-                                    </button>
-                                </div> : userId!=null &&
-                                <div>
-                                <FollowButton followedId={post.userId}/>
+                                    <BookMark userId={userId} postId={postId} style={["310px"]} />
                                 </div>
-                        }
-                    </div>
-                </div><br />
-            </section>
 
-            <div align="center">
-                <main className={styles.container}>
-                    <section className={styles.productWrapper}>
-                        {/* <hr style={{ width: "70%" }} /> */}
-                        {error ? (
-                            <div>{error}</div>
-                        ) : (
-                            <Carousel interval={null}>
-                                {postImgUrl.length > 0 && postImgUrl.map((img, index) => (
-                                    <Carousel.Item key={index}>
-                                        <div className='slidercontents'>
-                                            <img style={{ width: "500px", height: "350px" }} src={img.imagePath} alt={`Slide ${index + 1}`} />
-                                        </div>
-                                    </Carousel.Item>
-                                ))}
-                            </Carousel>
-                        )}
-                    </section>
-                    <section className={styles.ratingSection} >
-                        <div className={styles.ratingBar}>
 
-                            {/* <div onClick={clickLike} style={{ cursor: 'pointer' }}>
-                                    {
-                                    likeState ? (
-                                       <div> <AiFillLike />&nbsp; {likeCount} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                                     ) : (<div><AiOutlineLike />&nbsp; {likeCount} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </div>)
-                                }
-                                </div> */}
-
-                            <LikeIcon postId={postId} userId={userId} />
-                            <FaStar style={{ color: "#FFD700", marginRight:'3px' }} /> {post.rating}
-
-                            {/* <div onClick={clickBookMark} style={{ cursor: 'pointer', marginLeft:'350px'}}>
-                                    {
-                                    bookMarkState ? (
-                                       <div> <FaBookmark /></div>
-                                     ) : (<div><FaRegBookmark /></div>)
-                                }
-                                </div> */}
-                            <div>
-                                <BookMark userId={userId} postId={postId} style={["350px"]} />
                             </div>
-
-
+                        </section>
+                        <div align="center">
                         </div>
-                    </section>
-                    <div align="center">
-                    </div>
-                    <section className={styles.contentSection}>
-                        <div className={styles.textContainer}>
-                            {post.content && renderContent(post.content)}
-                        </div>
-                    </section>
-                </main>
+                        <section className={styles.contentSection}>
+                            <div className={styles.textContainer}>
+                                {post.content && renderContent(post.content)}
+                            </div>
+                        </section>
+                    </main>
 
-                {/* <hr style={{ width: "850px" }} /> */}
-                {/* <Comment postId={postId}/>  반복 */}
+                    {/* <hr style={{ width: "850px" }} /> */}
+                    {/* <Comment postId={postId}/>  반복 */}
 
 
 
+                </div>
             </div>
             <br/>
             <CommentList postId={postId} userId={userId} />

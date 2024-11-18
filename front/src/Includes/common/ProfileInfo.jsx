@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import api from '../../api/axios';
 import styles from '../../css/ProfileInfo.module.css';
 
-const ProfileInfo = forwardRef(({ userId }, ref) => {
+const ProfileInfo = forwardRef(({ userId, fontSize }, ref) => {
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState({});
 
@@ -33,7 +33,9 @@ const ProfileInfo = forwardRef(({ userId }, ref) => {
       <div onClick={() => navigate(`/personal/${userId}`)}>
         <img
           loading="lazy"
-          src="https://cdn.builder.io/api/v1/image/assets/TEMP/b27a83d8c5cb2603bbe525f37e40638c4662ab944e1735d12e70886d6fa4e375?placeholderIfAbsent=true&apiKey=c7f1d91a917e4e2ba5370da6919a77db"
+          // src="https://cdn.builder.io/api/v1/image/assets/TEMP/b27a83d8c5cb2603bbe525f37e40638c4662ab944e1735d12e70886d6fa4e375?placeholderIfAbsent=true&apiKey=c7f1d91a917e4e2ba5370da6919a77db"
+          src={`http://localhost:7777/profileImages/${userInfo.profileImage}`}
+          //src={userInfo.profileImage}
           className={styles.profileImage}
           alt="Profile"
         />
@@ -44,11 +46,12 @@ const ProfileInfo = forwardRef(({ userId }, ref) => {
         style={{
           fontFamily: userInfo.achievement === "여행 초보자" ? 'JSArirangHON-Regular' : 'Cafe24ClassicType-Regular',
           color: userInfo.achievement === "여행 초보자" ? '#a67c00' : '#f2ac2e',
+          fontSize:fontSize
         }}
       >
         {userInfo.achievement || "여행 초보자"}
       </p>
-      <p className={styles.profileName} style={{ color: userInfo.userColor }}>
+      <p className={styles.profileName} style={{ color: userInfo.userColor, fontSize:fontSize }}>
         {userInfo?.userNickname || ''}
       </p>
     </>

@@ -4,7 +4,6 @@ import ChatRoom from "../ChatIcons/ChatRoom/ChatRoom";
 
 const ChatRoomList = ({ openChatWindow, loginId, nc, changeActiveTab, channels }) => {
 
-
   useEffect(() => {
     console.log(channels);
   }, []);
@@ -22,7 +21,7 @@ const ChatRoomList = ({ openChatWindow, loginId, nc, changeActiveTab, channels }
             openChatWindow={openChatWindow}
             changeActiveTab={changeActiveTab}
             // nc={nc}
-            // loginId={loginId}
+            loginId={loginId}
           />
         ))}
       </div>

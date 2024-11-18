@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import BackgroundSlider from '../Includes/common/BackgroundSlider';
-import TravelCardGrid from '../Includes/common/card/TravelCardGrid';
-import RegionSelector from '../Includes/common/region/RegionSelector';
-import api from '../api/axios';
+import React, { useEffect, useRef, useState } from 'react';
 import { IoMdArrowDropright } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
-import '../css/Homepage.css';
+import BackgroundSlider from '../Includes/common/BackgroundSlider';
 import { getLoginInfo } from "../Includes/common/CommonUtil";
-import ChatMakeChannel from '../layout/nChat/ChatMakeChannal';
+import TravelCardGrid from '../Includes/common/card/TravelCardGrid';
+import RegionSelector from '../Includes/common/region/RegionSelector';
+import NotificationModal from '../Includes/nofification/NotificationModal';
+import api from '../api/axios';
+import '../css/Homepage.css';
 
 function HomePage({nc}) {
   const navigate = useNavigate();
@@ -16,6 +16,7 @@ function HomePage({nc}) {
   const [popularPost, setpopularPost] = useState([]); // 여기 수정
   let loginInfo = getLoginInfo();
   const userId = loginInfo?.userId || null;
+  const notificationRef = useRef(null); // NotificationModal에 접근하기 위한 ref 생성
 
   const getBookMarkPost = async () => {
     try {
@@ -68,6 +69,11 @@ function HomePage({nc}) {
       getFollowPost();
       getpopularPost();
     }
+    // 로그인 후 알림
+    if(localStorage.getItem("loginNotification")){
+      notificationRef.current.loginHandler();
+      localStorage.removeItem("loginNotification")
+    }
   }, [userId]);
 
   const sections = [
@@ -104,6 +110,7 @@ function HomePage({nc}) {
         ))}
       </div>
       <br /><br />
+      <NotificationModal ref={notificationRef}/> 
     </div>
   );
 }

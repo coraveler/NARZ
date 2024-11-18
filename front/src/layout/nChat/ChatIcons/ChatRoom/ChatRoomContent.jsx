@@ -15,14 +15,40 @@ const ChatRoomContent = ({ loginId, recipientId, nc, channel }) => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  // 컴포넌트가 마운트되거나 메시지가 업데이트 될 때마다 자동으로 스크롤 내리기
-  useEffect(() => {
-    // console.log(messages);
-    scrollToBottom();
-    console.log(recipientId);
-    // setUpdateMessage(messages);
-  }, [channel]); // 채팅 메시지가 바뀔 때마다 호출되도록 할 수도 있음
 
+  // 최초 로딩 시 getMessages 호출
+  // useEffect(() => {
+  //   if (channel) {
+  //     getMessages(channel.id);
+  //   }
+  // }, [channalId]);
+
+  // 컴포넌트가 마운트되거나 메시지가 업데이트 될 때마다 자동으로 스크롤 내리기
+  // useEffect(() => {
+  //   scrollToBottom();
+
+  //   const exitTime = getExitChatRoomTime();
+  //   getMessages(channel.id, exitTime);
+  // }, [channel]); // 채팅 메시지가 바뀔 때마다 호출되도록 할 수도 있음
+
+  useEffect(() => {
+    scrollToBottom();
+    if(channel){
+    const fetchExitTimeAndMessages = async () => {
+
+        // await을 사용하여 실제 값 가져오기
+        const exitTime = await getExitChatRoomTime();
+        
+        if (exitTime) {
+          getMessages(channel.id, exitTime);  // exitTime 값을 인자로 사용
+        }else{
+          getMessages(channel.id, null); 
+        }
+      };
+      
+      fetchExitTimeAndMessages();
+    }
+  }, [channel]);
 
   const handleMessage = (e) => {
     setMessage(e.target.value);
@@ -65,26 +91,6 @@ const ChatRoomContent = ({ loginId, recipientId, nc, channel }) => {
     }
   }
 
-  // const sendMessage = async (channelId) => {
-  //   try {
-  //     console.log("Sending message:", message);
-
-  //     const response = await nc.sendMessage(channelId, {
-  //       type: "text",
-  //       message: message,
-  //     });
-
-  //     if (response) {
-  //       console.log("Message sent successfully:", response);
-  //       setMessage(""); // 입력창 초기화
-  //       // await getMessages(channelId);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error sending message:", error);
-  //   }
-
-  // };
-
   const sendMessage = async (channelId) => {
     try {
       console.log("Sending message:", message);
@@ -111,25 +117,58 @@ const ChatRoomContent = ({ loginId, recipientId, nc, channel }) => {
   };
 
   // 초기 로드 시 모든 메시지를 가져오기
-  const getMessages = async (channelId) => {
+  const getMessages = async (channelId, exitTime) => {
     const filter = { channel_id: channelId };
     const sort = { created_at: 1 };
     const option = { offset: 0, per_page: 100 };
     try {
       const response = await nc.getMessages(filter, sort, option);
-      setUpdateMessage(response.edges); // 메시지 초기 로드
+      if(exitTime){
+        const filterdMsg = checkExitTime(response.edges, exitTime);
+        setUpdateMessage(filterdMsg); // 메시지 초기 로드
+      }else{
+        setUpdateMessage(response.edges); // 메시지 초기 로드
+      }
       console.log(response);
     } catch (error) {
       console.log(error);
     }
   };
 
-  // 최초 로딩 시 getMessages 호출
-  useEffect(() => {
-    if (channel) {
-      getMessages(channel.id);
+
+  const getExitChatRoomTime = async () => {
+    try {
+      const response = await api.get(`/chat/getExitChatRoomTime/${loginId}/${channel.id}`);
+      console.log(response.data);
+      if (response.data) {
+        return response.data;
+      }
+    } catch (error) {
+      console.error(error);
+      return null;
     }
-  }, [channalId]);
+  }
+
+  const checkExitTime = (messages, exitTime) => {
+    const exitDate = new Date(exitTime);
+    let index = 0;
+    console.log(exitTime);
+    for (let i = messages.length - 1; i >= 0; i--) {
+      const msgTime = new Date(messages[i].node.created_at);
+      console.log(messages[i].node);
+      
+      if (exitDate > msgTime) {
+        console.log(msgTime);
+        index=i;
+        break;
+      } 
+    }
+    
+    return messages.slice(index+1, messages.length); 
+  }
+
+
+
 
   const requestFriend = async () => {
     try {
@@ -180,7 +219,7 @@ const ChatRoomContent = ({ loginId, recipientId, nc, channel }) => {
     }
   }
 
-  const saveLastChat = async(message) => {
+  const saveLastChat = async (message) => {
     const data = {
       channelId: message?.channel_id,
       senderId: message?.sender.id,
@@ -188,10 +227,10 @@ const ChatRoomContent = ({ loginId, recipientId, nc, channel }) => {
       sortId: message?.sort_id,
       loginId: loginId
     }
-    try{
-      const response = await api.post(`chat/saveLastChat`,data);
+    try {
+      const response = await api.post(`chat/saveLastChat`, data);
       console.log(response);
-    }catch(error){  
+    } catch (error) {
       console.error(error);
     }
   }
@@ -199,10 +238,10 @@ const ChatRoomContent = ({ loginId, recipientId, nc, channel }) => {
   useEffect(() => {
     if (updateMessage?.length > 0) {
       scrollToBottom();
-      console.log(updateMessage[updateMessage.length-1]?.node);
-      saveLastChat(updateMessage[updateMessage.length-1]?.node);
+      console.log(updateMessage[updateMessage.length - 1]?.node);
+      saveLastChat(updateMessage[updateMessage.length - 1]?.node);
     }
-    
+
   }, [updateMessage]);
 
 
