@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { BsCoin } from "react-icons/bs";
 import { CgProfile } from "react-icons/cg";
-import { FaRegCalendarAlt } from "react-icons/fa";
+import { FaRegCalendarAlt, FaSync } from "react-icons/fa";
 import { MdNotificationsNone } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom"; // useNavigate 임포트
 import styled from "styled-components";
-import NotificationModal from "../../Includes/nofification/NotificationModal";
-import axios from "axios";
-import { FaSync } from "react-icons/fa";
+import NotificationModal from "../../Includes/notification/NotificationModal";
 
 // UserActions 컴포넌트
 const UserActions = ({ refreshMileage }) => {
@@ -137,6 +135,29 @@ const UserActions = ({ refreshMileage }) => {
     setNotificationModalStatus(true);
     setNewNotificationStatus(false);
   };
+
+  // 새로운 알림 상태 확인
+  useEffect(() => {
+    if (localStorage.getItem("loginInfo")) {
+      const item = localStorage.getItem("loginInfo");
+      const parseItem = JSON.parse(item);
+      const userId = parseItem.data.userId;
+      setTimeout(() => {
+        if (
+          localStorage.getItem(`todayNotificationMsg-${userId}`) ==
+          `${new Date().toDateString()}-notificationMsg-new`
+        ) {
+          setNewNotificationStatus(true);
+          localStorage.setItem(
+            `todayNotificationMsg-${userId}`,
+            `${new Date().toDateString()}-notificationMsg`
+          );
+        }
+      }, 100);
+    } else {
+      setNewNotificationStatus(false);
+    }
+  }, [localStorage.getItem("loginInfo")]);
 
   return (
     <>

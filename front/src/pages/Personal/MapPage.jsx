@@ -87,7 +87,8 @@ function MapPage({ selectedBadge }) {
                 className={`${styles.shareButton} btn btn-outline-orange`}>
                 나의 지도 자랑하기
             </button>}
-            
+            <br/><br/>
+
             {/* 맵 공유 선택 모달 */}
             <MapShareConfirmModal
                 shareConfirmModalStatus={shareConfirmModalStatus}

@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { AiFillLike, AiOutlineLike } from "react-icons/ai";
 import React, { useEffect, useState } from 'react';
+import { AiFillLike, AiOutlineLike } from "react-icons/ai";
 import api from '../../api/axios';
 
 const LikeIcon = ({postId, userId}) => {
@@ -87,11 +87,11 @@ const LikeIcon = ({postId, userId}) => {
         }
     }
     return (
-        <div >
+        <div style={{}} >
             {
                 likeState ? (
-                    <div> <AiFillLike style={{marginBottom: '3px', cursor: 'pointer'}}onClick={clickLike}/>&nbsp; {likeCount} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                ) : (<div><AiOutlineLike style={{marginBottom: '3px', cursor: 'pointer'}}onClick={clickLike}/>&nbsp; {likeCount} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </div>)
+                    <div> <AiFillLike style={{marginBottom: '3px', cursor: 'pointer', textShadow:'0px 0px 20px rgba(0, 0, 0, 1)'}}onClick={clickLike}/>&nbsp;{likeCount}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                ) : (<div><AiOutlineLike style={{marginBottom: '3px', cursor: 'pointer'}}onClick={clickLike}/>&nbsp;{likeCount}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>)
             }
         </div>
     );

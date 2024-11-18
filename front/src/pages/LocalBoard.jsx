@@ -221,7 +221,7 @@ function LocalBoard({ onParamsChange, selectedBadge }) {
                         currentPage={page}
                     />
                 }
-            </div>
+            </div><br/>
         </div>
     );
 }

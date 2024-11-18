@@ -58,6 +58,7 @@ function App() {
   const [isChatLoginSuccessful, setIsChatLoginSuccessful] = useState(false);
   const [chatChange, setChatChange] = useState();  
 
+
   const handleChatLoginSuccess = (isSuccessful) => {
     setIsChatLoginSuccessful(isSuccessful);
   };
@@ -99,7 +100,7 @@ function App() {
   };
 
   // openChatWindow 함수: 항상 채팅 창을 열도록 설정
-  const openChatWindow = (recipientId, channel) => {
+  const openChatWindow = (recipientId, channel, tab) => {
     console.log(channel);
     if (recipientId) {
       setRecipientId(recipientId);
@@ -115,7 +116,6 @@ function App() {
       setChannel(null);
     }
     setIsChatOpen(true);
-    
   };
 
   useEffect(() => {

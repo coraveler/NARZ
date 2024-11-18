@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { useEffect, useState } from 'react';
 import { getLoginInfo } from "../../Includes/common/CommonUtil";
 import api from '../../api/axios';
 
@@ -66,12 +66,12 @@ const FollowButton = ({ followedId }) => {
             {
                 (followerId != null && followedId != followerId) && (followState) ?
                     <button className="btn btn-warning" aria-label="Follow"
-                        style={{ marginLeft: "5px" }}
+                        style={{ marginLeft: "5px" , width:'95px', height:'40px', fontWeight:'550'}}
                         onClick={deleteFollow}>
                         - 팔로잉
                     </button> :
                     <button className="btn btn-outline-warning" aria-label="Follow"
-                        style={{ marginLeft: "5px" }}
+                        style={{ marginLeft: "5px", width:'95px', height:'40px', fontWeight:'550' }}
                         onClick={saveFollow}>
                         + 팔로우
                     </button>

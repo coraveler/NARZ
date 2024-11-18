@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import LoginToast from '../nofification/LoginToast';
-import LogoutToast from '../nofification/LogoutToast';
-import NotificationToast from '../nofification/NotificationToast';
+import LoginToast from '../notification/LoginToast';
+import LogoutToast from '../notification/LogoutToast';
+import NotificationToast from '../notification/NotificationToast';
 
 // ToastContext라는 context를 생성
 const ToastContext = createContext();
@@ -61,7 +61,7 @@ export const ToastProvider = ({ children }) => {
             {children}    
             <LoginToast loginToastStatus={loginToastStatus} loginToastClose={() => setLoginToastStatus(false)} />
             <LogoutToast logoutToastStatus={logoutToastStatus} logoutToastClose={()=>setLogoutToastStatus(false)}/>
-            <NotificationToast notificationToastStatus={notificationToastStatus} notificationToastClase={()=>setNotificationToastStatus(false)} msgLength={msgLength}/>
+            <NotificationToast notificationToastStatus={notificationToastStatus} notificationToastClose={()=>setNotificationToastStatus(false)} msgLength={msgLength}/>
         </ToastContext.Provider>
     );
 };

@@ -53,9 +53,9 @@ public class ChatController {
     }
 
     @GetMapping("/getUserId/{loginId}")
-    public ResponseEntity<Integer> getUserId(@PathVariable("loginId") String loginId) {
-        Integer result = chatService.getUserId(loginId);
-        return new ResponseEntity<Integer>(result,HttpStatus.OK);
+    public ResponseEntity<ChatResponseDTO> getUserId(@PathVariable("loginId") String loginId) {
+        ChatResponseDTO result = chatService.getUserId(loginId);
+        return new ResponseEntity<ChatResponseDTO>(result,HttpStatus.OK);
     }
 
     @PostMapping("/saveExitChatRoomTime")

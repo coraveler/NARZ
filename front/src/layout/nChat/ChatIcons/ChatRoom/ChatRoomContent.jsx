@@ -267,6 +267,13 @@ const ChatRoomContent = ({ loginId, recipientId, nc, channel }) => {
     }
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();  // 기본 엔터 동작(새 줄 입력 등)을 막습니다.
+      clickSendBtn();
+    }
+  };
+  
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
@@ -318,24 +325,22 @@ const ChatRoomContent = ({ loginId, recipientId, nc, channel }) => {
               }}
               value={message}
               onChange={handleMessage}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') {
-                  clickSendBtn();
-                }
-              }}
+              onKeyDown={handleKeyDown}
             />
             <button
               style={{
-                padding: "8px 12px",
+                // padding: "8px 12px",
+                width:'50px',
+                height:'40px',
                 borderRadius: "20px",
-                backgroundColor: "#4CAF50",
+                backgroundColor: "#007bff",
                 color: "white",
                 border: "none",
                 cursor: "pointer",
               }}
               onClick={clickSendBtn}
             >
-              <AiOutlineSend size={20} />
+              <AiOutlineSend style={{fontSize:'20', marginBottom:'3px'}}/>
             </button>
           </div>
 
