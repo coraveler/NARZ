@@ -45,8 +45,8 @@
     <!-- getUserId -->
     <select id="getUserId"
             parameterType="String"
-            resultType="int">
-        SELECT USERID
+            resultType="com.kdt_final.back.chat.domain.ChatResponseDTO">
+        SELECT USERID, PROFILEIMAGE
         FROM USER
         WHERE LOGINID = #{loginId};
     </select>
