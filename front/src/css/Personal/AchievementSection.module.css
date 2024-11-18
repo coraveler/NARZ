@@ -12,8 +12,32 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Cafe24ClassicType-Regular';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-2@1.0/Cafe24ClassicType-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+@font-face {
+  font-family: 'JSArirangHON-Regular';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/JSArirangHON-RegularA1.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
 .achievementSection {
   padding: 20px 30%; /* 상하 32px, 좌우 60px 패딩으로 설정 */
+}
+
+.beginnerBadge {
+  font-family: 'JSArirangHON-Regular';
+  color: #a67c00; 
+  font-size: 26px;
+  flex: 1;
+  text-align: center;
 }
 
 .sectionTitle {
@@ -49,9 +73,11 @@
 }
 
 .achievementBadge {
+  font-size: 23px;
+  color: #f2ac2e;
   flex: 1;
   text-align: center;
-  font-family: 'GumiRomanceTTF', sans-serif;
+  font-family: 'Cafe24ClassicType-Regular', sans-serif;
 }
 
 .achievementStatus {
@@ -69,6 +95,7 @@
   border-radius: 8px;
   cursor: pointer;
   font-size: 12px;
+  width: 60px;
   outline: 1px solid #FF8A2B;
 }
 

@@ -73,7 +73,7 @@
 // export default ImageUpload;
 
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from '../../css/TrevalWrite/ImageUpload.module.css';
 
 function ImageUpload({ onChange, postImgUrl }) {
@@ -127,7 +127,7 @@ function ImageUpload({ onChange, postImgUrl }) {
 
   return (
     <div className={styles.imageUpload}>
-      <p style={{ fontSize: '25px' }} >이미지</p>
+      <p style={{ fontSize: '25px' }} >이미지<span className={styles.required}> *</span></p>
       <input
         type="file"
         id="image-upload"

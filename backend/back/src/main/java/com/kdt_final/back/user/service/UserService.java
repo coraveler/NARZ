@@ -32,6 +32,8 @@ public class UserService {
     private final String profileImagesPath = System.getProperty("user.dir") + "/uploads/images"+profileImagesFolder;
     private final UserRepository userRepository;
 
+
+
     public List<UserDTO.UserResponseDTO> findUserAll() {
         List<User> userAll = userRepository.findUserAll();
 
@@ -320,6 +322,7 @@ public class UserService {
         }
 
         //칭호
+<<<<<<< HEAD
 
 
 
@@ -353,4 +356,16 @@ public class UserService {
         Path path = Paths.get(profileImagesPath+"/"+user.getProfileImage());
         Files.deleteIfExists(path);
     }
+=======
+        public boolean updateUserAchievement(int userId, String badgeName) {
+            try {
+                int updatedRows = userRepository.updateAchievementByUserId(userId, badgeName);
+                return updatedRows > 0;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+        
+>>>>>>> ec38dedafdaa681a9a867f3b6237958efef9d17e
 }

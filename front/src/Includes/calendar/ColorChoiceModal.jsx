@@ -26,7 +26,8 @@ function ColorChoiceModal({
                         right: 'auto',
                         bottom: 'auto',
                         border: 'none',
-                        background: 'transparent'}}}>
+                        background: 'transparent'}}}
+                    closeTimeoutMS={200}>
                
                 <div >
                     <SwatchesPicker 

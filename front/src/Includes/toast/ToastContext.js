@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import LoginToast from '../nofification/LoginToast';
 import LogoutToast from '../nofification/LogoutToast';
 import NotificationToast from '../nofification/NotificationToast';
@@ -18,26 +18,41 @@ export const ToastProvider = ({ children }) => {
 
     // 로그인 토스트 실행
     const showLoginToast = () => {
-        setLoginToastStatus(true);
-        setTimeout(() => setLoginToastStatus(false), 3000); // 5초 후 자동으로 닫기
+        localStorage.setItem("loginToast",true)
+        // setLoginToastStatus(true);
+        // setTimeout(() => setLoginToastStatus(false), 3000); // 5초 후 자동으로 닫기
     };
 
     // 로그아웃 토스트 실행
     const showLogoutToast = () => {
+        // localStorage.setItem("logoutToast",true)
         setLogoutToastStatus(true);
-        setTimeout(() => setLogoutToastStatus(false), 3000); // 5초 후 자동으로 닫기
+        setTimeout(() => setLogoutToastStatus(false), 3000);
     }
 
     // 알림 토스트 실행
     const showNotificationToast = () => {
         setNotificationToastStatus(true);
-        setTimeout(()=>setNotificationToastStatus(false), 3000)
+        setTimeout(() => setNotificationToastStatus(false), 3000); // 5초 후 자동으로 닫기
     }
 
     // 메시지 길이 가져오는 함수
     const getMsgLength = (length) => {
         setMsgLength(length)
     }
+
+    useEffect(()=>{
+        if(localStorage.getItem("loginToast")){
+            setLoginToastStatus(true);
+            setTimeout(() => setLoginToastStatus(false), 3000); // 5초 후 자동으로 닫기
+            localStorage.removeItem("loginToast");
+        }
+        // if(localStorage.getItem("logoutToast")){
+        //     setLogoutToastStatus(true);
+        //     setTimeout(() => setLogoutToastStatus(false), 3000); // 5초 후 자동으로 닫기
+        //     localStorage.removeItem("logoutToast");
+        // }
+    },[])
         
 
     return (

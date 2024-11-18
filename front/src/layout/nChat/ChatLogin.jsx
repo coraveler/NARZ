@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const ChatLogin = ({ loginId, userNickname, nc }) => {
+const ChatLogin = ({ loginId, userNickname, nc, handleChatLoginSuccess }) => {
   const handleLogin = async () => {
     try {
       await nc.connect({
@@ -9,10 +9,8 @@ const ChatLogin = ({ loginId, userNickname, nc }) => {
         language: "KR",
       });
       console.log("채팅 로그인 성공");
-    } catch (error) {
-      console.error("채팅 로그인 실패:", error);
-    }
-    const channels = await getChannels();
+      handleChatLoginSuccess(true);
+      const channels = await getChannels();
     console.log(channels);
     if (channels) {
       // 채널별로 회원 확인 및 구독
@@ -24,6 +22,11 @@ const ChatLogin = ({ loginId, userNickname, nc }) => {
         });
       });
     }
+    } catch (error) {
+      console.error("채팅 로그인 실패:", error);
+      handleChatLoginSuccess(false);
+    }
+    
 
   };
 

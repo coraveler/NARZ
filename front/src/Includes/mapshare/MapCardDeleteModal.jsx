@@ -47,7 +47,8 @@ function MapCardDeleteModal({
                         bottom: 'auto',
                         borderRadius: '20px',
                         padding: '20px',
-                        width: '22vw'}}}>
+                        width: '22vw'}}}
+                    closeTimeoutMS={200}>
                     
                 <div style={{textAlign:'center', marginTop:'10px'}}>
                     <RiDeleteBinLine style={{fontSize:'35px', color:'orange'}}/><p/>

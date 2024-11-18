@@ -28,7 +28,11 @@ public interface UserRepository  {
     int getUserPostCount(Integer userId);
     List<String> getUserPostRegions(Integer userId);    public void changeNicknameColor(UserDTO.UserRequestDTO userId);
     public String fetchNicknameColor(int userId);
+<<<<<<< HEAD:backend/back/src/main/java/com/kdt_final/back/user/dao/user/UserRepository.java
 
     void saveFileName(String fileName);
 
+=======
+    int updateAchievementByUserId(int userId, String badgeName);
+>>>>>>> ec38dedafdaa681a9a867f3b6237958efef9d17e:backend/back/src/main/java/com/kdt_final/back/user/dao/UserRepository.java
 }

@@ -128,8 +128,16 @@ public class UserRepositoryImpl implements UserRepository {
         return jdbcTemplate.queryForList(sql, String.class, userId);
     }
 
+<<<<<<< HEAD:backend/back/src/main/java/com/kdt_final/back/user/dao/user/UserRepositoryImpl.java
 
 
+=======
+    @Override
+    public int updateAchievementByUserId(int userId, String badgeName) {
+        String sql = "UPDATE user SET achievement = ? WHERE userId = ?";
+        return jdbcTemplate.update(sql, badgeName, userId);
+    }
+>>>>>>> ec38dedafdaa681a9a867f3b6237958efef9d17e:backend/back/src/main/java/com/kdt_final/back/user/dao/UserRepositoryImpl.java
 }
 
 

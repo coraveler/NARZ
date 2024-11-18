@@ -40,13 +40,16 @@ const ChatMessages = ({ messages, loginId, nc }) => {
                 message.node && message.node.sender && message.node.sender.id === loginId ? (
                     <div key={index} style={{ marginLeft: "auto" }}>
                         <ChatLoginUserInfo userInfo={userInfoArray[index]} msg={message.node.content} state={'login'}/>
+                        {message.node.created_at}
                     </div>
                 ) : (
                     <div key={index} style={{ marginRight: "auto" }}>
                         <ChatLoginUserInfo userInfo={userInfoArray[index]} msg={message.node.content} state={'recipient'}/>
+                        {message.node.created_at}
                     </div>
                 )
-            ))}
+            )
+            )}
         </div>
     );
 };
