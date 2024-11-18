@@ -10,7 +10,7 @@ const ChatFrendsBox = ({ channel, openChatWindow, changeActiveTab, friend, nc, l
     const projectId = 'ebd01e35-1e25-4f95-a0c3-3f26ebe44438';
     const apiKey = '050ebb353a64ef3bb8daa191045bcbe02e0c62aeac210c47';
     const [userId, setUserId] = useState();
-  
+
 
     const deleteExitChatRoomTime = async () => {
         const data = {
@@ -18,7 +18,7 @@ const ChatFrendsBox = ({ channel, openChatWindow, changeActiveTab, friend, nc, l
             channelId: channel.id
         }
         try {
-            const response = await api.delete("/chat/deleteExitChatRoomTime", {params : data});
+            const response = await api.delete("/chat/deleteExitChatRoomTime", { params: data });
             console.log(response);
         } catch (error) {
             console.log(error);
@@ -26,19 +26,19 @@ const ChatFrendsBox = ({ channel, openChatWindow, changeActiveTab, friend, nc, l
         }
     }
 
-    const deleteChannel = async() => {
-        try{
+    const deleteChannel = async () => {
+        try {
             const response = await api.delete(`https://dashboard-api.ncloudchat.naverncp.com/v1/api/channels/${channel.id}`,
                 {
                     headers: {
                         'accept': 'application/json',
                         'x-project-id': projectId,
                         'x-api-key': apiKey
-                      }
+                    }
                 }
             );
             console.log(response);
-         }catch(error){
+        } catch (error) {
             console.log(error);
         }
     }
@@ -75,7 +75,7 @@ const ChatFrendsBox = ({ channel, openChatWindow, changeActiveTab, friend, nc, l
     }
 
     useEffect(() => {
-        if(user!=null){
+        if (user != null) {
             getUserId();
         }
     }, [user])
@@ -93,22 +93,24 @@ const ChatFrendsBox = ({ channel, openChatWindow, changeActiveTab, friend, nc, l
                 margin: "10px"
             }}>
 
-            <ChatLoginUserInfo userInfo={friend ? friend:user} />
+            <ChatLoginUserInfo userInfo={friend ? friend : user} />
             {
-                channel ? 
-                <>
-                <BsChatDots onClick={openChatRoom} style={{ fontSize: '30px', marginLeft: "auto", cursor: "pointer", marginRight: "10px" }} />
-                
-                <NavDropdown id="basic-nav-dropdown" onClick={(e) => e.stopPropagation()} style={{ marginBottom: "auto" }} value="">
-                <NavDropdown.Item onClick={deleteFrinedChannel}>친구 삭제</NavDropdown.Item>
-            </NavDropdown> 
-            </> 
-            :
-            <>
-            {userId &&
-            <SendMessageIcon openChatWindow={openChatWindow} userId={userId!=null && userId} nc={nc} changeActiveTab={changeActiveTab}/>
-            }
-            </>
+                channel ?
+                    <>
+                        <BsChatDots onClick={openChatRoom} style={{ fontSize: '30px', marginLeft: "auto", cursor: "pointer", marginRight: "10px" }} />
+
+                        <NavDropdown id="basic-nav-dropdown" onClick={(e) => e.stopPropagation()} style={{ marginBottom: "auto" }} value="">
+                            <NavDropdown.Item onClick={deleteFrinedChannel}>친구 삭제</NavDropdown.Item>
+                        </NavDropdown>
+                    </>
+                    :
+                    <>
+                        {userId &&
+                            <div style={{marginLeft:'auto'}}>
+                                <SendMessageIcon openChatWindow={openChatWindow} userId={userId != null && userId} nc={nc} changeActiveTab={changeActiveTab} />
+                            </div>
+                        }
+                    </>
             }
         </div>
     );

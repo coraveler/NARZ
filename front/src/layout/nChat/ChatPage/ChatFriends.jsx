@@ -12,6 +12,8 @@ const ChatFriends = ({ loginId, projectId, apiKey, nc, openChatWindow, changeAct
   const [friendChange, setFriendChange] = useState(false);
   const [openPlusFriend, setOpenPlusFriend] = useState(false);
   const [AllUser, setAllUser] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");  // 검색어 상태 추가
+  const [filteredUsers, setFilteredUsers] = useState([]);  // 필터링된 사용자 목록 상태
 
   const getChatUserInfo = async () => {
     try {
@@ -79,6 +81,21 @@ const ChatFriends = ({ loginId, projectId, apiKey, nc, openChatWindow, changeAct
     }
   }, [openPlusFriend])
 
+  // 검색어가 바뀔 때마다 필터링
+  const handleSearchChange = (e) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+
+    // 검색어에 맞는 사용자 필터링
+    if (query) {
+      const filtered = AllUser.filter(user =>
+        user.node.name.toLowerCase().includes(query.toLowerCase())
+      );
+      setFilteredUsers(filtered);
+    } else {
+      setFilteredUsers([]);  // 검색어가 비어 있으면 결과를 초기화
+    }
+  };
 
   const handleChangeFriends = () => {
     setFriendChange((state) => !state);
@@ -87,7 +104,6 @@ const ChatFriends = ({ loginId, projectId, apiKey, nc, openChatWindow, changeAct
   return (
     <div>
       <div className={styles.chatHeader} style={{ display: "flex", alignItems: "center" }}>
-        {/* <div style={{ display: "flex", alignItems: "center" }}> */}
         {
           openPlusFriend &&
           <IoChevronBackOutline onClick={() => setOpenPlusFriend(false)} style={{ fontSize: '30px' }} />
@@ -96,20 +112,51 @@ const ChatFriends = ({ loginId, projectId, apiKey, nc, openChatWindow, changeAct
         <div style={{ marginLeft: 'auto' }}>
           <LuUserPlus2 style={{ fontSize: "40px", cursor: "pointer" }} onClick={() => setOpenPlusFriend(true)} />
         </div>
-        {/* </div> */}
       </div>
+
       <div className={styles.chatContent}>
 
-        {!openPlusFriend ?
-
+        {/* 친구 추가 화면 */}
+        {openPlusFriend ? (
+          <div>
+            <input
+              type="text"
+              placeholder="사용자 검색..."
+              value={searchQuery}
+              onChange={handleSearchChange}
+              style={{
+                width: "100%",
+                padding: "8px",
+                borderRadius: "20px",
+                border: "1px solid #ddd",
+                marginBottom: "10px"
+              }}
+            />
+            <div>
+              {filteredUsers.length > 0 ? (
+                filteredUsers.map((user, index) => (
+                  <div key={index}>
+                    <ChatFrendsBox
+                      user={user.node}
+                      openChatWindow={openChatWindow}
+                      nc={nc}
+                      loginId={loginId}
+                      changeActiveTab={changeActiveTab}
+                    />
+                  </div>
+                ))
+              ) : (
+                <div>검색된 사용자가 없습니다.</div>
+              )}
+            </div>
+          </div>
+        ) : (
+          // 친구 목록 화면
           friends.map((friend, index) => {
-            // channels 배열에서 friend.node.friend_id와 일치하는 channel을 찾음
             const matchedChannel = channels.find(channel => channel.members === friend.node.friend_id);
-            // 조건에 맞는 channel이 있을 경우에만 렌더링
             if (matchedChannel) {
               return (
                 <div key={index}>
-                  {/* 필요한 채널 정보 추가 */}
                   <ChatFrendsBox
                     friend={friend.node.friend}
                     channel={matchedChannel}
@@ -121,25 +168,10 @@ const ChatFriends = ({ loginId, projectId, apiKey, nc, openChatWindow, changeAct
                 </div>
               );
             } else {
-              return null; // 조건에 맞는 channel이 없는 경우 아무것도 렌더링하지 않음
+              return null;
             }
           })
-          :
-          AllUser.map((user, index) => {
-              return (
-                <div key={index}>
-                  {/* 필요한 채널 정보 추가 */}
-                  <ChatFrendsBox
-                    user={user.node}
-                    openChatWindow={openChatWindow}
-                    nc={nc}
-                    loginId={loginId}
-                    changeActiveTab={changeActiveTab}
-                    />
-                </div>
-              );
-          })
-        }
+        )}
       </div>
     </div>
   );
