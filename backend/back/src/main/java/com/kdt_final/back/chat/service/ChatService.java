@@ -30,7 +30,7 @@ public class ChatService {
         return chatMapper.getTotalUnread(loginId);
     }
     
-    public Integer getUserId(String loginId){
+    public ChatResponseDTO getUserId(String loginId){
         return chatMapper.getUserId(loginId);
     }
     
