@@ -4,7 +4,7 @@ import { IoClose } from "react-icons/io5";
 import styles from "./ChatWidget.module.css";
 import ChatFriends from "./ChatPage/ChatFriends";
 import ChatChating from "./ChatPage/ChatChating";
-import ChatSetting from "./ChatPage/ChatSetting";
+// import ChatSetting from "./ChatPage/ChatSetting";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ChatRoomList from "./ChatPage/ChatRoomList";
 import api from "../../api/axios";
@@ -110,12 +110,35 @@ const ChatWidget = ({ nc, loginId, recipientId, projectId, apiKey, isChatOpen, t
             toggleChatWindow(true);   // 채팅창을 여는 경우
           }
         }}
+        style={{ position: "relative" }}
       >
         {isChatOpen ? (
           <IoClose size={24} color="white" />
         ) : (
           <>
-          <AiOutlineMessage size={24} color="white" />{totalUnread>0 && totalUnread}</>
+          <AiOutlineMessage size={24} color="white" />
+          {
+            totalUnread>0 &&
+          
+          <div style={{
+            position: "absolute", // 부모(button)를 기준으로 배치
+            top: "-5px", // 버튼 위로 올리기
+            right: "-5px", // 버튼 오른쪽으로 밀기
+            backgroundColor: "red", // 배경색
+            color: "white", // 텍스트 색
+            borderRadius: "50%", // 원형 모양
+            padding: "4px 4px", // 내부 여백
+            fontSize: "12px", // 글자 크기
+            fontWeight: "bold", // 글자 굵기
+            width:'25px',
+            height:'25px',
+            zIndex: 2000, // 겹치는 요소 우선순위
+          }}>
+            {/* {totalUnread>0 && totalUnread} */}
+            {totalUnread}
+          </div>
+          }
+          </>
         )}
       </button>
 
@@ -137,7 +160,7 @@ const ChatWidget = ({ nc, loginId, recipientId, projectId, apiKey, isChatOpen, t
               />
             )}
             {activeTab === "chats" && <ChatRoomList openChatWindow={openChatWindow} loginId={loginId} nc={nc} changeActiveTab={changeActiveTab} channels={channels}/>}
-            {activeTab === "settings" && <ChatSetting />}
+            {/* {activeTab === "settings" && <ChatSetting />} */}
           </div>
 
           {activeTab !== "chatContent" && (
@@ -154,12 +177,12 @@ const ChatWidget = ({ nc, loginId, recipientId, projectId, apiKey, isChatOpen, t
               >
                 대화
               </button>
-              <button
+              {/* <button
                 className={`${styles.tabButton} ${activeTab === "settings" && styles.activeTab}`}
                 onClick={() => ClickFooterTab("settings")}
               >
                 설정
-              </button>
+              </button> */}
             </div>
           )}
         </div>

@@ -3,31 +3,14 @@ import ChatLoginUserInfo from "./ChatLoginUserInfo";
 import api from "../../api/axios";
 import { BsChatDots } from "react-icons/bs";
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import SendMessageIcon from "./ChatIcons/SendMessageIcon";
 
-const ChatFrendsBox = ({ channel, openChatWindow, changeActiveTab, friend, nc, loginId, handleChangeFriends }) => {
+const ChatFrendsBox = ({ channel, openChatWindow, changeActiveTab, friend, nc, loginId, handleChangeFriends, user }) => {
     // const [userInfo, setUserInfo] = useState();
     const projectId = 'ebd01e35-1e25-4f95-a0c3-3f26ebe44438';
     const apiKey = '050ebb353a64ef3bb8daa191045bcbe02e0c62aeac210c47';
-
-    // const getChatUserInfo = async () => {
-    //     try {
-    //         const response = await api.get(
-    //             `https://dashboard-api.ncloudchat.naverncp.com/v1/api/members/${channel.members}`,
-    //             {
-    //                 headers: {
-    //                     'accept': 'application/json',
-    //                     'x-project-id': projectId,
-    //                     'x-api-key': apiKey
-    //                 }
-    //             }
-    //         );
-    //         console.log('Login user info fetched:', response.data);
-    //         setUserInfo(response.data);
-    //     } catch (error) {
-    //         console.error('Error fetching login user info:', error.response ? error.response.data : error.message);
-    //     }
-    // };
-
+    const [userId, setUserId] = useState();
+  
 
     const deleteExitChatRoomTime = async () => {
         const data = {
@@ -70,7 +53,6 @@ const ChatFrendsBox = ({ channel, openChatWindow, changeActiveTab, friend, nc, l
         } catch (error) {
             console.error(error);
         }
-
     }
 
     useEffect(() => {
@@ -81,6 +63,22 @@ const ChatFrendsBox = ({ channel, openChatWindow, changeActiveTab, friend, nc, l
         openChatWindow(null, channel);
         changeActiveTab("friends");
     }
+
+    const getUserId = async () => {
+        try {
+            const response = await api.get(`/chat/getUserId/${user.id}`);
+            console.log(response.data);
+            setUserId(response.data.userId);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    useEffect(() => {
+        if(user!=null){
+            getUserId();
+        }
+    }, [user])
 
     return (
         <div
@@ -95,14 +93,23 @@ const ChatFrendsBox = ({ channel, openChatWindow, changeActiveTab, friend, nc, l
                 margin: "10px"
             }}>
 
-            <ChatLoginUserInfo userInfo={friend} />
-            <BsChatDots onClick={openChatRoom} style={{ fontSize: '30px', marginLeft: "auto", cursor: "pointer", marginRight: "10px" }} />
-
-            <NavDropdown id="basic-nav-dropdown" onClick={(e) => e.stopPropagation()} style={{ marginBottom: "auto" }} value="">
-
+            <ChatLoginUserInfo userInfo={friend ? friend:user} />
+            {
+                channel ? 
+                <>
+                <BsChatDots onClick={openChatRoom} style={{ fontSize: '30px', marginLeft: "auto", cursor: "pointer", marginRight: "10px" }} />
+                
+                <NavDropdown id="basic-nav-dropdown" onClick={(e) => e.stopPropagation()} style={{ marginBottom: "auto" }} value="">
                 <NavDropdown.Item onClick={deleteFrinedChannel}>친구 삭제</NavDropdown.Item>
-
-            </NavDropdown>
+            </NavDropdown> 
+            </> 
+            :
+            <>
+            {userId &&
+            <SendMessageIcon openChatWindow={openChatWindow} userId={userId!=null && userId} nc={nc} changeActiveTab={changeActiveTab}/>
+            }
+            </>
+            }
         </div>
     );
 };
