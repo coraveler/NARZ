@@ -22,7 +22,9 @@
 
     <!-- 마일리지 내역 조회 -->
     <select id="getMileageHistoryByUserId" parameterType="int" resultType="com.kdt_final.back.shop.domain.MileageHistory">
-        SELECT * FROM mileageHistory WHERE userId = #{userId}
+        SELECT * FROM mileageHistory
+        WHERE userId = #{userId}
+        ORDER BY createdAt DESC
     </select>
 
     <!-- 마일리지 차감 -->
