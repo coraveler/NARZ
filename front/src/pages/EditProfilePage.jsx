@@ -410,7 +410,7 @@ const EditProfilePage = ({ selectedBadge, nc }) => {
                     } className={styles.FullButton}>로그아웃</button>
                 </form>
             </main>
-            <br />
+            <br /><br/>
 
             {/* 닉네임 색상 선택 모달 */}
             <ColorChoiceModal

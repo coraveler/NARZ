@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { IoMdArrowDropright } from "react-icons/io";
+import { useNavigate, useParams } from "react-router-dom";
+import { getLoginInfo } from "../../Includes/common/CommonUtil";
+import TravelCardGrid from '../../Includes/common/card/TravelCardGrid';
 import MapOverlay from '../../Includes/personalPage/MapOverlay';
 import ProfileCard from '../../Includes/personalPage/ProfileCard';
-import TravelCardGrid from '../../Includes/common/card/TravelCardGrid';
-import styles from '../../css/Personal/personalpage.module.css';
-import { getLoginInfo } from "../../Includes/common/CommonUtil";
 import api from "../../api/axios";
-import { useNavigate, useParams } from "react-router-dom";
-import { IoMdArrowDropright } from "react-icons/io";
+import styles from '../../css/Personal/personalpage.module.css';
 
 function PersonalPage({ selectedBadge, openChatWindow, nc }) {
     const navigate = useNavigate();
@@ -87,7 +87,7 @@ function PersonalPage({ selectedBadge, openChatWindow, nc }) {
                     <span style={{ cursor: "pointer" }} onClick={() => navigate('/board/travelog/all', { state: { travelogId: userId } })}>더보기 <IoMdArrowDropright style={{ fontSize: "25px", marginBottom: "3px" }} /></span>
                 </p>
                 <TravelCardGrid data={personalPost} itemsPerPage={5} />
-            </div>
+            </div><br/><br/>
 
             {/* <PaginationComponent /> */}
         </div>

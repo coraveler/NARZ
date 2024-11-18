@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import api from '../../api/axios';
 import { getLoginInfo } from "../../Includes/common/CommonUtil";
 import PaginationComponent from '../../Includes/common/PaginationComponent';
-import ProfileCard from '../../Includes/personalPage/ProfileCard';
 import FollowerItem from '../../Includes/followItem/FollowerItem';
+import ProfileCard from '../../Includes/personalPage/ProfileCard';
+import api from '../../api/axios';
 
 
 
@@ -57,7 +57,7 @@ const FollowingPage = ({ selectedBadge }) => {
       <div>
         <ProfileCard selectedBadge={selectedBadge} userId={urlUserId != null ? urlUserId : loginUserId} />
       </div>
-      <div>
+      <div><p/>
         {currentFollowings.length > 0 &&
           currentFollowings.map((following, index) => (
             <FollowerItem key={index} userId={following} />
@@ -71,7 +71,7 @@ const FollowingPage = ({ selectedBadge }) => {
             onPageChange={handlePageChange}
           />
         )}
-      </div>
+      </div><p/>
     </div>
   );
 };

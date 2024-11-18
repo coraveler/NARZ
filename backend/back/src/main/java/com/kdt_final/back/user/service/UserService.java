@@ -11,7 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import jakarta.xml.bind.DatatypeConverter;
+import javax.imageio.ImageIO;
+
 import org.springframework.stereotype.Service;
 
 import com.kdt_final.back.user.dao.user.UserRepository;
@@ -20,9 +21,8 @@ import com.kdt_final.back.user.dto.LoginResponseDTO;
 import com.kdt_final.back.user.dto.UpdateResponseDTO;
 import com.kdt_final.back.user.dto.UserDTO;
 
+import jakarta.xml.bind.DatatypeConverter;
 import lombok.RequiredArgsConstructor;
-
-import javax.imageio.ImageIO;
 
 @Service
 @RequiredArgsConstructor
@@ -322,7 +322,6 @@ public class UserService {
         }
 
         //칭호
-<<<<<<< HEAD
 
 
 
@@ -356,7 +355,6 @@ public class UserService {
         Path path = Paths.get(profileImagesPath+"/"+user.getProfileImage());
         Files.deleteIfExists(path);
     }
-=======
         public boolean updateUserAchievement(int userId, String badgeName) {
             try {
                 int updatedRows = userRepository.updateAchievementByUserId(userId, badgeName);
@@ -367,5 +365,4 @@ public class UserService {
             }
         }
         
->>>>>>> ec38dedafdaa681a9a867f3b6237958efef9d17e
 }

@@ -153,7 +153,7 @@ const Calendar = () => {
                     // dateClick={dateClickHandler}
 
                 />
-                <br/>  
+                <br/><br/>
             </div>
 
             {/* 스케줄 추가 모달 */}

@@ -44,7 +44,7 @@ const renderContent = (text) => {
             alt="Commentor's avatar"
             />
             <span className={styles.commentorName}>vname</span> */}
-          <ProfileInfo userId={comment.userId} fontSize={17}/>
+          <ProfileInfo userId={comment.userId} fontSize={13} imgMargin={7} nameMargin={7}/>
             {
               userId == comment.userId && <button className={'btn btn-outline-danger'} style={{marginLeft:'auto'}} onClick={handleDeleteComment}>
                 {/* 삭제 */}
