@@ -141,4 +141,11 @@ public class RankingService {
             System.out.println("Added User Activity Ranking: " + activity);  // 로그 추가
         });
     }
+
+    // 현재 주차(weekOf) 정보를 반환하는 메서드 (예: '2024-11-10')
+    private String getCurrentWeek() {
+        // 여기서는 현재 날짜를 기준으로 주차 정보를 반환하도록 함.
+        // 예: '2024-11-10' 형식으로 반환.
+        return java.time.LocalDate.now().toString(); 
+    }
 }
