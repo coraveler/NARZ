@@ -29,9 +29,9 @@ import lombok.RequiredArgsConstructor;
 public class UserService {
 
     private final String profileImagesFolder = "/profileImages";
-    private final String profileImagesPath = System.getProperty("user.dir") + "/uploads/images"+profileImagesFolder;
+    private final String profileImagesPath = System.getProperty("user.dir") + "/uploads/images" + profileImagesFolder;
+    private final String defaultImageName = "default.png";
     private final UserRepository userRepository;
-
 
 
     public List<UserDTO.UserResponseDTO> findUserAll() {
@@ -53,39 +53,28 @@ public class UserService {
         return userResponseDTOS;
     }
 
-//회원가입
+    //회원가입
     public Boolean creatUser(UserDTO.UserRequestDTO userRequestDTO) {
 
 
-        if(userRequestDTO.getUserNickname().equals((checkDuplicateUserNickName(userRequestDTO.getUserNickname())))){
+        if (userRequestDTO.getUserNickname().equals((checkDuplicateUserNickName(userRequestDTO.getUserNickname())))) {
             return false;
-        }
-       else if(userRequestDTO.getLoginId().equals(checkDuplicateLoginId(userRequestDTO.getLoginId()))) {
+        } else if (userRequestDTO.getLoginId().equals(checkDuplicateLoginId(userRequestDTO.getLoginId()))) {
             return false;
-        }
-        else if (!userRequestDTO.getLoginId().matches("^[a-zA-Z0-9]{5,}$")) {
+        } else if (!userRequestDTO.getLoginId().matches("^[a-zA-Z0-9]{5,}$")) {
             return false;
-        }
-
-        else if (!userRequestDTO.getPassword().matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$")) {
+        } else if (!userRequestDTO.getPassword().matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$")) {
             return false;
-        }
-
-        else if (!userRequestDTO.getPassword().equals(userRequestDTO.getPasswordConfirm())) {
+        } else if (!userRequestDTO.getPassword().equals(userRequestDTO.getPasswordConfirm())) {
             return false;
 
-        }
-
-       else if (!userRequestDTO.getUserName().matches("^[가-힣]+$")) {
+        } else if (!userRequestDTO.getUserName().matches("^[가-힣]+$")) {
             return false;
-        }
-        else if (userRequestDTO.getPhoneNum().matches( "/^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/")) {
+        } else if (userRequestDTO.getPhoneNum().matches("/^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/")) {
             return false;
-        }
-        else if (!userRequestDTO.getEmail().matches("^[\\w-\\.]+@[\\w-]+\\.[a-zA-Z]{2,}$")) {
+        } else if (!userRequestDTO.getEmail().matches("^[\\w-\\.]+@[\\w-]+\\.[a-zA-Z]{2,}$")) {
             return false;
-        }
-        else{
+        } else {
             User user = new User();
             user.setLoginId(userRequestDTO.getLoginId());
             user.setUserName(userRequestDTO.getUserName());
@@ -99,14 +88,13 @@ public class UserService {
             userRepository.createUser(user);
 
 
-
             return true;
         }
 
 
-
     }
-//닉네임 중복체크
+
+    //닉네임 중복체크
     public Boolean checkDuplicateUserNickName(String userNickname) {
         List<User> allByUserNickname = userRepository.findAllByUserNickname(userNickname);
 
@@ -116,7 +104,8 @@ public class UserService {
         return false;
 
     }
-//아이디 중복체크
+
+    //아이디 중복체크
     public Boolean checkDuplicateLoginId(String loginId) {
         List<User> allByLoginId = userRepository.findAllByLoginId(loginId);
         if (allByLoginId == null || allByLoginId.isEmpty()) {
@@ -124,7 +113,8 @@ public class UserService {
         }
         return false;
     }
-//이메일 중복체크
+
+    //이메일 중복체크
     public Boolean checkDuplicateEmail(String email) {
         List<User> allByEmail = userRepository.findAllByUserEmail(email);
         if (allByEmail == null || allByEmail.isEmpty()) {
@@ -133,7 +123,7 @@ public class UserService {
         return false;
     }
 
-//로그인
+    //로그인
     public LoginResponseDTO login(UserDTO.UserRequestDTO userRequestDTO) {
 
         String loginId = userRequestDTO.getLoginId();
@@ -166,9 +156,8 @@ public class UserService {
         }
     }
 
-//회원정보수정
+    //회원정보수정
     public UpdateResponseDTO updateUser(UserDTO.UserRequestDTO userDTO) {
-
 
 
         if (!userDTO.getEmail().matches("^[\\w-\\.]+@[\\w-]+\\.[a-zA-Z]{2,}$")) {
@@ -184,7 +173,7 @@ public class UserService {
         } else {
             User user = new User();
 
-            String result =saveProfileImage(userDTO.getProfileImage(),userDTO.getLoginId());
+            String result = saveProfileImage(userDTO.getProfileImage(), userDTO.getLoginId());
 
 
             user.setUserId(userDTO.getUserId());
@@ -222,7 +211,7 @@ public class UserService {
         }
     }
 
-    public UserDTO.UserResponseDTO getUserInfo(Integer userId){
+    public UserDTO.UserResponseDTO getUserInfo(Integer userId) {
         User user = userRepository.getUserInfo(userId); // User 객체를 가져옴
         // if (user == null) {
         //     throw new UserNotFoundException("User not found");
@@ -239,7 +228,7 @@ public class UserService {
     }
 
 
-//비빌번호 재설정 아이디/메일로 회원 유무 확인
+    //비빌번호 재설정 아이디/메일로 회원 유무 확인
     public Boolean checkUser(UserDTO.UserRequestDTO userDTO) {
 
 
@@ -247,27 +236,25 @@ public class UserService {
         String email = userDTO.getEmail();
         User loginResult = userRepository.findUserByLoginIdAndEmail(loginId, email);
 
-        if ( loginResult==null ) {
+        if (loginResult == null) {
             return false;
-        }
-        else return true;
+        } else return true;
     }
 
-//인증코드 확인
+    //인증코드 확인
     public Boolean checkUserCode(UserDTO.UserRequestDTO userDTO) {
         String loginId = userDTO.getLoginId();
         String userCode = userDTO.getUserCode();
 
-        User user=userRepository.findCodeByLoginId(loginId,userCode);
+        User user = userRepository.findCodeByLoginId(loginId, userCode);
 
         if (userCode.equals(user.getUserCode())) {
             return true;
-        }
-        else return false;
+        } else return false;
     }
 
 
-//비밀번호재설정
+    //비밀번호재설정
     public UpdateResponseDTO updatePassword(UserDTO.UserRequestDTO userDTO) {
 
         if (!userDTO.getPassword().matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$")) {
@@ -304,44 +291,45 @@ public class UserService {
 
     }
 
-//DB에 저장된 인증번호 삭제
-        public void deleteCode (String loginId){
+    //DB에 저장된 인증번호 삭제
+    public void deleteCode(String loginId) {
 
-            userRepository.deleteCode(loginId);
+        userRepository.deleteCode(loginId);
 
-        }
+    }
 
-        // 유저 닉네임 색상 변경
-        public void changeNicknameColor(UserDTO.UserRequestDTO userId){
-            userRepository.changeNicknameColor(userId);
-        }
+    // 유저 닉네임 색상 변경
+    public void changeNicknameColor(UserDTO.UserRequestDTO userId) {
+        userRepository.changeNicknameColor(userId);
+    }
 
-        // 유저 닉네임 색상 가져오기
-        public String fetchNicknameColor(int userId){
-            return userRepository.fetchNicknameColor(userId);
-        }
+    // 유저 닉네임 색상 가져오기
+    public String fetchNicknameColor(int userId) {
+        return userRepository.fetchNicknameColor(userId);
+    }
 
-        //칭호
-
+    //칭호
 
 
     public String saveProfileImage(String base64, String loginId) {
-        if(base64.contains(profileImagesFolder))
-            return base64.split(profileImagesFolder+"/")[1];
+        if (base64.contains(profileImagesFolder))
+            return base64.split(profileImagesFolder + "/")[1];
 
-        String data =base64.split(";base64,")[1];
+
+        String data = base64.split(";base64,")[1];
         String fileFormat = base64.split(";base64,")[0].split("data:image/")[1];
 
         byte[] imageBytes = DatatypeConverter.parseBase64Binary(data);
 
-        String fileName =  UUID.randomUUID().toString()+"."+fileFormat;
+        String fileName = UUID.randomUUID().toString() + "." + fileFormat;
         File file = new File(profileImagesPath, fileName);
 
 
         try {
             BufferedImage bufImg = ImageIO.read(new ByteArrayInputStream(imageBytes));
             ImageIO.write(bufImg, fileFormat, file);
-            deleteOrgProfileImage(loginId);
+            if (!base64.contains(defaultImageName))
+                deleteOrgProfileImage(loginId);
             userRepository.saveFileName(fileName);
         } catch (IOException e) {
             // TODO Auto-generated catch block
@@ -352,17 +340,20 @@ public class UserService {
 
     public void deleteOrgProfileImage(String loginId) throws IOException {
         User user = userRepository.findByLoginId(loginId);
-        Path path = Paths.get(profileImagesPath+"/"+user.getProfileImage());
+        if (user.getProfileImage().contains(defaultImageName))
+            return;
+        Path path = Paths.get(profileImagesPath + "/" + user.getProfileImage());
         Files.deleteIfExists(path);
     }
-        public boolean updateUserAchievement(int userId, String badgeName) {
-            try {
-                int updatedRows = userRepository.updateAchievementByUserId(userId, badgeName);
-                return updatedRows > 0;
-            } catch (Exception e) {
-                e.printStackTrace();
-                return false;
-            }
+
+    public boolean updateUserAchievement(int userId, String badgeName) {
+        try {
+            int updatedRows = userRepository.updateAchievementByUserId(userId, badgeName);
+            return updatedRows > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
-        
+    }
+
 }
