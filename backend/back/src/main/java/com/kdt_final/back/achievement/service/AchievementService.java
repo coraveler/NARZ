@@ -25,7 +25,7 @@ public class AchievementService {
         case 0: return "여행 초보자";
         case 1: return "전국 일주자";
         case 2: return "여행의 장인";
-        case 3: return "댓글마스터";
+        case 3: return "댓글 마스터";
         case 4: return "전국 정복자";
         case 5: return "최고 활동러";
         case 6: return "핫한 작가님";

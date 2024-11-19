@@ -38,7 +38,10 @@ const ProfileInfo = forwardRef(({ userId, fontSize, imgMargin, nameMargin }, ref
           //src={userInfo.profileImage}
           className={styles.profileImage}
           alt="Profile"
-          style={{marginRight:imgMargin}}
+          style={{marginRight:imgMargin, 
+            objectFit: 'cover', // 원형 안에서 이미지를 잘라서 채움
+            objectPosition: 'center', // 이미지를 중앙으로 배치
+          }}
         />
       </div>
       {/* achievement가 "여행 초보자"일 경우 폰트와 색상을 다르게 설정 */}
