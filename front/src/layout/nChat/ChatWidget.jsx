@@ -4,7 +4,6 @@ import { IoClose } from "react-icons/io5";
 import styles from "./ChatWidget.module.css";
 import ChatFriends from "./ChatPage/ChatFriends";
 import ChatChating from "./ChatPage/ChatChating";
-// import ChatSetting from "./ChatPage/ChatSetting";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ChatRoomList from "./ChatPage/ChatRoomList";
 import api from "../../api/axios";
@@ -15,6 +14,7 @@ const ChatWidget = ({ nc, loginId, recipientId, projectId, apiKey, isChatOpen, t
   const[totalUnread, setTotalUnread] = useState(0);
   const [state, setState] = useState(null);
 
+
   useEffect(() => {
     if ((isChatOpen && openFromButton)) {
       setActiveTab("chatContent");
@@ -24,7 +24,7 @@ const ChatWidget = ({ nc, loginId, recipientId, projectId, apiKey, isChatOpen, t
     if(!isChatOpen){
       setActiveTab(null);
     }
-  }, [isChatOpen]);
+  }, [isChatOpen,openFromButton]);
 
   
   const changeActiveTab = (state) => {
@@ -61,6 +61,7 @@ const ChatWidget = ({ nc, loginId, recipientId, projectId, apiKey, isChatOpen, t
       console.log(channel);
       getMessages(channel.id);
     }
+    toggleChatWindow(true); 
   }, [channel])
 
 
@@ -70,6 +71,7 @@ const ChatWidget = ({ nc, loginId, recipientId, projectId, apiKey, isChatOpen, t
     }else{
       setActiveTab("friends");
     }
+    toggleChatWindow(true); 
   };
 
 
