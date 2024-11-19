@@ -94,4 +94,12 @@
     background-color: white; /* 헤더 배경색 */
   }
   
-  
+  /* RankingPage.css */
+.title-link {
+  color: #333;
+  text-decoration: none;
+}
+
+.title-link:hover {
+  color: black;  /* hover 시 검정색으로 변경 */
+}
