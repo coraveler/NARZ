@@ -12,7 +12,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.scheduling.annotation.EnableScheduling;
 
 @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 @RestController

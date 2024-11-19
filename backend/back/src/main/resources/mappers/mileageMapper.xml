@@ -22,9 +22,7 @@
 
     <!-- 마일리지 내역 조회 -->
     <select id="getMileageHistoryByUserId" parameterType="int" resultType="com.kdt_final.back.shop.domain.MileageHistory">
-        SELECT * FROM mileageHistory
-        WHERE userId = #{userId}
-        ORDER BY createdAt DESC
+        SELECT * FROM mileageHistory WHERE userId = #{userId}
     </select>
 
     <!-- 마일리지 차감 -->
@@ -41,10 +39,6 @@
     WHERE userId = #{userId}
     </select>
 
-    <!-- 쿠폰 등록여부 조회 -->
-    <select id="findByUserIdAndCouponCode" resultType="com.kdt_final.back.shop.domain.Mileage">
-        SELECT * FROM mileage 
-        WHERE userId = #{userId} AND couponCode = #{couponCode}
-    </select>
+
 
 </mapper>

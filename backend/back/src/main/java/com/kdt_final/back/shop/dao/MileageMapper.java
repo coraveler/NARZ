@@ -4,7 +4,6 @@ import com.kdt_final.back.shop.domain.Mileage;
 import com.kdt_final.back.shop.domain.MileageHistory;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -24,6 +23,5 @@ public interface MileageMapper {
 
     void deductMileage(@Param("userId") int userId, @Param("points") int points); // 마일리지 차감 메서드 추가
 
-    Mileage findByUserIdAndCouponCode(@Param("userId") int userId, @Param("couponCode") String couponCode);
 
 }
