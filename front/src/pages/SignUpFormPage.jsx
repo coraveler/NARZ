@@ -214,7 +214,7 @@ function SignUpFormPage({ ...props }) {
             id={formData.loginId}
             userNickname={formData.userNickname}
             onAddUser={(success) => {
-              if (success) navigate('/');
+              if (success) navigate('/LoginFormPage');
             }}
           />
         )}
