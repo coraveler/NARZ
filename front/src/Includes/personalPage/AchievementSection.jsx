@@ -5,6 +5,8 @@ import { getLoginInfo } from '../../Includes/common/CommonUtil';
 import { setAchievement } from '../../api/achievement';
 import { checkAllRegionsCoverage, checkCommentCount, checkMapCompletion, checkPostCount } from '../../api/achievementService';
 import styles from '../../css/Personal/AchievementSection.module.css';
+import { FaCrown } from "react-icons/fa";
+
 
 function AchievementSection({ onBadgeSelect }) {
   const defaultBadge = "여행 초보자";
@@ -80,11 +82,11 @@ function AchievementSection({ onBadgeSelect }) {
 
   return (
     <section className={styles.achievementSection}><p/>
-      <h2 className={styles.sectionTitle}><GiOpenBook style={{color:'gray'}}/> 도전과제</h2><br/><p/>
+      <h2 className={styles.sectionTitle}><GiOpenBook style={{color:'#f2ac2e'}}/> 도전과제 <GiOpenBook style={{color:'#f2ac2e'}}/></h2><br/><p/>
       <ul className={styles.achievementList}>
         {achievements.map((achievement, index) => (
           <li key={achievement.id} className={styles.achievementItem}>
-            <span className={styles.achievementTitle}><span style={{color:'red'}}>✦</span> {achievement.title}</span>
+            <span className={styles.achievementTitle}><span style={{color:'#f2ac2e'}}><FaCrown />&nbsp;</span> {achievement.title}</span>
             <span
               className={`${achievement.badge === "여행 초보자" ? styles.beginnerBadge : styles.achievementBadge}`}
             >
