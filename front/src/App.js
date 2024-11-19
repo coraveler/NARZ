@@ -284,7 +284,7 @@ function App() {
           path="/LoginFormPage"
           element={<LoginFormPage nc={chatInstance} />}
         />
-        <Route path="/TravelWritePage" element={<TravelWritePage />} />
+        <Route path="/TravelWritePage" element={<TravelWritePage handleRefreshMileage={handleRefreshMileage}/>} />
         <Route path="/TravelEditPage" element={<TravelWritePage />} />
         <Route path="/ranking" element={<RankingPage />} />
         <Route path="/postpage/:postId" element={<PostPage />} />
