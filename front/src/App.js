@@ -100,7 +100,7 @@ function App() {
   };
 
   // openChatWindow 함수: 항상 채팅 창을 열도록 설정
-  const openChatWindow = (recipientId, channel, tab) => {
+  const openChatWindow = (recipientId, channel) => {
     console.log(channel);
     if (recipientId) {
       setRecipientId(recipientId);
