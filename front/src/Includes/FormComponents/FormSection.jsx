@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom"; // 페이지 이동을 위한 useNavigate 훅
 import { getLoginInfo } from "../../Includes/common/CommonUtil";
 import api from '../../api/axios';
@@ -8,7 +8,7 @@ import ImageUpload from "./ImageUpload";
 import PrivacyToggle from "./PrivacyToggle";
 import RatingField from "./RatingField";
 
-function FormSection({post, postImgUrl}) {
+function FormSection({ post, postImgUrl }) {
   const navigate = useNavigate(); // 페이지 이동을 위한 useNavigate 훅
   const [local, setLocal] = useState('');
   const [title, setTitle] = useState('');
@@ -19,6 +19,9 @@ function FormSection({post, postImgUrl}) {
   const [existingImages, setExistingImages] = useState([]); // 기존 이미지 상태 추가
   let loginInfo = getLoginInfo();
   const userId = loginInfo.userId || null;
+
+  const ratingRef = useRef(null);  // 별점 입력 필드를 참조하는 ref
+  const imageUploadRef = useRef(null);  // 이미지 업로드 필드를 참조하는 ref
 
   const localMapping = {
     "수도권": "sudo",
@@ -31,7 +34,7 @@ function FormSection({post, postImgUrl}) {
     "전북": "jeonbuk",
     "전남": "jeonnam",
     "제주": "jeju"
-};
+  };
   // 취소 버튼을 클릭했을 때 실행되는 함수
   const handleCancel = () => {
     // 알림 메시지 표시 후, 확인 버튼을 누르면 페이지 이동
@@ -40,12 +43,10 @@ function FormSection({post, postImgUrl}) {
     }
   };
 
-
-
   const postSave = async () => {
-    
+
     const mappedLocal = localMapping[local];
-    
+
     const formData = new FormData();
     formData.append('userId', userId);
     formData.append('local', mappedLocal);
@@ -55,28 +56,29 @@ function FormSection({post, postImgUrl}) {
     formData.append('secret', secret);
 
     images.forEach((image) => {
-        formData.append('images', image); // 'images'는 서버에서 기대하는 필드 이름
+      formData.append('images', image); // 'images'는 서버에서 기대하는 필드 이름
     });
+
     try {
-        const response = await api.post('post/save', formData, {
-            headers: {
-                // Content-Type을 설정하지 않음
-                
-            }
-        });
-        console.log(response.data);
-        alert("글작성 완료");
-        navigate(`/postpage/${response.data}`)
+      const response = await api.post('post/save', formData, {
+        headers: {
+          // Content-Type을 설정하지 않음
+
+        }
+      });
+      console.log(response.data);
+      alert("글작성 완료");
+      navigate(`/postpage/${response.data}`)
     } catch (err) {
-        console.error(err);
+      console.error(err);
     }
-};
+  };
 
 
   const postEdit = async () => {
-    
+
     const mappedLocal = localMapping[local];
-    
+
     const formData = new FormData();
     formData.append('postId', post.postId);
     formData.append('userId', userId);
@@ -92,34 +94,34 @@ function FormSection({post, postImgUrl}) {
       const fileName = image.imagePath.split('/').pop(); // 파일 이름 추출
       return new File([blob], fileName, { type: blob.type });
     }));
-    
+
     const existingImageNames = new Set(images.map(image => image.name));
 
     existingFiles.forEach((file) => {
       if (existingImageNames.has(file.name)) {
-          formData.append('images', file); // 서버에서 기대하는 필드 이름
+        formData.append('images', file); // 서버에서 기대하는 필드 이름
       }
     });
-    
-    
+
+
     images.forEach((image) => {
-        formData.append('images', image); // 'images'는 서버에서 기대하는 필드 이름
+      formData.append('images', image); // 'images'는 서버에서 기대하는 필드 이름
     });
 
     try {
-        const response = await api.post('post/edit', formData, {
-            headers: {
-                // Content-Type을 설정하지 않음
-                
-            }
-        });
-        console.log(response.data);
-        alert("글작성 완료");
-        navigate(`/postpage/${response.data}`)
+      const response = await api.post('post/edit', formData, {
+        headers: {
+          // Content-Type을 설정하지 않음
+
+        }
+      });
+      console.log(response.data);
+      alert("글작성 완료");
+      navigate(`/postpage/${response.data}`)
     } catch (err) {
-        console.error(err);
+      console.error(err);
     }
-};
+  };
   const handleLocalChange = (event) => {
     setLocal(event.target.value);
     setCurrentLocal(event.target.value)
@@ -147,15 +149,27 @@ function FormSection({post, postImgUrl}) {
 
   const handleSubmit = async (event) => {
     event.preventDefault(); // 기본 제출 동작 방지
+    if (!rating ) {
+      ratingRef.current.scrollIntoView({ behavior: 'smooth',  block: 'center' });
+      return;
+    }
+    if (images.length === 0 && imageUploadRef.current) {
+      imageUploadRef.current.scrollIntoView({ behavior: 'smooth',  block: 'center',  });
+      return;
+    }
     await postSave(); // 데이터 저장 함수 호출
   };
 
   const handleEdit = async (event) => {
-    console.log("images >>>");
-    console.log(images);
-    console.log("existingImages >>>");
-    console.log(existingImages);
     event.preventDefault(); // 기본 제출 동작 방지
+    if (!rating && ratingRef.current) {
+      ratingRef.current.scrollIntoView({ behavior: 'smooth',  block: 'center',  });
+      return;
+    }
+    if (images.length === 0 && imageUploadRef.current) {
+      imageUploadRef.current.scrollIntoView({ behavior: 'smooth',  block: 'center',  });
+      return;
+    }
     await postEdit(); // 데이터 저장 함수 호출
   };
 
@@ -166,7 +180,7 @@ function FormSection({post, postImgUrl}) {
       setRating(post.rating);
       setSecret(post.secret);
       setContent(post.content);
-      setExistingImages(postImgUrl || []); 
+      setExistingImages(postImgUrl || []);
       setCurrentLocal(post.local)
       setLocal(post.local || '');
     }
@@ -175,44 +189,44 @@ function FormSection({post, postImgUrl}) {
 
   // 가져온 현재 지역
   const [currentLocal, setCurrentLocal] = useState('');
-  
+
   return (
-    <form className={styles.formSection} onSubmit={post != null ? handleEdit :handleSubmit}>
+    <form className={styles.formSection} onSubmit={post != null ? handleEdit : handleSubmit}>
       <p className={styles.requiredFieldNote}>
         <span className={styles.requiredStar}>*</span> 은 필수입니다.
       </p>
-      
+
       <FormField
         label="지역"
         type="select"
         placeholder="지역을 선택하세요"
         required
-        options={["수도권","충북", "충남", "전북", "전남", "경남", "경북", "제주", "강원", "대전"]}
-        value={post? currentLocal:local}
+        options={["수도권", "충북", "충남", "전북", "전남", "경남", "경북", "제주", "강원", "대전"]}
+        value={post ? currentLocal : local}
         onChange={handleLocalChange}
       />
-      <FormField label="제목" type="text" required placeholder="제목을 입력하세요." value={title} onChange={handleTitleChange}/>
-      <FormField label="내용" type="textarea" required value={content} onChange={handleContentChange}/>
-      { 
-        post != null ? 
-        <div>
-          <RatingField onChange={handleRatingChange} postRating={post.rating}/>
-          <ImageUpload onChange={handleImageUpload} postImgUrl={existingImages}/>
-          
-          <PrivacyToggle onChange={handleSecretChange} secret={post.secret}/> 
-        </div>:
-        <div>
-          <RatingField onChange={handleRatingChange} />
-          <ImageUpload onChange={handleImageUpload}/>
-          
-          <PrivacyToggle onChange={handleSecretChange} />
-        </div>
+      <FormField label="제목" type="text" required placeholder="제목을 입력하세요." value={title} onChange={handleTitleChange} />
+      <FormField label="내용" type="textarea" required value={content} onChange={handleContentChange} />
+      {
+        post != null ?
+          <div>
+            <RatingField ref={ratingRef} onChange={handleRatingChange} postRating={post.rating} />
+            <ImageUpload ref={imageUploadRef} onChange={handleImageUpload} postImgUrl={existingImages} />
+
+            <PrivacyToggle onChange={handleSecretChange} secret={post.secret} />
+          </div> :
+          <div>
+            <RatingField ref={ratingRef} onChange={handleRatingChange} />
+            <ImageUpload ref={imageUploadRef} onChange={handleImageUpload} />
+
+            <PrivacyToggle onChange={handleSecretChange} />
+          </div>
       }
-      <hr/>
+      <hr />
       <div className={styles.formActions}>
         {
-          post!=null ? <button type="submit" className={styles.submitButton}>글 수정</button> :
-                 <button type="submit" className={styles.submitButton}>글 등록</button>
+          post != null ? <button type="submit" className={styles.submitButton}>글 수정</button> :
+            <button type="submit" className={styles.submitButton}>글 등록</button>
         }
         &nbsp;&nbsp;
         <button type="button" className={styles.cancelButton} onClick={handleCancel}>
