@@ -31,9 +31,9 @@ public class RankingService {
             currentWeek = LocalDate.now().with(DayOfWeek.MONDAY);
         }
 
-        System.out.println("Fetching Popular Post Rankings for week: " + currentWeek);  // 현재 주 로그 추가
+        System.out.println("현재 주차 : " + currentWeek); 
         List<RankingResponseDTO> rankings = rankingMapper.getPopularPostRankings(currentWeek.toString());
-        System.out.println("Fetched Popular Post Rankings: " + rankings);  // 쿼리 결과 출력
+        System.out.println("데이터 쿼리 결과 : " + rankings); 
         return rankings;
     }
 
@@ -51,7 +51,7 @@ public class RankingService {
         }
 
         List<RankingResponseDTO> rankings = rankingMapper.getUserActivityRankings(currentWeek.toString());
-        System.out.println("Fetched User Activity Rankings: " + rankings);  // 로그 추가
+        System.out.println("데이터 쿼리 결과 : " + rankings);  
         return rankings;
     }
 
@@ -69,7 +69,7 @@ public class RankingService {
         }
 
         List<RankingResponseDTO> rankings = rankingMapper.getHallOfFame(currentWeek.toString());
-        System.out.println("Fetched Hall of Fame Rankings: " + rankings);  // 로그 추가
+        System.out.println("데이터 쿼리 결과 : " + rankings);  
         return rankings;
     }
 
@@ -104,7 +104,7 @@ public class RankingService {
      */
     @Scheduled(cron = "0 0 10 * * MON")
     public void resetWeeklyRanking() {
-        System.out.println("Resetting weekly ranking...");  // 로그 추가
+        System.out.println("주간 랭킹 초기화 >>>>");  // 로그 추가
 
         // 주간 랭킹 초기화
         rankingMapper.clearWeeklyRanking();
@@ -126,6 +126,7 @@ public class RankingService {
             requestDTO.setLikes(post.getLikes());
             requestDTO.setWeekOf(currentWeek.toString());  // 현재 주의 날짜를 weekOf에 설정
             rankingMapper.addRanking(requestDTO);
+            System.out.println("RankingRequestDTO 데이터: " + requestDTO);
             System.out.println("Added Popular Post Ranking: " + post);  // 로그 추가
         });
 
