@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BsCoin } from "react-icons/bs";
 import { CgProfile } from "react-icons/cg";
-import { FaRegCalendarAlt, FaSync } from "react-icons/fa";
+import { FaRegCalendarAlt } from "react-icons/fa";
 import { MdNotificationsNone } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom"; // useNavigate 임포트
 import styled from "styled-components";
@@ -185,7 +185,8 @@ const UserActions = ({ refreshMileage }) => {
         )}
 
         {/* 포인트 표시 */}
-        <Container>
+        {localStorage.getItem("loginInfo")
+        ?<Container>
           <MileageIcon>
             <BsCoin />
           </MileageIcon>
@@ -200,6 +201,8 @@ const UserActions = ({ refreshMileage }) => {
             )}
           </PointsDisplay>
         </Container>
+        :''}
+        
       </StyledUserActions>
 
       {/* 알림 모달 */}
