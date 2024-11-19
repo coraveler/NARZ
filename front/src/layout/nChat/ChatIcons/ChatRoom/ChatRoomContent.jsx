@@ -10,42 +10,37 @@ const ChatRoomContent = ({ loginId, recipientId, nc, channel }) => {
   const [updateMessage, setUpdateMessage] = useState([]);
   const [friendState, setFriendState] = useState(null);
 
+// onMessageReceived 이벤트 리스너에서 메시지를 받으면 UI에 반영
+nc.bind("onMessageReceived", function(channel, receivedMessage) {
+  console.log("Received a new message: ", receivedMessage);
+  // 기존 메시지 목록에 새로운 메시지를 추가
+  setUpdateMessage((prevMessages) => [
+    ...prevMessages,
+    { node: receivedMessage }, // 새로운 메시지를 추가
+  ]);
+  scrollToBottom(); // 새로운 메시지가 오면 자동으로 스크롤을 맨 아래로 내립니다.
+});
+
   // 채팅 내용이 갱신될 때 자동으로 스크롤을 맨 아래로 내리기 위한 함수
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-
-  // 최초 로딩 시 getMessages 호출
-  // useEffect(() => {
-  //   if (channel) {
-  //     getMessages(channel.id);
-  //   }
-  // }, [channalId]);
-
-  // 컴포넌트가 마운트되거나 메시지가 업데이트 될 때마다 자동으로 스크롤 내리기
-  // useEffect(() => {
-  //   scrollToBottom();
-
-  //   const exitTime = getExitChatRoomTime();
-  //   getMessages(channel.id, exitTime);
-  // }, [channel]); // 채팅 메시지가 바뀔 때마다 호출되도록 할 수도 있음
-
   useEffect(() => {
     scrollToBottom();
-    if(channel){
-    const fetchExitTimeAndMessages = async () => {
+    if (channel) {
+      const fetchExitTimeAndMessages = async () => {
 
         // await을 사용하여 실제 값 가져오기
         const exitTime = await getExitChatRoomTime();
-        
+
         if (exitTime) {
           getMessages(channel.id, exitTime);  // exitTime 값을 인자로 사용
-        }else{
-          getMessages(channel.id, null); 
+        } else {
+          getMessages(channel.id, null);
         }
       };
-      
+
       fetchExitTimeAndMessages();
     }
   }, [channel]);
@@ -104,10 +99,10 @@ const ChatRoomContent = ({ loginId, recipientId, nc, channel }) => {
         console.log("Message sent successfully:", response);
 
         // 기존 messages에 새 메시지 추가하여 실시간 반영
-        setUpdateMessage((prevMessages) => [
-          ...prevMessages,
-          { node: response },
-        ]);
+        // setUpdateMessage((prevMessages) => [
+        //   ...prevMessages,
+        //   { node: response },
+        // ]);
 
         setMessage(""); // 입력창 초기화
       }
@@ -123,10 +118,10 @@ const ChatRoomContent = ({ loginId, recipientId, nc, channel }) => {
     const option = { offset: 0, per_page: 100 };
     try {
       const response = await nc.getMessages(filter, sort, option);
-      if(exitTime){
+      if (exitTime) {
         const filterdMsg = checkExitTime(response.edges, exitTime);
         setUpdateMessage(filterdMsg); // 메시지 초기 로드
-      }else{
+      } else {
         setUpdateMessage(response.edges); // 메시지 초기 로드
       }
       console.log(response);
@@ -156,15 +151,15 @@ const ChatRoomContent = ({ loginId, recipientId, nc, channel }) => {
     for (let i = messages.length - 1; i >= 0; i--) {
       const msgTime = new Date(messages[i].node.created_at);
       console.log(messages[i].node);
-      
+
       if (exitDate > msgTime) {
         console.log(msgTime);
-        index=i;
+        index = i;
         break;
-      } 
+      }
     }
-    
-    return messages.slice(index+1, messages.length); 
+
+    return messages.slice(index + 1, messages.length);
   }
 
 
@@ -248,6 +243,7 @@ const ChatRoomContent = ({ loginId, recipientId, nc, channel }) => {
 
 
   const clickSendBtn = async () => {
+    if (!message.trim()) return; // 메시지가 비어있으면 아무 작업도 하지 않음
 
     let channelId = channalId;
     if (friendState == null) {
@@ -261,19 +257,18 @@ const ChatRoomContent = ({ loginId, recipientId, nc, channel }) => {
         await requestFriend();
       }
     } else {
-      sendMessage(channel.id);
-      console.log(channel);
-      console.log(updateMessage);
+      await sendMessage(channel.id); // await 추가
     }
   };
 
-  const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();  // 기본 엔터 동작(새 줄 입력 등)을 막습니다.
-      clickSendBtn();
-    }
-  };
-  
+  // handleKeyDown에서 클릭 이벤트와 중복되지 않도록 수정
+  // const handleKeyDown = (e) => {
+  //   if (e.key === 'Enter') {
+  //     e.preventDefault();  // 기본 엔터 동작(새 줄 입력 등)을 막습니다.
+  //     clickSendBtn();
+  //   }
+  // };
+
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
@@ -299,6 +294,51 @@ const ChatRoomContent = ({ loginId, recipientId, nc, channel }) => {
       {
         friendState === "accepted" || friendState == null ? (
           // 친구 관계가 수락된 경우 채팅 입력창 표시
+          // <div
+          //   style={{
+          //     display: "flex",
+          //     alignItems: "center",
+          //     padding: "10px",
+          //     backgroundColor: "#fff",
+          //     borderTop: "1px solid #ddd",
+          //     position: 'absolute',
+          //     bottom: 0,
+          //     flexShrink: 0,
+          //     zIndex: 10,
+          //     width: '100%'
+          //   }}
+          // >
+          //   <input
+          //     type="text"
+          //     placeholder="Type a message..."
+          //     style={{
+          //       flex: 1,
+          //       padding: "8px",
+          //       borderRadius: "20px",
+          //       border: "1px solid #ddd",
+          //       marginRight: "10px",
+          //     }}
+          //     value={message}
+          //     onChange={handleMessage}
+          //     onKeyDown={handleKeyDown}
+          //   />
+          //   <button
+          //     style={{
+          //       // padding: "8px 12px",
+          //       width: '50px',
+          //       height: '40px',
+          //       borderRadius: "20px",
+          //       backgroundColor: "#007bff",
+          //       color: "white",
+          //       border: "none",
+          //       cursor: "pointer",
+          //     }}
+          //     onClick={clickSendBtn}
+          //   >
+          //     <AiOutlineSend style={{ fontSize: '20', marginBottom: '3px' }} />
+          //   </button>
+          // </div>
+
           <div
             style={{
               display: "flex",
@@ -310,39 +350,47 @@ const ChatRoomContent = ({ loginId, recipientId, nc, channel }) => {
               bottom: 0,
               flexShrink: 0,
               zIndex: 10,
-              width: '100%'
+              width: '100%',
             }}
           >
-            <input
-              type="text"
-              placeholder="Type a message..."
-              style={{
-                flex: 1,
-                padding: "8px",
-                borderRadius: "20px",
-                border: "1px solid #ddd",
-                marginRight: "10px",
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();  // 기본 폼 제출 동작(페이지 새로고침) 방지
+                clickSendBtn();      // 메시지 전송
               }}
-              value={message}
-              onChange={handleMessage}
-              onKeyDown={handleKeyDown}
-            />
-            <button
-              style={{
-                // padding: "8px 12px",
-                width:'50px',
-                height:'40px',
-                borderRadius: "20px",
-                backgroundColor: "#007bff",
-                color: "white",
-                border: "none",
-                cursor: "pointer",
-              }}
-              onClick={clickSendBtn}
+              style={{ display: 'flex', width: '100%' }}  // 폼 내에서 input과 button을 수평 정렬
             >
-              <AiOutlineSend style={{fontSize:'20', marginBottom:'3px'}}/>
-            </button>
+              <input
+                type="text"
+                placeholder="Type a message..."
+                style={{
+                  flex: 1,
+                  padding: "8px",
+                  borderRadius: "20px",
+                  border: "1px solid #ddd",
+                  marginRight: "10px",
+                }}
+                value={message}
+                onChange={handleMessage}
+                // onKeyDown={handleKeyDown}  // Enter 키로도 메시지 전송
+              />
+              <button
+                type="submit"  // 버튼이 폼 제출 버튼으로 작동
+                style={{
+                  width: '50px',
+                  height: '40px',
+                  borderRadius: "20px",
+                  backgroundColor: "#007bff",
+                  color: "white",
+                  border: "none",
+                  cursor: "pointer",
+                }}
+              >
+                <AiOutlineSend style={{ fontSize: '20', marginBottom: '3px' }} />
+              </button>
+            </form>
           </div>
+
 
         ) : friendState === "requested" ? (
           <div>상대방이 친구요청을 수락하면 채팅이 가능합니다.</div>
@@ -356,23 +404,6 @@ const ChatRoomContent = ({ loginId, recipientId, nc, channel }) => {
           <div>상대방이 친구요청을 수락하면 채팅이 가능합니다.</div>
 
 
-        // (
-
-        //   channel?.last_message.sender.id === loginId ?
-        //     <div>상대방이 친구요청을 수락하면 채팅이 가능합니다.</div>
-        //     :
-        //     // 친구 요청이 수락되지 않은 경우, 수락/거절 버튼 표시
-        //     <div align="center">
-        //       <span>친구 신청이 왔습니다.</span>
-        //       <br />
-        //       <button onClick={acceptFriend}>수락</button>
-        //       <button onClick={rejectFriend}>거절</button>
-        //     </div>
-        // ) :
-        //   channel?.last_message.sender.id === loginId ?
-        //     <div>상대방이 친구요청을 수락하면 채팅이 가능합니다.</div> :
-        //     <div>친구신청을 거절했습니다.</div>
-
 
 
       }
@@ -381,3 +412,4 @@ const ChatRoomContent = ({ loginId, recipientId, nc, channel }) => {
 };
 
 export default ChatRoomContent;
+
