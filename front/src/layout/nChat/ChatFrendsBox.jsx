@@ -82,22 +82,35 @@ const ChatFrendsBox = ({ channel, openChatWindow, changeActiveTab, friend, nc, l
 
     return (
         <div
-            // onClick={openChatRoom}
+           // onClick={openChatRoom}
             style={{
                 display: "flex",
                 alignItems: "center",
-                border: "1px solid #ccc",   // Light grey border
+                border: "1px solid #412d12",   // Light grey border
                 borderRadius: "8px",         // Rounded corners
                 padding: "10px",             // Padding inside the box
                 marginBottom: "8px",         // Spacing between items
-                margin: "10px"
+                margin: "10px",
+                color: '#412d12',
+                fontFamily: "GumiRomanceTTF",
+                height: '78px'
             }}>
-
+            
+            <style>
+                {`
+                    @font-face {
+                        font-family: 'GumiRomanceTTF';
+                        src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2410-1@1.0/GumiRomanceTTF.woff2') format('woff2');
+                        font-weight: normal;
+                        font-style: normal;
+                    }
+                `}
+            </style>
             <ChatLoginUserInfo userInfo={friend ? friend : user} />
             {
                 channel ?
                     <>
-                        <BsChatDots onClick={openChatRoom} style={{ fontSize: '30px', marginLeft: "auto", cursor: "pointer", marginRight: "10px" }} />
+                        <BsChatDots onClick={openChatRoom} style={{ fontSize: '25px', marginLeft: "auto", cursor: "pointer", marginRight: "10px" }} />
 
                         <NavDropdown id="basic-nav-dropdown" onClick={(e) => e.stopPropagation()} style={{ marginBottom: "auto" }} value="">
                             <NavDropdown.Item onClick={deleteFrinedChannel}>친구 삭제</NavDropdown.Item>
@@ -116,4 +129,4 @@ const ChatFrendsBox = ({ channel, openChatWindow, changeActiveTab, friend, nc, l
     );
 };
 
-export default ChatFrendsBox;
+export default ChatFrendsBox; 

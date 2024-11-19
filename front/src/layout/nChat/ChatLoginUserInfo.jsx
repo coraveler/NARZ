@@ -46,15 +46,18 @@ const ChatLoginUserInfo = ({ userInfo, timeDisplay, msg, state, unread }) => {
                         />
                     )}
                     <div style={{ textAlign: state === 'login' ? 'right' : 'left' }}>
-                        <div>
+                        <div style={{fontFamily: 'GumiRomanceTTF', }}>
                             {userInfo && state !== 'login' && <span>{userInfo.name}</span>}
                             <small style={{ marginLeft: '10px', fontSize: '12px' }}>{timeDisplay}</small>
                         </div>
                         {state ? (
                             <div style={{
-                                border: '1px solid gray',
+                                fontFamily: 'RixXladywatermelonR',
+                                fontSize: '18px',
+                                color: '#412d12',
+                                border: '1px solid #ffd89d',
                                 borderRadius: '10px',
-                                backgroundColor: 'lightgray',
+                                backgroundColor: '#ffd89d',
                                 padding: '5px',
                                 wordBreak: 'break-word',
                                 wordWrap: 'break-word',  // 텍스트가 영역을 넘치지 않게 줄바꿈
@@ -71,10 +74,10 @@ const ChatLoginUserInfo = ({ userInfo, timeDisplay, msg, state, unread }) => {
                                 width: '200px',           // 텍스트 길이를 제한하려면 너비를 설정
                                 overflow: 'hidden',       // 넘치는 텍스트는 숨기기
                                 whiteSpace: 'nowrap',     // 텍스트를 한 줄로 유지
-                                textOverflow: 'ellipsis'  // 넘치는 텍스트는 '...'으로 표시
+                                textOverflow: 'ellipsis',  // 넘치는 텍스트는 '...'으로 표시
                             }}>
                                 <div style={{ display: 'flex', }}>
-                                    <small>{msg}</small>
+                                    <small style={{ fontFamily: 'RixXladywatermelonR' }}>{msg}</small>
                                     {unread > 0 &&
                                         <div style={{
                                             marginLeft: 'auto',
@@ -116,6 +119,23 @@ const ChatLoginUserInfo = ({ userInfo, timeDisplay, msg, state, unread }) => {
                     {userInfo && <h4>{userInfo.name}</h4>}
                 </div>
             )}
+            <style>
+            {`
+                @font-face {
+                    font-family: 'GumiRomanceTTF';
+                    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2410-1@1.0/GumiRomanceTTF.woff2') format('woff2');
+                    font-weight: normal;
+                    font-style: normal;
+                }
+
+                @font-face {
+                    font-family: 'RixXladywatermelonR';
+                    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-4@1.0/RixXladywatermelonR.woff2') format('woff2');
+                    font-weight: normal;
+                    font-style: normal;
+                }
+            `}
+        </style>
         </div>
     );
 };
