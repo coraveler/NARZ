@@ -42,7 +42,7 @@
     </select>
 
     <!-- 쿠폰 등록여부 조회 -->
-    <select id="findByUserIdAndCouponCode" resultType="Mileage">
+    <select id="findByUserIdAndCouponCode" resultType="com.kdt_final.back.shop.domain.Mileage">
         SELECT * FROM mileage 
         WHERE userId = #{userId} AND couponCode = #{couponCode}
     </select>
