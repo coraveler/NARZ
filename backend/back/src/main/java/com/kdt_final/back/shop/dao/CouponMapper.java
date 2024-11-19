@@ -1,15 +1,16 @@
 package com.kdt_final.back.shop.dao;
 
-import com.kdt_final.back.shop.domain.Coupon;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.data.repository.query.Param;
 
 @Mapper
 public interface CouponMapper {
 
-    @Select("SELECT * FROM Coupon WHERE couponCode = #{couponCode}")
-    Coupon findByCouponCode(String couponCode);
+    @Select("SELECT points FROM coupon WHERE couponCode = #{couponCode}")
+    Integer getPointsByCouponCode(@Param("couponCode") String couponCode);
 
-    @Select("SELECT points FROM Coupon WHERE couponCode = #{couponCode}")
-    Integer getPointsByCouponCode(String couponCode);
+    @Delete("DELETE FROM Coupon WHERE couponCode = #{couponCode}")
+    Integer deleteCouponCode(String couponCode);
 }

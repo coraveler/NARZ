@@ -3,7 +3,7 @@ import React, { useState,useEffect } from "react";
 import { FaRegStar, FaStar } from "react-icons/fa"; // 빈 별과 채워진 별 아이콘
 import { FaRegStarHalfStroke } from "react-icons/fa6"; // 반 별 아이콘
 
-function RatingField({onChange, postRating}) {
+const RatingField = React.forwardRef(({ onChange, postRating }, ref) => {
   const [rating, setRating] = useState(0); // 선택된 별점 저장
 
   const handleClick = (currentRating) => {
@@ -30,7 +30,7 @@ function RatingField({onChange, postRating}) {
   },[postRating])
 
   return (
-    <div className={styles.ratingField}>
+    <div className={styles.ratingField} ref={ref}>
       <label className={styles.label}>
         별점 <span className={styles.required}>*</span>
       </label>
@@ -62,6 +62,6 @@ function RatingField({onChange, postRating}) {
       </div>
     </div>
   );
-}
+});
 
 export default RatingField;

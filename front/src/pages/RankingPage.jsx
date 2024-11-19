@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
 import axios from "axios";
-import RankingNavigation from "../Includes/Ranking/RankingNavigation";
-import LeaderboardTable from "../Includes/Ranking/LeaderboardTable";
+import React, { useEffect, useState } from "react";
 import { FaCrown } from "react-icons/fa";
+import LeaderboardTable from "../Includes/Ranking/LeaderboardTable";
+import RankingNavigation from "../Includes/Ranking/RankingNavigation";
 import "../css/ranking/RankingPage.css";
 
 const RankingPage = ({ initialRank = "인기 게시글 랭킹" }) => {

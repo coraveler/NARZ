@@ -16,24 +16,29 @@ export const ToastProvider = ({ children }) => {
     const [notificationToastStatus, setNotificationToastStatus] = useState(false);
     const [msgLength, setMsgLength] = useState(''); // 메시지 길이
 
+    const item = localStorage.getItem("loginInfo")
+    const parseItem = JSON.parse(item);
+
     // 로그인 토스트 실행
     const showLoginToast = () => {
         localStorage.setItem("loginToast",true)
         // setLoginToastStatus(true);
         // setTimeout(() => setLoginToastStatus(false), 3000); // 5초 후 자동으로 닫기
+        localStorage.setItem("loginNickname", parseItem.data.userNickname)
     };
 
     // 로그아웃 토스트 실행
     const showLogoutToast = () => {
-        // localStorage.setItem("logoutToast",true)
-        setLogoutToastStatus(true);
-        setTimeout(() => setLogoutToastStatus(false), 3000);
+        localStorage.setItem("logoutToast",true)
+        // setLogoutToastStatus(true);
+        // setTimeout(() => setLogoutToastStatus(false), 3000);
     }
 
     // 알림 토스트 실행
     const showNotificationToast = () => {
         setNotificationToastStatus(true);
         setTimeout(() => setNotificationToastStatus(false), 3000); // 5초 후 자동으로 닫기
+        localStorage.setItem("loginNickname", parseItem.data.userNickname)
     }
 
     // 메시지 길이 가져오는 함수
@@ -47,11 +52,11 @@ export const ToastProvider = ({ children }) => {
             setTimeout(() => setLoginToastStatus(false), 3000); // 5초 후 자동으로 닫기
             localStorage.removeItem("loginToast");
         }
-        // if(localStorage.getItem("logoutToast")){
-        //     setLogoutToastStatus(true);
-        //     setTimeout(() => setLogoutToastStatus(false), 3000); // 5초 후 자동으로 닫기
-        //     localStorage.removeItem("logoutToast");
-        // }
+        if(localStorage.getItem("logoutToast")){
+            setLogoutToastStatus(true);
+            setTimeout(() => setLogoutToastStatus(false), 3000); // 5초 후 자동으로 닫기
+            localStorage.removeItem("logoutToast");
+        }
     },[])
         
 

@@ -6,12 +6,15 @@ function LogoutToast({logoutToastStatus,logoutToastClose}){
     const [userNickname, setUserNickname] = useState('');
 
     useEffect(()=>{
-        if(localStorage.getItem("loginInfo")){
-            const item = localStorage.getItem("loginInfo")
-            const parseItem = JSON.parse(item);
-            setUserNickname(parseItem.data.userNickname);
+        if(localStorage.getItem("loginNickname")){
+            // const item = localStorage.getItem("loginInfo")
+            // const parseItem = JSON.parse(item);
+            // setUserNickname(parseItem.data.userNickname);
+
+            const item = localStorage.getItem("loginNickname")
+            setUserNickname(item);
         }
-    },[localStorage.getItem("loginInfo")])
+    },[localStorage.getItem("loginNickname")])
     
     return(
         <div>
