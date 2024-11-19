@@ -36,7 +36,7 @@ const RankingPage = ({ initialRank = "인기 게시글 랭킹" }) => {
     <div className="ranking-section">
       <br/>
       <br/>
-      <h2 className="mainTitle"><FaCrown /> ･:*:･ ･:*:･ 이번주 순위를 확인해보세요 ･:*:･ ･:*:･ <FaCrown /> </h2>
+      <h2 className="mainTitle"><FaCrown />  당신의 순위를 확인해보세요  <FaCrown /> </h2>
       <br/>
       <RankingNavigation onRankChange={handleRankChange} activeRank={activeRank} />
       
