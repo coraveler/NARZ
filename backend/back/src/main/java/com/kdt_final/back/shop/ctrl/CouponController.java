@@ -35,26 +35,14 @@ public class CouponController {
                 mileageHistory.setMileagePoints(points); // 조회한 포인트 사용
                 mileageHistory.setDescription("쿠폰 등록" + couponRequest.getCouponCode());
                 mileageService.addMileageHistory(mileageHistory); // 마일리지 내역 추가 메소드 호출
-
+                couponService.deleteCoupon(couponRequest.getCouponCode());
                 return "쿠폰이 성공적으로 등록되었습니다!";
             } else {
                 return "쿠폰 등록 후 포인트 기록을 추가하는데 문제가 발생했습니다.";
             }
+            
         } else {
             return "유효하지 않은 쿠폰 코드입니다.";
         }
     }
-
-    @PostMapping("/use")
-    public String useCoupon(@RequestBody CouponRequest couponRequest) {
-        // 사용자가 이미 해당 쿠폰을 사용했는지 체크
-        boolean isCouponUsed = couponService.isCouponUsed(couponRequest.getUserId(), couponRequest.getCouponCode());
-        if (isCouponUsed) {
-            return "이 쿠폰은 이미 사용되었습니다.";
-        }
-
-        String result = couponService.useCoupon(couponRequest.getUserId(), couponRequest.getCouponCode());
-        return result;
-    }
-
 }

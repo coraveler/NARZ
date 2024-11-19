@@ -6,5 +6,5 @@ import lombok.Data;
 public class CouponRequest {
     private String couponCode;
     private int userId; 
-    private int couponId;
+    // private int couponId;
 }
