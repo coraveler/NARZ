@@ -403,7 +403,8 @@ const EditProfilePage = ({ selectedBadge, nc }) => {
                         localStorage.removeItem('loginInfo');
                         chatLogout();
                         // alert("로그아웃 되었습니다.");                 
-                        navigate('/');
+                        // navigate('/');
+                        window.location.href = '/';
                         showLogoutToast();  // 로그아웃 토스트 실행
                     }
 
