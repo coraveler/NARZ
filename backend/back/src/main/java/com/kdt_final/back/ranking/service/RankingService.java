@@ -18,61 +18,76 @@ public class RankingService {
     @Autowired
     private RankingMapper rankingMapper;
 
+    /**
+     * 주간 랭킹 초기화 (월요일 오전 10시)
+     */
+    @Scheduled(cron = "0 0 10 * * MON")
+    public void resetWeeklyRanking() {
+        System.out.println("주간 랭킹 초기화 >>>>");
+        rankingMapper.clearWeeklyRanking();
+        System.out.println("Weekly rankings cleared.");
+    }
+
+    /**
+     * 주간 랭킹 데이터 추가 (5분마다 실행)
+     */
+    @Scheduled(cron = "0 */5 * * * *")
+    public void addWeeklyRankingData() {
+        System.out.println("주간 랭킹 데이터 추가 >>>>");
+        
+        String currentWeek = getCurrentWeek();
+        System.out.println("현재 주차: " + currentWeek);
+
+        // 인기 게시글 랭킹 추가
+        List<RankingResponseDTO> newPopularPosts = getPopularPostRankings();
+        newPopularPosts.forEach(post -> {
+            RankingRequestDTO requestDTO = new RankingRequestDTO();
+            requestDTO.setRankType("popularPost");
+            requestDTO.setAuthor(post.getAuthor());
+            requestDTO.setBoard(post.getBoard());
+            requestDTO.setLikes(post.getLikes());
+            requestDTO.setWeekOf(currentWeek);
+            rankingMapper.addRanking(requestDTO);
+            System.out.println("Added Popular Post Ranking: " + requestDTO);
+        });
+
+        // 유저 활동 랭킹 추가
+        List<RankingResponseDTO> newUserActivityRankings = getUserActivityRankings();
+        newUserActivityRankings.forEach(activity -> {
+            RankingRequestDTO requestDTO = new RankingRequestDTO();
+            requestDTO.setRankType("userActivity");
+            requestDTO.setAuthor(activity.getAuthor());
+            requestDTO.setPostCount(activity.getPostCount());
+            requestDTO.setCommentCount(activity.getCommentCount());
+            requestDTO.setWeekOf(currentWeek);
+            rankingMapper.addRanking(requestDTO);
+            System.out.println("Added User Activity Ranking: " + requestDTO);
+        });
+
+        System.out.println("주간 랭킹 데이터 추가 완료 >>>>");
+    }
+
     // 인기 게시글 랭킹 가져오기
     public List<RankingResponseDTO> getPopularPostRankings() {
-        LocalDate currentWeek;
-
-        // 현재 시간 확인 (10시 이전이면 지난 주, 10시 이후면 이번 주)
-        if (LocalTime.now().isBefore(LocalTime.of(10, 0))) {
-            // 현재 시간이 오전 10시 이전이면, 지난 주 월요일 날짜
-            currentWeek = LocalDate.now().minusWeeks(1).with(DayOfWeek.MONDAY);
-        } else {
-            // 현재 시간이 오전 10시 이후면, 이번 주 월요일 날짜
-            currentWeek = LocalDate.now().with(DayOfWeek.MONDAY);
-        }
-
-        System.out.println("현재 주차 : " + currentWeek); 
-        List<RankingResponseDTO> rankings = rankingMapper.getPopularPostRankings(currentWeek.toString());
-        System.out.println("데이터 쿼리 결과 : " + rankings); 
-        return rankings;
+        String currentWeek = getCurrentWeek();
+        System.out.println("Fetching Popular Posts for week: " + currentWeek);
+        System.out.println(rankingMapper.getPopularPostRankings(currentWeek));
+        return rankingMapper.getPopularPostRankings(currentWeek);
     }
 
     // 유저 활동 랭킹 가져오기
     public List<RankingResponseDTO> getUserActivityRankings() {
-        LocalDate currentWeek;
-
-        // 현재 시간 확인 (10시 이전이면 지난 주, 10시 이후면 이번 주)
-        if (LocalTime.now().isBefore(LocalTime.of(10, 0))) {
-            // 현재 시간이 오전 10시 이전이면, 지난 주 월요일 날짜
-            currentWeek = LocalDate.now().minusWeeks(1).with(DayOfWeek.MONDAY);
-        } else {
-            // 현재 시간이 오전 10시 이후면, 이번 주 월요일 날짜
-            currentWeek = LocalDate.now().with(DayOfWeek.MONDAY);
-        }
-
-        List<RankingResponseDTO> rankings = rankingMapper.getUserActivityRankings(currentWeek.toString());
-        System.out.println("데이터 쿼리 결과 : " + rankings);  
-        return rankings;
+        String currentWeek = getCurrentWeek();
+        System.out.println("Fetching User Activity Rankings for week: " + currentWeek);
+        return rankingMapper.getUserActivityRankings(currentWeek);
     }
 
     // 명예의 전당 가져오기
     public List<RankingResponseDTO> getHallOfFame() {
-        LocalDate currentWeek;
-
-        // 현재 시간 확인 (10시 이전이면 지난 주, 10시 이후면 이번 주)
-        if (LocalTime.now().isBefore(LocalTime.of(10, 0))) {
-            // 현재 시간이 오전 10시 이전이면, 지난 주 월요일 날짜
-            currentWeek = LocalDate.now().minusWeeks(1).with(DayOfWeek.MONDAY);
-        } else {
-            // 현재 시간이 오전 10시 이후면, 이번 주 월요일 날짜
-            currentWeek = LocalDate.now().with(DayOfWeek.MONDAY);
-        }
-
-        List<RankingResponseDTO> rankings = rankingMapper.getHallOfFame(currentWeek.toString());
-        System.out.println("데이터 쿼리 결과 : " + rankings);  
-        return rankings;
+        String currentWeek = getCurrentWeek();
+        System.out.println("Fetching Hall of Fame for week: " + currentWeek);
+        return rankingMapper.getHallOfFame(currentWeek);
     }
-
 
     // 랭킹 추가
     public void addRanking(RankingRequestDTO rankingRequestDTO) {
@@ -100,53 +115,16 @@ public class RankingService {
     }
 
     /**
-     * 매주 월요일 오전 10시에 주간 랭킹 초기화
+     * 현재 주차(weekOf) 정보를 반환하는 메서드
      */
-    @Scheduled(cron = "0 0 10 * * MON")
-    public void resetWeeklyRanking() {
-        System.out.println("주간 랭킹 초기화 >>>>");  // 로그 추가
-
-        // 주간 랭킹 초기화
-        rankingMapper.clearWeeklyRanking();
-
-        // 현재 주의 날짜
-        LocalDate currentWeek = LocalDate.now();
-        System.out.println("Current Week: " + currentWeek);  // 로그 추가
-
-        // 인기 게시글 랭킹과 유저 활동 랭킹 가져오기
-        List<RankingResponseDTO> newPopularPosts = getPopularPostRankings();
-        List<RankingResponseDTO> newUserActivityRankings = getUserActivityRankings();
-
-        // 인기 게시글 랭킹을 weeklyranking 테이블에 추가
-        newPopularPosts.forEach(post -> {
-            RankingRequestDTO requestDTO = new RankingRequestDTO();
-            requestDTO.setRankType("popularPost");
-            requestDTO.setAuthor(post.getAuthor());
-            requestDTO.setBoard(post.getBoard());
-            requestDTO.setLikes(post.getLikes());
-            requestDTO.setWeekOf(currentWeek.toString());  // 현재 주의 날짜를 weekOf에 설정
-            rankingMapper.addRanking(requestDTO);
-            System.out.println("RankingRequestDTO 데이터: " + requestDTO);
-            System.out.println("Added Popular Post Ranking: " + post);  // 로그 추가
-        });
-
-        // 유저 활동 랭킹을 weeklyranking 테이블에 추가
-        newUserActivityRankings.forEach(activity -> {
-            RankingRequestDTO requestDTO = new RankingRequestDTO();
-            requestDTO.setRankType("userActivity");
-            requestDTO.setAuthor(activity.getAuthor());
-            requestDTO.setPostCount(activity.getPostCount());
-            requestDTO.setCommentCount(activity.getCommentCount());
-            requestDTO.setWeekOf(currentWeek.toString());  // 현재 주의 날짜를 weekOf에 설정
-            rankingMapper.addRanking(requestDTO);
-            System.out.println("Added User Activity Ranking: " + activity);  // 로그 추가
-        });
-    }
-
-    // 현재 주차(weekOf) 정보를 반환하는 메서드 (예: '2024-11-10')
     private String getCurrentWeek() {
-        // 여기서는 현재 날짜를 기준으로 주차 정보를 반환하도록 함.
-        // 예: '2024-11-10' 형식으로 반환.
-        return java.time.LocalDate.now().toString(); 
+        // 현재 시간 확인 (10시 이전이면 지난 주, 10시 이후면 이번 주)
+        if (LocalTime.now().isBefore(LocalTime.of(10, 0))) {
+            // 현재 시간이 오전 10시 이전이면, 지난 주 월요일 날짜 반환
+            return LocalDate.now().minusWeeks(1).with(DayOfWeek.MONDAY).toString();
+        } else {
+            // 현재 시간이 오전 10시 이후면, 이번 주 월요일 날짜 반환
+            return LocalDate.now().with(DayOfWeek.MONDAY).toString();
+        }
     }
 }
