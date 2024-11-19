@@ -97,7 +97,7 @@ public class RankingService {
     // 모든 랭킹 가져오기
     public List<RankingResponseDTO> getRankings() {
         return rankingMapper.getRankings();
-    }
+    } 
 
     // 특정 랭킹 삭제
     public void deleteRanking(int rank) {
