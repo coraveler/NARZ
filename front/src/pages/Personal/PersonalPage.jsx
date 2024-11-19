@@ -79,7 +79,7 @@ function PersonalPage({ selectedBadge, openChatWindow, nc }) {
             {userId && <MapOverlay key={userId} userId={userId} />}
 
             <div className={styles.centeredMap}>
-                {userInfo ? `${userInfo.userNickname}'s Travelog` : "Loading..."}
+                {userInfo ? `${userInfo.userNickname}'s 여행노트` : "Loading..."}
 
             </div>
             <div>

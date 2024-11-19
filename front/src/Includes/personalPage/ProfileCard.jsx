@@ -139,6 +139,7 @@ function ProfileCard({ selectedBadge, userId, profileInfoRef, openChatWindow, nc
         loginUserId != userId &&
         <>
         <FollowButton followedId={userId}/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <SendMessageIcon openChatWindow={openChatWindow} userId={userId} nc={nc}/>
         </>
       }

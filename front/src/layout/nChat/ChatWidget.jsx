@@ -133,7 +133,7 @@ const ChatWidget = ({ nc, loginId, recipientId, projectId, apiKey, isChatOpen, t
             color: "white", // 텍스트 색
             borderRadius: "50%", // 원형 모양
             padding: "4px 4px", // 내부 여백
-            fontSize: "12px", // 글자 크기
+            fontSize: "15px", // 글자 크기
             fontWeight: "bold", // 글자 굵기
             width:'25px',
             height:'25px',

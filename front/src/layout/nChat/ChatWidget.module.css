@@ -1,3 +1,24 @@
+@font-face {
+  font-family: 'NEXEN_TIRE_Bold';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_eight@1.0/NEXEN_TIRE_Bold.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'GumiRomanceTTF';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2410-1@1.0/GumiRomanceTTF.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'ImcreSoojin';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.3/ImcreSoojin.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
 .chatWidgetContainer {
   position: fixed;
   bottom: 20px;
@@ -8,7 +29,7 @@
 }
 
 .chatButton {
-  background-color: #007bff;
+  background-color: #FFB74D;
   border: none;
   border-radius: 50%;
   padding: 12px;
@@ -19,7 +40,11 @@
 }
 
 .chatButton:hover {
-  background-color: #0056b3;
+  color: #FFB74D;
+  background-color: #FFB74D;
+  box-shadow: 0 4px 8px #FFB74D;
+  transform: scale(0.9); /* 버튼을 90% 크기로 줄임 */
+  transition: transform 0.2s ease; /* 부드러운 애니메이션 효과 */
 }
 
 .chatWindow {
@@ -36,9 +61,12 @@
 }
 
 .chatHeader {
-  background-color: #f1f1f1;
+  font-family: 'GumiRomanceTTF';
+  background-color: #ffd89d;
+  color: #412d12;
   padding: 15px;
   border-radius: 8px 8px 0 0;
+  height: 60px;
   /* align-items: center; */
   /* justify-content: space-between; */
 }
@@ -47,6 +75,10 @@
   font-size: 18px;
   font-weight: bold;
   margin: 0;
+}
+
+#basic-nav-dropdown .dropdown-toggle::after {
+  content: ""; /* 역삼각형 제거 */
 }
 
 .chatHeader button {
@@ -63,10 +95,11 @@
 }
 
 .chatFooterTabs {
+  font-family: 'ImcreSoojin';
   display: flex;
   justify-content: space-between;
   padding: 10px 15px;
-  background-color: #f8f8f8;
+  background-color: #ffd89d;
   border-radius: 0 0 8px 8px;
   width: 100%;
   position: sticky;
@@ -84,12 +117,12 @@
 }
 
 .tabButton:hover {
-  color: #007bff;
+  color: #412d12;
 }
 
 .activeTab {
-  color: #007bff;
-  border-bottom: 2px solid #007bff;
+  color: #412d12;
+  border-bottom: 2px solid #412d12;
 }
 
 .chatContent {
