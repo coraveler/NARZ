@@ -21,9 +21,9 @@ const ShopPurchase = ({ handleRefreshMileage }) => {
   }, []);
 
   const options = [
-    { name: "닉네임 변경", price: 300 },
-    { name: "닉네임 색상 변경", price: 300 },
-    { name: "프로필 사진 변경", price: 300 },
+    { name: "닉네임 변경", price: 300, having: 1 },
+    { name: "닉네임 색상 변경", price: 300, having: 1 },
+    { name: "프로필 사진 변경", price: 300, having: 1 },
     { name: "포인트 쿠폰", price: 1000 },
   ];
   
@@ -111,6 +111,19 @@ const ShopPurchase = ({ handleRefreshMileage }) => {
     }
   }
 
+  const getProduct = async() => {
+    try{
+      const response = await api.get(`/api/mileage/getProduct/${userId}`)
+      console.log(response.data);
+  }catch(error){
+    console.error(error);
+  }
+  }
+
+  useEffect(() => {
+    getProduct();
+  },[])
+
   return (
     <div>
       <ShopNav />
@@ -121,7 +134,11 @@ const ShopPurchase = ({ handleRefreshMileage }) => {
           {options.map((option, index) => (
             <div key={index} className={styles["option-card"]}>
               <h4>{option.name}</h4>
-              <p>가격: {option.price}P</p>
+              <span>가격: {option.price}P</span><br></br>
+              {
+                index !==3 &&
+                <span>보유: x{option.having}</span>
+              }<br></br>
               <button
                 className={styles["purchase-button"]}
                 onClick={() => handlePurchase(option)}

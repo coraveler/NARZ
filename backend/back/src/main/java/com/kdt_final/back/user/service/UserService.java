@@ -42,7 +42,7 @@ public class UserService {
 
     @Autowired
     private UserMapper userMapper;
-     @Autowired
+    @Autowired
     private MileageMapper mileageMapper;
 
     public List<UserDTO.UserResponseDTO> findUserAll() {
@@ -373,16 +373,20 @@ public class UserService {
 
         // 문자열을 LocalDateTime으로 변환하고, 날짜 부분만 추출
         LocalDate lastActiveDay = LocalDate.parse(lastActiveDate, formatter);
-        System.out.println("lastActiveDay"+lastActiveDay);
-        System.out.println("today"+today);
+        System.out.println("lastActiveDay" + lastActiveDay);
+        System.out.println("today" + today);
         // 오늘 날짜와 lastActiveDate의 날짜 비교
-        if (!today.isEqual(lastActiveDay)) {
-            MileageHistory mileage = new MileageHistory();
-            mileage.setUserId(params.getUserId());
-            mileage.setMileagePoints(25);
-            mileage.setDescription("출석체크");
-            System.out.println("EEEEEEEEEEEEEQEQEQWEQWE");
-            System.out.println(mileage);
+        MileageHistory mileage = new MileageHistory();
+        mileage.setUserId(params.getUserId());
+        mileage.setMileagePoints(25);
+        mileage.setDescription("출석체크");
+        System.out.println("EEEEEEEEEEEEEQEQEQWEQWE");
+        System.out.println(mileage);
+        if (lastActiveDay!=null) {
+            if (!today.isEqual(lastActiveDay)) {
+                mileageMapper.insertMileageHistory(mileage);
+            }
+        }else{
             mileageMapper.insertMileageHistory(mileage);
         }
     }

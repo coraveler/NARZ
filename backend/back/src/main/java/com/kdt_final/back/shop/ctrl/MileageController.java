@@ -16,6 +16,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import org.springframework.scheduling.annotation.Scheduled;
 
 
+
 @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 @RestController
 @RequestMapping("/api/mileage")
@@ -210,6 +211,11 @@ public class MileageController {
     public ResponseEntity<Void> saveProduct(@RequestBody ProductRequestDTO params) {
         mileageService.saveProduct(params);
         return new ResponseEntity<Void>(HttpStatus.OK);
+    }
+    
+    @GetMapping("getProduct")
+    public String getProduct(@RequestParam String param) {
+        return new String();
     }
     
 }
