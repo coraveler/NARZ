@@ -4,10 +4,12 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kdt_final.back.achievement.dao.AchievementRepository;
 import com.kdt_final.back.comment.service.CommentService;
+import com.kdt_final.back.ranking.dao.RankingMapper;
 import com.kdt_final.back.user.dao.user.UserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -18,6 +20,10 @@ public class AchievementService {
     private final AchievementRepository achievementRepository;
     private final UserRepository userRepository;
     private final CommentService commentService;
+
+    @Autowired
+    private RankingMapper rankingMapper;
+
     private static final List<String> REQUIRED_REGIONS = List.of("chungbuk", "chungnam", "daejeon", "gangwon", "gyeonbuk", "gyeongnam", "jeju", "jeonbuk", "jeonnam", "sudo");
 
     public String getBadgeName(int achievementId) {
@@ -61,5 +67,10 @@ public class AchievementService {
     public boolean checkAllRegionsCoverage(Integer userId) {
         List<String> userRegions = userRepository.getUserPostRegions(userId);
         return userRegions.containsAll(REQUIRED_REGIONS);
+    }
+
+    public boolean checkhallOfFame(Integer userId) {
+        Integer allOfFrame = rankingMapper.checkhallOfFame();
+        return allOfFrame==userId;
     }
 }

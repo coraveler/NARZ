@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
 @RestController
 @RequestMapping("/api/achievement")
 @RequiredArgsConstructor
@@ -49,4 +50,11 @@ public class AchievementController {
         boolean allCovered = achievementService.checkAllRegionsCoverage(userId);
         return ResponseEntity.ok(allCovered);
     }
+
+    @GetMapping("/check-hallOfFame/{userId}")
+    public ResponseEntity<Boolean> checkhallOfFame(@PathVariable Integer userId) {
+        boolean isComplete = achievementService.checkhallOfFame(userId);
+        return ResponseEntity.ok(isComplete);
+    }
+    
 }

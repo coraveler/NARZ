@@ -8,6 +8,7 @@ const ShopPurchase = ({ handleRefreshMileage }) => {
   const [userId, setUserId] = useState(null);
   const [isLoading, setIsLoading] = useState(true); // 로딩 상태 추가
   const { user, userMileage, setUserMileage } = useAuth(); // AuthContext에서 userMileage와 setUserMileage 가져오기
+  const [productCount, setProductCount] = useState();
 
   useEffect(() => {
     const storedLoginInfo = localStorage.getItem("loginInfo");
@@ -21,15 +22,15 @@ const ShopPurchase = ({ handleRefreshMileage }) => {
   }, []);
 
   const options = [
-    { name: "닉네임 변경", price: 300, having: 1 },
-    { name: "닉네임 색상 변경", price: 300, having: 1 },
-    { name: "프로필 사진 변경", price: 300, having: 1 },
+    { name: "닉네임 변경", price: 300, having: productCount?.changeNickname },
+    { name: "닉네임 색상 변경", price: 300, having: productCount?.changeNicknameColor },
+    { name: "프로필 사진 변경", price: 300, having: productCount?.changeProfileImage },
     { name: "포인트 쿠폰", price: 1000 },
   ];
-  
+
   useEffect(() => {
     fetchMileage();
-  },[])
+  }, [])
 
   const fetchMileage = async () => {
     try {
@@ -99,30 +100,32 @@ const ShopPurchase = ({ handleRefreshMileage }) => {
     }
   };
 
-  const saveProduct = async(option) => {
-    const data ={
-      userId:userId,
-      product:option.name
+  const saveProduct = async (option) => {
+    const data = {
+      userId: userId,
+      product: option.name
     }
-    try{
-        const response = await api.post("/api/mileage/saveProduct",data)
-    }catch(error){
+    try {
+      const response = await api.post("/api/mileage/saveProduct", data)
+    } catch (error) {
       console.error(error);
     }
   }
 
-  const getProduct = async() => {
-    try{
+  const getProduct = async () => {
+    try {
       const response = await api.get(`/api/mileage/getProduct/${userId}`)
-      console.log(response.data);
-  }catch(error){
-    console.error(error);
-  }
+      setProductCount(response.data);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   useEffect(() => {
-    getProduct();
-  },[])
+    if(userId){
+      getProduct();
+    }
+  }, [userId])
 
   return (
     <div>
@@ -136,7 +139,7 @@ const ShopPurchase = ({ handleRefreshMileage }) => {
               <h4>{option.name}</h4>
               <span>가격: {option.price}P</span><br></br>
               {
-                index !==3 &&
+                index !== 3 &&
                 <span>보유: x{option.having}</span>
               }<br></br>
               <button

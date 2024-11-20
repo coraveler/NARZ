@@ -1,6 +1,7 @@
 package com.kdt_final.back.shop.ctrl;
 
 import com.kdt_final.back.ranking.domain.product.ProductRequestDTO;
+import com.kdt_final.back.ranking.domain.product.ProductResponseDTO;
 import com.kdt_final.back.shop.domain.Mileage;
 import com.kdt_final.back.shop.domain.MileageHistory;
 import com.kdt_final.back.shop.service.MileageService;
@@ -213,9 +214,20 @@ public class MileageController {
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
     
-    @GetMapping("getProduct")
-    public String getProduct(@RequestParam String param) {
-        return new String();
+    @GetMapping("/getProduct/{userId}")
+    public ResponseEntity<ProductResponseDTO> getProduct(@PathVariable Integer userId) {
+        ProductResponseDTO result = mileageService.getProduct(userId);
+        return new ResponseEntity<ProductResponseDTO>(result,HttpStatus.OK);
+    }
+
+    @DeleteMapping("/deleteProduct")
+    public ResponseEntity<Void> deleteProduct(@RequestParam("userId") Integer userId, @RequestParam("product") String product) {
+        System.out.println(product);
+        ProductRequestDTO params = new ProductRequestDTO();
+        params.setUserId(userId);
+        params.setProduct(product);
+        mileageService.deleteProduct(params);
+        return new ResponseEntity<Void>(HttpStatus.OK);
     }
     
 }

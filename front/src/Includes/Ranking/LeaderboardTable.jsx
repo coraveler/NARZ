@@ -49,7 +49,7 @@ const LeaderboardTable = ({ leaderboardData, activeRank }) => {
             <LeaderboardRow 
               key={index} 
               rank={index + 1}  
-              author={data.author} 
+              author={data.author}
               board={activeRank === "인기 게시글 랭킹" ? data.board : undefined} 
               likes={activeRank === "인기 게시글 랭킹" ? data.likes : undefined} 
               postCount={activeRank === "유저 활동 랭킹" ? data.postCount : undefined}
