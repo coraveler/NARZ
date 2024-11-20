@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useNavigate } from "react-router-dom"; // useNavigate 임포트
+import NotificationModal from '../Includes/notification/NotificationModal';
 import api from '../api/axios';
 import styles from '../css/LoginFormPage.module.css';
 
@@ -7,7 +8,7 @@ const LoginFormPage = ({nc}) => {
   const navigate = useNavigate();
   let [loginId,setloginId] = useState('');
   const [password,setPassword] = useState('');
-  // const notificationRef = useRef(null); // NotificationModal에 접근하기 위한 ref 생성
+  const notificationRef = useRef(null); // NotificationModal에 접근하기 위한 ref 생성
  
 
   return (
@@ -76,7 +77,7 @@ const LoginFormPage = ({nc}) => {
                      console.log(loginInfo);
                     localStorage.setItem("loginInfo",JSON.stringify(loginInfo));
                     localStorage.setItem("loginNotification",true);
-                    // notificationRef.current.loginHandler(); // NotificationModal컴포넌트의 loginHandler()를 함수 실행
+                    // notificationRef.current.loginSuccess(); // NotificationModal컴포넌트의 loginSuccess()를 함수 실행
                     // alert("로그인되었습니다.");
                     //  navigate('/');
                      window.location.href = '/';
@@ -93,7 +94,7 @@ const LoginFormPage = ({nc}) => {
        </form>
 
       {/* NotificationModal 컴포넌트를 ref와 함께 렌더링 */}
-      {/* <NotificationModal ref={notificationRef}/>  */}
+      <NotificationModal ref={notificationRef}/> 
       
     </main>
   );

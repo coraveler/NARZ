@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useLocation } from 'react-router-dom';
 import FormSection from "../Includes/FormComponents/FormSection";
 import TitleSection from "../Includes/FormComponents/TitleSection";
@@ -9,10 +9,7 @@ function TravelWritePage() {
   const post = location.state?.post;
   const postImgUrl = location.state?.postImgUrl;
 
-  useEffect(()=>{
-    console.log("시우테스트 로케이션 -> ",location)
-    console.log("시우테스트 포스트 -> ",post)
-  },[])
+  
   
   return (
     <div className={styles.travelWritePage}>

@@ -32,4 +32,32 @@
         WHERE msgId = #{msgId}
     </delete>
 
+    <select id="getMapRegion"
+            parameterType="com.kdt_final.back.notification.domain.mapRegionNotificationRequestDTO"
+            resultType="boolean">
+        SELECT COUNT(1) > 0
+        FROM mapRegionNotifications
+        WHERE region = #{region} AND userId = #{userId}
+    </select>
+
+    <insert id="saveMapRegion"
+            parameterType="com.kdt_final.back.notification.domain.mapRegionNotificationRequestDTO">
+        INSERT INTO mapRegionNotifications (userId, region)
+        VALUES (#{userId}, #{region})
+    </insert>
+
+    <select id="checkAchievementNotification"
+            parameterType="com.kdt_final.back.notification.domain.AchievementNotificationRequestDTO"
+            resultType="boolean">
+        SELECT COUNT(1) > 0
+        FROM achievementNotification
+        WHERE achievement = #{achievement} AND userId = #{userId}
+    </select>
+
+    <insert id="saveAchievementNotification"
+            parameterType="com.kdt_final.back.notification.domain.AchievementNotificationRequestDTO">
+        INSERT INTO achievementNotification (userId, achievement)
+        VALUES (#{userId}, #{achievement})
+    </insert>
+
 </mapper>

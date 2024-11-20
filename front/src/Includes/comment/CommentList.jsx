@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { BiMessageEdit } from 'react-icons/bi';
 import { GoCommentDiscussion } from "react-icons/go";
 import { getLoginInfo } from "../../Includes/common/CommonUtil";
+import { checkCommentCount } from '../../api/achievementService';
 import api from '../../api/axios';
 import Comment from './Comment';
 
@@ -25,6 +26,7 @@ const CommentList = ({ postId, userId }) => {
         }
         try {
             const response = await api.post(`comment/save`, data);
+            checkCommentCount(userId, 3); // 칭호 달성 여부 확인
             setComment('');
             getComment();
         } catch (err) {

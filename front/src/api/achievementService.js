@@ -1,9 +1,20 @@
 import axios from 'axios';
+import api from './axios';
 
+// 전국일주자
 export const checkMapCompletion = async (userId) => {
     try {
         const response = await axios.get(`http://localhost:7777/api/achievement/map-complete/${userId}`);
-        console.debug("checkMapCompletion response:", response.data);
+        console.debug("checkMapCompletion response:", response.data); 
+        if(response.data == true){
+            const achievement = "전국일주자";
+            const result = await fetchAchievementNotification(userId, achievement)
+            if(result == false){
+                saveAchievementNotificationMsg(userId, achievement)
+            }else{
+                console.log(`'${achievement}'칭호는 이미 메시지 전송했음!`);
+            }
+        }
         return response.data;
     } catch (error) {
         console.error("Error in checkMapCompletion:", error);
@@ -14,10 +25,20 @@ export const checkMapCompletion = async (userId) => {
     }
 };
 
+// 여행의장인
 export const checkPostCount = async (userId, requiredCount) => {
     try {
         const response = await axios.get(`http://localhost:7777/api/achievement/post-count/${userId}?requiredCount=${requiredCount}`);
         console.debug("checkPostCount response:", response.data);
+        if(response.data == true){
+            const achievement = "여행의장인";
+            const result = await fetchAchievementNotification(userId, achievement)
+            if(result == false){
+                saveAchievementNotificationMsg(userId, achievement)
+            }else{
+                console.log(`'${achievement}'칭호는 이미 메시지 전송했음!`);
+            }
+        }
         return response.data;
     } catch (error) {
         console.error("Error in checkPostCount:", error);
@@ -28,10 +49,20 @@ export const checkPostCount = async (userId, requiredCount) => {
     }
 };
 
+// 댓글마스터
 export const checkCommentCount = async (userId, requiredCount) => {
     try {
         const response = await axios.get(`http://localhost:7777/api/achievement/comment-count/${userId}?requiredCount=${requiredCount}`);
         console.debug("checkCommentCount response:", response.data);
+        if(response.data == true){
+            const achievement = "댓글마스터";
+            const result = await fetchAchievementNotification(userId, achievement)
+            if(result == false){
+                saveAchievementNotificationMsg(userId, achievement)
+            }else{
+                console.log(`'${achievement}'칭호는 이미 메시지 전송했음!`);
+            }
+        }
         return response.data;
     } catch (error) {
         console.error("Error in checkCommentCount:", error);
@@ -42,10 +73,20 @@ export const checkCommentCount = async (userId, requiredCount) => {
     }
 };
 
+// 전국정복자
 export const checkAllRegionsCoverage = async (userId) => {
     try {
         const response = await axios.get(`http://localhost:7777/api/achievement/all-regions/${userId}`);
         console.debug("checkAllRegionsCoverage response:", response.data);
+        if(response.data == true){
+            const achievement = "전국정복자";
+            const result = await fetchAchievementNotification(userId, achievement)
+            if(result == false){
+                saveAchievementNotificationMsg(userId, achievement)
+            }else{
+                console.log(`'${achievement}'칭호는 이미 메시지 전송했음!`);
+            }
+        }
         return response.data;
     } catch (error) {
         console.error("Error in checkAllRegionsCoverage:", error);
@@ -99,3 +140,50 @@ export const fetchAllAchievements = async () => {
     }
 };
 
+
+
+
+// 업적에 대한 알림이 이미 전송되었는지 확인
+export const fetchAchievementNotification = async (userId, achievement) => {
+    try {
+        const response = await api.get(`/api/achievementNotification?userId=${userId}&achievement=${achievement}`)
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+// 업적 알림 메시지 전송 완료 이력 저장
+export const saveAchievementNotification = async (userId, achievement) => {
+
+    const data = {
+        userId: userId,
+        achievement: achievement
+    }
+    try {
+        await api.post(`/api/achievementNotification`, data)
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+// 업적에 대한 알림 메시지를 추가함
+export const saveAchievementNotificationMsg = async (userId, achievement) => {
+
+    const msgTitle = `'${achievement}'칭호가 해금되었습니다.`
+    const msgContent = `개인페이지의 도전과제에서 확인해 보세요.`
+
+    const data = {
+        msgTitle : msgTitle,
+        msgContent : msgContent,
+        userId : userId
+    }
+
+    try {
+        await axios.post("http://localhost:7777/api/notificationMessage", data)
+        saveAchievementNotification(userId, achievement);
+        alert(`'${achievement}'칭호가 해금되었습니다. 도전과제에서 확인하세요.`)
+    } catch (error) {
+        console.log(error);
+    }
+};
