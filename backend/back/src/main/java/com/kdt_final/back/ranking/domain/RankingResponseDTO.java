@@ -10,4 +10,5 @@ public class RankingResponseDTO {
     private int likes;
     private int postCount;
     private int commentCount;
+    private int postId;
 }

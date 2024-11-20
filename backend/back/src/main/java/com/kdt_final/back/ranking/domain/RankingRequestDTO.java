@@ -12,5 +12,6 @@ public class RankingRequestDTO {
     private int commentCount; // 댓글 수
     private String weekOf;    // 주(week) 정보 (날짜 형태)
     private int ranking;
+    private int postId;
     
 }

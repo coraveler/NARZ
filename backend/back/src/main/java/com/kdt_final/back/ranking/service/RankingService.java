@@ -52,7 +52,10 @@ public class RankingService {
             rankingMapper.saveRankUser(params);
             userInfo = rankingMapper.getUserInfo(params.getAuthor());
             mileage.setUserId(userInfo.getUserId());
-            mileage.setMileagePoints((i+1)*10000);
+            int price =1000;
+            if(i==1){price = 500;}
+            else if(i==2){price = 300;}
+            mileage.setMileagePoints(price);
             mileage.setDescription("주간 인기 게시글 "+ (i+1)+"등!!!");
             mileageMapper.insertMileageHistory(mileage);
         }
@@ -69,7 +72,10 @@ public class RankingService {
             rankingMapper.saveRankUser(params);
             userInfo = rankingMapper.getUserInfo(params.getAuthor());
             mileage.setUserId(userInfo.getUserId());
-            mileage.setMileagePoints((i+1)*10000);
+            int price =1000;
+            if(i==1){price = 500;}
+            else if(i==2){price = 300;}
+            mileage.setMileagePoints(price);
             mileage.setDescription("주간 활동 랭킹 "+ (i+1)+"등!!!");
             mileageMapper.insertMileageHistory(mileage);
         }
@@ -80,7 +86,7 @@ public class RankingService {
     /**
      * 주간 랭킹 데이터 추가 (5분마다 실행)
      */
-    @Scheduled(cron = "0 5 * * * *")
+    @Scheduled(cron = "0 * * * * *")
     public void addWeeklyRankingData() {
         System.out.println("주간 랭킹 데이터 추가 >>>>");
 
