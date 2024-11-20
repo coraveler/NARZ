@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import styles from "../../css/Shop/ShopPurchase.module.css";
 import ShopNav from "./ShopNav";
+import api from "../../api/axios";
 
 const ShopPurchase = ({ handleRefreshMileage }) => {
   const [userId, setUserId] = useState(null);
@@ -20,9 +21,9 @@ const ShopPurchase = ({ handleRefreshMileage }) => {
   }, []);
 
   const options = [
-    { name: "닉네임 변경", price: 300 },
-    { name: "닉네임 색상 변경", price: 300 },
-    { name: "프로필 사진 변경", price: 300 },
+    { name: "닉네임 변경", price: 300, having: 1 },
+    { name: "닉네임 색상 변경", price: 300, having: 1 },
+    { name: "프로필 사진 변경", price: 300, having: 1 },
     { name: "포인트 쿠폰", price: 1000 },
   ];
   
@@ -87,6 +88,7 @@ const ShopPurchase = ({ handleRefreshMileage }) => {
         alert("구매가 완료되었습니다!");
         setUserMileage(userMileage + mileagePoints); // 잔여 포인트 업데이트
         handleRefreshMileage();
+        saveProduct(option);
       } else {
         const errorData = await response.json();
         console.error("Error data:", errorData);
@@ -97,16 +99,30 @@ const ShopPurchase = ({ handleRefreshMileage }) => {
     }
   };
 
-  const saveProduct = async() => {
+  const saveProduct = async(option) => {
     const data ={
-      
+      userId:userId,
+      product:option.name
     }
     try{
-
+        const response = await api.post("/api/mileage/saveProduct",data)
     }catch(error){
-
+      console.error(error);
     }
   }
+
+  const getProduct = async() => {
+    try{
+      const response = await api.get(`/api/mileage/getProduct/${userId}`)
+      console.log(response.data);
+  }catch(error){
+    console.error(error);
+  }
+  }
+
+  useEffect(() => {
+    getProduct();
+  },[])
 
   return (
     <div>
@@ -118,7 +134,11 @@ const ShopPurchase = ({ handleRefreshMileage }) => {
           {options.map((option, index) => (
             <div key={index} className={styles["option-card"]}>
               <h4>{option.name}</h4>
-              <p>가격: {option.price}P</p>
+              <span>가격: {option.price}P</span><br></br>
+              {
+                index !==3 &&
+                <span>보유: x{option.having}</span>
+              }<br></br>
               <button
                 className={styles["purchase-button"]}
                 onClick={() => handlePurchase(option)}
