@@ -100,7 +100,7 @@
         WHERE
             pl.createdDate >= #{currentWeek} 
         GROUP BY 
-            p.postId, u.userNickname, p.title;
+            p.postId;
     </select>
 
      <!-- 이번주 사용자 댓글, 게시글 수 가져오기 -->
@@ -121,7 +121,7 @@
             (DATE(p.createdDate) >= #{currentWeek} OR DATE(p.createdDate) IS NULL)
             AND (DATE(c.createdDate) >= #{currentWeek} OR DATE(c.createdDate) IS NULL)
         GROUP BY 
-            p.postId, u.userNickname, p.title;
+            u.userNickname;
     </select>
     
     <!-- 랭커 유저 저장 -->
