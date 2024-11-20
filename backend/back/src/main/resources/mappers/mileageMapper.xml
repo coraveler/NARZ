@@ -39,6 +39,11 @@
     WHERE userId = #{userId}
     </select>
 
-
+    <!-- 구매한 상품 등록 -->
+    <insert id="saveProduct"
+            parameterType="com.kdt_final.back.ranking.domain.product.ProductRequestDTO">
+        INSERT INTO havingproduct (userId, product)
+        VALUES (#{userId}, #{product})
+    </insert>
 
 </mapper>

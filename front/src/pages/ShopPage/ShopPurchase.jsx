@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import styles from "../../css/Shop/ShopPurchase.module.css";
 import ShopNav from "./ShopNav";
+import api from "../../api/axios";
 
 const ShopPurchase = ({ handleRefreshMileage }) => {
   const [userId, setUserId] = useState(null);
@@ -87,6 +88,7 @@ const ShopPurchase = ({ handleRefreshMileage }) => {
         alert("구매가 완료되었습니다!");
         setUserMileage(userMileage + mileagePoints); // 잔여 포인트 업데이트
         handleRefreshMileage();
+        saveProduct(option);
       } else {
         const errorData = await response.json();
         console.error("Error data:", errorData);
@@ -97,14 +99,15 @@ const ShopPurchase = ({ handleRefreshMileage }) => {
     }
   };
 
-  const saveProduct = async() => {
+  const saveProduct = async(option) => {
     const data ={
-      
+      userId:userId,
+      product:option.name
     }
     try{
-
+        const response = await api.post("/api/mileage/saveProduct",data)
     }catch(error){
-
+      console.error(error);
     }
   }
 
