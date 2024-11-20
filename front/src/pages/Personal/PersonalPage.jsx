@@ -8,7 +8,7 @@ import ProfileCard from '../../Includes/personalPage/ProfileCard';
 import api from "../../api/axios";
 import styles from '../../css/Personal/personalpage.module.css';
 
-function PersonalPage({ selectedBadge, openChatWindow, nc }) {
+function PersonalPage({ selectedBadge, openChatWindow, nc, handleRefreshMileage }) {
     const navigate = useNavigate();
     const { urlUserId } = useParams(); // URL에서 userId 추출
     let loginInfo = getLoginInfo();
@@ -76,7 +76,7 @@ function PersonalPage({ selectedBadge, openChatWindow, nc }) {
             </div>
 
             {/* userId가 정의된 경우에만 MapOverlay 렌더링 */}
-            {userId && <MapOverlay key={userId} userId={userId} />}
+            {userId && <MapOverlay key={userId} userId={userId} handleRefreshMileage={handleRefreshMileage}/>}
 
             <div className={styles.centeredMap}>
                 {userInfo ? `${userInfo.userNickname}'s 여행노트` : "Loading..."}
