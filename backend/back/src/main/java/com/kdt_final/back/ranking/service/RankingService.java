@@ -2,7 +2,8 @@ package com.kdt_final.back.ranking.service;
 
 import com.kdt_final.back.ranking.domain.RankingRequestDTO;
 import com.kdt_final.back.ranking.domain.RankingResponseDTO;
-import com.kdt_final.back.ranking.domain.joins.JoinResponseDTO;
+import com.kdt_final.back.ranking.domain.totalranker.TotalRankerResponseDTO;
+import com.kdt_final.back.ranking.domain.userinfo.UserInfoResponseDTO;
 import com.kdt_final.back.ranking.dao.RankingMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -13,6 +14,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class RankingService {
@@ -33,27 +35,27 @@ public class RankingService {
         RankingRequestDTO params = new RankingRequestDTO();
 
         // postRankUser의 첫 3개의 항목만 DB에 저장
-    for (int i = 0; i < Math.min(3, postRankUser.size()); i++) {
-        RankingResponseDTO ranking = postRankUser.get(i);
-        // 랭킹 타입 'popularPost'와 'ranking' 정보 등 저장
-        params.setAuthor(ranking.getAuthor());
-        params.setRankType("popularPost");
-        params.setWeekOf(currentWeek);
-        params.setRanking(i+1);
-        rankingMapper.saveRankUser(params);
-    }
+        for (int i = 0; i < Math.min(3, postRankUser.size()); i++) {
+            RankingResponseDTO ranking = postRankUser.get(i);
+            // 랭킹 타입 'popularPost'와 'ranking' 정보 등 저장
+            params.setAuthor(ranking.getAuthor());
+            params.setRankType("popularPost");
+            params.setWeekOf(currentWeek);
+            params.setRanking(i + 1);
+            rankingMapper.saveRankUser(params);
+        }
 
-    // userRankUser의 첫 3개의 항목만 DB에 저장
-    for (int i = 0; i < Math.min(3, userRankUser.size()); i++) {
-        RankingResponseDTO ranking = userRankUser.get(i);
-        // 랭킹 타입 'userActivity'와 'ranking' 정보 등 저장
-        params.setAuthor(ranking.getAuthor());
-        params.setRankType("userActivity");
-        params.setWeekOf(currentWeek);
-        params.setRanking(i+1);
-        System.out.println(params);
-        rankingMapper.saveRankUser(params);
-    }
+        // userRankUser의 첫 3개의 항목만 DB에 저장
+        for (int i = 0; i < Math.min(3, userRankUser.size()); i++) {
+            RankingResponseDTO ranking = userRankUser.get(i);
+            // 랭킹 타입 'userActivity'와 'ranking' 정보 등 저장
+            params.setAuthor(ranking.getAuthor());
+            params.setRankType("userActivity");
+            params.setWeekOf(currentWeek);
+            params.setRanking(i + 1);
+            System.out.println(params);
+            rankingMapper.saveRankUser(params);
+        }
 
         rankingMapper.clearWeeklyRanking();
     }
@@ -178,5 +180,28 @@ public class RankingService {
             rankingRequestDTO.setWeekOf(currentWeek);
             addRanking(rankingRequestDTO);
         }
+    }
+
+    public List<TotalRankerResponseDTO> totalRank() {
+        List<TotalRankerResponseDTO> lst = rankingMapper.getRankCount();
+        // lst를 정렬: firstCount → secondCount → thirdCount 기준으로 내림차순 정렬
+        lst.sort((a, b) -> {
+            if (b.getFirstCount() != a.getFirstCount()) {
+                return b.getFirstCount() - a.getFirstCount(); // firstCount 내림차순
+            } else if (b.getSecondCount() != a.getSecondCount()) {
+                return b.getSecondCount() - a.getSecondCount(); // secondCount 내림차순
+            } else {
+                return b.getThirdCount() - a.getThirdCount(); // thirdCount 내림차순
+            }
+        });
+
+        // 상위 3개의 결과만 반환
+        return lst.stream()
+                .limit(3) // 최대 3개의 요소만
+                .collect(Collectors.toList());
+    }
+
+    public UserInfoResponseDTO getUserInfo(String author){
+        return rankingMapper.getUserInfo(author);
     }
 }

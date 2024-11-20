@@ -129,4 +129,30 @@
         INSERT INTO getrankuser (author, ranking, rankingType, weekOf)
         VALUES (#{author}, #{ranking}, #{rankType}, #{weekOf})
     </insert>
+
+    <!-- 유저랭킹 누적 카운트 -->
+    <select id="getRankCount"
+            resultType="com.kdt_final.back.ranking.domain.totalranker.TotalRankerResponseDTO">
+        SELECT 
+            author,
+            COUNT(CASE WHEN ranking = 1 THEN 1 END) AS firstCount,
+            COUNT(CASE WHEN ranking = 2 THEN 1 END) AS secondCount,
+            COUNT(CASE WHEN ranking = 3 THEN 1 END) AS thirdCount
+        FROM 
+            getrankuser
+        WHERE  
+            rankingType = "userActivity"
+        GROUP BY 
+            author;
+
+    </select>
+
+    <!-- author 로 userInfo 가져오기 -->
+    <select id="getUserInfo"
+            parameterType="String"
+            resultType="com.kdt_final.back.ranking.domain.userinfo.UserInfoResponseDTO">
+        SELECT USERID, PROFILEIMAGE
+        FROM USER
+        WHERE USERNICKNAME = #{author}
+    </select>
 </mapper>

@@ -1,12 +1,18 @@
 package com.kdt_final.back.ranking.ctrl;
 
+import com.kdt_final.back.post.domain.postImage.PostImageResponseDTO;
 import com.kdt_final.back.ranking.domain.RankingRequestDTO;
 import com.kdt_final.back.ranking.domain.RankingResponseDTO;
+import com.kdt_final.back.ranking.domain.totalranker.TotalRankerResponseDTO;
+import com.kdt_final.back.ranking.domain.userinfo.UserInfoResponseDTO;
 import com.kdt_final.back.ranking.service.RankingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 
 @RestController
 @RequestMapping("/api/rankings")
@@ -48,5 +54,18 @@ public class RankingController {
     @PutMapping
     public void updateRanking(@RequestBody RankingRequestDTO rankingRequestDTO) {
         rankingService.updateRanking(rankingRequestDTO);
+    }
+
+    @GetMapping("/totalRank")
+    public ResponseEntity<List<TotalRankerResponseDTO>> totalRank() {
+        List<TotalRankerResponseDTO> lst = rankingService.totalRank();
+        return new ResponseEntity<List<TotalRankerResponseDTO>>(lst, HttpStatus.OK);
+    }
+    
+
+    @GetMapping("/userInfo/{author}")
+    public ResponseEntity<UserInfoResponseDTO> getUserInfo(@PathVariable String author) {
+        UserInfoResponseDTO result = rankingService.getUserInfo(author);
+        return new ResponseEntity<UserInfoResponseDTO>(result, HttpStatus.OK);
     }
 }
