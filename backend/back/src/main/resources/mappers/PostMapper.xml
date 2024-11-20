@@ -100,8 +100,8 @@
 
     <insert id="likeSave"
             parameterType="com.kdt_final.back.post.domain.postLike.PostLikeRequestDTO">
-        INSERT INTO POSTLIKE(USERID, POSTID)
-        VALUES( #{userId}, #{postId})
+        INSERT INTO POSTLIKE(USERID, POSTID, CREATEDDATE)
+        VALUES( #{userId}, #{postId}, CURRENT_DATE)
     </insert>
 
     <!-- likeDelete --> 

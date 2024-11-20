@@ -77,6 +77,7 @@ const ChatWidget = ({ nc, loginId, recipientId, projectId, apiKey, isChatOpen, t
 
   const ClickFooterTab = (option) => {
     setActiveTab(option);
+    toggleChatWindow(true); 
   };
 
   const getTotalUnread = async() => {

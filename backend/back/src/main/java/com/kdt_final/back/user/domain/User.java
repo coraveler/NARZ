@@ -23,4 +23,5 @@ public class User {
     private String achievement;
     private String profileImage;
     private String emailCode;
+    public String lastActiveDate;
 }

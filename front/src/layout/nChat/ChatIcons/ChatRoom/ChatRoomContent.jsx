@@ -377,9 +377,9 @@ nc.bind("onMessageReceived", function(channel, receivedMessage) {
                 // onKeyDown={handleKeyDown}  // Enter 키로도 메시지 전송
               />
               <button
-                type="submit"  // 버튼이 폼 제출 버튼으로 작동
+                type="submit"  
                 style={{
-                  width: '50px',
+                  width: '50px', //너비
                   height: '40px',
                   borderRadius: "20px",
                   backgroundColor: "#ffd89d",
