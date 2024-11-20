@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.kdt_final.back.user.domain.User;
+import com.kdt_final.back.user.dto.AttendancePointRequestDTO;
+import com.kdt_final.back.user.dto.AttendancePointResponseDTO;
 import com.kdt_final.back.user.dto.UserDTO;
 
 @Repository
@@ -32,4 +34,6 @@ public interface UserRepository  {
     void saveFileName(String fileName);
 
     int updateAchievementByUserId(int userId, String badgeName);
+    public AttendancePointResponseDTO fetchAttendanceInfo(int userId);
+    public void updateAttendanceDate(AttendancePointRequestDTO params);
 }

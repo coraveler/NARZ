@@ -26,6 +26,13 @@ const NotificationModal = forwardRef(({
     const afterOneHours = new Date();   // 한시간 후
     afterOneHours.setHours(afterOneHours.getHours() + 1);
 
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');  // 월은 0부터 시작하므로 1을 더해줍니다.
+    const day = String(today.getDate()).padStart(2, '0');
+
+    const formattedDate = `${year}-${month}-${day}`;
+
     
 
     // 알림 모달창 동작시 알림 메시지 정보 가져오기
@@ -88,7 +95,8 @@ const NotificationModal = forwardRef(({
             const parseItem = JSON.parse(item);
             const userId = parseItem.data.userId
             const userNickname = parseItem.data.userNickname
-            loginSuccess(userId)
+            loginSuccess(userId);
+            attendanceNotification(userId);
             if(localStorage.getItem(`todayNotificationMsg-${userId}`)){
                 if(localStorage.getItem(`todayNotificationMsg-${userId}`) !=`${new Date().toDateString()}-notificationMsg`){
                     fetchSchedule(userId, userNickname);
@@ -252,6 +260,7 @@ const NotificationModal = forwardRef(({
         }
     }
 
+    // 지역별 알림 메시지 전송했는지 확인
     const loginSuccess = async (userId) => {
         for (const region of regions) {
             const result = await checkMapRegionNotification(userId, region);
@@ -262,6 +271,31 @@ const NotificationModal = forwardRef(({
             }
         }
     };
+
+    // 로그인 되었을 때 출석체크 이력 가져오기
+    const attendanceNotification = async(userId) => {
+        try{
+            const response = await api.get(`/user/attendancePoint?userId=${userId}`)
+            if(response.data.attendancePointDate != formattedDate){
+                updateAttendanceDate(userId)
+                alert('📅 출석 성공! 🎉 포인트 25p 지급되었습니다.')
+            }
+        }catch(e){
+            console.log(e);
+        }
+    }
+
+    const updateAttendanceDate = async(userId) => {
+        const data = {
+            userId: userId,
+            attendancePointDate:formattedDate
+        }
+        try{
+            await api.patch(`/user/attendancePoint`, data)
+        }catch(e){
+            console.log(e);
+        }
+    }
 
    
     return(
