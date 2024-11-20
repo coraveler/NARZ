@@ -20,14 +20,10 @@ const ShopPurchase = ({ handleRefreshMileage }) => {
   }, []);
 
   const options = [
-    { name: "닉네임 변경", price: 10000 },
-    { name: "닉네임 컬러 변경", price: 10000 },
-    { name: "프로필 사진 변경", price: 10000 },
-    { name: "구매", price: 10000 },
-    { name: "구매2", price: 20000 },
-    { name: "구매3", price: 30000 },
-    { name: "구매4", price: 40000 },
-    { name: "구매5", price: 50000 },
+    { name: "닉네임 변경", price: 300 },
+    { name: "닉네임 색상 변경", price: 300 },
+    { name: "프로필 사진 변경", price: 300 },
+    { name: "포인트 쿠폰", price: 1000 },
   ];
   
   useEffect(() => {
@@ -100,6 +96,17 @@ const ShopPurchase = ({ handleRefreshMileage }) => {
       alert("구매에 실패했습니다: " + error.message);
     }
   };
+
+  const saveProduct = async() => {
+    const data ={
+      
+    }
+    try{
+
+    }catch(error){
+
+    }
+  }
 
   return (
     <div>

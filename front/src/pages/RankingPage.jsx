@@ -20,6 +20,7 @@ const RankingPage = ({ initialRank = "인기 게시글 랭킹" }) => {
       const encodedRankType = encodeURIComponent(rankType);
       const response = await axios.get(`http://localhost:7777/api/rankings?rankType=${encodedRankType}`);
       setLeaderboardData(response.data);
+      console.log(response.data);
     } catch (error) {
       console.error("Error fetching leaderboard data:", error);
       setLeaderboardData([]);

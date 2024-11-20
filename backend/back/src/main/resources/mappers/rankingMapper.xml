@@ -5,8 +5,8 @@
 
     <!-- 랭킹 추가 (인기 게시글 랭킹) -->
     <insert id="addRanking" parameterType="com.kdt_final.back.ranking.domain.RankingRequestDTO">
-        INSERT INTO weeklyranking (author, board, likes, postCount, commentCount, rankingType, weekOf)
-        VALUES (#{author}, #{board}, #{likes}, #{postCount}, #{commentCount}, #{rankType}, #{weekOf})
+        INSERT INTO weeklyranking (author, postId, board, likes, postCount, commentCount, rankingType, weekOf)
+        VALUES (#{author}, #{postId}, #{board}, #{likes}, #{postCount}, #{commentCount}, #{rankType}, #{weekOf})
     </insert>
 
     <!-- 주간 랭킹 초기화 -->
@@ -54,7 +54,7 @@
     <select id="getPopularPostRankings" 
             parameterType="String"
             resultType="com.kdt_final.back.ranking.domain.RankingResponseDTO">
-        SELECT wr.id AS id, wr.author, wr.board, wr.likes, wr.rankingType
+        SELECT wr.id AS id, wr.author, wr.board, wr.likes, wr.rankingType, wr.postId
         FROM weeklyranking wr
         WHERE wr.rankingType = 'popularPost' AND wr.weekOf = #{weekOf}
         ORDER BY wr.likes DESC
@@ -87,6 +87,7 @@
             parameterType = "String"
             resultType="com.kdt_final.back.ranking.domain.RankingRequestDTO">
        SELECT 
+            p.postId AS postId,
             p.title AS board, 
             u.userNickname AS author,
             COUNT(pl.likeNo) AS likes
