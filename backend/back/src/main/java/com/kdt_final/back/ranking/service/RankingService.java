@@ -4,6 +4,8 @@ import com.kdt_final.back.ranking.domain.RankingRequestDTO;
 import com.kdt_final.back.ranking.domain.RankingResponseDTO;
 import com.kdt_final.back.ranking.domain.totalranker.TotalRankerResponseDTO;
 import com.kdt_final.back.ranking.domain.userinfo.UserInfoResponseDTO;
+import com.kdt_final.back.shop.dao.MileageMapper;
+import com.kdt_final.back.shop.domain.MileageHistory;
 import com.kdt_final.back.ranking.dao.RankingMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -21,18 +23,23 @@ public class RankingService {
 
     @Autowired
     private RankingMapper rankingMapper;
+    @Autowired
+    private MileageMapper mileageMapper;
 
     /**
      * 주간 랭킹 초기화 (월요일 오전 10시)
      */
     @Scheduled(cron = "0 0 0 * * MON")
     public void resetWeeklyRanking() {
+        System.out.println("랭킹 집계 및 마일리지 지급 실행!!!!!");
         String currentWeek = getCurrentWeek();
 
         List<RankingResponseDTO> postRankUser = getPopularPostRankings();
         List<RankingResponseDTO> userRankUser = getUserActivityRankings();
 
         RankingRequestDTO params = new RankingRequestDTO();
+        UserInfoResponseDTO userInfo = new UserInfoResponseDTO();
+        MileageHistory mileage = new MileageHistory();
 
         // postRankUser의 첫 3개의 항목만 DB에 저장
         for (int i = 0; i < Math.min(3, postRankUser.size()); i++) {
@@ -43,6 +50,11 @@ public class RankingService {
             params.setWeekOf(currentWeek);
             params.setRanking(i + 1);
             rankingMapper.saveRankUser(params);
+            userInfo = rankingMapper.getUserInfo(params.getAuthor());
+            mileage.setUserId(userInfo.getUserId());
+            mileage.setMileagePoints((i+1)*10000);
+            mileage.setDescription("주간 인기 게시글 "+ (i+1)+"등!!!");
+            mileageMapper.insertMileageHistory(mileage);
         }
 
         // userRankUser의 첫 3개의 항목만 DB에 저장
@@ -55,6 +67,11 @@ public class RankingService {
             params.setRanking(i + 1);
             System.out.println(params);
             rankingMapper.saveRankUser(params);
+            userInfo = rankingMapper.getUserInfo(params.getAuthor());
+            mileage.setUserId(userInfo.getUserId());
+            mileage.setMileagePoints((i+1)*10000);
+            mileage.setDescription("주간 활동 랭킹 "+ (i+1)+"등!!!");
+            mileageMapper.insertMileageHistory(mileage);
         }
 
         rankingMapper.clearWeeklyRanking();
