@@ -28,8 +28,6 @@ import TravelWritePage from "./pages/TravelWritePage";
 import ChatWidget from "./layout/nChat/ChatWidget";
 import ChatLogin from "./layout/nChat/ChatLogin";
 import { getLoginInfo } from "./Includes/common/CommonUtil";
-import ChatRoomList from "./layout/nChat/ChatPage/ChatRoomList";
-import MakeChat from "./layout/nChat/ChatMakeChannal";
 import { AuthProvider } from './context/AuthContext';
 import api from "./api/axios";
 
