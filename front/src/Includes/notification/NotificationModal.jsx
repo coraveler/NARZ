@@ -4,6 +4,7 @@ import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { BiSolidMessageDetail } from "react-icons/bi";
 import { FcAlarmClock, FcDataBackup } from "react-icons/fc";
 import ReactModal from "react-modal";
+import api from "../../api/axios";
 import '../../css/modal/Modal.css';
 import { useToast } from "../toast/ToastContext";
 import NotificationList from "./NotificationList";
@@ -42,7 +43,7 @@ const NotificationModal = forwardRef(({
             try{
                 const response = await axios.get(`http://localhost:7777/api/notificationMessage?userId=${userId}`)
                 setPreviousDayAry(response.data.filter(msg => new Date(msg.sendDate) < new Date().setHours(0, 0, 0, 0)).sort((a,b)=>new Date(b.sendDate) - new Date(a.sendDate))) // 오늘 00:00 이전
-                setTodayAry(response.data.filter(msg => new Date(msg.sendDate) >= new Date().setHours(0, 0, 0, 0) && new Date(msg.sendDate) < new Date().setHours(23, 59, 59, 999)));
+                setTodayAry(response.data.filter(msg => new Date(msg.sendDate) >= new Date().setHours(0, 0, 0, 0) && new Date(msg.sendDate) < new Date().setHours(23, 59, 59, 999)).sort((a,b)=>new Date(b.sendDate) - new Date(a.sendDate)));
             }catch(e){
                 console.log(e)
             }
@@ -63,7 +64,8 @@ const NotificationModal = forwardRef(({
                 localStorage.setItem(`todayNotificationMsg-${userId}`, `${new Date().toDateString()}-notificationMsg`) 
             }
             
-            showNotificationToast()  // 일정 알림 토스트
+            // showNotificationToast()  // 일정 알림 토스트
+            showLoginToast();
             getMsgLength(schedules.length); // 일정 길이
             saveMsgHandler(schedules, userId, userNickname)   // 일정을 메시지화하여 저장하기
             
@@ -75,7 +77,8 @@ const NotificationModal = forwardRef(({
 
     // 부모 컴포넌트에서 loginHandler 함수를 호출할 수 있도록 ref를 사용하여 노출합니다.
     useImperativeHandle(ref, ()=>({
-        loginHandler
+        loginHandler,
+        loginSuccess
     }))
 
     // 로그인 함수
@@ -85,6 +88,7 @@ const NotificationModal = forwardRef(({
             const parseItem = JSON.parse(item);
             const userId = parseItem.data.userId
             const userNickname = parseItem.data.userNickname
+            loginSuccess(userId)
             if(localStorage.getItem(`todayNotificationMsg-${userId}`)){
                 if(localStorage.getItem(`todayNotificationMsg-${userId}`) !=`${new Date().toDateString()}-notificationMsg`){
                     fetchSchedule(userId, userNickname);
@@ -140,6 +144,124 @@ const NotificationModal = forwardRef(({
             console.log(e)
         }
     }
+
+    // 전 지역 모음
+    const regions = [
+        "sudo",
+        "gangwon",
+        "chungbuk",
+        "chungnam",
+        "daejeon",
+        "gyeonbuk",
+        "jeonbuk",
+        "gyeongnam",
+        "jeonnam",
+        "jeju"
+      ];
+
+    // 유저별 지역 좋아요 카운트
+    const getUserLocalLikeCount = async (region) => {
+        if(localStorage.getItem("loginInfo")){
+            const item = localStorage.getItem("loginInfo")
+            const parseItem = JSON.parse(item);
+            const userId = parseItem.data.userId
+            
+            try {
+                const response = await api.get(`map/localLikeCount`, {
+                    params: {
+                    local : region,
+                    userId : userId
+                }});
+                return response.data; // likeCount를 반환
+            } catch (error) {
+                console.error(error);
+                return 0; // 에러 발생 시 기본값 0 반환
+            }
+        }
+    };
+    
+    // 유저별 지역 좋아요수에 따른 동작
+    const regionLikeCount = async (userId, region) => {
+        const count = await getUserLocalLikeCount(region); // likeCount를 비동기적으로 가져옴
+        if (count >= 1) {
+            saveMapRegionMsg(userId, region)
+            console.log(region, " 지역 메시지 등록 완료!")
+        } else {
+            
+        }
+    };
+
+    // 지역별 조건 달성시 메시지 등록
+    const saveMapRegionMsg = async (userId, region) => {
+
+        // 영어로 저장할 지역 이름을 위한 변수
+        const originalRegion = region;
+
+        switch(region) {
+            case "sudo"     : region = "수도권"; break;
+            case "gangwon"  : region = "강원도"; break;
+            case "chungbuk" : region = "충북"; break;
+            case "chungnam" : region = "충남"; break;
+            case "daejeon"  : region = "대전"; break;
+            case "gyeonbuk" : region = "경북"; break;
+            case "jeonbuk"  : region = "전북"; break;
+            case "gyeongnam": region = "경남"; break;
+            case "jeonnam"  : region = "전남"; break;
+            case "jeju"     : region = "제주도"; break;
+        }
+
+        const msgTitle = `'${region}'지역의 이미지 업로드 조건이 충족되었습니다.`
+        const msgContent = `개인 페이지에서 자신만의 지도를 꾸며보세요.`
+
+        const data = {
+            msgTitle : msgTitle,
+            msgContent : msgContent,
+            userId : userId
+        }
+
+        try{
+            await axios.post("http://localhost:7777/api/notificationMessage", data)
+            saveMapRegionNotification(userId, originalRegion)
+        }catch(e){
+            console.log(e);
+        }
+    }
+
+
+    // 유저별 지도 개방 알림 체크
+    const checkMapRegionNotification = async(userId, region) => {
+        try{
+            const response = await api.get(`/api/mapRegionNotification?userId=${userId}&region=${region}`)
+            return response.data;
+        }catch(e){
+            console.log(e);
+        }
+    }
+
+    // 지도의 해당 지역 메시지 완료되었다고 전송
+    const saveMapRegionNotification = async(userId, region) => {
+        const data = {
+            userId:userId,
+            region:region
+        }
+        try{
+            await api.post(`/api/mapRegionNotification`, data)
+            localStorage.setItem(`mapRegionNotification`, `true`) 
+        }catch(e){
+            console.log(e);
+        }
+    }
+
+    const loginSuccess = async (userId) => {
+        for (const region of regions) {
+            const result = await checkMapRegionNotification(userId, region);
+            if (result === false) {
+                await regionLikeCount(userId, region);
+            } else {
+                console.log(region, " 지역은 이미 메시지를 전송했음..!");
+            }
+        }
+    };
 
    
     return(
