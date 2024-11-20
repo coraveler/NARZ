@@ -1,11 +1,30 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'; // Link 임포트
 import "../../css/ranking/LeaderboardTable.css";
 import HallOfFamePage from './HallOfFamePage';
 import LeaderboardHeader from './LeaderboardHeader';
 import LeaderboardRow from './LeaderboardRow';
+import api from "../../api/axios"
 
 const LeaderboardTable = ({ leaderboardData, activeRank }) => {
+  const [totalRanker, setTotalRanker] = useState([]);
+
+  const getTotalRanker = async() => {
+    try{
+      const response = await api.get(`/api/rankings/totalRank`);
+      console.log(response.data);
+      setTotalRanker(response.data);
+    }catch(error){
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    if(activeRank==="명예의 전당"){
+      getTotalRanker();
+    }
+  },[activeRank])
+
   return (
     <section className="leaderboard-wrapper">
       <div className="leaderboard-container">
@@ -16,7 +35,7 @@ const LeaderboardTable = ({ leaderboardData, activeRank }) => {
         : activeRank === "명예의 전당" 
         ? (
           <div className="hof-cards-wrapper">
-            {leaderboardData.slice(0, 3).map((data, index) => (
+            {totalRanker.map((data, index) => (
               <HallOfFamePage 
                 key={index} 
                 rank={index + 1}  

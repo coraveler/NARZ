@@ -2,7 +2,8 @@ package com.kdt_final.back.ranking.dao;
 
 import com.kdt_final.back.ranking.domain.RankingRequestDTO;
 import com.kdt_final.back.ranking.domain.RankingResponseDTO;
-import com.kdt_final.back.ranking.domain.joins.JoinResponseDTO;
+import com.kdt_final.back.ranking.domain.totalranker.TotalRankerResponseDTO;
+import com.kdt_final.back.ranking.domain.userinfo.UserInfoResponseDTO;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -44,4 +45,8 @@ public interface RankingMapper {
     List<RankingRequestDTO> addUserRanking(String currentWeek);
 
     void saveRankUser(RankingRequestDTO params);
+
+    List<TotalRankerResponseDTO> getRankCount();
+
+    UserInfoResponseDTO getUserInfo(String author);
 }
