@@ -8,7 +8,7 @@ import ImageUpload from "./ImageUpload";
 import PrivacyToggle from "./PrivacyToggle";
 import RatingField from "./RatingField";
 
-function FormSection({ post, postImgUrl }) {
+function FormSection({ post, postImgUrl, handleRefreshMileage }) {
   const navigate = useNavigate(); // 페이지 이동을 위한 useNavigate 훅
   const [local, setLocal] = useState('');
   const [title, setTitle] = useState('');
@@ -67,6 +67,7 @@ function FormSection({ post, postImgUrl }) {
         }
       });
       console.log(response.data);
+      getPoints();
       alert("글작성 완료");
       navigate(`/postpage/${response.data}`)
     } catch (err) {
@@ -189,6 +190,36 @@ function FormSection({ post, postImgUrl }) {
 
   // 가져온 현재 지역
   const [currentLocal, setCurrentLocal] = useState('');
+
+
+  const getPoints = async () => {
+    const mileagePoints = 50;
+    const description = `글작성`;
+    try {
+      const response = await fetch(
+        "http://localhost:7777/api/mileage/history",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userId: userId,
+            mileagePoints: mileagePoints,
+            description: description,
+          }),
+        }
+      );
+      if (response.ok) {
+        handleRefreshMileage();
+      } 
+      
+    } catch (error) {
+      alert("구매에 실패했습니다: " + error.message);
+    }
+  };
+
+  
 
   return (
     <form className={styles.formSection} onSubmit={post != null ? handleEdit : handleSubmit}>

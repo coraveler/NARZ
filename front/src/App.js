@@ -28,8 +28,6 @@ import TravelWritePage from "./pages/TravelWritePage";
 import ChatWidget from "./layout/nChat/ChatWidget";
 import ChatLogin from "./layout/nChat/ChatLogin";
 import { getLoginInfo } from "./Includes/common/CommonUtil";
-import ChatRoomList from "./layout/nChat/ChatPage/ChatRoomList";
-import MakeChat from "./layout/nChat/ChatMakeChannal";
 import { AuthProvider } from './context/AuthContext';
 import api from "./api/axios";
 
@@ -100,7 +98,7 @@ function App() {
   };
 
   // openChatWindow 함수: 항상 채팅 창을 열도록 설정
-  const openChatWindow = (recipientId, channel, tab) => {
+  const openChatWindow = (recipientId, channel) => {
     console.log(channel);
     if (recipientId) {
       setRecipientId(recipientId);
@@ -284,7 +282,7 @@ function App() {
           path="/LoginFormPage"
           element={<LoginFormPage nc={chatInstance} />}
         />
-        <Route path="/TravelWritePage" element={<TravelWritePage />} />
+        <Route path="/TravelWritePage" element={<TravelWritePage handleRefreshMileage={handleRefreshMileage}/>} />
         <Route path="/TravelEditPage" element={<TravelWritePage />} />
         <Route path="/ranking" element={<RankingPage />} />
         <Route path="/postpage/:postId" element={<PostPage />} />

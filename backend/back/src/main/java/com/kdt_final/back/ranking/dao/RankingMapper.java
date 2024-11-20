@@ -2,6 +2,8 @@ package com.kdt_final.back.ranking.dao;
 
 import com.kdt_final.back.ranking.domain.RankingRequestDTO;
 import com.kdt_final.back.ranking.domain.RankingResponseDTO;
+import com.kdt_final.back.ranking.domain.joins.JoinResponseDTO;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -35,4 +37,11 @@ public interface RankingMapper {
 
     // 주간 랭킹 초기화 메서드
     void clearWeeklyRanking();  // 주간 랭킹 초기화 메서드
+
+    // 
+    List<RankingRequestDTO> addPostRanking(String currentWeek);
+    
+    List<RankingRequestDTO> addUserRanking(String currentWeek);
+
+    void saveRankUser(RankingRequestDTO params);
 }
