@@ -72,4 +72,5 @@ public class RankingController {
         return new ResponseEntity<UserInfoResponseDTO>(result, HttpStatus.OK);
     }
     
+    
 }

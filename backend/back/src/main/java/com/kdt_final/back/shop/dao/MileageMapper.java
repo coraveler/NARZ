@@ -1,6 +1,7 @@
 package com.kdt_final.back.shop.dao;
 
 import com.kdt_final.back.ranking.domain.product.ProductRequestDTO;
+import com.kdt_final.back.ranking.domain.product.ProductResponseDTO;
 import com.kdt_final.back.shop.domain.Mileage;
 import com.kdt_final.back.shop.domain.MileageHistory;
 import org.apache.ibatis.annotations.Mapper;
@@ -25,4 +26,8 @@ public interface MileageMapper {
     void deductMileage(@Param("userId") int userId, @Param("points") int points); // 마일리지 차감 메서드 추가
 
     void saveProduct(ProductRequestDTO params);
+
+    ProductResponseDTO getProduct(int userId);
+
+    void deleteProduct(ProductRequestDTO params);
 }

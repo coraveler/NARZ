@@ -12,6 +12,10 @@ import ColorChangeModal from "./Personal/ColorChangeModal";
 const EditProfilePage = ({ selectedBadge, nc }) => {
     let loginInfo = getLoginInfo();
     const userId = loginInfo?.userId || null;
+    const [productCount, setProductCount] = useState();
+    // const [changeNinameColor, setChangeNinameColor] = useState(false);
+    const [changeNiname, setChangeNiname] = useState(false);
+    const [changeProfileImage, setChangeProfileImage] = useState(false);
 
     const navigate = useNavigate();
     // 초기 이미지 URL 저장
@@ -25,6 +29,7 @@ const EditProfilePage = ({ selectedBadge, nc }) => {
         const file = e.target.files[0];
         console.debug('file', file);
         if (file) {
+            setChangeProfileImage(true);
             const reader = new FileReader();
             reader.onloadend = () => {
                 setProfileImage(reader.result); // 미리보기용 이미지 설정
@@ -71,6 +76,7 @@ const EditProfilePage = ({ selectedBadge, nc }) => {
     const [colorChangeModalStatus, setColorChangeModalStatus] = useState(false);    // 컬러 변경 모달창 상태
     const { showLogoutToast } = useToast(); // Context에서 showLogoutToast 가져오기
     const [isReadOnly, setIsReadOnly] = useState(false);
+    const [isReadNickname, setIsReadNickname] = useState(false);
 
 
     const getTodayDate = () => {
@@ -109,7 +115,7 @@ const EditProfilePage = ({ selectedBadge, nc }) => {
         }
     };
 
-    
+
     // 입력값이 변경될 때 상태 업데이트
     const handleInputChange = (e) => {
         const { id, value } = e.target;
@@ -138,16 +144,17 @@ const EditProfilePage = ({ selectedBadge, nc }) => {
 
         let loginInfo = getLoginInfo();
         if (loginInfo == null) {
+            setIsReadOnly(true);
             // alert("로그인 먼저 해주세요");
             navigate('/LoginFormPage');
         } else {
-            console.debug('logininfo',loginInfo)
+            console.debug('logininfo', loginInfo)
             setName(loginInfo.userName);
             setNickName(loginInfo.userNickname);
             setEmail(loginInfo.email);
             setPhone(loginInfo.phoneNum);
             setBirthday(loginInfo.birthday);
-            setIsReadOnly(true);
+
             fetchNicknameColor();
             setProfileImage(`http://localhost:7777/profileImages/${loginInfo.profileImage}`);
         }
@@ -197,6 +204,38 @@ const EditProfilePage = ({ selectedBadge, nc }) => {
         }
     }
 
+    const getProduct = async () => {
+        try {
+            const response = await api.get(`/api/mileage/getProduct/${userId}`)
+            setProductCount(response.data);
+            console.log(response.data);
+            if (!response.data.changeNickname > 0) {
+                setIsReadNickname(true);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    useEffect(() => {
+        if (userId) {
+            getProduct();
+        }
+    }, [userId])
+
+    const deleteProduct = async (product) => {
+        try {
+            const response = await api.delete("/api/mileage/deleteProduct", {
+                params: {
+                    userId: userId,
+                    product: product
+                }
+            });
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     return (
         <div >
             {/* ProfileCard에 selectedBadge 전달 */}
@@ -205,23 +244,35 @@ const EditProfilePage = ({ selectedBadge, nc }) => {
                 <div className={styles.ImageContainer}>
                     <img src={profileImage} alt="Profile" />
                     <div className={styles.ButtonGroup}>
-                        <label className={styles.changeButton}>
-                            이미지 변경
-                            <input
-                                type="file"
-                                accept="image/*"
-                                style={{ display: "none" }}
-                                onChange={handleImageChange}
-                                onClick={resetFileInput}
-                            />
-                        </label>
+                        {
+                            productCount?.changeProfileImage > 0 &&
+                            <label className={styles.changeButton}>
+                                이미지 변경
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    style={{ display: "none" }}
+                                    onChange={handleImageChange}
+                                    onClick={resetFileInput}
+                                />
+                            </label>
+                        }
+
+
+
                         <button
                             className={styles.deleteButton}
                             onClick={() => setProfileImage(`http://localhost:7777/profileImages/default.png`)}
                         >
                             삭제
                         </button>
+
                     </div>
+                    <br/>
+                    {
+                        !productCount?.changeProfileImage > 0 &&
+                        <span style={{ color: 'red' }}>프로필 이미지 변경은 상점에서 구매 후 이용 가능합니다.</span>
+                    }
                 </div>
 
                 <form className="profile-form">
@@ -253,6 +304,8 @@ const EditProfilePage = ({ selectedBadge, nc }) => {
                     <div className={styles.FieldWrapper}>
                         <label htmlFor={"userNickname"}>{"userNickname"}</label>
                         <div className={styles.InputContainer}>
+
+
                             <input
                                 className={styles.Input}
                                 type="text"
@@ -260,35 +313,55 @@ const EditProfilePage = ({ selectedBadge, nc }) => {
                                 name={"userNickname"}
                                 placeholder="NickName"
                                 value={userNickname}
-                                readOnly={isReadOnly}
+                                readOnly={isReadNickname}
                                 style={{
-                                    backgroundColor: isReadOnly ? "#e9e6e6f5" : "white"  // readOnly 상태에 따라 배경색 변경
+                                    backgroundColor: isReadNickname ? "#e9e6e6f5" : "white"  // readOnly 상태에 따라 배경색 변경
                                 }}
                                 onChange={(event) => {
                                     console.log(event.target.value);
                                     setNickName(event.target.value);
                                     console.debug('NickName', userNickname);
+                                    setChangeNiname(true);
                                 }}
                             />
 
+
+                            {
+                                productCount?.changeNicknameColor > 0 && (
+                                    <div style={{ backgroundColor: nickNameColor }}
+                                        onClick={() => setColorChoiceVisible(true)}
+                                        className={styles.nickNameColor}
+                                    />)
+                            }
                             {/* 현재 닉네임 색상 */}
-                            <div style={{ backgroundColor: nickNameColor }}
-                                onClick={() => setColorChoiceVisible(true)}
-                                className={styles.nickNameColor}
-                            />
+
+
                         </div>
+
                     </div>
 
                     <div className={styles.FieldWrapper}>
-                        <button type="button"
-                            className={styles.AutoButton}
-                            onClick={() => {
-                                setColorChangeModalStatus(true);
-                            }}
-                        >색상 선택 완료
-                        </button>
-                    </div>
+                        {
+                            productCount?.changeNicknameColor ?
+                                <button type="button"
+                                    className={styles.AutoButton}
+                                    onClick={() => {
+                                        setColorChangeModalStatus(true);
 
+
+                                    }}
+                                >색상 선택 완료
+                                </button> : <></>
+                        }
+                    </div>
+                    {
+                        (!productCount?.changeNickname > 0) && (!productCount?.changeNicknameColor > 0) ?
+                            <span style={{ color: 'red' }}>닉네임 변경 및 색상 변경은 상점에서 구매 후 이용 가능합니다.</span> :
+                            !productCount?.changeNickname > 0 ?
+                                <span style={{ color: 'red' }}>닉네임 변경은 상점에서 구매 후 이용 가능합니다.</span> :
+                                !productCount?.changeNicknameColor > 0 &&
+                                <span style={{ color: 'red' }}>닉네임 색상 변경은 상점에서 구매 후 이용 가능합니다.</span>
+                    }
                     <div className={styles.FieldWrapper}>
                         <label htmlFor={"email"}>{"email"}</label>
                         <div className={styles.InputContainer}>
@@ -380,10 +453,16 @@ const EditProfilePage = ({ selectedBadge, nc }) => {
 
                                 }
                                 else {
-
+                                    // deleteProduct()
+                                    if (changeNiname) {
+                                        deleteProduct("닉네임 변경");
+                                    }
+                                    if (changeProfileImage) {
+                                        deleteProduct("프로필 사진 변경");
+                                    }
                                     let data = response.data.userResponseDTO;
                                     let loginInfo = { data };
-                                    console.debug('asdfasdf',loginInfo);
+                                    console.debug('asdfasdf', loginInfo);
                                     localStorage.setItem("loginInfo", JSON.stringify(loginInfo));
                                     alert("회원정보가 수정되었습니다.")
                                     navigate(0);
@@ -411,7 +490,7 @@ const EditProfilePage = ({ selectedBadge, nc }) => {
                     } className={styles.FullButton}>로그아웃</button>
                 </form>
             </main>
-            <br /><br/>
+            <br /><br />
 
             {/* 닉네임 색상 선택 모달 */}
             <ColorChoiceModal
@@ -427,6 +506,7 @@ const EditProfilePage = ({ selectedBadge, nc }) => {
                 colorChangeComplete={colorChangeComplete}
                 fetchNameColor={fetchNameColor}
                 nickNameColor={nickNameColor}
+                deleteProduct={deleteProduct}
             />
 
 

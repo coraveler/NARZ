@@ -16,20 +16,18 @@ import lombok.RequiredArgsConstructor;
 public class UserRepositoryImpl implements UserRepository {
 
     private final UserMapper userMapper;
-    
+
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    
     @Override
     public List<User> findUserAll() {
 
         return userMapper.findUserAll();
     }
 
-
     @Override
-    public void createUser( User user) {
+    public void createUser(User user) {
         userMapper.createUser(user);
     }
 
@@ -55,14 +53,14 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public void updateUser(User user ) {
-       userMapper.updateUser(user);
+    public void updateUser(User user) {
+        userMapper.updateUser(user);
 
     }
 
     @Override
     public User getUserInfo(Integer userId) {
-       return userMapper.getUserInfo(userId);
+        return userMapper.getUserInfo(userId);
 
     }
 
@@ -70,6 +68,7 @@ public class UserRepositoryImpl implements UserRepository {
     public User findUserByLoginIdAndEmail(String loginId, String email) {
         return userMapper.findUserByLoginIdAndEmail(loginId, email);
     }
+
     @Override
     public void updateCode(String email, String userCode) {
         userMapper.updateCode(email, userCode);
@@ -82,12 +81,12 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User findCodeByLoginId(String loginId, String userCode) {
-        return userMapper.findCodeByLoginId(loginId,userCode);
+        return userMapper.findCodeByLoginId(loginId, userCode);
     }
 
     @Override
     public Integer updatePassword(String loginId, String password) {
-        return  userMapper.updatePassword(loginId, password);
+        return userMapper.updatePassword(loginId, password);
     }
 
     @Override
@@ -96,12 +95,12 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public void changeNicknameColor(UserDTO.UserRequestDTO userId){
+    public void changeNicknameColor(UserDTO.UserRequestDTO userId) {
         userMapper.changeNicknameColor(userId);
     }
 
     @Override
-    public String fetchNicknameColor(int userId){
+    public String fetchNicknameColor(int userId) {
         return userMapper.fetchNicknameColor(userId);
     }
 
@@ -128,13 +127,10 @@ public class UserRepositoryImpl implements UserRepository {
         return jdbcTemplate.queryForList(sql, String.class, userId);
     }
 
-
-
     @Override
     public int updateAchievementByUserId(int userId, String badgeName) {
         String sql = "UPDATE user SET achievement = ? WHERE userId = ?";
         return jdbcTemplate.update(sql, badgeName, userId);
     }
+
 }
-
-

@@ -49,4 +49,6 @@ public interface RankingMapper {
     List<TotalRankerResponseDTO> getRankCount();
 
     UserInfoResponseDTO getUserInfo(String author);
+
+    Integer checkhallOfFame();
 }

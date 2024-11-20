@@ -4,6 +4,8 @@ import "../../css/ranking/LeaderboardRow.css";
 
 
 const LeaderboardRow = ({ rank, author, board, likes, postCount, commentCount }) => {
+
+ 
   return (
     <div className="row-wrapper">
       <div className="rank-cell">{
