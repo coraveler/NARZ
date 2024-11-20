@@ -25,9 +25,20 @@ function KakaoMap({el}){
 
     return(
         <div>
+            <style>
+                {`
+                @font-face {
+                    font-family: 'KCC-Hanbit';
+                    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/KCC-Hanbit.woff2') format('woff2');
+                    font-weight: normal;
+                    font-style: normal;
+                }
+                `}
+            </style>
+
             {el.lat && el.lon 
             ? <div id="map" style={{width:'500px', height:'500px'}}/> 
-            : <div style={{textAlign:'center', marginBottom:'50px'}}><h4>위치 정보 없음</h4></div>}
+            : <div style={{textAlign:'center', marginBottom:'50px', fontFamily: 'KCC-Hanbit'}}><h4>위치 정보 없음</h4></div>}
         </div>
     )
 }

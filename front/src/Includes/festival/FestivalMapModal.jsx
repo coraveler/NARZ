@@ -8,7 +8,18 @@ function FestivalMapModal({
 }){
 
     return(
-        <div>
+        <div style={{ fontFamily:'KCC-Hanbit'}}>
+            <style>
+                {`
+                @font-face {
+                    font-family: 'KCC-Hanbit';
+                    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/KCC-Hanbit.woff2') format('woff2');
+                    font-weight: normal;
+                    font-style: normal;
+                }
+                `}
+            </style>
+
             <ReactModal
                 isOpen={festivalMapModalStatus}
                 style={{
@@ -27,10 +38,10 @@ function FestivalMapModal({
                         width: '600px'}}}
                     closeTimeoutMS={200}>
 
-                <div style={{textAlign:'left'}}>
-                    <div style={{textAlign:'right'}}>
+                <div style={{textAlign:'left', fontFamily:'KCC-Hanbit'}}>
+                    <div style={{textAlign:'right', fontFamily:'KCC-Hanbit'}}>
                         <button class="btn-close"
-                                style={{fontSize:'25px', marginBottom:'25px'}}
+                                style={{fontSize:'25px', marginBottom:'25px', fontFamily:'KCC-Hanbit'}}
                                 onClick={festivalMapModalClose}/>
                     </div>
                 </div>

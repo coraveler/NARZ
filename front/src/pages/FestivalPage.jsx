@@ -52,12 +52,12 @@ function FestivalPage() {
                 <div style={{ display: 'flex', flexDirection: 'column'}} >
                     <div style={{marginLeft:'20px', display:'flex', justifyContent:'space-between'}}>
                         <div style={{flex:3}}>
-                            <h1 className="font-face" style={{color:'#FF8A2B'}}>축제 일정 &nbsp;<ImBullhorn style={{marginBottom:'10px', color:'#FF6F00'}}/></h1><br/>
+                            <h1 className="font-face" style={{color:'#FF8A2B'}}><ImBullhorn style={{marginBottom:'10px', color:'#FF6F00'}}/> &nbsp;축제 일정 &nbsp;</h1><br/>
                             <h5 className="font-face-2" style={{fontWeight:'bold'}}>다가오는 축제들을 만나보세요! <LiaSmileWink style={{marginBottom:'5px', fontSize:'30px', color:'#FFB74D'}}/></h5>
                         </div>
-                        <div>
+                        {/* <div>
                             <img src='img/festival/festival_img_3.png' style={{width:'400px', height:'120px'}}/>
-                        </div>
+                        </div> */}
                     </div>
                     
                     <div style={{ width:'1200px'}} className="d-flex flex-wrap" >

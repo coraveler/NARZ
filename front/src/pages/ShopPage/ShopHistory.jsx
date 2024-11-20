@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import styles from "../../css/Shop/ShopHistory.module.css";
 import ShopNav from "./ShopNav";
+import { IoReceiptOutline } from "react-icons/io5";
 
 const ShopHistory = () => {
   const { user } = useAuth(); // AuthContext에서 user 가져오기
@@ -66,8 +67,8 @@ const ShopHistory = () => {
       <ShopNav />
       <div className={styles["shop-page"]}>
         <div className={styles["mileage-history"]}>
-          <br />
-          <h3 className={styles["mileageTitle"]}>-----$ 포인트 내역 $-----</h3>
+          {/* <p style={{fontSize:"40px", color:"#FF8A2B"}}><IoReceiptOutline /> </p> */}
+          {/* <h3 className={styles["mileageTitle"]}> 포인트 내역 </h3> */}
           <br />
           <div className={styles["table-container"]}>
             <table>

@@ -20,7 +20,7 @@ function ShopNav() {
               className={`${styles.link} ${activeLink === "/shop" ? styles.active : ""}`}
               onClick={() => handleLinkClick("/shop")}
             >
-              포인트 쿠폰
+              포인트 상점
             </Link>
           </li>
           <li>
@@ -29,7 +29,7 @@ function ShopNav() {
               className={`${styles.link} ${activeLink === "/shop/purchase" ? styles.active : ""}`}
               onClick={() => handleLinkClick("/shop/purchase")}
             >
-              포인트 상점
+              쿠폰등록
             </Link>
           </li>
           <li>

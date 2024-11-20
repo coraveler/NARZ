@@ -59,6 +59,16 @@ function ScheduleInfoModal({
 
     return(
         <div>
+            <style>
+                {`
+                @font-face {
+                    font-family: 'KCC-Hanbit';
+                    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/KCC-Hanbit.woff2') format('woff2');
+                    font-weight: normal;
+                    font-style: normal;
+                }
+                `}
+            </style>
             <ReactModal
                 isOpen={scheduleInfoModalStatus}
                 style={{
@@ -76,7 +86,7 @@ function ScheduleInfoModal({
                         width: '25vw'}}}
                     closeTimeoutMS={200}>
 
-                <div style={{textAlign:'left'}}>
+                <div style={{textAlign:'left', fontFamily: 'KCC-Hanbit'}}>
                     <div style={{textAlign:'right'}}>
                         <button 
                             style={{backgroundColor:'transparent', border:'none', fontSize:'25px', cursor:'pointer', }}
@@ -85,7 +95,7 @@ function ScheduleInfoModal({
                         </button>
                     </div>
                     
-                    <h3 style={{ wordBreak: 'break-word', width:'22vw'}}>{schTitle}</h3><hr/><br/>
+                    <h3 style={{ wordBreak: 'break-word', width:'22vw', fontFamily: 'KCC-Hanbit'}}>{schTitle}</h3><hr/><br/>
 
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <div style={{ flex: 1 }}>

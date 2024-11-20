@@ -70,12 +70,13 @@
 }
 
 .mileage-history tr:nth-child(even) {
-  background-color: #ffffff /* 짝수 행 배경색 */
+  background-color: #d4d4d4; /* 짝수 행 배경색 */
 }
 
-.mileage-history tr:hover {
-  background-color: #FFB300;; /* 마우스 오버 시 배경색 */
-}
+/* .mileage-history tr:hover {
+  background-color: #d4d4d4; 
+} 
+*/
 
 /* 테이블 헤더 */
 .mileage-history thead {
@@ -107,12 +108,12 @@
 
 /* 활성화된 페이지 버튼 */
 .pagination button.active {
-  background-color: var(--primary-color); /* 주황색 배경 */
+  background-color: #FFB300; /* 주황색 배경 */
   color: #FFB300; /* 흰색 텍스트 */
 }
 
 /* 버튼 호버 효과 */
 .pagination button:hover {
-  background-color: var(--secondary-color); /* 보조 주황색 배경 */
+  background-color: #FFB300; /* 보조 주황색 배경 */
   color: #FFB300; /* 흰색 텍스트 */
 }
