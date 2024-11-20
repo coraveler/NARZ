@@ -42,8 +42,9 @@ function ShopPage({handleRefreshMileage}) {
       <ShopNav />
       <br />
       <main>
-        <h3 className={styles["shop-title"]}>-----$ 쿠폰 등록 $-----</h3>
+        {/* <h3 className={styles["shop-title"]}>-----$ 쿠폰 등록 $-----</h3> */}
         <div className={styles["coupon-register"]}>
+        <br/>
           <h2>포인트 쿠폰 등록</h2>
           <br />
           <input
@@ -58,6 +59,7 @@ function ShopPage({handleRefreshMileage}) {
           </button>
           {message && <p className={styles.message}>{message}</p>}
         </div>
+        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
       </main>
     </div>
   );

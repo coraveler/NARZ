@@ -1,4 +1,11 @@
 /* 풀캘린더 */
+@font-face {
+    font-family: 'KCC-Hanbit';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/KCC-Hanbit.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
 
 /* 일요일 날짜: 빨간색 */
 .fc-day-sun a {
@@ -10,7 +17,7 @@
 }
 /* 폰트 변경 */
 .fc {
-    font-family: Arial, sans-serif; 
+    font-family: 'KCC-Hanbit';
 }
 /* 이벤트의 모서리 둥글게 */
 .fc-daygrid-event {
@@ -146,6 +153,7 @@
 
 /* 버튼 */
 .button {
+    font-family: 'KCC-Hanbit' !important;
     font-weight: 700;
     padding: 10px 20px;
     border-radius: 10px;
@@ -156,20 +164,21 @@
 .color-button {
     border: 2px solid #ccc; /* 네이비 색 아웃라인 */
     background-color: transparent;
-    color: #4B4B4B;
+    color: #FFB300;
 }
 .color-button:hover {
-    background-color: #4B4B4B;
+    background-color: #FFB300;
     color: white;
 }
 
 .select-button {
+    font-family: 'KCC-Hanbit';
     border: 2px solid #ccc; /* 네이비 색 아웃라인 */
     background-color: transparent;
-    color: #4B4B4B;
+    color: #FFB300;
 }
 .select-button:hover {
-    background-color: #4B4B4B;
+    background-color: #FFB300;
     color: white;
 }
 

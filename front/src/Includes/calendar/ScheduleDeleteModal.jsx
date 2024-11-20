@@ -30,6 +30,16 @@ function ScheduleDeleteModal({
 
     return(
         <div>
+            <style>
+                {`
+                @font-face {
+                    font-family: 'KCC-Hanbit';
+                    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/KCC-Hanbit.woff2') format('woff2');
+                    font-weight: normal;
+                    font-style: normal;
+                }
+                `}
+            </style>
             <ReactModal
                 isOpen={scheduleDeleteModalStatus}
                 style={{
@@ -47,7 +57,7 @@ function ScheduleDeleteModal({
                         width: '20vw'}}}
                     closeTimeoutMS={200}>
                     
-                <div style={{textAlign:'center'}}>
+                <div style={{textAlign:'center', fontFamily: 'KCC-Hanbit'}}>
                     <TiWarningOutline style={{fontSize:'40px', color:'red'}}/><p/>
                     <div>
                         일정을 정말 삭제하시겠습니까?
@@ -62,7 +72,7 @@ function ScheduleDeleteModal({
 
                     <button
                         className="button select-button"
-                        style={{width:"6vw", border:'2px solid #a9a3a3'}}
+                        style={{width:"6vw", border:'2px solid #a9a3a3', fontFamily: 'KCC-Hanbit'}}
                         onClick={scheduleDeleteClose}
                     >아니오
                     </button>

@@ -94,6 +94,16 @@ function ScheduleUpdateModal({
 
     return(
         <div>
+            <style>
+                {`
+                @font-face {
+                    font-family: 'KCC-Hanbit';
+                    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/KCC-Hanbit.woff2') format('woff2');
+                    font-weight: normal;
+                    font-style: normal;
+                }
+                `}
+            </style>
             <ReactModal
                 isOpen={scheduleUpdateModalStatus}
                 style={{
@@ -114,10 +124,10 @@ function ScheduleUpdateModal({
                 <div style={{textAlign:'center'}}>
 
                     <MdOutlineSecurityUpdateWarning style={{fontSize:'40px', marginTop:'5px'}}/>
-                    <h3 style={{marginTop:'10px'}}>일정을 수정해 주세요</h3>
+                    <h3 style={{marginTop:'10px', fontFamily: 'KCC-Hanbit'}}>일정을 수정해 주세요</h3>
 
                     {/* 일정 제목 */}
-                    <div >
+                    <div style={{ fontFamily: 'KCC-Hanbit'}}>
                         <input
                             type="text"
                             placeholder="제목"
@@ -132,7 +142,7 @@ function ScheduleUpdateModal({
                     </div>
 
                     {/* 일정 내용 */}
-                    <div>
+                    <div style={{ fontFamily: 'KCC-Hanbit'}}>
                         <textarea
                             placeholder="내용"
                             value={updateContent}
@@ -147,7 +157,7 @@ function ScheduleUpdateModal({
                     </div>
 
                     {/* 시작 일정*/}
-                    <div style={{fontWeight:'450'}}>시작&nbsp;
+                    <div style={{fontWeight:'450', fontFamily: 'KCC-Hanbit'}}>시작&nbsp;
                         <input 
                             type='date' 
                             value={updateStartDate} 
@@ -171,7 +181,7 @@ function ScheduleUpdateModal({
                     </div>
 
                     {/* 종료 일정 */}
-                    <div style={{fontWeight:'450'}}>종료&nbsp;
+                    <div style={{fontWeight:'450', fontFamily: 'KCC-Hanbit'}}>종료&nbsp;
                         <input 
                             type='date' 
                             value={updateEndDate} 
@@ -198,7 +208,7 @@ function ScheduleUpdateModal({
                     <div style={{
                         display: 'flex', 
                         justifyContent: 'center', 
-                        alignItems: 'center'}}>
+                        alignItems: 'center', fontFamily: 'KCC-Hanbit'}}>
                     <button 
                         className="button color-button"
                         style={{width:"18vw"}}
@@ -211,7 +221,7 @@ function ScheduleUpdateModal({
                             height: '36px',
                             backgroundColor: updateColor,
                             border: '1px solid #ccc',
-                            borderRadius: '10px'}}/>
+                            borderRadius: '10px', fontFamily: 'KCC-Hanbit'}}/>
                     
                         {/* 일정 컬러 선택 모달창 */}
                         <ColorChoiceModal

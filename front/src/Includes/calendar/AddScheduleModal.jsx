@@ -108,6 +108,16 @@ function AddScheduleModal({
 
     return(
         <div>
+            <style>
+                {`
+                @font-face {
+                    font-family: 'KCC-Hanbit';
+                    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/KCC-Hanbit.woff2') format('woff2');
+                    font-weight: normal;
+                    font-style: normal;
+                }
+                `}
+            </style>
             <ReactModal
                 isOpen={addScheduleModalStatus}
                 style={{
@@ -125,12 +135,12 @@ function AddScheduleModal({
                         width: '30vw'}}}
                     closeTimeoutMS={200}>
 
-                <div style={{textAlign:'center'}}>
+                <div style={{textAlign:'center', fontFamily: 'KCC-Hanbit'}}>
                     <RiCalendarScheduleLine style={{fontSize:'40px', marginTop:'5px', color:'#FFB300'}}/>
                     <h3 style={{marginTop:'10px'}}>나의 일정을 추가해 주세요</h3>
 
                     {/* 일정 제목 */}
-                    <div>
+                    <div style={{textAlign:'center', fontFamily: 'KCC-Hanbit'}} >
                         <input
                             type="text"
                             placeholder="제목"

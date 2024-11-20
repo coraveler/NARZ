@@ -289,8 +289,8 @@ function App() {
         <Route path="/festival" element={<FestivalPage />} />
         <Route path="/mapShare" element={<MapSharePage />} />
         {/*쇼핑관련*/}
-        <Route path="/shop" element={<ShopPage handleRefreshMileage={handleRefreshMileage}/>} />
-        <Route path="/shop/purchase" element={<ShopPurchase handleRefreshMileage={handleRefreshMileage} />} />
+        <Route path="/shop/purchase" element={<ShopPage handleRefreshMileage={handleRefreshMileage}/>} />
+        <Route path="/shop" element={<ShopPurchase handleRefreshMileage={handleRefreshMileage} />} />
         <Route path="/shop/history" element={<ShopHistory />} />
         {/*개인페이지관련*/}
         <Route
