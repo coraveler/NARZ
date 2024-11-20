@@ -295,7 +295,7 @@ function App() {
         {/*개인페이지관련*/}
         <Route
           path="/personal"
-          element={<PersonalPage selectedBadge={selectedBadge} />}
+          element={<PersonalPage selectedBadge={selectedBadge} handleRefreshMileage={handleRefreshMileage}/>}
         />
         <Route
           path="/personal/:urlUserId"

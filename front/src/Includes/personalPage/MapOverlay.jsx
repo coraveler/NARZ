@@ -6,11 +6,12 @@ import { getLoginInfo } from "../../Includes/common/CommonUtil";
 import { checkMapCompletion } from "../../api/achievementService";
 import { LiaSyncSolid } from "react-icons/lia";
 
-const ImageOverlay = ({ userId }) => {
+const ImageOverlay = ({ userId, handleRefreshMileage }) => {
     // const [isUploading, setIsUploading] = useState(false); // 상태 추가
     const canvasRef = useRef(null);
     const fileInputRef = useRef(null);
     const [images, setImages] = useState([]);
+    const [userMileage, setUserMileage] = useState(null);
     let loginInfo = getLoginInfo();
     const loginUserId = loginInfo?.userId || null;
 
@@ -82,17 +83,41 @@ const ImageOverlay = ({ userId }) => {
         }
     };
 
+    useEffect(() => {
+        fetchMileage();
+    }, [])
 
+    const fetchMileage = async () => {
+        try {
+            const loginInfoStr = localStorage.getItem("loginInfo");
+            // if (!loginInfoStr) {
+            //   setTotalMileage(0);
+            //   return;
+            // }
+            const loginInfo = JSON.parse(loginInfoStr);
+            const userId = loginInfo.data.userId;
+            const response = await fetch(
+                `http://localhost:7777/api/mileage/total/${userId}`,
+                {
+                    credentials: "include",
+                }
+            );
+            const data = await response.json();
+            console.log("Mileage fetched:", data);
+            setUserMileage(data);
+        } catch (error) {
+            console.error("Error fetching mileage:", error);
+        }
+    };
 
 
     const checkImageExistence = async (imageName) => {
         try {
             // HEAD 요청을 보내서 이미지가 있는지 확인
-            const response = await api.head(`http://localhost:7777/map/img/${userId}/${imageName}`);
-            // console.log(response);
-            if(response.status === 200){
+            const response = await api.head(`http://localhost:7777/map/img/${userId}/${imageName}.png`)
+            if (response.status === 200) {
                 return true;
-            }else{
+            } else {
                 return false;
             }
         } catch (error) {
@@ -100,24 +125,67 @@ const ImageOverlay = ({ userId }) => {
         }
     };
 
-
-
-
     const handleImageClick = async (key) => {
         const count = await getUserLocalLikeCount(key); // likeCount를 비동기적으로 가져옴
         if (fileInputRef.current) {
             fileInputRef.current.setAttribute("data-key", key);
             if (count >= 1) {
-                fileInputRef.current.click();
-                console.log(checkImageExistence(key));
-                if (checkImageExistence(key)) {
 
+                console.log(await checkImageExistence(key));
+                if (await checkImageExistence(key)) {
+                    const userConfirmed = window.confirm("마일리지 500p 차감됩니다. 변경하시겠습니까?");
+                    // 돈을 지불
+                    if (userConfirmed) {
+                        const state = await changePoints();
+                        if (state) {
+                            fileInputRef.current.click();
+                        }else{alert("마일리지가 부족합니다.")}
+                    }
+                } else {
+                    fileInputRef.current.click();
                 }
             } else {
                 fileInputRef.current.value = null; // 파일 입력 초기화
                 alert("지도 이미지 업로드는 각 지역별 게시글 총 좋아요 10개 이상 누적되어야 가능합니다!!");
             }
             console.log(key);
+        }
+    };
+
+    const changePoints = async () => {
+        const mileagePoints = -500;
+        const description = "지도 등록!";
+        console.log(userMileage);
+        if (userMileage > 500) {
+
+            try {
+                const response = await fetch(
+                    "http://localhost:7777/api/mileage/history",
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            userId: userId,
+                            mileagePoints: mileagePoints,
+                            description: description,
+                        }),
+                    }
+                );
+                if (response.ok) {
+                    handleRefreshMileage();
+                    await fetchMileage();
+                    return true;
+                } else {
+                    return false;
+                }
+            } catch (error) {
+                alert("구매에 실패했습니다: " + error.message);
+                return false;
+            }
+        }else{
+            return false;
         }
     };
 
