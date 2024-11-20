@@ -34,6 +34,7 @@ function HallOfFamePage({rank, author}){
             :''}
             
             <h2 className="hof-card-title">{rank}위</h2>
+            
             {/* 카드 이미지 (실제 이미지 URL을 사용하거나, placeholder를 사용) */}
             <img src={`http://localhost:7777/profileImages/${userInfo?.profileImage}`}
                  alt="카드 이미지" className="hof-card-img" onClick={() => navigate(`/personal/${userInfo?.userId}`)}/>
