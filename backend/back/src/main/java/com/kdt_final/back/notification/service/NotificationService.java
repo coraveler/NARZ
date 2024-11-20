@@ -7,9 +7,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import com.kdt_final.back.notification.dao.NotificationMapper;
+import com.kdt_final.back.notification.domain.AchievementNotificationRequestDTO;
 import com.kdt_final.back.notification.domain.NotificationMsgRequestDTO;
 import com.kdt_final.back.notification.domain.NotificationMsgResponseDTO;
 import com.kdt_final.back.notification.domain.NotificationResponseDTO;
+import com.kdt_final.back.notification.domain.mapRegionNotificationRequestDTO;
 
 @Service
 public class NotificationService {
@@ -49,4 +51,21 @@ public class NotificationService {
     public void deleteMsg(int msgId){
         notificationMapper.deleteMsg(msgId);
     }
+
+    public boolean getMapRegion(mapRegionNotificationRequestDTO params){
+        return notificationMapper.getMapRegion(params);
+    }
+
+    public void saveMapRegion(mapRegionNotificationRequestDTO params){
+        notificationMapper.saveMapRegion(params);
+    }
+
+    public boolean checkAchievementNotification(AchievementNotificationRequestDTO params){
+        return notificationMapper.checkAchievementNotification(params);
+    }
+
+    public void saveAchievementNotification(AchievementNotificationRequestDTO params){
+        notificationMapper.saveAchievementNotification(params);
+    }
+    
 }

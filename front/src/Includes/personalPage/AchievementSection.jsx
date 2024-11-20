@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { FaLock } from "react-icons/fa";
+import { FaCrown, FaLock } from "react-icons/fa";
 import { GiOpenBook } from "react-icons/gi";
 import { getLoginInfo } from '../../Includes/common/CommonUtil';
 import { setAchievement } from '../../api/achievement';
 import { checkAllRegionsCoverage, checkCommentCount, checkMapCompletion, checkPostCount } from '../../api/achievementService';
 import styles from '../../css/Personal/AchievementSection.module.css';
-import { FaCrown } from "react-icons/fa";
 
 
 function AchievementSection({ onBadgeSelect }) {
@@ -25,8 +24,8 @@ function AchievementSection({ onBadgeSelect }) {
   const achievements = [
     { id: 0, title: "모든 유저에게 부여되는 칭호", badge: "여행 초보자", condition: () => true },
     { id: 1, title: "지도 모두 채우기", badge: "전국 일주자", condition: async (userId) => await checkMapCompletion(userId) },
-    { id: 2, title: "게시글 100개 이상 작성하기", badge: "여행의 장인", condition: async (userId) => await checkPostCount(userId, 10) },
-    { id: 3, title: "댓글 100개 이상 작성하기", badge: "댓글 마스터", condition: async (userId) => await checkCommentCount(userId, 10) },
+    { id: 2, title: "게시글 100개 이상 작성하기", badge: "여행의 장인", condition: async (userId) => await checkPostCount(userId, 2) },
+    { id: 3, title: "댓글 100개 이상 작성하기", badge: "댓글 마스터", condition: async (userId) => await checkCommentCount(userId, 3) },
     { id: 4, title: "모든 지역 게시물 작성", badge: "전국 정복자", condition: async (userId) => await checkAllRegionsCoverage(userId) },
     { id: 5, title: "유저 활동 랭킹 1등", badge: "최고 활동러", condition: async (userId) => await checkCommentCount(userId, 1000) },
     { id: 6, title: "인기 게시글 1등", badge: "핫한 작가님", condition: async (userId) => await checkCommentCount(userId, 1000) },

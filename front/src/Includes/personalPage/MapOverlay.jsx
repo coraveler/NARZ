@@ -3,6 +3,7 @@ import styled from "styled-components";
 import api from '../../api/axios';
 
 import { getLoginInfo } from "../../Includes/common/CommonUtil";
+import { checkMapCompletion } from "../../api/achievementService";
 
 const ImageOverlay = ({userId}) => {
 // const [isUploading, setIsUploading] = useState(false); // 상태 추가
@@ -56,6 +57,7 @@ const fetchImages = async () => {
     try {
         const response = await api.get(`map/load/${userId}`);
         setImages(response.data);
+        checkMapCompletion(userId); // 칭호 조건 완료되었는지 확인
     } catch (error) {
         console.error("Error loading images:", error);
         alert("이미지를 불러오는 데 실패했습니다.");
@@ -201,6 +203,7 @@ const uploadProcessedImage = async (processedImageUrl, key) => {
     try {
         const response = await api.post(`map/upload`, formData);
         if (response.status === 200) {
+            fetchImages(); // 이미지 다시 가져오기
             console.log("Processed image uploaded successfully.");
         } else {
             console.error("Processed image upload failed.");

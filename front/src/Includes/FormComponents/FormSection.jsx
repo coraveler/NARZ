@@ -1,6 +1,7 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom"; // 페이지 이동을 위한 useNavigate 훅
 import { getLoginInfo } from "../../Includes/common/CommonUtil";
+import { checkAllRegionsCoverage, checkPostCount } from "../../api/achievementService";
 import api from '../../api/axios';
 import styles from '../../css/TrevalWrite/FormSection.module.css';
 import FormField from "./FormField";
@@ -68,6 +69,8 @@ function FormSection({ post, postImgUrl, handleRefreshMileage }) {
       });
       console.log(response.data);
       getPoints();
+      checkPostCount(userId, 2); // 게시글 등록 칭호 확인
+      checkAllRegionsCoverage(userId); // 모든 지역 게시물 작성 칭호 확인
       alert("글작성 완료");
       navigate(`/postpage/${response.data}`)
     } catch (err) {

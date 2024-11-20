@@ -41,6 +41,7 @@ const ProfileInfo = forwardRef(({ userId, fontSize, imgMargin, nameMargin }, ref
           style={{marginRight:imgMargin, 
             objectFit: 'cover', // 원형 안에서 이미지를 잘라서 채움
             objectPosition: 'center', // 이미지를 중앙으로 배치
+            cursor:'pointer'
           }}
         />
       </div>
