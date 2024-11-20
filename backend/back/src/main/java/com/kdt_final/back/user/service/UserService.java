@@ -7,14 +7,21 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 import javax.imageio.ImageIO;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kdt_final.back.shop.dao.MileageMapper;
+import com.kdt_final.back.shop.domain.MileageHistory;
+import com.kdt_final.back.user.dao.user.UserMapper;
 import com.kdt_final.back.user.dao.user.UserRepository;
 import com.kdt_final.back.user.domain.User;
 import com.kdt_final.back.user.dto.LoginResponseDTO;
@@ -33,6 +40,10 @@ public class UserService {
     private final String defaultImageName = "default.png";
     private final UserRepository userRepository;
 
+    @Autowired
+    private UserMapper userMapper;
+     @Autowired
+    private MileageMapper mileageMapper;
 
     public List<UserDTO.UserResponseDTO> findUserAll() {
         List<User> userAll = userRepository.findUserAll();
@@ -53,9 +64,8 @@ public class UserService {
         return userResponseDTOS;
     }
 
-    //회원가입
+    // 회원가입
     public Boolean creatUser(UserDTO.UserRequestDTO userRequestDTO) {
-
 
         if (userRequestDTO.getUserNickname().equals((checkDuplicateUserNickName(userRequestDTO.getUserNickname())))) {
             return false;
@@ -87,14 +97,12 @@ public class UserService {
 
             userRepository.createUser(user);
 
-
             return true;
         }
 
-
     }
 
-    //닉네임 중복체크
+    // 닉네임 중복체크
     public Boolean checkDuplicateUserNickName(String userNickname) {
         List<User> allByUserNickname = userRepository.findAllByUserNickname(userNickname);
 
@@ -105,7 +113,7 @@ public class UserService {
 
     }
 
-    //아이디 중복체크
+    // 아이디 중복체크
     public Boolean checkDuplicateLoginId(String loginId) {
         List<User> allByLoginId = userRepository.findAllByLoginId(loginId);
         if (allByLoginId == null || allByLoginId.isEmpty()) {
@@ -114,7 +122,7 @@ public class UserService {
         return false;
     }
 
-    //이메일 중복체크
+    // 이메일 중복체크
     public Boolean checkDuplicateEmail(String email) {
         List<User> allByEmail = userRepository.findAllByUserEmail(email);
         if (allByEmail == null || allByEmail.isEmpty()) {
@@ -123,7 +131,7 @@ public class UserService {
         return false;
     }
 
-    //로그인
+    // 로그인
     public LoginResponseDTO login(UserDTO.UserRequestDTO userRequestDTO) {
 
         String loginId = userRequestDTO.getLoginId();
@@ -136,8 +144,8 @@ public class UserService {
                     .isLogin(false)
                     .build();
         } else {
-
-
+            attendanceMileage(loginId);
+            updateLastLogin(loginId);
             UserDTO.UserResponseDTO userResponseDTO = UserDTO.UserResponseDTO.builder()
                     .userId(user.getUserId())
                     .loginId(user.getLoginId())
@@ -156,9 +164,8 @@ public class UserService {
         }
     }
 
-    //회원정보수정
+    // 회원정보수정
     public UpdateResponseDTO updateUser(UserDTO.UserRequestDTO userDTO) {
-
 
         if (!userDTO.getEmail().matches("^[\\w-\\.]+@[\\w-]+\\.[a-zA-Z]{2,}$")) {
             return UpdateResponseDTO
@@ -175,7 +182,6 @@ public class UserService {
 
             String result = saveProfileImage(userDTO.getProfileImage(), userDTO.getLoginId());
 
-
             user.setUserId(userDTO.getUserId());
             user.setLoginId(userDTO.getLoginId());
             user.setUserName(userDTO.getUserName());
@@ -187,7 +193,6 @@ public class UserService {
             user.setProfileImage(result);
 
             userRepository.updateUser(user);
-
 
             UserDTO.UserResponseDTO userResponseDTO = UserDTO.UserResponseDTO.builder()
                     .userId(user.getUserId())
@@ -204,9 +209,7 @@ public class UserService {
                     .userResponseDTO(userResponseDTO)
                     .build();
 
-
             return updateResponseDTO;
-
 
         }
     }
@@ -214,7 +217,7 @@ public class UserService {
     public UserDTO.UserResponseDTO getUserInfo(Integer userId) {
         User user = userRepository.getUserInfo(userId); // User 객체를 가져옴
         // if (user == null) {
-        //     throw new UserNotFoundException("User not found");
+        // throw new UserNotFoundException("User not found");
         // }
         return UserDTO.UserResponseDTO.builder()
                 .userId(user.getUserId())
@@ -227,10 +230,8 @@ public class UserService {
                 .build();
     }
 
-
-    //비빌번호 재설정 아이디/메일로 회원 유무 확인
+    // 비빌번호 재설정 아이디/메일로 회원 유무 확인
     public Boolean checkUser(UserDTO.UserRequestDTO userDTO) {
-
 
         String loginId = userDTO.getLoginId();
         String email = userDTO.getEmail();
@@ -238,10 +239,11 @@ public class UserService {
 
         if (loginResult == null) {
             return false;
-        } else return true;
+        } else
+            return true;
     }
 
-    //인증코드 확인
+    // 인증코드 확인
     public Boolean checkUserCode(UserDTO.UserRequestDTO userDTO) {
         String loginId = userDTO.getLoginId();
         String userCode = userDTO.getUserCode();
@@ -250,11 +252,11 @@ public class UserService {
 
         if (userCode.equals(user.getUserCode())) {
             return true;
-        } else return false;
+        } else
+            return false;
     }
 
-
-    //비밀번호재설정
+    // 비밀번호재설정
     public UpdateResponseDTO updatePassword(UserDTO.UserRequestDTO userDTO) {
 
         if (!userDTO.getPassword().matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$")) {
@@ -272,26 +274,26 @@ public class UserService {
             String loginId = userDTO.getLoginId();
             String password = userDTO.getPassword();
 
-
             Integer updatePwResult = userRepository.updatePassword(loginId, password);
 
             if (updatePwResult == 1) {
-                deleteCode(loginId);//DB에 저장된 인증코드 삭제
+                deleteCode(loginId);// DB에 저장된 인증코드 삭제
 
                 return UpdateResponseDTO
                         .builder()
                         .isUpdate(true)
                         .build();
 
-            } else return UpdateResponseDTO
-                    .builder()
-                    .isUpdate(false)
-                    .build();
+            } else
+                return UpdateResponseDTO
+                        .builder()
+                        .isUpdate(false)
+                        .build();
         }
 
     }
 
-    //DB에 저장된 인증번호 삭제
+    // DB에 저장된 인증번호 삭제
     public void deleteCode(String loginId) {
 
         userRepository.deleteCode(loginId);
@@ -308,13 +310,11 @@ public class UserService {
         return userRepository.fetchNicknameColor(userId);
     }
 
-    //칭호
-
+    // 칭호
 
     public String saveProfileImage(String base64, String loginId) {
         if (base64.contains(profileImagesFolder))
             return base64.split(profileImagesFolder + "/")[1];
-
 
         String data = base64.split(";base64,")[1];
         String fileFormat = base64.split(";base64,")[0].split("data:image/")[1];
@@ -323,7 +323,6 @@ public class UserService {
 
         String fileName = UUID.randomUUID().toString() + "." + fileFormat;
         File file = new File(profileImagesPath, fileName);
-
 
         try {
             BufferedImage bufImg = ImageIO.read(new ByteArrayInputStream(imageBytes));
@@ -356,4 +355,35 @@ public class UserService {
         }
     }
 
+    public void updateLastLogin(String loginId) {
+        userMapper.updateLastLogin(loginId);
+    }
+
+    public void attendanceMileage(String loginId) {
+        User params = userRepository.findByLoginId(loginId);
+        System.out.println(params.getLastActiveDate());
+
+        String lastActiveDate = params.getLastActiveDate();
+
+        // 현재 날짜 가져오기
+        LocalDate today = LocalDate.now();
+
+        // lastActiveDate 문자열을 LocalDate로 변환하기 위한 포맷 정의
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        // 문자열을 LocalDateTime으로 변환하고, 날짜 부분만 추출
+        LocalDate lastActiveDay = LocalDate.parse(lastActiveDate, formatter);
+        System.out.println("lastActiveDay"+lastActiveDay);
+        System.out.println("today"+today);
+        // 오늘 날짜와 lastActiveDate의 날짜 비교
+        if (!today.isEqual(lastActiveDay)) {
+            MileageHistory mileage = new MileageHistory();
+            mileage.setUserId(params.getUserId());
+            mileage.setMileagePoints(25);
+            mileage.setDescription("출석체크");
+            System.out.println("EEEEEEEEEEEEEQEQEQWEQWE");
+            System.out.println(mileage);
+            mileageMapper.insertMileageHistory(mileage);
+        }
+    }
 }

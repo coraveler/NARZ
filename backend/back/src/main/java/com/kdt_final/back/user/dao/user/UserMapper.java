@@ -28,6 +28,7 @@ public interface UserMapper {
     public void changeNicknameColor(UserDTO.UserRequestDTO userId);
     public String fetchNicknameColor(int userId);
     public void saveFileName(String fileName);
+    public void updateLastLogin(String loginId);
 
 }
 

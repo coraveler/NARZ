@@ -172,5 +172,11 @@
         WHERE userId = #{userId}
     </select>
 
+    <update id="updateLastLogin"
+            parameterType="String">
+        UPDATE user
+        SET lastActiveDate = CURRENT_TIMESTAMP
+        WHERE loginId = #{loginId}
+    </update>
 
 </mapper>
