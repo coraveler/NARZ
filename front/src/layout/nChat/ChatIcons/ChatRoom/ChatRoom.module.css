@@ -1,0 +1,33 @@
+@font-face {
+    font-family: 'RixXladywatermelonR';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-4@1.0/RixXladywatermelonR.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+.senderMessage {
+    font-family: 'RixXladywatermelonR';
+    margin-left: auto;
+    display: flex;
+    gap: 10px;
+  }
+  
+.senderDate {
+    margin-top: auto;
+    font-size: 14px;
+  }
+  
+.recipientMessage {
+    display: flex;
+  }
+  
+.recipientDate {
+    margin-top: auto;
+    margin-right: auto;
+    font-size: 14px;
+  }

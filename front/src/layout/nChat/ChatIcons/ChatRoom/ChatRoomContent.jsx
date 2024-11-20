@@ -369,6 +369,8 @@ nc.bind("onMessageReceived", function(channel, receivedMessage) {
                   borderRadius: "20px",
                   border: "1px solid #ddd",
                   marginRight: "10px",
+                  fontFamily: 'RixXladywatermelonR',
+
                 }}
                 value={message}
                 onChange={handleMessage}
@@ -380,7 +382,7 @@ nc.bind("onMessageReceived", function(channel, receivedMessage) {
                   width: '50px',
                   height: '40px',
                   borderRadius: "20px",
-                  backgroundColor: "#007bff",
+                  backgroundColor: "#ffd89d",
                   color: "white",
                   border: "none",
                   cursor: "pointer",
@@ -407,6 +409,17 @@ nc.bind("onMessageReceived", function(channel, receivedMessage) {
 
 
       }
+      <style>
+            {`
+                @font-face {
+                    font-family: 'RixXladywatermelonR';
+                    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-4@1.0/RixXladywatermelonR.woff2') format('woff2');
+                    font-weight: normal;
+                    font-style: normal;
+                }
+            `}
+        </style>
+
     </div>
   );
 };

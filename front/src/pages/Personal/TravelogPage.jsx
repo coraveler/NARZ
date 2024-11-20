@@ -17,7 +17,7 @@ function TravelogPage({ selectedBadge }) {
             {/* ProfileCard에 selectedBadge 전달 */}
             <ProfileCard selectedBadge={selectedBadge} />
             <div className={styles.centeredMap}>
-                000's Travelog
+                000's 여행노트
             </div>
             
             <div className={styles.writeButtonContainer}>
