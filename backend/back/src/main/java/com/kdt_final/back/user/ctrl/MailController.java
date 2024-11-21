@@ -49,7 +49,6 @@ public class MailController {
     //쿠폰발송
     @PostMapping("/sendCoupon")
    public ResponseEntity<Boolean> sendCoupon(@RequestBody MailDTO mailDTO) throws MessagingException, UnsupportedEncodingException {
-
         Boolean result= mailService.sendCoupon(mailDTO.getEmail());
         ResponseEntity<Boolean> responseEntity = ResponseEntity.ok()
                 .body(result);
