@@ -151,10 +151,6 @@ public class MailService {
 
         String number = createNumber(); // 랜덤 인증번호 생성
 
-        if(!userRepository.findAllByUserEmail(sendEmail).isEmpty()){
-            return false;
-        }
-
         MimeMessage message = createCouponMail(sendEmail, number); // 메일 생성
         try {
             javaMailSender.send(message); // 메일 발송
@@ -162,14 +158,14 @@ public class MailService {
             e.printStackTrace();
             throw new IllegalArgumentException("메일 발송 중 오류가 발생했습니다.");
         }
-        updateCoupon(sendEmail, number);
+        insertCoupon(number);
 
         return true;
     }
 
     //발송된 쿠폰 DB에 저장
-    private void updateCoupon(String sendEmail, String number) {
-        couponMapper.updateCoupon(sendEmail, number);
+    private void insertCoupon(String number) {
+        couponMapper.insertCoupon(number);
 
 
     }

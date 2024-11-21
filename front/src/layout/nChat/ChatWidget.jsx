@@ -39,16 +39,11 @@ const ChatWidget = ({ nc, loginId, recipientId, projectId, apiKey, isChatOpen, t
     try {
       const response = await nc.getMessages(filter, sort, option);
       setMessages(response.edges);
-      console.log(response.edges);
+      // console.log(response.edges);
     } catch (error) {
       console.log(error);
     }
   }
-
-
-  useEffect(() => {
-    console.log("Updated channels:", channels);
-  }, [channels]);  
 
   useEffect(() => {
     if(activeTab!=="friends"){
@@ -58,10 +53,10 @@ const ChatWidget = ({ nc, loginId, recipientId, projectId, apiKey, isChatOpen, t
 
   useEffect(() => {
     if (channel) {
-      console.log(channel);
-      getMessages(channel.id);
+      // console.log(channel);
+      // getMessages(channel.id);
     }
-    toggleChatWindow(true); 
+    // toggleChatWindow(true); 
   }, [channel])
 
 
@@ -83,7 +78,7 @@ const ChatWidget = ({ nc, loginId, recipientId, projectId, apiKey, isChatOpen, t
   const getTotalUnread = async() => {
     try{
       const response = await api.get(`chat/getTotalUnread/${loginId}`);
-      console.log(response.data);
+      // console.log(response.data);
       setTotalUnread(response.data);
     }catch(error){
       console.log(error);
