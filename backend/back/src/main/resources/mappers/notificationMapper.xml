@@ -60,4 +60,41 @@
         VALUES (#{userId}, #{achievement})
     </insert>
 
+    <select id="fetchRankingInfo"
+            parameterType="com.kdt_final.back.notification.domain.RankingNotificationRequestDTO"
+            resultType="com.kdt_final.back.notification.domain.RankingNotificationResponseDTO">
+        SELECT author, ranking, isNotified
+        FROM getrankuser
+        WHERE author = #{author} AND weekOf = #{weekOf} AND rankingType = #{rankingType}
+    </select>
+
+    <select id="fetchPostRanking"
+            parameterType="com.kdt_final.back.notification.domain.RankingNotificationRequestDTO"
+            resultType="com.kdt_final.back.notification.domain.RankingNotificationResponseDTO">
+        SELECT author, ranking, isNotified
+        FROM getrankuser
+        WHERE author = #{author} AND weekOf = #{weekOf} AND rankingType = #{rankingType}
+    </select>
+
+    <update id="updateRankingNotified"
+            parameterType="String">
+        UPDATE getrankuser
+        SET isNotified = true
+        WHERE author = #{author}
+    </update>
+
+    <select id="fetchHallOfFameInfo"
+            parameterType="com.kdt_final.back.notification.domain.HallOfFameNotificationRequestDTO"
+            resultType="boolean">
+        SELECT COUNT(1) > 0
+        FROM hallOfFameNotification
+        WHERE author = #{author} AND weekOf = #{weekOf} AND ranking = #{ranking}
+    </select>
+
+    <insert id="saveHallOfFameNotification"
+            parameterType="com.kdt_final.back.notification.domain.HallOfFameNotificationRequestDTO">
+        INSERT INTO hallOfFameNotification(author, ranking, weekOf)
+        VALUES (#{author},#{ranking},#{weekOf})
+    </insert>
+
 </mapper>

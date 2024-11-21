@@ -179,4 +179,19 @@
         WHERE loginId = #{loginId}
     </update>
 
+    <select id="fetchAttendanceInfo"
+            parameterType="int"
+            resultType="com.kdt_final.back.user.dto.AttendancePointResponseDTO">
+        SELECT lastActiveDate, attendancePointDate
+        FROM user
+        WHERE userId = #{userId}
+    </select>
+
+    <update id="updateAttendanceDate"
+            parameterType="com.kdt_final.back.user.dto.AttendancePointRequestDTO">
+        UPDATE user
+        SET attendancePointDate = #{attendancePointDate}
+        WHERE userId = #{userId}
+    </update>
+
 </mapper>

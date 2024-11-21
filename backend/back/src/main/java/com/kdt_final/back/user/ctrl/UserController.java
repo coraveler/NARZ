@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.kdt_final.back.user.dto.AttendancePointRequestDTO;
+import com.kdt_final.back.user.dto.AttendancePointResponseDTO;
 import com.kdt_final.back.user.dto.LoginResponseDTO;
 import com.kdt_final.back.user.dto.UpdateResponseDTO;
 import com.kdt_final.back.user.dto.UserDTO;
@@ -186,6 +188,21 @@ public class UserController {
     public ResponseEntity<String> fetchNicknameColor(@RequestParam("userId") int userId) {
         String result = userService.fetchNicknameColor(userId);
         return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+
+    // 출석 정보 가져오기
+    @GetMapping("/attendancePoint")
+    public ResponseEntity<AttendancePointResponseDTO> fetchAttendanceInfo(@RequestParam("userId") int userId) {
+        AttendancePointResponseDTO obj = userService.fetchAttendanceInfo(userId);
+        return new ResponseEntity<>(obj, HttpStatus.OK);
+    }
+    
+    
+    @PatchMapping("/attendancePoint")
+    public ResponseEntity<Void> updateAttendanceDate(@RequestBody AttendancePointRequestDTO params) {
+        userService.updateAttendanceDate(params);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
     
     
