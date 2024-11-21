@@ -95,7 +95,8 @@ const ShopPurchase = ({ handleRefreshMileage }) => {
         alert("구매가 완료되었습니다!");
         setUserMileage(userMileage + mileagePoints); // 잔여 포인트 업데이트
         handleRefreshMileage();
-        saveProduct(option);
+        await saveProduct(option);
+        await getProduct();
       } else {
         const errorData = await response.json();
         console.error("Error data:", errorData);
@@ -157,7 +158,7 @@ const ShopPurchase = ({ handleRefreshMileage }) => {
               <span style={{fontSize :"25px"}}>{option.price}p</span><br></br>
               <button
                 className={styles["purchase-button"]}
-                onClick={() => handlePurchase(option)}
+                onClick={() => {handlePurchase(option)}}
               >
                 <PiHandCoins />
               </button>

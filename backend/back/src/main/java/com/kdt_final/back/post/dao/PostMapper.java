@@ -69,4 +69,5 @@ public interface PostMapper {
     @Select("SELECT DISTINCT local FROM post WHERE user_id = #{userId}")
     List<String> selectUserPostRegions(@Param("userId") Integer userId);
 
+    public List<PostResponseDTO> popularPost();
 }

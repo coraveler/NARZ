@@ -71,6 +71,5 @@ public class FollowController {
         Integer result = followService.countFollowing(userId);
         return new ResponseEntity<Integer>(result, HttpStatus.OK);
     }
-
     
 }

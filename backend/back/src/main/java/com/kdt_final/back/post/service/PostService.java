@@ -314,4 +314,15 @@ public class PostService {
         return postMapper.selectUserPostRegions(userId);
     }
 
+    public List<PostResponseDTO> popularPost(){
+        List<PostResponseDTO> lst = postMapper.popularPost();
+        for (int i = 0; i < lst.size(); i++) {
+            String imgPath = lst.get(i).getHeaderImg();
+            if (imgPath != null) {
+                // imgPath에 baseUrl을 추가하여 전체 경로를 생성
+                lst.get(i).setHeaderImg(baseUrl + imgPath);
+                System.out.println(baseUrl + imgPath);
+            }}
+        return lst;
+    }
 }
