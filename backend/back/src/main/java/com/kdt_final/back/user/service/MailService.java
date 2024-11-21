@@ -1,5 +1,7 @@
 package com.kdt_final.back.user.service;
 
+import com.kdt_final.back.shop.dao.CouponMapper;
+import com.kdt_final.back.shop.domain.CouponRequest;
 import com.kdt_final.back.user.dao.email.MemoryEmailRepository;
 import com.kdt_final.back.user.dao.user.UserRepository;
 import com.kdt_final.back.user.domain.User;
@@ -10,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Random;
 
@@ -21,6 +25,7 @@ public class MailService {
     private static final String senderEmail = "yunsemi563@gmail.com";
     private final UserRepository userRepository;
     private final MemoryEmailRepository emailRepository;
+    private final CouponMapper couponMapper;
 
     // 랜덤으로 숫자 생성
     public String createNumber() {
@@ -123,4 +128,49 @@ public class MailService {
         }
         else return false;
     }
-}
+    public MimeMessage createCouponMail(String mail, String number) throws MessagingException {
+        MimeMessage message = javaMailSender.createMimeMessage();
+
+        message.setFrom(senderEmail);
+        message.setRecipients(MimeMessage.RecipientType.TO, mail);
+        message.setSubject("쿠폰 발급");
+        String body = "";
+        body += "<h3>쿠폰 번호입니다.</h3>";
+        body += "<h1>" + number + "</h1>";
+        body += "<h3>감사합니다.</h3>";
+        message.setText(body, "UTF-8", "html");
+
+        return message;
+    }
+
+
+
+
+    //쿠폰 발송
+    public Boolean sendCoupon(String sendEmail) throws MessagingException {
+
+        String number = createNumber(); // 랜덤 인증번호 생성
+
+        if(!userRepository.findAllByUserEmail(sendEmail).isEmpty()){
+            return false;
+        }
+
+        MimeMessage message = createCouponMail(sendEmail, number); // 메일 생성
+        try {
+            javaMailSender.send(message); // 메일 발송
+        } catch (MailException e) {
+            e.printStackTrace();
+            throw new IllegalArgumentException("메일 발송 중 오류가 발생했습니다.");
+        }
+        updateCoupon(sendEmail, number);
+
+        return true;
+    }
+
+    //발송된 쿠폰 DB에 저장
+    private void updateCoupon(String sendEmail, String number) {
+        couponMapper.updateCoupon(sendEmail, number);
+
+
+    }
+    }
