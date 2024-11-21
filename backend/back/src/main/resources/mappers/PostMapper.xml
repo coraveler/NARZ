@@ -261,5 +261,32 @@
        
     </select>
 
+    <!-- popularPost -->
+    <select id="popularPost"
+            resultType="com.kdt_final.back.post.domain.PostResponseDTO">
+        SELECT 
+            p.postId,
+            p.userId,
+            p.local,
+            p.title,
+            p.content,
+            p.rating,
+            p.secret,
+            p.headerImg,
+            p.createdDate,
+            u.userNickname AS userNickname,
+            wr.likes AS likeCount
+        FROM 
+            weeklyranking wr
+        JOIN 
+            post p ON wr.postId = p.postId
+        JOIN 
+            user u ON p.userId = u.userId
+        WHERE 
+            wr.rankingType = 'popularPost'
+        ORDER BY 
+            wr.likes DESC
+        LIMIT 10;
+    </select>
 
     </mapper>
