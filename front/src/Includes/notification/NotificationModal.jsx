@@ -124,7 +124,7 @@ const NotificationModal = forwardRef(({
             fetchPostRanking(userNickname, "popularPost"); // 인기게시글랭킹 확인
             fetchRankingInfo(userNickname, "userActivity"); // 유저활동랭킹 확인
             getTotalRanker(userNickname) // 명예의 전당 데이터 가져오기
-            checkhallOfFame(); // 명예의전당 조건 확인
+            checkhallOfFame(userId); // 명예의전당 조건 확인
             if(localStorage.getItem(`todayNotificationMsg-${userId}`)){
                 if(localStorage.getItem(`todayNotificationMsg-${userId}`) !=`${new Date().toDateString()}-notificationMsg`){
                     fetchSchedule(userId, userNickname);
