@@ -6,6 +6,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.kdt_final.back.user.domain.User;
+import com.kdt_final.back.user.dto.AttendancePointRequestDTO;
+import com.kdt_final.back.user.dto.AttendancePointResponseDTO;
 import com.kdt_final.back.user.dto.UserDTO;
 
 @Mapper
@@ -29,6 +31,8 @@ public interface UserMapper {
     public String fetchNicknameColor(int userId);
     public void saveFileName(String fileName);
     public void updateLastLogin(String loginId);
+    public AttendancePointResponseDTO fetchAttendanceInfo(int userId);
+    public void updateAttendanceDate(AttendancePointRequestDTO params);
 
 }
 

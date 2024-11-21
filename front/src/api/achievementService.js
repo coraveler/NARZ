@@ -103,7 +103,7 @@ export const checkhallOfFame = async (userId) => {
         const response = await axios.get(`http://localhost:7777/api/achievement/check-hallOfFame/${userId}`);
         console.debug("checkhallOfFame response:", response.data); 
         if(response.data == true){
-            const achievement = "최고 활동러";
+            const achievement = "최고활동러";
             const result = await fetchAchievementNotification(userId, achievement)
             if(result == false){
                 saveAchievementNotificationMsg(userId, achievement)
