@@ -20,10 +20,17 @@ const LeaderboardTable = ({ leaderboardData, activeRank }) => {
   }
 
   useEffect(() => {
-    if(activeRank==="명예의 전당"){
+    if(activeRank === "명예의 전당"){
       getTotalRanker();
     }
-  },[activeRank])
+  }, [activeRank]);
+
+  // leaderboardData가 갱신될 때마다 출력
+  useEffect(() => {
+    if (activeRank === "인기 게시글 랭킹") {
+      console.log("Leaderboard Data: ", leaderboardData);
+    }
+  }, [leaderboardData]); 
 
   return (
     <section className="leaderboard-wrapper">
@@ -31,7 +38,6 @@ const LeaderboardTable = ({ leaderboardData, activeRank }) => {
         <LeaderboardHeader activeRank={activeRank} />
         {leaderboardData.length === 0 
         ? (<div className="empty-row">데이터가 없습니다</div>) 
-        // 명예의 전당 화면
         : activeRank === "명예의 전당" 
         ? (
           <div className="hof-cards-wrapper">
@@ -45,23 +51,29 @@ const LeaderboardTable = ({ leaderboardData, activeRank }) => {
           </div>
         )
         : (
-          leaderboardData.map((data, index) => (
-            <LeaderboardRow 
-              key={index} 
-              rank={index + 1}  
-              author={data.author} 
-              board={activeRank === "인기 게시글 랭킹" ? data.board : undefined} 
-              likes={activeRank === "인기 게시글 랭킹" ? data.likes : undefined} 
-              postCount={activeRank === "유저 활동 랭킹" ? data.postCount : undefined}
-              commentCount={activeRank === "유저 활동 랭킹" ? data.commentCount : undefined}
-            >
-              {activeRank === "인기 게시글 랭킹" && (
-                <Link to={`/postpage/${data.postId}`} className="post-title-link">
-                  {data.title}
-                </Link>
-              )}
-            </LeaderboardRow>
-          ))
+          leaderboardData.map((data, index) => {
+            console.log("Post ID: ", data.postId);  // 각 데이터의 postId 출력
+            return (
+              <LeaderboardRow 
+              postId={data.postId}
+                key={index} 
+                rank={index + 1}  
+                author={data.author} 
+                board={activeRank === "인기 게시글 랭킹" ? data.board : undefined} 
+                likes={activeRank === "인기 게시글 랭킹" ? data.likes : undefined} 
+                postCount={activeRank === "유저 활동 랭킹" ? data.postCount : undefined}
+                commentCount={activeRank === "유저 활동 랭킹" ? data.commentCount : undefined}
+              >
+                {activeRank === "인기 게시글 랭킹" && (
+                  <Link to={`/postpage/${data.postId}`} className="post-title-link">
+                    {/* {data.title} */}
+                  </Link>
+                )}
+ 
+              
+              </LeaderboardRow>
+            );
+          })
         )}
       </div>
     </section>
