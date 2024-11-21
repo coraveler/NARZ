@@ -35,7 +35,7 @@ public class MailController {
     }
 
     //인증코드 확인
-    @PostMapping("/sendCoupon")
+    @PostMapping("/verifyEmailCode")
     public ResponseEntity<Boolean> checkEmailCode(@RequestBody UserDTO.UserRequestDTO userDTO) {
 
         System.out.println(userDTO);
