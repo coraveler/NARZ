@@ -171,9 +171,12 @@ public class PostController {
         return new ResponseEntity<List<PostResponseDTO>>(result,HttpStatus.OK);
     }
 
-    // @GetMapping("/get/{userId}/all")
-    // public ResponseEntity<List<PostResponseDTO>> getPersonalPost(@RequestParam String param) {
-    //     return new String();
-    // }
+    @GetMapping("/popularpost")
+    public ResponseEntity<List<PostResponseDTO>> popularPost() {
+
+        List<PostResponseDTO> result = postService.popularPost();  
+        return new ResponseEntity<List<PostResponseDTO>>(result,HttpStatus.OK);
+    }
+    
     
 }

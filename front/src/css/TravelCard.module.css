@@ -23,6 +23,7 @@
     flex-direction: column;
     overflow: hidden;
     align-items: center;
+    position: relative; 
   }
   
   .cardImage {
