@@ -4,12 +4,11 @@ import { useNavigate } from "react-router-dom";
 import BackgroundSlider from '../Includes/common/BackgroundSlider';
 import { getLoginInfo } from "../Includes/common/CommonUtil";
 import TravelCardGrid from '../Includes/common/card/TravelCardGrid';
+import UserCardGtid from '../Includes/common/card/UserCardGtid';
 import RegionSelector from '../Includes/common/region/RegionSelector';
 import NotificationModal from '../Includes/notification/NotificationModal';
 import api from '../api/axios';
 import '../css/Homepage.css';
-import HallOfFamePage from '../Includes/Ranking/HallOfFamePage';
-import UserCardGtid from '../Includes/common/card/UserCardGtid';
 
 function HomePage({ nc }) {
   const navigate = useNavigate();
