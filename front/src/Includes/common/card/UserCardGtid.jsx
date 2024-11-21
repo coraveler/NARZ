@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styles from '../../../css/TravelCardGrid.module.css';
 import USerCard from './USerCard';
 

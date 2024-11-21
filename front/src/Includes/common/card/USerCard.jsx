@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import { FaCrown } from "react-icons/fa";
 // import '../../../css/ranking/HallOfFame.css';
-import api from "../../../api/axios";
-import { useNavigate } from 'react-router-dom';
 import { PiMedalFill } from "react-icons/pi";
+import { useNavigate } from 'react-router-dom';
+import api from "../../../api/axios";
 
 function USerCard({data, cardIndex}){
     const navigate = useNavigate();
@@ -62,13 +61,22 @@ function USerCard({data, cardIndex}){
       }
 
     return(
-        <div className="hof-card" style={{width:"200px", height:"250px", paddingTop:'40px', marginTop:'0px', position: "relative"}}><br/>
+        <div className="hof-card" style={{width:"180px", height:"240px", paddingTop:'', marginTop:'0px', position: "relative", display:''}}><br/>
             {/* <h2 className="hof-card-title">{cardIndex+1}위</h2> */}
             {rank}
             {/* 카드 이미지 (실제 이미지 URL을 사용하거나, placeholder를 사용) */}
             <img src={`http://localhost:7777/profileImages/${userInfo?.profileImage}`}
-                 alt="카드 이미지" className="hof-card-img" onClick={() => navigate(`/personal/${userInfo?.userId}`)}/>
-            <div className="hof-card-content">
+                 alt="카드 이미지" 
+                //  className="hof-card-img" 
+                 style={{
+                  width: '50%',        // 카드 너비에 맞게
+                  height: '38%',       // 카드 높이에 맞게
+                  objectFit: 'cover',   // 이미지 비율 유지하며 카드 크기에 맞게 자르기
+                  borderRadius:'50%',
+                  marginTop:'15px'
+                }}
+                 onClick={() => navigate(`/personal/${userInfo?.userId}`)}/>
+            <div style={{marginTop:'30px'}}>
                 <p className="hof-card-description"><div style={{fontWeight:'bold'}}>{data.author}</div></p>
             </div>
         </div>
