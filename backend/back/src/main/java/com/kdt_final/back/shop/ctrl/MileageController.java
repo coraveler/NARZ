@@ -1,9 +1,12 @@
 package com.kdt_final.back.shop.ctrl;
 
+import com.kdt_final.back.ranking.domain.product.ProductRequestDTO;
+import com.kdt_final.back.ranking.domain.product.ProductResponseDTO;
 import com.kdt_final.back.shop.domain.Mileage;
 import com.kdt_final.back.shop.domain.MileageHistory;
 import com.kdt_final.back.shop.service.MileageService;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
@@ -12,6 +15,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import org.springframework.scheduling.annotation.Scheduled;
+
+
 
 @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 @RestController
@@ -203,5 +208,26 @@ public class MileageController {
         });
     }
 
+    @PostMapping("/saveProduct")
+    public ResponseEntity<Void> saveProduct(@RequestBody ProductRequestDTO params) {
+        mileageService.saveProduct(params);
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    }
+    
+    @GetMapping("/getProduct/{userId}")
+    public ResponseEntity<ProductResponseDTO> getProduct(@PathVariable Integer userId) {
+        ProductResponseDTO result = mileageService.getProduct(userId);
+        return new ResponseEntity<ProductResponseDTO>(result,HttpStatus.OK);
+    }
+
+    @DeleteMapping("/deleteProduct")
+    public ResponseEntity<Void> deleteProduct(@RequestParam("userId") Integer userId, @RequestParam("product") String product) {
+        System.out.println(product);
+        ProductRequestDTO params = new ProductRequestDTO();
+        params.setUserId(userId);
+        params.setProduct(product);
+        mileageService.deleteProduct(params);
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    }
     
 }

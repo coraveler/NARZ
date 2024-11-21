@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -43,7 +44,7 @@ public class UserService {
 
     @Autowired
     private UserMapper userMapper;
-     @Autowired
+    @Autowired
     private MileageMapper mileageMapper;
 
     public List<UserDTO.UserResponseDTO> findUserAll() {
@@ -372,20 +373,29 @@ public class UserService {
         // lastActiveDate 문자열을 LocalDate로 변환하기 위한 포맷 정의
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-        // 문자열을 LocalDateTime으로 변환하고, 날짜 부분만 추출
-        LocalDate lastActiveDay = LocalDate.parse(lastActiveDate, formatter);
-        System.out.println("lastActiveDay"+lastActiveDay);
-        System.out.println("today"+today);
+        LocalDate lastActiveDay = null;
+        if (lastActiveDate != null) {
+            try {
+                lastActiveDay = LocalDate.parse(lastActiveDate, formatter);
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date format: " + lastActiveDate);
+            }
+        }
+
+        System.out.println("lastActiveDay: " + lastActiveDay);
+        System.out.println("today: " + today);
+
         // 오늘 날짜와 lastActiveDate의 날짜 비교
-        if (!today.isEqual(lastActiveDay)) {
+        if (lastActiveDay == null || !today.isEqual(lastActiveDay)) {
             MileageHistory mileage = new MileageHistory();
             mileage.setUserId(params.getUserId());
             mileage.setMileagePoints(25);
             mileage.setDescription("출석체크");
-            System.out.println("EEEEEEEEEEEEEQEQEQWEQWE");
-            System.out.println(mileage);
+            System.out.println("Adding mileage history: " + mileage);
+
             mileageMapper.insertMileageHistory(mileage);
         }
+
     }
 
     public AttendancePointResponseDTO fetchAttendanceInfo(int userId){

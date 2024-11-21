@@ -97,6 +97,30 @@ export const checkAllRegionsCoverage = async (userId) => {
     }
 };
 
+// 최고 활동러
+export const checkhallOfFame = async (userId) => {
+    try {
+        const response = await axios.get(`http://localhost:7777/api/achievement/check-hallOfFame/${userId}`);
+        console.debug("checkhallOfFame response:", response.data); 
+        if(response.data == true){
+            const achievement = "최고활동러";
+            const result = await fetchAchievementNotification(userId, achievement)
+            if(result == false){
+                saveAchievementNotificationMsg(userId, achievement)
+            }else{
+                console.log(`'${achievement}'칭호는 이미 메시지 전송했음!`);
+            }
+        }
+        return response.data;
+    } catch (error) {
+        console.error("Error in checkMapCompletion:", error);
+        if (error.response && error.response.status === 404) {
+            console.error("Resource not found: checkMapCompletion endpoint");
+        }
+        return { isComplete: false };
+    }
+};
+
 export const assignAchievement = (userId, achievementName) => {
     return axios.post(`http://localhost:7777/api/achievement/set/${userId}`, { achievementName })
         .then(response => {

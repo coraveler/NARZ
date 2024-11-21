@@ -39,6 +39,33 @@
     WHERE userId = #{userId}
     </select>
 
+    <!-- 구매한 상품 등록 -->
+    <insert id="saveProduct"
+            parameterType="com.kdt_final.back.ranking.domain.product.ProductRequestDTO">
+        INSERT INTO havingproduct (userId, product)
+        VALUES (#{userId}, #{product})
+    </insert>
 
+    <!-- 보유중 상픔 정보 가져오기 -->
+    <select id="getProduct"
+            parameterType="int"
+            resultType="com.kdt_final.back.ranking.domain.product.ProductResponseDTO">
+        SELECT 
+            SUM(CASE WHEN product = "닉네임 변경" THEN 1 ELSE 0 END) AS changeNickname,
+            SUM(CASE WHEN product = "닉네임 색상 변경" THEN 1 ELSE 0 END) AS changeNicknameColor,
+            SUM(CASE WHEN product = "프로필 사진 변경" THEN 1 ELSE 0 END) AS changeProfileImage
+        FROM 
+            havingproduct
+        WHERE   
+            userId= #{userId}
+       
+    </select>
 
+    <!-- 보유중 상품 삭제 -->
+    <delete id="deleteProduct"
+            parameterType="com.kdt_final.back.ranking.domain.product.ProductRequestDTO">
+        DELETE FROM havingproduct
+        WHERE userId= #{userId} AND product = #{product}
+        LIMIT 1
+    </delete>
 </mapper>

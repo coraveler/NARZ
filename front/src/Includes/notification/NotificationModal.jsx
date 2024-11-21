@@ -4,6 +4,7 @@ import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { BiSolidMessageDetail } from "react-icons/bi";
 import { FcAlarmClock, FcDataBackup } from "react-icons/fc";
 import ReactModal from "react-modal";
+import { checkhallOfFame } from "../../api/achievementService";
 import api from "../../api/axios";
 import '../../css/modal/Modal.css';
 import { useToast } from "../toast/ToastContext";
@@ -32,6 +33,28 @@ const NotificationModal = forwardRef(({
     const day = String(today.getDate()).padStart(2, '0');
 
     const formattedDate = `${year}-${month}-${day}`;
+
+    // 이번주 월요일 계산
+    function getThisWeekMonday() {
+        const today = new Date(); // 현재 날짜
+        const dayOfWeek = today.getDay(); // 오늘의 요일 (0: 일요일, 1: 월요일, ..., 6: 토요일)
+    
+        // 월요일로 이동하려면, 오늘 날짜에서 (dayOfWeek - 1) 만큼 빼면 됨
+        const monday = new Date(today);
+        monday.setDate(today.getDate() - dayOfWeek + 1); // 오늘에서 (요일 값 - 1) 만큼 빼면 월요일
+
+        // 날짜만 반환하기 위해 시간을 00:00:00으로 설정
+        monday.setHours(0, 0, 0, 0);
+    
+        // 년, 월, 일을 추출하여 'yyyy-mm-dd' 형태로 반환
+        const year = monday.getFullYear();
+        const month = String(monday.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1
+        const day = String(monday.getDate()).padStart(2, '0'); // 날짜가 1자리일 경우 0을 채워줌
+
+        return `${year}-${month}-${day}`; // yyyy-mm-dd 형식으로 반환
+    }
+
+    const monday = getThisWeekMonday();
 
     
 
@@ -95,8 +118,13 @@ const NotificationModal = forwardRef(({
             const parseItem = JSON.parse(item);
             const userId = parseItem.data.userId
             const userNickname = parseItem.data.userNickname
-            loginSuccess(userId);
-            attendanceNotification(userId);
+            
+            loginSuccess(userId); // 지도조건확인
+            attendanceNotification(userId); // 출석체크확인
+            fetchPostRanking(userNickname, "popularPost"); // 인기게시글랭킹 확인
+            fetchRankingInfo(userNickname, "userActivity"); // 유저활동랭킹 확인
+            getTotalRanker(userNickname) // 명예의 전당 데이터 가져오기
+            checkhallOfFame(); // 명예의전당 조건 확인
             if(localStorage.getItem(`todayNotificationMsg-${userId}`)){
                 if(localStorage.getItem(`todayNotificationMsg-${userId}`) !=`${new Date().toDateString()}-notificationMsg`){
                     fetchSchedule(userId, userNickname);
@@ -285,6 +313,7 @@ const NotificationModal = forwardRef(({
         }
     }
 
+    // 출석체크 이력 남기기
     const updateAttendanceDate = async(userId) => {
         const data = {
             userId: userId,
@@ -295,6 +324,105 @@ const NotificationModal = forwardRef(({
         }catch(e){
             console.log(e);
         }
+    }
+
+    // 로그인했을때 랭킹 확인하기(유저활동랭킹만)
+    const fetchRankingInfo = async(userNickname, rankingType) => {
+        try{
+            const response = await api.get(`/api/rankingNoticiation?userNickname=${userNickname}&monday=${monday}&rankingType=${rankingType}`)
+            const ranking = response.data.ranking;
+            if(response.data.notified == false){
+                updateRankingNotified(userNickname, ranking, rankingType);
+            }
+
+        }catch(e){
+            console.log(e);
+        }
+    }
+
+    // 이건 인기게시물랭킹 확인
+    const fetchPostRanking = async(userNickname, rankingType) => {
+        try{
+            const response = await api.get(`/api/rankingNoticiation/post?userNickname=${userNickname}&monday=${monday}&rankingType=${rankingType}`)
+            response.data.forEach(user=>{
+                if(user.notified==false){
+                    updateRankingNotified(user.author, user.ranking, rankingType);
+                }
+            })
+        }catch(e){
+            console.log(e);
+        }
+    }
+
+    
+
+    // 랭킹 축하 알림 메시지 전달 및 이력 저장
+    const updateRankingNotified = async(userNickname, ranking, rankingType) => {
+        try{
+            const response = await api.patch(`/api/rankingNoticiation?userNickname=${userNickname}`)
+            if(rankingType=="popularPost"){
+                switch(ranking){
+                    case 1: alert(`🎉 ${userNickname}, 이번 주 인기 게시글 랭킹 1등에 오르신 것을 축하드립니다! 🎉`); break;
+                    case 2: alert(`🌟 ${userNickname}, 이번 주 인기 게시글 랭킹 2등을 차지하셨습니다! 🌟`); break;
+                    case 3: alert(`✨ ${userNickname}, 이번 주 인기 게시글 랭킹 3등을 달성하셨습니다! ✨`); break;
+                }
+            }
+            if(rankingType=="userActivity"){
+                switch(ranking){
+                    case 1: alert(`🎉 ${userNickname}, 이번 주 유저 활동 랭킹 1등에 오르신 것을 축하드립니다! 🎉`); break;
+                    case 2: alert(`🌟 ${userNickname}, 이번 주 유저 활동 랭킹 2등을 차지하셨습니다! 🌟`); break;
+                    case 3: alert(`✨ ${userNickname}, 이번 주 유저 활동 랭킹 3등을 달성하셨습니다! ✨`); break;
+                }
+            }
+        }catch(e){
+            console.log(e);
+        }
+    }
+
+
+    // 명예의 전달 랭킹 가져오기
+    const getTotalRanker = async(userNickname) => {
+        try{
+          const response = await api.get(`/api/rankings/totalRank`);
+          for(let i=0; i<response.data.length; i++){
+            if(response.data[i].author == userNickname){
+                const result = await fetchHallOfFameInfo(userNickname, i+1)
+                if(result == false){
+                    saveHallOfFameNotification(userNickname, i+1)
+                }
+            }
+          }
+          
+        }catch(error){
+          console.error(error);
+        }
+      }
+
+    
+    // 명예의 전당 알림했는지 확인
+    const fetchHallOfFameInfo = async(userNickname, ranking) => {
+        try{
+            const response = await api.get(`/api/hallOfFameNotification?userNickname=${userNickname}&monday=${monday}&ranking=${ranking}`)
+            return response.data;
+        }catch(e){
+            console.log(e);
+        }
+    }
+
+    // 명에의 전당 알림 이력 저장
+    const saveHallOfFameNotification = async(userNickname, ranking) => {
+        const data = {
+            author: userNickname,
+            ranking: ranking,
+            weekOf: monday
+        }
+        try{
+            await api.post("/api/hallOfFameNotification", data)
+            alert(`✨ ${userNickname}, 이번 주 명예의 전당 ${ranking}등을 달성하셨습니다! ✨`);
+        }catch(e){
+            console.log(e);
+        }
+
     }
 
    

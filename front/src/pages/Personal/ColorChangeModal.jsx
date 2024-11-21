@@ -1,7 +1,7 @@
 import { PiSealWarningBold } from "react-icons/pi";
 import ReactModal from "react-modal";
 
-function ColorChangeModal({colorChangeModalStatus,colorChangeModalClose,colorChangeComplete, nickNameColor, fetchNameColor}){
+function ColorChangeModal({colorChangeModalStatus,colorChangeModalClose,colorChangeComplete, nickNameColor, fetchNameColor,deleteProduct}){
 
     
     return(
@@ -26,7 +26,7 @@ function ColorChangeModal({colorChangeModalStatus,colorChangeModalClose,colorCha
                     
                 <div style={{textAlign:'center'}}>
                     <PiSealWarningBold style={{fontSize:'40px', color:'orange'}}/><p/>
-                    <div>색상 변경 시 1000 포인트가 차감됩니다.</div>
+                    <div>색상 변경 시 색상 변경권이 차감됩니다.</div>
                     <div>"이 색상으로 변경해도 괜찮으신가요?"</div><br/>
 
                     <button
@@ -36,6 +36,7 @@ function ColorChangeModal({colorChangeModalStatus,colorChangeModalClose,colorCha
                             if(nickNameColor == fetchNameColor){
                                 alert('기존 색상과 동일합니다. 색상을 변경해 주세요')
                             }else{
+                                deleteProduct("닉네임 색상 변경");
                                 colorChangeComplete()
                             }
                             

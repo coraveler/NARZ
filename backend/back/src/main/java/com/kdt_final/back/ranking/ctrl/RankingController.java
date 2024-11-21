@@ -12,6 +12,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 @RestController
@@ -68,4 +71,6 @@ public class RankingController {
         UserInfoResponseDTO result = rankingService.getUserInfo(author);
         return new ResponseEntity<UserInfoResponseDTO>(result, HttpStatus.OK);
     }
+    
+    
 }

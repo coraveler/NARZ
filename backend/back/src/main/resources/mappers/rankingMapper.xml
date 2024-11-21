@@ -100,7 +100,7 @@
         WHERE
             pl.createdDate >= #{currentWeek} 
         GROUP BY 
-            p.postId, u.userNickname, p.title;
+            p.postId;
     </select>
 
      <!-- 이번주 사용자 댓글, 게시글 수 가져오기 -->
@@ -121,7 +121,7 @@
             (DATE(p.createdDate) >= #{currentWeek} OR DATE(p.createdDate) IS NULL)
             AND (DATE(c.createdDate) >= #{currentWeek} OR DATE(c.createdDate) IS NULL)
         GROUP BY 
-            p.postId, u.userNickname, p.title;
+            u.userNickname;
     </select>
     
     <!-- 랭커 유저 저장 -->
@@ -155,5 +155,19 @@
         SELECT USERID, PROFILEIMAGE
         FROM USER
         WHERE USERNICKNAME = #{author}
+    </select>
+
+    <select id="checkhallOfFame"
+            resultType="int">
+        SELECT u.userId
+        FROM user u
+        JOIN (
+            SELECT author
+            FROM getrankuser
+            WHERE rankingType = 'popularPost'  <!-- 랭킹 유형 -->
+            GROUP BY author
+            ORDER BY COUNT(*) DESC  <!-- 가장 많이 랭킹된 author -->
+            LIMIT 1
+        ) AS mostPopularAuthor ON u.userNickname = mostPopularAuthor.author
     </select>
 </mapper>

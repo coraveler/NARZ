@@ -1,5 +1,7 @@
 package com.kdt_final.back.shop.service;
 
+import com.kdt_final.back.ranking.domain.product.ProductRequestDTO;
+import com.kdt_final.back.ranking.domain.product.ProductResponseDTO;
 import com.kdt_final.back.shop.dao.MileageMapper;
 import com.kdt_final.back.shop.domain.Mileage;
 import com.kdt_final.back.shop.domain.MileageHistory;
@@ -49,5 +51,17 @@ public class MileageService {
     public int getTotalMileage(int userId) {
         Integer totalMileage = mileageMapper.getTotalMileage(userId);
         return totalMileage != null ? totalMileage : 0; // null인 경우 0 반환
+    }
+
+    public void saveProduct(ProductRequestDTO params){
+        mileageMapper.saveProduct(params);
+    }
+    
+    public ProductResponseDTO getProduct(int userId){
+        return mileageMapper.getProduct(userId);
+    }
+
+    public void deleteProduct(ProductRequestDTO params){
+        mileageMapper.deleteProduct(params);
     }
 }
