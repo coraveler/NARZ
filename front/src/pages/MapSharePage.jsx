@@ -104,9 +104,9 @@ function MapSharePage() {
                     <div style={{ textAlign: 'center', display: 'flex', justifyContent: 'center', flexDirection:'column', alignItems:'center' }}>
                         <br/>
                         <h4 className="title">
-                            <TbMapHeart style={{ fontSize: '50px', color: 'orange', marginLeft: '5px', marginBottom: '5px' }} /> -- 전국 지도 자랑 -- <TbMapHeart style={{ fontSize: '50px', color: 'orange', marginLeft: '5px', marginBottom: '5px' }} />
+                            <TbMapHeart style={{ fontSize: '50px', color: 'orange', marginLeft: '5px', marginBottom: '5px' }} /> NARZDO <TbMapHeart style={{ fontSize: '50px', color: 'orange', marginLeft: '5px', marginBottom: '5px' }} />
                         </h4>
-                        <div><p className="subtitle" >-내가 채워 넣어놨던 지도를 자랑해주세요-</p></div>
+                        <div><p className="subtitle" > 나만의 특별한 지도 | 나알지도 </p></div>
                         
                     </div>
                 </div>

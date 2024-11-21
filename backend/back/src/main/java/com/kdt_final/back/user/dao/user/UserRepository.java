@@ -32,4 +32,6 @@ public interface UserRepository  {
     void saveFileName(String fileName);
 
     int updateAchievementByUserId(int userId, String badgeName);
+
+    // public int checkhallOfFame();
 }

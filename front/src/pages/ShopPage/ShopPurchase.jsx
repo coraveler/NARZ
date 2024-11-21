@@ -3,11 +3,18 @@ import { useAuth } from "../../context/AuthContext";
 import styles from "../../css/Shop/ShopPurchase.module.css";
 import ShopNav from "./ShopNav";
 import api from "../../api/axios";
+import { PiHandCoins } from "react-icons/pi";
+import { RiCoupon3Fill } from "react-icons/ri";
+import { TbPencilDollar } from "react-icons/tb";
+import { BsPersonCircle } from "react-icons/bs";
+import { CgColorPicker } from "react-icons/cg";
+import { MdStore } from "react-icons/md";
 
 const ShopPurchase = ({ handleRefreshMileage }) => {
   const [userId, setUserId] = useState(null);
   const [isLoading, setIsLoading] = useState(true); // 로딩 상태 추가
   const { user, userMileage, setUserMileage } = useAuth(); // AuthContext에서 userMileage와 setUserMileage 가져오기
+  const [productCount, setProductCount] = useState();
 
   useEffect(() => {
     const storedLoginInfo = localStorage.getItem("loginInfo");
@@ -21,15 +28,15 @@ const ShopPurchase = ({ handleRefreshMileage }) => {
   }, []);
 
   const options = [
-    { name: "닉네임 변경", price: 300, having: 1 },
-    { name: "닉네임 색상 변경", price: 300, having: 1 },
-    { name: "프로필 사진 변경", price: 300, having: 1 },
-    { name: "포인트 쿠폰", price: 1000 },
+    { name: "닉네임 변경", img : <TbPencilDollar />, price: 300, having: productCount?.changeNickname },
+    { name: "닉네임 색상 변경", img : <CgColorPicker />, price: 300, having: productCount?.changeNicknameColor },
+    { name: "프로필 사진 변경",img : <BsPersonCircle />,  price: 300, having: productCount?.changeProfileImage },
+    { name: "포인트 쿠폰", img : <RiCoupon3Fill />, price: 1000 },
   ];
-  
+
   useEffect(() => {
     fetchMileage();
-  },[])
+  }, [])
 
   const fetchMileage = async () => {
     try {
@@ -99,56 +106,76 @@ const ShopPurchase = ({ handleRefreshMileage }) => {
     }
   };
 
-  const saveProduct = async(option) => {
-    const data ={
-      userId:userId,
-      product:option.name
+  const saveProduct = async (option) => {
+    const data = {
+      userId: userId,
+      product: option.name
     }
-    try{
-        const response = await api.post("/api/mileage/saveProduct",data)
-    }catch(error){
+    try {
+      const response = await api.post("/api/mileage/saveProduct", data)
+    } catch (error) {
       console.error(error);
     }
   }
 
-  const getProduct = async() => {
-    try{
+  const getProduct = async () => {
+    try {
       const response = await api.get(`/api/mileage/getProduct/${userId}`)
-      console.log(response.data);
-  }catch(error){
-    console.error(error);
-  }
+      setProductCount(response.data);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   useEffect(() => {
-    getProduct();
-  },[])
+    if(userId){
+      getProduct();
+    }
+  }, [userId])
 
   return (
     <div>
+      <style>
+        {`
+        @font-face {
+            font-family: '양진체';
+            src: url('https://fastly.jsdelivr.net/gh/supernovice-lab/font@0.9/yangjin.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+        `}
+      </style>
       <ShopNav />
       <div className={styles["shop-purchase"]}>
-        <h3>-----$ 포인트 상점 $-----</h3>
+        <p style={{fontSize : "50px", fontFamily: '양진체'}}><MdStore /> STORE <MdStore /> </p>
         <br />
         <div className={styles["options-container"]}>
           {options.map((option, index) => (
             <div key={index} className={styles["option-card"]}>
+              <h2>{option.img}</h2>
               <h4>{option.name}</h4>
-              <span>가격: {option.price}P</span><br></br>
-              {
-                index !==3 &&
-                <span>보유: x{option.having}</span>
-              }<br></br>
+              <span style={{fontSize :"25px"}}>{option.price}p</span><br></br>
               <button
                 className={styles["purchase-button"]}
                 onClick={() => handlePurchase(option)}
               >
-                구매
+                <PiHandCoins />
               </button>
+              
+              <div style={{color: "#1f1f1f"}}>
+              <br></br>
+              {
+                index !== 3 &&
+                <span>보유: x{option.having}</span>
+              }
+              </div>
+              
+              
             </div>
           ))}
         </div>
       </div>
+      <br/><br/><br/><br/>
     </div>
   );
 };

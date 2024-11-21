@@ -7,9 +7,6 @@
     font-weight: normal;
     font-style: normal;
 }
-.font-face {
-    font-family: 'HS-Regular', sans-serif; /* 대체 폰트 지정 */
-}
 
 @font-face {
     font-family: 'SF_HambakSnow';
@@ -17,8 +14,28 @@
     font-weight: normal;
     font-style: normal;
 }
+
+@font-face {
+    font-family: 'GoryeongStrawberry';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/GoryeongStrawberry.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'KCC-Hanbit';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/KCC-Hanbit.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+  
+.font-face {
+    font-family: 'GoryeongStrawberry', sans-serif; /* 대체 폰트 지정 */
+}
+
+
 .font-face-2 {
-    font-family: 'SF_HambakSnow', sans-serif; /* 대체 폰트 지정 */
+    font-family: 'KCC-Hanbit', sans-serif; /* 대체 폰트 지정 */
 }
 
 
@@ -26,11 +43,13 @@
 
 /* 카드 스타일 */
 .card-festival {
+    font-family: 'KCC-Hanbit';
     margin: 10px; /* 카드 간의 간격을 10px로 설정 */
     width: 270px;
     height: 280px;
     border-Radius:20px;
     padding: 5px;
+    color: #1f1f1f;
     box-shadow: 0 6px 10px rgba(178, 127, 24, 0.3);
     border-color: rgba(178, 127, 24, 0.3);
 }
@@ -62,6 +81,7 @@
 
 /* 페이지 네비게이션 */
 .pagination .page-link {
+    font-family: 'KCC-Hanbit';
     color: #FFA000; /* 기본 링크 색상 (주황) */
     cursor: pointer;
 }
