@@ -8,7 +8,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -25,6 +24,8 @@ import com.kdt_final.back.shop.domain.MileageHistory;
 import com.kdt_final.back.user.dao.user.UserMapper;
 import com.kdt_final.back.user.dao.user.UserRepository;
 import com.kdt_final.back.user.domain.User;
+import com.kdt_final.back.user.dto.AttendancePointRequestDTO;
+import com.kdt_final.back.user.dto.AttendancePointResponseDTO;
 import com.kdt_final.back.user.dto.LoginResponseDTO;
 import com.kdt_final.back.user.dto.UpdateResponseDTO;
 import com.kdt_final.back.user.dto.UserDTO;
@@ -395,5 +396,13 @@ public class UserService {
             mileageMapper.insertMileageHistory(mileage);
         }
 
+    }
+
+    public AttendancePointResponseDTO fetchAttendanceInfo(int userId){
+        return userRepository.fetchAttendanceInfo(userId);
+    }
+
+    public void updateAttendanceDate(AttendancePointRequestDTO params){
+        userRepository.updateAttendanceDate(params);
     }
 }

@@ -7,6 +7,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kdt_final.back.user.domain.User;
+import com.kdt_final.back.user.dto.AttendancePointRequestDTO;
+import com.kdt_final.back.user.dto.AttendancePointResponseDTO;
 import com.kdt_final.back.user.dto.UserDTO;
 
 import lombok.RequiredArgsConstructor;
@@ -133,4 +135,14 @@ public class UserRepositoryImpl implements UserRepository {
         return jdbcTemplate.update(sql, badgeName, userId);
     }
 
+    @Override
+    public AttendancePointResponseDTO fetchAttendanceInfo(int userId){
+        AttendancePointResponseDTO result = userMapper.fetchAttendanceInfo(userId);
+        return result;
+    }
+
+    @Override
+    public void updateAttendanceDate(AttendancePointRequestDTO params){
+        userMapper.updateAttendanceDate(params);
+    }
 }

@@ -1,7 +1,12 @@
 package com.kdt_final.back.user.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
+import java.time.LocalDate;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 public class UserDTO {
 
@@ -26,6 +31,8 @@ public class UserDTO {
         public String userCode;
         public String profileImage;
         public String emailCode;
+        public String lastActiveDate;
+        public LocalDate attendancePointDate;
 
     }
 
@@ -48,6 +55,8 @@ public class UserDTO {
         private String achievement;
         public String profileImage;
         public String emailCode;
+        public LocalDate lastActiveDate;
+        public LocalDate attendancePointDate;
 
 
     }
