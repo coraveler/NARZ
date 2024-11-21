@@ -93,6 +93,7 @@ function App() {
   }, [isChatLoginSuccessful, channel, isChatOpen, openFromButton, chatChange] );
 
   const toggleChatWindow = (state) => {
+    // console.log("ASDASDASDASDASD");
     setIsChatOpen(state);
     setOpenFromButton(false);
   };
@@ -244,6 +245,7 @@ function App() {
   const handleRefreshMileage = () => {
     setRefreshMileage((state) => !state);
   }
+  
 
   return (
     <AuthProvider>

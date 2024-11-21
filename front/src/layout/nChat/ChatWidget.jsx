@@ -45,11 +45,6 @@ const ChatWidget = ({ nc, loginId, recipientId, projectId, apiKey, isChatOpen, t
     }
   }
 
-
-  useEffect(() => {
-    // console.log("Updated channels:", channels);
-  }, [channels]);  
-
   useEffect(() => {
     if(activeTab!=="friends"){
       handleChatChange(activeTab);
@@ -61,7 +56,7 @@ const ChatWidget = ({ nc, loginId, recipientId, projectId, apiKey, isChatOpen, t
       // console.log(channel);
       // getMessages(channel.id);
     }
-    toggleChatWindow(true); 
+    // toggleChatWindow(true); 
   }, [channel])
 
 
