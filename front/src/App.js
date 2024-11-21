@@ -55,7 +55,14 @@ function App() {
   const [channels, setChannels] = useState([]);
   const [isChatLoginSuccessful, setIsChatLoginSuccessful] = useState(false);
   const [chatChange, setChatChange] = useState();  
+  const[totalUnread,setTotalUnread] = useState();
 
+  if(chatInstance){
+    chatInstance.bind("onMessageReceived", function (channel, message) {
+      getLastChat(channels);
+    });
+    
+  }
 
   const handleChatLoginSuccess = (isSuccessful) => {
     setIsChatLoginSuccessful(isSuccessful);
@@ -162,7 +169,6 @@ function App() {
 
   const getLastChat = async (channels) => {
     let unreadCount = 0; 
-
     for(const channel of channels){
       try {
         const response = await api.get(`chat/getLastChat/${loginId}/${channel.id}`);
@@ -174,9 +180,10 @@ function App() {
         console.error(error);
       }
     }
+    setTotalUnread(unreadCount)
     // console.log(unreadCount);
     // setTotalUnread(unreadCount);
-    await saveTotalUnread(unreadCount);
+    // await saveTotalUnread(unreadCount);
   }
 
   const markReadAndGetUnread = async (data, channel) => {
@@ -219,19 +226,6 @@ function App() {
     return unreadCountForChannel;
   };
 
-  const saveTotalUnread = async(unread) => {
-    // console.log(unread);
-    const data = {
-      loginId: loginId,
-      totalUnread: unread
-    }
-    try{
-      const response = await api.post(`chat/saveTotalUnread`,data);
-      // console.log(response);
-    }catch(error){  
-      console.error(error);
-    }
-  }
 
   useEffect(() => {
     // channels 상태가 업데이트되었을 때
@@ -245,6 +239,12 @@ function App() {
   const handleRefreshMileage = () => {
     setRefreshMileage((state) => !state);
   }
+  
+
+
+  useEffect(() => {
+    getLastChat(channels);
+  },[])
   
 
   return (
@@ -384,6 +384,7 @@ function App() {
           channels={channels}
           openChatWindow={openChatWindow}
           handleChatChange={handleChatChange}
+          totalUnread={totalUnread}
         />
       )}
 
