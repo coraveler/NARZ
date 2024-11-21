@@ -72,5 +72,4 @@ public class FollowController {
         return new ResponseEntity<Integer>(result, HttpStatus.OK);
     }
     
-    
 }

@@ -32,7 +32,7 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 35px;
   justify-content: center;
 }
 
@@ -41,7 +41,7 @@
   background-color: white;
   padding: 1rem;
   border: 1px solid #FFB300;
-  border-radius: 5px;
+  border-radius: 40px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   flex: 0 1 350px; /* flex-grow를 0으로, flex-basis를 200px로 설정 */
   max-width: 500px; /* 최대 너비를 제한하여 크기 조정 */
@@ -51,11 +51,14 @@
 
 .purchase-button {
   font-family: Arial, sans-serif;
+  margin-top: 10px;
   padding: 3px 6px;
-  font-size: 15px;
+  font-size: 20px;
   background-color: white;
   color: #FF8A2B;
   border: 1px solid #FF8A2B;
+  width: 40px;
+  height: 40px;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;

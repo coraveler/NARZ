@@ -11,6 +11,18 @@ function FestivalInfoModal({
 
     return(
         <div>
+
+            <style>
+                {`
+                @font-face {
+                    font-family: 'KCC-Hanbit';
+                    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/KCC-Hanbit.woff2') format('woff2');
+                    font-weight: normal;
+                    font-style: normal;
+                }
+                `}
+            </style>
+
             <ReactModal
                 isOpen={festivalInfoModalStatus}
                 style={{
@@ -26,7 +38,8 @@ function FestivalInfoModal({
                         bottom: 'auto',
                         borderRadius: '35px',
                         padding: '40px',
-                        width: '350px'}}}
+                        width: '350px'}
+                        }}
                     closeTimeoutMS={200}>
 
                 <div style={{textAlign:'left'}}>
@@ -36,23 +49,23 @@ function FestivalInfoModal({
                             onClick={festivalInfoModalClose}/>
                     </div>
                     
-                    <h5 style={{width:'220px'}}><MdFestival style={{marginBottom:'5px', color:'#FFB74D'}}/> {el.title}</h5><hr/>
+                    <h5 style={{width:'220px', fontFamily:'KCC-Hanbit'}}><MdFestival style={{marginBottom:'5px', color:'#FFB74D'}}/> {el.title}</h5><hr/>
 
                     <div style={{marginBottom:'14px', marginTop:'20px'}}>
-                        <div style={{marginBottom:'2px'}}><FaRegCalendarCheck style={{marginBottom:'5px', color:'#FFB74D'}}/> 기간</div>
-                        <div>{el.startDate} ~ {el.endDate}</div>
+                        <div style={{marginBottom:'2px', fontFamily:'KCC-Hanbit'}}><FaRegCalendarCheck style={{marginBottom:'5px', color:'#FFB74D' }}/> 기간</div>
+                        <div style={{fontFamily:'KCC-Hanbit'}} >{el.startDate} ~ {el.endDate}</div>
                     </div>
                     <div style={{marginBottom:'14px'}}>
-                        <div style={{marginBottom:'2px'}}><TbLocationFilled style={{marginBottom:'3px', color:'#FFB74D'}}/> 장소</div>
-                        <div>{el.place}</div>
+                        <div style={{marginBottom:'2px', fontFamily:'KCC-Hanbit'}}><TbLocationFilled style={{marginBottom:'3px', color:'#FFB74D' }}/> 장소</div>
+                        <div style={{fontFamily:'KCC-Hanbit'}} >{el.place}</div>
                     </div>
                     <div style={{marginBottom:'14px'}}>
-                        <div style={{marginBottom:'2px'}}><TbRoad style={{marginBottom:'3px', color:'#FFB74D'}}/> 도로명주소</div>
-                        <div>{el.roadAddress ? el.roadAddress : "정보 없음"}</div>
+                        <div style={{marginBottom:'2px', fontFamily:'KCC-Hanbit'}}><TbRoad style={{marginBottom:'3px', color:'#FFB74D'} }/> 도로명주소</div>
+                        <div style={{fontFamily:'KCC-Hanbit'}} >{el.roadAddress ? el.roadAddress : "정보 없음"}</div>
                     </div>
                     <div style={{marginBottom:'14px'}}>
-                        <div style={{marginBottom:'2px'}}><MdLandscape style={{marginBottom:'3px', color:'#FFB74D'}}/> 지번주소</div>
-                        <div>{el.landAddress ? el.landAddress : "정보 없음"}</div>
+                        <div style={{marginBottom:'2px', fontFamily:'KCC-Hanbit'}}><MdLandscape style={{marginBottom:'3px', color:'#FFB74D' }}/> 지번주소</div>
+                        <div style={{fontFamily:'KCC-Hanbit'}} >{el.landAddress ? el.landAddress : "정보 없음"}</div>
                     </div>
 
                 </div>

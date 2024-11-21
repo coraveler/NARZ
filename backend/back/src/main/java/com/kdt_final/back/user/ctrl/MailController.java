@@ -25,7 +25,7 @@ public class MailController {
         return authCode; // Response body에 값을 반환
     }
 
-
+    //인증코드 발송
     @ResponseBody
     @PostMapping("/sendVerificationCode") //
     public Boolean sendSignUPMessage(@RequestBody MailDTO mailDTO) throws MessagingException, UnsupportedEncodingException {
@@ -46,4 +46,15 @@ public class MailController {
 
     }
 
+    //쿠폰발송
+    @PostMapping("/sendCoupon")
+   public ResponseEntity<Boolean> sendCoupon(@RequestBody MailDTO mailDTO) throws MessagingException, UnsupportedEncodingException {
+
+        Boolean result= mailService.sendCoupon(mailDTO.getEmail());
+        ResponseEntity<Boolean> responseEntity = ResponseEntity.ok()
+                .body(result);
+        return  responseEntity;
+
+
+    }
 }
