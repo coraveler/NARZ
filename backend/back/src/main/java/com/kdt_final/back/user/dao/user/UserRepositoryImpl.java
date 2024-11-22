@@ -119,13 +119,13 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public int getUserPostCount(Integer userId) {
-        String sql = "SELECT COUNT(*) FROM POST WHERE USERID = ?";
+        String sql = "SELECT COUNT(*) FROM post WHERE userId = ?";
         return jdbcTemplate.queryForObject(sql, Integer.class, userId);
     }
 
     @Override
     public List<String> getUserPostRegions(Integer userId) {
-        String sql = "SELECT DISTINCT local FROM POST WHERE USERID = ?";
+        String sql = "SELECT DISTINCT local FROM post WHERE userId = ?";
         return jdbcTemplate.queryForList(sql, String.class, userId);
     }
 
