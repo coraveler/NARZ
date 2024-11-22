@@ -59,7 +59,7 @@
             resultType="com.kdt_final.back.post.domain.PostResponseDTO">
         SELECT p.postId, p.userId, p.local, p.title, p.rating, p.secret, p.headerImg, p.content, p.createdDate, u.userNickname
         FROM post p
-        JOIN USER u ON p.userId = u.userId
+        JOIN user u ON p.userId = u.userId
         WHERE p.secret = 0
     </select>
 
@@ -71,7 +71,7 @@
             resultType="com.kdt_final.back.post.domain.PostResponseDTO">
         SELECT p.postId, p.userId, p.LOCAL, p.title, p.rating, p.secret, p.headerImg, p.content, p.createdDate, u.userNickname
         FROM post p
-        JOIN USER u ON p.userId = u.userId
+        JOIN user u ON p.userId = u.userId
         WHERE p.postId = #{postId}
     </select>
 
@@ -92,7 +92,7 @@
             resultType="com.kdt_final.back.post.domain.PostResponseDTO">
         SELECT p.postId, p.userId, p.local, p.title, p.rating, p.secret, p.headerImg, p.content, p.createdDate, u.userNickname
         FROM post p
-        JOIN USER u ON p.userId = u.userId
+        JOIN user u ON p.userId = u.userId
         WHERE (p.secret = 0) AND (p.local = #{local})
     </select>    
     
