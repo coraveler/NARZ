@@ -178,8 +178,7 @@ function App() {
       const response = await chatInstance.subscribe(channelId, {"language":"kr"});
   
       if (response) {
-        // console.log("subscribeChannel successfully:", response);
-        // 성공적으로 메시지가 전송되었을 때 후속 작업
+        console.log("subscribeChannel successfully:", response);
       }
       
     } catch (error) {
