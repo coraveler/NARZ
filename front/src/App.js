@@ -59,7 +59,9 @@ function App() {
 
   if(chatInstance){
     chatInstance.bind("onMessageReceived", function (channel, message) {
-      getLastChat(channels);
+      // getLastChat(channels);
+      getChannels();
+      
     });
     
   }
@@ -157,15 +159,33 @@ function App() {
     
         return dateB - dateA; // 내림차순 정렬: 최신 메시지가 위로 오도록
       });
-    
       setChannels(sortedChannels);  // 모든 채널 데이터 업데이트
       await getLastChat(sortedChannels);
+      await Promise.all(
+        sortedChannels.map(channel => subscribeChannel(channel.id))
+      );
+  
       // console.log("Updated Channels Data:", sortedChannels); // 결과 출력
     } catch (error) {
       console.error("Error message:", error);
     }
     
   };
+
+  const subscribeChannel = async (channelId) => {
+    try {
+      
+      const response = await chatInstance.subscribe(channelId, {"language":"kr"});
+  
+      if (response) {
+        // console.log("subscribeChannel successfully:", response);
+        // 성공적으로 메시지가 전송되었을 때 후속 작업
+      }
+      
+    } catch (error) {
+      console.error("Error sending message:", error);
+    }
+  }
 
   const getLastChat = async (channels) => {
     let unreadCount = 0; 
