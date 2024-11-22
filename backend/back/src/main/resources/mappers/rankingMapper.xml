@@ -152,9 +152,9 @@
     <select id="getUserInfo"
             parameterType="String"
             resultType="com.kdt_final.back.ranking.domain.userinfo.UserInfoResponseDTO">
-        SELECT USERID, PROFILEIMAGE
-        FROM USER
-        WHERE USERNICKNAME = #{author}
+        SELECT userId, profileImage
+        FROM user
+        WHERE userNickname = #{author}
     </select>
 
     <select id="checkhallOfFame"

@@ -88,7 +88,7 @@
             resultType="com.kdt_final.back.user.domain.User">
         SELECT userNickname, loginId, userColor, achievement, profileImage
         FROM user
-        WHERE USERID = #{userId}
+        WHERE userId = #{userId}
     </select>
 
     <select id="findUserByLoginIdAndEmail"

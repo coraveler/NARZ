@@ -144,7 +144,7 @@ const EditProfilePage = ({ selectedBadge, nc }) => {
 
         let loginInfo = getLoginInfo();
         if (loginInfo == null) {
-           
+            setIsReadOnly(true);
             // alert("로그인 먼저 해주세요");
             navigate('/LoginFormPage');
         } else {
@@ -154,7 +154,7 @@ const EditProfilePage = ({ selectedBadge, nc }) => {
             setEmail(loginInfo.email);
             setPhone(loginInfo.phoneNum);
             setBirthday(loginInfo.birthday);
-            setIsReadOnly(true);
+
             fetchNicknameColor();
             setProfileImage(`http://localhost:7777/profileImages/${loginInfo.profileImage}`);
         }
@@ -286,9 +286,9 @@ const EditProfilePage = ({ selectedBadge, nc }) => {
                                 name={"userName"}
                                 placeholder="Name"
                                 value={userName}
-                                readOnly={isReadOnly}
+                                readOnly={true}
                                 style={{
-                                    backgroundColor: isReadOnly ? "#e9e6e6f5" : "white"  // readOnly 상태에 따라 배경색 변경
+                                    backgroundColor: true ? "#e9e6e6f5" : "white"  // readOnly 상태에 따라 배경색 변경
                                 }}
                                 onChange={(event) => {
                                     console.log(event.target.value);
@@ -313,10 +313,10 @@ const EditProfilePage = ({ selectedBadge, nc }) => {
                                 name={"userNickname"}
                                 placeholder="NickName"
                                 value={userNickname}
-                                // readOnly={isReadNickname}
-                                // style={{
-                                //     backgroundColor: isReadNickname ? "#e9e6e6f5" : "white"  // readOnly 상태에 따라 배경색 변경
-                                // }}
+                                readOnly={isReadNickname}
+                                style={{
+                                    backgroundColor: isReadNickname ? "#e9e6e6f5" : "white"  // readOnly 상태에 따라 배경색 변경
+                                }}
                                 onChange={(event) => {
                                     console.log(event.target.value);
                                     setNickName(event.target.value);
@@ -372,9 +372,9 @@ const EditProfilePage = ({ selectedBadge, nc }) => {
                                 name={"email"}
                                 value={email}
                                 placeholder="Email"
-                                readOnly={isReadOnly}
+                                readOnly={true}
                                 style={{
-                                    backgroundColor: isReadOnly ? "#e9e6e6f5" : "white"  // readOnly 상태에 따라 배경색 변경
+                                    backgroundColor: true ? "#e9e6e6f5" : "white"  // readOnly 상태에 따라 배경색 변경
                                 }}
                                 onChange={handleInputChange} // handleInputChange를 직접 호출
                             />
