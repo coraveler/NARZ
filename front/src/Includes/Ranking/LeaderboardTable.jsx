@@ -51,29 +51,32 @@ const LeaderboardTable = ({ leaderboardData, activeRank }) => {
           </div>
         )
         : (
-          leaderboardData.map((data, index) => {
-            console.log("Post ID: ", data.postId);  // 각 데이터의 postId 출력
-            return (
-              <LeaderboardRow 
-              postId={data.postId}
-                key={index} 
-                rank={index + 1}  
-                author={data.author} 
-                board={activeRank === "인기 게시글 랭킹" ? data.board : undefined} 
-                likes={activeRank === "인기 게시글 랭킹" ? data.likes : undefined} 
-                postCount={activeRank === "유저 활동 랭킹" ? data.postCount : undefined}
-                commentCount={activeRank === "유저 활동 랭킹" ? data.commentCount : undefined}
-              >
-                {activeRank === "인기 게시글 랭킹" && (
-                  <Link to={`/postpage/${data.postId}`} className="post-title-link">
-                    {/* {data.title} */}
-                  </Link>
-                )}
- 
-              
-              </LeaderboardRow>
-            );
-          })
+          <>
+            {leaderboardData.map((data, index) => {
+              console.log("Post ID: ", data.postId);  // 각 데이터의 postId 출력
+              return (
+                <LeaderboardRow 
+                  postId={data.postId}
+                  key={index} 
+                  rank={index + 1}  
+                  author={data.author} 
+                  board={activeRank === "인기 게시글 랭킹" ? data.board : undefined} 
+                  likes={activeRank === "인기 게시글 랭킹" ? data.likes : undefined} 
+                  postCount={activeRank === "유저 활동 랭킹" ? data.postCount : undefined}
+                  commentCount={activeRank === "유저 활동 랭킹" ? data.commentCount : undefined}
+                >
+                  {activeRank === "인기 게시글 랭킹" && (
+                    <Link to={`/postpage/${data.postId}`} className="post-title-link">
+                      {/* {data.title} */}
+                    </Link>
+                  )}
+                </LeaderboardRow>
+              );
+            })}
+            <div align="center"><br/><br/><br/>
+            <p className="ranking-note">*1~3등은 마일리지가 지급됩니다.</p>
+            </div>
+          </>
         )}
       </div>
     </section>

@@ -51,7 +51,7 @@ function MapPage({ selectedBadge }) {
                 const formData = new FormData();
                 formData.append('mapImgUrl', blob, `map_${userId}_${now}`); // 캡처한 이미지를 추가
                 formData.append('userId', userId); // 사용자 ID 추가
-
+                // sdsd
                 try {
                     // 캡쳐한 이미지를 백엔드 서버로 전달
                     const response = await api.post("api/mapshare", formData)

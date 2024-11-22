@@ -6,27 +6,27 @@
 
     <insert id="saveComment"
             parameterType="com.kdt_final.back.comment.domain.CommentRequestDTO">
-        INSERT INTO COMMENT(USERID, POSTID, COMMENT)
+        INSERT INTO comment(userId, postId, comment)
         VALUES( #{userId}, #{postId}, #{comment})
     </insert>
 
     <select id="getComments"
             parameterType="int"
             resultType="com.kdt_final.back.comment.domain.CommentResponseDTO">
-        select USERID, COMMENT, CREATEDDATE, COMMENTID
-        FROM COMMENT
-        WHERE POSTID = #{postId};
+        select userId, comment, createdDate, commentId
+        FROM comment
+        WHERE postId = #{postId};
     </select>
 
     <delete id="deleteComment"
             parameterType="int">
-        DELETE FROM COMMENT
-        WHERE COMMENTID = #{commentId}
+        DELETE FROM comment
+        WHERE commentId = #{commentId}
     </delete>
     
     <select id="countCommentsByUserId" parameterType="int" resultType="int">
         SELECT COUNT(*)
-        FROM COMMENT
-        WHERE USERID = #{userId}
+        FROM commentId
+        WHERE userId = #{userId}
     </select>
     </mapper>

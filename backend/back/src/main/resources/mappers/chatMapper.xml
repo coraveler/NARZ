@@ -6,31 +6,31 @@
     <!-- lastChatSave -->
     <insert id="saveLastChat"
             parameterType="com.kdt_final.back.chat.domain.ChatRequestDTO">
-        INSERT INTO CHATCHECKLASTMSG (CHANNELID, LOGINID, SENDERID, MESSAGEID, SORTID)
+        INSERT INTO chatchecklastmsg (channelId, loginId, senderId, messageId, sortId)
         VALUES ( #{channelId}, #{loginId}, #{senderId}, #{messageId}, #{sortId} )
         ON DUPLICATE KEY UPDATE  
-            SENDERID = #{senderId},
-            LOGINID = #{loginId},
-            MESSAGEID = #{messageId},
-            SORTID = #{sortId};
+            senderId = #{senderId},
+            loginId = #{loginId},
+            messageId = #{messageId},
+            sortId = #{sortId};
     </insert>
 
     <!-- getLastChat -->
     <select id="getLastChat"
             parameterType="com.kdt_final.back.chat.domain.ChatRequestDTO"
             resultType="com.kdt_final.back.chat.domain.ChatResponseDTO">
-        SELECT SENDERID, MESSAGEID, SORTID, CHANNELID
-        FROM CHATCHECKLASTMSG
-        WHERE CHANNELID = #{channelId} AND LOGINID = #{loginId}
+        SELECT senderId, messageId, sortId, channelId
+        FROM chatchecklastmsg
+        WHERE channelId = #{channelId} AND loginId = #{loginId}
     </select>
 
     <!-- saveTotalUnread -->
     <insert id="saveTotalUnread"
             parameterType="com.kdt_final.back.chat.domain.ChatRequestDTO">
-        INSERT INTO unread (LOGINID, TOTALUNREAD)
+        INSERT INTO unread (loginId, totalUnread)
         VALUES ( #{loginId}, #{totalUnread} )
         ON DUPLICATE KEY UPDATE  
-            TOTALUNREAD = #{totalUnread};
+            totalUnread = #{totalUnread};
     </insert>
 
     <!-- getTotalUnread -->
@@ -39,41 +39,41 @@
             resultType="int">
         SELECT totalUnread
         FROM unread
-        WHERE LOGINID = #{loginId};
+        WHERE loginId = #{loginId};
     </select>
 
     <!-- getUserId -->
     <select id="getUserId"
             parameterType="String"
             resultType="com.kdt_final.back.chat.domain.ChatResponseDTO">
-        SELECT USERID, PROFILEIMAGE
-        FROM USER
-        WHERE LOGINID = #{loginId};
+        SELECT userId, profileImage
+        FROM user
+        WHERE loginId = #{loginId};
     </select>
 
        <!-- saveExitChatRoomTime -->
     <insert id="saveExitChatRoomTime"
             parameterType="com.kdt_final.back.chat.domain.exitchatrommtime.ChatExitRoomTimeRequestDTO">
-        INSERT INTO exitchatroomtime (LOGINID, CHANNELID, CREATEDAT)
+        INSERT INTO exitchatroomtime (loginId, channelId, createdAt)
         VALUES ( #{loginId}, #{channelId}, #{createdAt} )
         ON DUPLICATE KEY UPDATE  
-            CREATEDAT = #{createdAt};
+            createdAt = #{createdAt};
     </insert>
 
     <!-- getExitChatRoomTime -->
     <select id="getExitChatRoomTime"
             parameterType="com.kdt_final.back.chat.domain.exitchatrommtime.ChatExitRoomTimeRequestDTO"
             resultType = "String">
-        SELECT CREATEDAT
+        SELECT createdAt
         FROM exitchatroomtime
-        WHERE CHANNELID = #{channelId} AND LOGINID = #{loginId}
+        WHERE channelId = #{channelId} AND loginId = #{loginId}
     </select>
 
        <!-- saveExitChatRoomTime -->
     <delete id="deleteExitChatRoomTime"
             parameterType="com.kdt_final.back.chat.domain.exitchatrommtime.ChatExitRoomTimeRequestDTO">
         DELETE FROM exitchatroomtime
-        WHERE CHANNELID = #{channelId} AND LOGINID = #{loginId}
+        WHERE channelId = #{channelId} AND loginId = #{loginId}
     </delete>
 
 </mapper>
