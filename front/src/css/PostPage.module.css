@@ -64,6 +64,7 @@ html, body {
   .subTitle{
     font-family: 'insungitCutelivelyjisu';
     font-size: 50px;
+    white-space: nowrap;    /* 한 줄로 표시 */
   }
   
   @media (max-width: 991px) {
