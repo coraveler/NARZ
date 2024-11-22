@@ -8,9 +8,9 @@
             parameterType="com.kdt_final.back.mapimg.domain.LikeCountRequestDTO"
             resultType="int">
         SELECT COUNT(*)
-        FROM POSTLIKE pl
-        JOIN POST p ON p.POSTID = pl.POSTID
-        WHERE p.USERID = #{userId} AND p.LOCAL = #{local} AND p.SECRET = 0;
+        FROM postLike pl
+        JOIN post p ON p.postId = pl.postId
+        WHERE p.userId = #{userId} AND p.local = #{local} AND p.secret = 0;
     </select>
 
 </mapper>

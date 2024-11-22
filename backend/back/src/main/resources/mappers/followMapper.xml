@@ -6,7 +6,7 @@
 
     <insert id="saveFollow"
             parameterType="com.kdt_final.back.follow.domain.FollowRequestDTO">
-        INSERT INTO FOLLOWS(FOLLOWEDID, FOLLOWERID)
+        INSERT INTO follows(followedId, followerId)
         VALUES( #{followedId}, #{followerId})
     </insert>
 
@@ -16,16 +16,16 @@
             parameterType="com.kdt_final.back.follow.domain.FollowRequestDTO"
             resultType="int">
         SELECT COUNT(*)
-        FROM FOLLOWS
-        WHERE FOLLOWEDID=#{followedId} AND FOLLOWERID=#{followerId};
+        FROM follows
+        WHERE followedId=#{followedId} AND followerId=#{followerId};
     </select>
 
     <!-- deleteFollow --> 
 
     <delete id="deleteFollow"
             parameterType="com.kdt_final.back.follow.domain.FollowRequestDTO">
-        DELETE FROM FOLLOWS
-        WHERE FOLLOWEDID=#{followedId} AND FOLLOWERID=#{followerId};
+        DELETE FROM follows
+        WHERE followedId=#{followedId} AND followerId=#{followerId};
     </delete>
 
     <!-- getFollowers -->
@@ -33,9 +33,9 @@
      <select id="getFollowers"
              parameterType="int"
              resultType="int">
-        SELECT FOLLOWERID
-        FROM FOLLOWS
-        WHERE FOLLOWEDID=#{userId}
+        SELECT followerId
+        FROM follows
+        WHERE followedId=#{userId}
 
     </select>
 
@@ -44,9 +44,9 @@
      <select id="getFollowings"
              parameterType="int"
              resultType="int">
-        SELECT FOLLOWEDID
-        FROM FOLLOWS
-        WHERE FOLLOWERID=#{userId}
+        SELECT followedId
+        FROM follows
+        WHERE followerId=#{userId}
 
     </select>
 
@@ -56,8 +56,8 @@
              parameterType="int"
              resultType="int">
         SELECT COUNT(*)
-        FROM FOLLOWS
-        WHERE FOLLOWEDID=#{userId}
+        FROM follows
+        WHERE followedId=#{userId}
 
     </select>
 
@@ -67,8 +67,8 @@
              parameterType="int"
              resultType="int">
         SELECT COUNT(*)
-        FROM FOLLOWS
-        WHERE FOLLOWERID=#{userId}
+        FROM follows
+        WHERE followerId=#{userId}
 
     </select>
 </mapper>

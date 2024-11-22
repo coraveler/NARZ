@@ -45,9 +45,12 @@ const RankingPage = ({ initialRank = "인기 게시글 랭킹" }) => {
       {loading ? (
         <p>Loading...</p>
       ) : (
+        <>
         <LeaderboardTable leaderboardData={leaderboardData} activeRank={activeRank} />
+        {/* <p className="ranking-note">*1~3등은 마일리지가 지급됩니다.</p> */}
+        </>
       )}
-      <p className="ranking-note">*1~3등은 마일리지가 지급됩니다.</p>
+      {/* <p className="ranking-note">*1~3등은 마일리지가 지급됩니다.</p> */}
     </div>
   );
 };
