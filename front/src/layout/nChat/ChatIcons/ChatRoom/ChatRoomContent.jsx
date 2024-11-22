@@ -11,14 +11,21 @@ const ChatRoomContent = ({ loginId, recipientId, nc, channel }) => {
   const [friendState, setFriendState] = useState(null);
 
 // onMessageReceived 이벤트 리스너에서 메시지를 받으면 UI에 반영
-nc.bind("onMessageReceived", function(channel, receivedMessage) {
+nc.bind("onMessageReceived", function(receiveChannel, receivedMessage) {
   console.log("Received a new message: ", receivedMessage);
+  console.log("Received a new message receiveChannel: ", receiveChannel);
+  console.log("Received a new message channel: ", channel.id);
   // 기존 메시지 목록에 새로운 메시지를 추가
-  setUpdateMessage((prevMessages) => [
-    ...prevMessages,
-    { node: receivedMessage }, // 새로운 메시지를 추가
-  ]);
-  scrollToBottom(); // 새로운 메시지가 오면 자동으로 스크롤을 맨 아래로 내립니다.
+  
+  if(channel.id == receiveChannel){
+    // console.log("ASDASDASDASD");
+    // getMessages(channel.id, null);
+    setUpdateMessage((prevMessages) => [
+      ...prevMessages,
+      { node: receivedMessage }, // 새로운 메시지를 추가
+    ]);
+    scrollToBottom(); // 새로운 메시지가 오면 자동으로 스크롤을 맨 아래로 내립니다.
+  }
 });
 
   // 채팅 내용이 갱신될 때 자동으로 스크롤을 맨 아래로 내리기 위한 함수
@@ -121,7 +128,9 @@ nc.bind("onMessageReceived", function(channel, receivedMessage) {
       if (exitTime) {
         const filterdMsg = checkExitTime(response.edges, exitTime);
         setUpdateMessage(filterdMsg); // 메시지 초기 로드
+       
       } else {
+        console.log(response.edges);
         setUpdateMessage(response.edges); // 메시지 초기 로드
       }
       console.log(response);
@@ -293,51 +302,7 @@ nc.bind("onMessageReceived", function(channel, receivedMessage) {
       {/* 채팅 입력 및 전송 버튼 */}
       {
         friendState === "accepted" || friendState == null ? (
-          // 친구 관계가 수락된 경우 채팅 입력창 표시
-          // <div
-          //   style={{
-          //     display: "flex",
-          //     alignItems: "center",
-          //     padding: "10px",
-          //     backgroundColor: "#fff",
-          //     borderTop: "1px solid #ddd",
-          //     position: 'absolute',
-          //     bottom: 0,
-          //     flexShrink: 0,
-          //     zIndex: 10,
-          //     width: '100%'
-          //   }}
-          // >
-          //   <input
-          //     type="text"
-          //     placeholder="Type a message..."
-          //     style={{
-          //       flex: 1,
-          //       padding: "8px",
-          //       borderRadius: "20px",
-          //       border: "1px solid #ddd",
-          //       marginRight: "10px",
-          //     }}
-          //     value={message}
-          //     onChange={handleMessage}
-          //     onKeyDown={handleKeyDown}
-          //   />
-          //   <button
-          //     style={{
-          //       // padding: "8px 12px",
-          //       width: '50px',
-          //       height: '40px',
-          //       borderRadius: "20px",
-          //       backgroundColor: "#007bff",
-          //       color: "white",
-          //       border: "none",
-          //       cursor: "pointer",
-          //     }}
-          //     onClick={clickSendBtn}
-          //   >
-          //     <AiOutlineSend style={{ fontSize: '20', marginBottom: '3px' }} />
-          //   </button>
-          // </div>
+         
 
           <div
             style={{

@@ -17,21 +17,21 @@
             parameterType="com.kdt_final.back.post.domain.PostRequestDTO">
         UPDATE post
         SET 
-            LOCAL = #{local},
-            TITLE = #{title},
-            CONTENT = #{content},
-            RATING = #{rating},
-            SECRET = #{secret},
-            HEADERIMG = #{headerImg}
+            local = #{local},
+            title = #{title},
+            content = #{content},
+            rating = #{rating},
+            secret = #{secret},
+            headerImg = #{headerImg}
         WHERE 
-            USERID = #{userId} AND POSTID = #{postId}; 
+            userId = #{userId} AND postId = #{postId}; 
     </update>
 
     <!-- savePostImage --> 
 
     <insert id="savePostImage"
             parameterType="com.kdt_final.back.post.domain.postImage.PostImageRequestDTO">
-        INSERT INTO postImages(POSTID, IMAGEPATH)
+        INSERT INTO postImages(postId, imagePath)
         VALUES( #{postId}, #{imagePath})
     </insert>
 
@@ -39,7 +39,7 @@
     <delete id="delete"
             parameterType="Integer">
         DELETE FROM post
-        WHERE POSTID = #{postId};
+        WHERE postId = #{postId};
     </delete>
 
 
@@ -48,7 +48,7 @@
     <delete id="deletePostImage"
             parameterType="com.kdt_final.back.post.domain.PostRequestDTO">
         DELETE FROM postImages
-        WHERE POSTID = #{postId};
+        WHERE postId = #{postId};
 
     </delete>
 
@@ -57,10 +57,10 @@
 
     <select id="getAllPost"
             resultType="com.kdt_final.back.post.domain.PostResponseDTO">
-        SELECT p.POSTID, p.USERID, p.LOCAL, p.TITLE, p.RATING, p.SECRET, p.HEADERIMG, p.CONTENT, p.CREATEDDATE, u.userNickname
+        SELECT p.postId, p.userId, p.local, p.title, p.rating, p.secret, p.headerImg, p.content, p.createdDate, u.userNickname
         FROM post p
-        JOIN USER u ON p.USERID = u.userId
-        WHERE p.SECRET = 0
+        JOIN user u ON p.userId = u.userId
+        WHERE p.secret = 0
     </select>
 
 
@@ -69,10 +69,10 @@
     <select id="viewPost"
             parameterType="int"
             resultType="com.kdt_final.back.post.domain.PostResponseDTO">
-        SELECT p.POSTID, p.USERID, p.LOCAL, p.TITLE, p.RATING, p.SECRET, p.HEADERIMG, p.CONTENT, p.CREATEDDATE, u.userNickname
+        SELECT p.postId, p.userId, p.LOCAL, p.title, p.rating, p.secret, p.headerImg, p.content, p.createdDate, u.userNickname
         FROM post p
-        JOIN USER u ON p.USERID = u.userId
-        WHERE p.POSTID = #{postId}
+        JOIN user u ON p.userId = u.userId
+        WHERE p.postId = #{postId}
     </select>
 
     <!-- getPostImages --> 
@@ -80,9 +80,9 @@
     <select id="getPostImages"
             parameterType="int"
             resultType="com.kdt_final.back.post.domain.postImage.PostImageResponseDTO">
-        SELECT IMAGEPATH
+        SELECT imagePath
         FROM postImages
-        WHERE POSTID = #{postId}
+        WHERE postId = #{postId}
     </select>    
 
     <!-- getPost --> 
@@ -90,17 +90,17 @@
     <select id="getPost"
             parameterType="String"
             resultType="com.kdt_final.back.post.domain.PostResponseDTO">
-        SELECT p.POSTID, p.USERID, p.LOCAL, p.TITLE, p.RATING, p.SECRET, p.HEADERIMG, p.CONTENT, p.CREATEDDATE, u.userNickname
+        SELECT p.postId, p.userId, p.local, p.title, p.rating, p.secret, p.headerImg, p.content, p.createdDate, u.userNickname
         FROM post p
-        JOIN USER u ON p.USERID = u.userId
-        WHERE (p.SECRET = 0) AND (p.LOCAL = #{local})
+        JOIN user u ON p.userId = u.userId
+        WHERE (p.secret = 0) AND (p.local = #{local})
     </select>    
     
     <!-- likeSave --> 
 
     <insert id="likeSave"
             parameterType="com.kdt_final.back.post.domain.postLike.PostLikeRequestDTO">
-        INSERT INTO postLike(USERID, POSTID, CREATEDDATE)
+        INSERT INTO postLike(userId, postId, createdDate)
         VALUES( #{userId}, #{postId}, CURRENT_DATE)
     </insert>
 
@@ -109,7 +109,7 @@
     <delete id="likeDelete"
             parameterType="com.kdt_final.back.post.domain.postLike.PostLikeRequestDTO">
         DELETE FROM postLike
-        WHERE USERID = #{userId} AND POSTID = #{postId};
+        WHERE userId = #{userId} AND postId = #{postId};
     </delete>    
 
     <!-- likeCheck --> 
@@ -117,9 +117,9 @@
     <select id="likeCheck"
             parameterType="com.kdt_final.back.post.domain.postLike.PostLikeRequestDTO"
             resultType="int">
-        SELECT LIKENO
+        SELECT likeNo
         FROM postLike
-        WHERE USERID = #{userId} AND POSTID = #{postId};
+        WHERE userId = #{userId} AND postId = #{postId};
     </select>    
 
     <!-- countLike --> 
@@ -129,14 +129,14 @@
             resultType="int">
         SELECT count(*)
         FROM postLike
-        WHERE POSTID = #{postId};
+        WHERE postId = #{postId};
     </select>
 
     <!-- bookMarkSave --> 
 
     <insert id="bookMarkSave"
             parameterType="com.kdt_final.back.post.domain.postBookMark.PostBookMarkRequestDTO">
-        INSERT INTO postBookMark(USERID, POSTID)
+        INSERT INTO postBookMark(userId, postId)
         VALUES( #{userId}, #{postId})
     </insert>
 
@@ -145,7 +145,7 @@
     <delete id="bookMarkDelete"
             parameterType="com.kdt_final.back.post.domain.postBookMark.PostBookMarkRequestDTO">
         DELETE FROM postBookMark
-        WHERE USERID = #{userId} AND POSTID = #{postId};
+        WHERE userId = #{userId} AND postId = #{postId};
     </delete>   
     
     <!-- bookMarkCheck --> 
@@ -153,9 +153,9 @@
     <select id="bookMarkCheck"
             parameterType="com.kdt_final.back.post.domain.postBookMark.PostBookMarkRequestDTO"
             resultType="int">
-        SELECT BOOKMARKNO
+        SELECT bookMarkNo
         FROM postBookMark
-        WHERE USERID = #{userId} AND POSTID = #{postId};
+        WHERE userId = #{userId} AND postId = #{postId};
     </select>   
 
     <!-- getAllBookMark --> 
@@ -218,10 +218,10 @@
     <select id="getAllTravelog"
             parameterType="int"
             resultType="com.kdt_final.back.post.domain.PostResponseDTO">
-        SELECT p.POSTID, p.USERID, p.LOCAL, p.TITLE, p.RATING, p.SECRET, p.HEADERIMG, p.CONTENT, p.CREATEDDATE, u.userNickname
+        SELECT p.postId, p.userId, p.local, p.title, p.rating, p.secret, p.headerImg, p.content, p.createdDate, u.userNickname
         FROM post p
-        JOIN USER u ON p.USERID = u.userId
-        WHERE p.USERID = #{userId}
+        JOIN user u ON p.userId = u.userId
+        WHERE p.userId = #{userId}
     </select>   
 
     <!-- getTravelog --> 
@@ -229,10 +229,10 @@
     <select id="getTravelog"
             parameterType="com.kdt_final.back.post.domain.PostRequestDTO"
             resultType="com.kdt_final.back.post.domain.PostResponseDTO">
-        SELECT p.POSTID, p.USERID, p.LOCAL, p.TITLE, p.RATING, p.SECRET, p.HEADERIMG, p.CONTENT, p.CREATEDDATE, u.userNickname
+        SELECT p.postId, p.userId, p.local, p.title, p.rating, p.secret, p.headerImg, p.content, p.createdDate, u.userNickname
         FROM post p
-        JOIN USER u ON p.USERID = u.userId
-        WHERE p.USERID = #{userId} AND p.LOCAL = #{local}
+        JOIN user u ON p.userId = u.userId
+        WHERE p.userId = #{userId} AND p.local = #{local}
        
     </select>
 
@@ -241,11 +241,11 @@
     <select id="getAllFollow"
             parameterType="int"
             resultType="com.kdt_final.back.post.domain.PostResponseDTO">
-        SELECT p.POSTID, p.USERID, p.LOCAL, p.TITLE, p.RATING, p.SECRET, p.HEADERIMG, p.CONTENT, p.CREATEDDATE, u.userNickname
+        SELECT p.postId, p.userId, p.local, p.title, p.rating, p.secret, p.headerImg, p.content, p.createdDate, u.userNickname
         FROM post p
-        JOIN FOLLOWS F ON p.USERID = F.FOLLOWEDID
+        JOIN follows F ON p.userId = F.followedId
         JOIN  user u ON p.userId = u.userId
-        WHERE p.SECRET = 0 AND F.FOLLOWERID = #{userId}
+        WHERE p.secret = 0 AND F.followerId = #{userId}
     </select>   
 
     <!-- getFollow --> 
@@ -253,11 +253,11 @@
     <select id="getFollow"
             parameterType="com.kdt_final.back.post.domain.PostRequestDTO"
             resultType="com.kdt_final.back.post.domain.PostResponseDTO">
-        SELECT p.POSTID, p.USERID, p.LOCAL, p.TITLE, p.RATING, p.SECRET, p.HEADERIMG, p.CONTENT, p.CREATEDDATE, u.userNickname
+        SELECT p.postId, p.userId, p.local, p.title, p.rating, p.secret, p.headerImg, p.content, p.createdDate, u.userNickname
         FROM post p
-        JOIN FOLLOWS F ON p.USERID = F.FOLLOWEDID
+        JOIN follows F ON p.userId = F.followedId
         JOIN  user u ON p.userId = u.userId
-        WHERE p.SECRET = 0 AND F.FOLLOWERID = #{userId} AND p.LOCAL = #{local}
+        WHERE p.secret = 0 AND F.followerId = #{userId} AND p.local = #{local}
        
     </select>
 

@@ -92,6 +92,7 @@ function App() {
   useEffect(() => {
     // chatInstance가 존재할 때만 getChannels 호출
     if (chatInstance && isChatLoginSuccessful) {
+      console.log("Get");
       getChannels();
       // console.log(channels);
       // const intervalId = setInterval(getChannels, 10000); // 10초마다 새로 고침

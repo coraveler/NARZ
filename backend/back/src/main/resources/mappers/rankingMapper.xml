@@ -15,10 +15,10 @@
     </delete>
 
     <!-- 유저 활동 랭킹 추가 -->
-    <insert id="addRankingUserActivity" parameterType="com.kdt_final.back.ranking.domain.RankingRequestDTO">
+    <!-- <insert id="addRankingUserActivity" parameterType="com.kdt_final.back.ranking.domain.RankingRequestDTO">
         INSERT INTO weeklyranking (author, postCount, commentCount, rankingType, weekOf)
         VALUES (#{author}, #{postCount}, #{commentCount}, #{rankType}, #{weekOf})
-    </insert>
+    </insert> -->
 
     <!-- 모든 랭킹 가져오기 -->
     <select id="getRankings" resultType="com.kdt_final.back.ranking.domain.RankingResponseDTO">
@@ -63,10 +63,14 @@
 
     <!-- 유저 활동 랭킹 가져오기 -->
     <select id="getUserActivityRankings" resultType="com.kdt_final.back.ranking.domain.RankingResponseDTO">
-        SELECT wr.author, wr.postCount, wr.commentCount, wr.rankingType
+        SELECT wr.author, 
+                MAX(wr.postCount) AS postCount, 
+                MAX(wr.commentCount) AS commentCount, 
+                wr.rankingType
         FROM weeklyranking wr
         WHERE wr.rankingType = 'userActivity' AND wr.weekOf = #{weekOf}
-        ORDER BY wr.postCount DESC, wr.commentCount DESC
+        GROUP BY wr.author
+        ORDER BY postCount DESC, commentCount DESC
         LIMIT 10
     </select>
 
@@ -104,25 +108,40 @@
     </select>
 
      <!-- 이번주 사용자 댓글, 게시글 수 가져오기 -->
-    <select id="addUserRanking" 
-            parameterType = "String"
-            resultType="com.kdt_final.back.ranking.domain.RankingRequestDTO">
+    <select id="addUserRanking"
+        parameterType="String"
+        resultType="com.kdt_final.back.ranking.domain.RankingRequestDTO">
         SELECT 
             u.userNickname AS author, 
-            COUNT(DISTINCT p.title) AS postCount, 
-            COUNT(DISTINCT c.commentId) AS commentCount
+            COALESCE(postCounts.postCount, 0) AS postCount, 
+            COALESCE(commentCounts.commentCount, 0) AS commentCount
         FROM 
             user u
-        LEFT JOIN 
-            post p ON u.userId = p.userId
-        LEFT JOIN 
-            comment c ON p.postId = c.postId
-        WHERE
-            (DATE(p.createdDate) >= #{currentWeek} OR DATE(p.createdDate) IS NULL)
-            AND (DATE(c.createdDate) >= #{currentWeek} OR DATE(c.createdDate) IS NULL)
-        GROUP BY 
-            u.userNickname;
+        LEFT JOIN (
+            SELECT 
+                p.userId, 
+                COUNT(p.postId) AS postCount
+            FROM 
+                post p
+            WHERE DATE(p.createdDate) >= #{currentWeek}
+            GROUP BY 
+                p.userId
+        ) postCounts ON u.userId = postCounts.userId
+        LEFT JOIN (
+            SELECT 
+                c.userId, 
+                COUNT(c.commentId) AS commentCount
+            FROM 
+                comment c
+            WHERE DATE(c.createdDate) >= #{currentWeek}
+            GROUP BY 
+                c.userId
+        ) commentCounts ON u.userId = commentCounts.userId
+        ORDER BY 
+            postCount DESC, 
+            commentCount DESC;
     </select>
+
     
     <!-- 랭커 유저 저장 -->
     <insert id="saveRankUser" 
