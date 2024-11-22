@@ -39,10 +39,11 @@ public class RankingController {
         }
     }
 
-    @PostMapping
-    public void addRanking(@RequestBody RankingRequestDTO rankingRequestDTO) {
-        rankingService.addRanking(rankingRequestDTO);
-    }
+    // @PostMapping
+    // public void addRanking(@RequestBody RankingRequestDTO rankingRequestDTO) {
+    //     System.out.println("ASDASDASD");
+    //     rankingService.addRanking(rankingRequestDTO);
+    // }
 
     @DeleteMapping("/{rank}")
     public void deleteRanking(@PathVariable int rank) {
