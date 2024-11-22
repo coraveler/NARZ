@@ -7,6 +7,7 @@ import { getLoginInfo } from "../../../Includes/common/CommonUtil";
 import styles from '../../../css/TravelCard.module.css';
 import BookMark from '../BookMark';
 import LikeIcon from '../LikeIcon';
+import { PiMedalFill } from "react-icons/pi";
 
 const TravelCard = (props) => {
   const navigate = useNavigate();
@@ -31,17 +32,57 @@ const TravelCard = (props) => {
     console.log(imageUrls);
   }, [imageUrls]);
 
+  let rank;
+
+  switch (props.cardIndex) {
+    case 0:
+      rank = <div style={{
+        position: "absolute", // 부모 요소를 기준으로 위치 설정
+        top: "4px", // 카드 상단과의 간격
+        left: "0px", // 카드 좌측과의 간격
+        color: "gold",
+        zIndex: 200,
+        display: "flex",
+        // alignItems: "center",
+      }}><PiMedalFill style={{fontSize:'40px'}}/></div> 
+      break;
+    case 1:
+      rank = <div style={{position: "absolute", // 부모 요소를 기준으로 위치 설정
+        top: "4px", // 카드 상단과의 간격
+        left: "0px", // 카드 좌측과의 간격
+        color: "silver",
+        zIndex: 200,
+        display: "flex",
+        // alignItems: "right",
+      }}><PiMedalFill style={{fontSize:'40px'}}/></div> 
+      break;
+    case 2:
+      rank = <div style={{position: "absolute", // 부모 요소를 기준으로 위치 설정
+        top: "4px", // 카드 상단과의 간격
+        left: "0px", // 카드 좌측과의 간격
+        color: "orange",
+        zIndex: 200,
+        display: "flex",
+        // alignItems: "center",
+      }}><PiMedalFill style={{fontSize:'40px'}}/></div> 
+      break;
+    default:
+      rank = null;
+  }
+
   return (
     <article className={styles.travelCard}
-      onClick={() => navigate(`/postpage/${props.data.postId}`, {state : {trimmedUrl:props.trimmedUrl}})}>
-      { props.data.secret ?
-                <div style={{height:'10px',marginLeft:"auto"}}>
-                    <IoLockClosed/></div>:<div style={{height:'10px',marginLeft:"auto"}}></div>
-        }
+      onClick={() => navigate(`/postpage/${props.data.postId}`, { state: { trimmedUrl: props.trimmedUrl } })}>
+      {props.data.secret ?
+        <div style={{ height: '10px', marginLeft: "auto" }}>
+          <IoLockClosed /></div> :
+        props.boardIndex === 1 ? <>{rank}</> :
+          <div style={{ height: '10px', marginLeft: "auto" }}></div>
+      }
       <div style={{ width: '150px', height: '150px', overflow: 'hidden' }}> {/* overflow: hidden 추가 */}
         <img src={imageUrls} alt={`${props.data.title} view`} className={styles.cardImage} />
       </div>
-      <br/>
+      <br />
       <div style={{ display: 'flex', width: '90%' }}>
         <LikeIcon userId={userId} postId={props.data.postId} />
         <BookMark userId={userId} postId={props.data.postId} style={["auto", "2px"]} />

@@ -15,12 +15,14 @@ const ShopPurchase = ({ handleRefreshMileage }) => {
   const [isLoading, setIsLoading] = useState(true); // 로딩 상태 추가
   const { user, userMileage, setUserMileage } = useAuth(); // AuthContext에서 userMileage와 setUserMileage 가져오기
   const [productCount, setProductCount] = useState();
+  const [email, setEmail] = useState(null);
 
   useEffect(() => {
     const storedLoginInfo = localStorage.getItem("loginInfo");
     if (storedLoginInfo) {
       const parsedLoginInfo = JSON.parse(storedLoginInfo);
       setUserId(parsedLoginInfo.data.userId);
+      setEmail(parsedLoginInfo.data.email);
     } else {
       setUserId(null);
     }
@@ -61,6 +63,37 @@ const ShopPurchase = ({ handleRefreshMileage }) => {
     }
   };
 
+  const handleAllPurchase = async (option) => {
+    if(option.name === "포인트 쿠폰"){
+      const userConfirmed = window.confirm("포인트 쿠폰 번호는 가입하신 이메일로 발송됩니다. 구매하겠습니까?");
+      let couponSendState;
+      if(userConfirmed){
+        couponSendState = await sendCoupon();
+      }
+      if(couponSendState){
+        handlePurchase(option);  
+      }else{
+        return
+      }
+    }else{
+      handlePurchase(option);
+    }
+  }
+
+
+  const sendCoupon = async() => {
+    const data ={
+      email : email
+    }
+    try{
+      const response = await api.post('/sendCoupon',data);
+      console.log(response);
+      return response.data;
+    }catch(error){
+      console.error(error);
+      return false;
+    }
+  }
 
   const handlePurchase = async (option) => {
     if (!userId) {
@@ -95,7 +128,8 @@ const ShopPurchase = ({ handleRefreshMileage }) => {
         alert("구매가 완료되었습니다!");
         setUserMileage(userMileage + mileagePoints); // 잔여 포인트 업데이트
         handleRefreshMileage();
-        saveProduct(option);
+        await saveProduct(option);
+        await getProduct();
       } else {
         const errorData = await response.json();
         console.error("Error data:", errorData);
@@ -157,7 +191,7 @@ const ShopPurchase = ({ handleRefreshMileage }) => {
               <span style={{fontSize :"25px"}}>{option.price}p</span><br></br>
               <button
                 className={styles["purchase-button"]}
-                onClick={() => handlePurchase(option)}
+                onClick={() => {handleAllPurchase(option)}}
               >
                 <PiHandCoins />
               </button>

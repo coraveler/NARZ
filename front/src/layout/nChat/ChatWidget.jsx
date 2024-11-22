@@ -8,10 +8,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import ChatRoomList from "./ChatPage/ChatRoomList";
 import api from "../../api/axios";
 
-const ChatWidget = ({ nc, loginId, recipientId, projectId, apiKey, isChatOpen, toggleChatWindow, openFromButton, channel, channels, openChatWindow, handleChatChange}) => {
+const ChatWidget = ({ nc, loginId, recipientId, projectId, apiKey, isChatOpen, toggleChatWindow, openFromButton, channel, channels, openChatWindow, handleChatChange, totalUnread}) => {
   const [activeTab, setActiveTab] = useState("friends");
   const [messages, setMessages] = useState([]);
-  const[totalUnread, setTotalUnread] = useState(0);
+  // const[totalUnread, setTotalUnread] = useState(0);
   const [state, setState] = useState(null);
 
 
@@ -39,16 +39,11 @@ const ChatWidget = ({ nc, loginId, recipientId, projectId, apiKey, isChatOpen, t
     try {
       const response = await nc.getMessages(filter, sort, option);
       setMessages(response.edges);
-      console.log(response.edges);
+      // console.log(response.edges);
     } catch (error) {
       console.log(error);
     }
   }
-
-
-  useEffect(() => {
-    console.log("Updated channels:", channels);
-  }, [channels]);  
 
   useEffect(() => {
     if(activeTab!=="friends"){
@@ -58,10 +53,10 @@ const ChatWidget = ({ nc, loginId, recipientId, projectId, apiKey, isChatOpen, t
 
   useEffect(() => {
     if (channel) {
-      console.log(channel);
-      getMessages(channel.id);
+      // console.log(channel);
+      // getMessages(channel.id);
     }
-    toggleChatWindow(true); 
+    // toggleChatWindow(true); 
   }, [channel])
 
 
@@ -80,19 +75,25 @@ const ChatWidget = ({ nc, loginId, recipientId, projectId, apiKey, isChatOpen, t
     toggleChatWindow(true); 
   };
 
-  const getTotalUnread = async() => {
-    try{
-      const response = await api.get(`chat/getTotalUnread/${loginId}`);
-      console.log(response.data);
-      setTotalUnread(response.data);
-    }catch(error){
-      console.log(error);
-    }
-  }
-
+  // const getTotalUnread = async() => {
+  //   try{
+  //     const response = await api.get(`chat/getTotalUnread/${loginId}`);
+  //     console.log(response.data);
+  //     setTotalUnread(response.data);
+  //   }catch(error){
+  //     console.log(error);
+  //   }
+  // }
   useEffect(() => {
-    getTotalUnread();
-  },[channel,channels])
+    console.log(channels);
+    console.log(totalUnread)
+  },[totalUnread])
+
+
+  // useEffect(() => {
+  //   getTotalUnread();
+  // },[channel])
+
 
 
   return (

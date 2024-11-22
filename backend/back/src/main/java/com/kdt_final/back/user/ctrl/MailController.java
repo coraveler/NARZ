@@ -35,7 +35,7 @@ public class MailController {
     }
 
     //인증코드 확인
-    @PostMapping("/sendCoupon")
+    @PostMapping("/verifyEmailCode")
     public ResponseEntity<Boolean> checkEmailCode(@RequestBody UserDTO.UserRequestDTO userDTO) {
 
         System.out.println(userDTO);
@@ -49,7 +49,6 @@ public class MailController {
     //쿠폰발송
     @PostMapping("/sendCoupon")
    public ResponseEntity<Boolean> sendCoupon(@RequestBody MailDTO mailDTO) throws MessagingException, UnsupportedEncodingException {
-
         Boolean result= mailService.sendCoupon(mailDTO.getEmail());
         ResponseEntity<Boolean> responseEntity = ResponseEntity.ok()
                 .body(result);

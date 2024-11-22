@@ -32,7 +32,7 @@ import { AuthProvider } from './context/AuthContext';
 import api from "./api/axios";
 
 function Header({board, local}) {
-  console.log(board+"/"+local);
+  // console.log(board+"/"+local);
   return <TravelHeader board={board} local={local}/>;
 }
 
@@ -55,7 +55,14 @@ function App() {
   const [channels, setChannels] = useState([]);
   const [isChatLoginSuccessful, setIsChatLoginSuccessful] = useState(false);
   const [chatChange, setChatChange] = useState();  
+  const[totalUnread,setTotalUnread] = useState();
 
+  if(chatInstance){
+    chatInstance.bind("onMessageReceived", function (channel, message) {
+      getLastChat(channels);
+    });
+    
+  }
 
   const handleChatLoginSuccess = (isSuccessful) => {
     setIsChatLoginSuccessful(isSuccessful);
@@ -86,29 +93,30 @@ function App() {
     // chatInstance가 존재할 때만 getChannels 호출
     if (chatInstance && isChatLoginSuccessful) {
       getChannels();
-      console.log(channels);
+      // console.log(channels);
       // const intervalId = setInterval(getChannels, 10000); // 10초마다 새로 고침
       // return () => clearInterval(intervalId); // 컴포넌트 언마운트 시 타이머 정리
     }
   }, [isChatLoginSuccessful, channel, isChatOpen, openFromButton, chatChange] );
 
   const toggleChatWindow = (state) => {
+    // console.log("ASDASDASDASDASD");
     setIsChatOpen(state);
     setOpenFromButton(false);
   };
 
   // openChatWindow 함수: 항상 채팅 창을 열도록 설정
   const openChatWindow = (recipientId, channel) => {
-    console.log(channel);
+    // console.log(channel);
     if (recipientId) {
       setRecipientId(recipientId);
-      console.log(recipientId);
+      // console.log(recipientId);
       setOpenFromButton(true);
     }else{
       setOpenFromButton(false);
     }
     if(channel){
-      console.log(channel);
+      // console.log(channel);
       setChannel(channel);
     }else{
       setChannel(null);
@@ -126,11 +134,9 @@ function App() {
     const sort = { created_at: -1 };
     const option = { offset: 0, per_page: 100 };
 
-
-    console.log("ASDASDASDASD");
     try {
       const channels = await chatInstance.getChannels(filter, sort, option);
-      console.log(channels.edges);
+      // console.log(channels.edges);
     
       // 모든 채널을 순회하면서 멤버를 필터링하고 업데이트
       const updatedChannels = channels.edges.map(channel => {
@@ -154,7 +160,7 @@ function App() {
     
       setChannels(sortedChannels);  // 모든 채널 데이터 업데이트
       await getLastChat(sortedChannels);
-      console.log("Updated Channels Data:", sortedChannels); // 결과 출력
+      // console.log("Updated Channels Data:", sortedChannels); // 결과 출력
     } catch (error) {
       console.error("Error message:", error);
     }
@@ -163,11 +169,10 @@ function App() {
 
   const getLastChat = async (channels) => {
     let unreadCount = 0; 
-
     for(const channel of channels){
       try {
         const response = await api.get(`chat/getLastChat/${loginId}/${channel.id}`);
-        console.log(response.data);
+        // console.log(response.data);
         const unreadForChannel = await markReadAndGetUnread(response.data ,channel);
         unreadCount += unreadForChannel;
       
@@ -175,15 +180,16 @@ function App() {
         console.error(error);
       }
     }
-    console.log(unreadCount);
+    setTotalUnread(unreadCount)
+    // console.log(unreadCount);
     // setTotalUnread(unreadCount);
-    await saveTotalUnread(unreadCount);
+    // await saveTotalUnread(unreadCount);
   }
 
   const markReadAndGetUnread = async (data, channel) => {
-    console.log(channel);
+    // console.log(channel);
     let unreadCountForChannel = 0;
-    console.log(data);
+    // console.log(data);
     if(data){
       try {
         // 각 메시지에 대해 마크 읽기 처리
@@ -198,7 +204,7 @@ function App() {
       }
       try {
         const unread = await chatInstance.unreadCount(data.channelId);
-        console.log(`Unread count for channel ${data.channelId}:`, unread);
+        // console.log(`Unread count for channel ${data.channelId}:`, unread);
         setChannels(prevChannels => 
           prevChannels.map(ch => 
             ch.id === channel.id ? { ...ch, unread:unread.unread } : ch
@@ -214,30 +220,17 @@ function App() {
           ch.id === channel.id ? { ...ch, unread: 1 } : ch
         )
       );
-      console.log(`Unread count for channel ${data}:`, 1);
+      // console.log(`Unread count for channel ${data}:`, 1);
       unreadCountForChannel = 1;
     }
     return unreadCountForChannel;
   };
 
-  const saveTotalUnread = async(unread) => {
-    console.log(unread);
-    const data = {
-      loginId: loginId,
-      totalUnread: unread
-    }
-    try{
-      const response = await api.post(`chat/saveTotalUnread`,data);
-      console.log(response);
-    }catch(error){  
-      console.error(error);
-    }
-  }
 
   useEffect(() => {
     // channels 상태가 업데이트되었을 때
     if (channels && channels.length > 0) {
-      console.log("Updated channels with unread counts:", channels);
+      // console.log("Updated channels with unread counts:", channels);
     }
   }, [channels]);  
 
@@ -246,6 +239,13 @@ function App() {
   const handleRefreshMileage = () => {
     setRefreshMileage((state) => !state);
   }
+  
+
+
+  useEffect(() => {
+    getLastChat(channels);
+  },[])
+  
 
   return (
     <AuthProvider>
@@ -384,6 +384,7 @@ function App() {
           channels={channels}
           openChatWindow={openChatWindow}
           handleChatChange={handleChatChange}
+          totalUnread={totalUnread}
         />
       )}
 

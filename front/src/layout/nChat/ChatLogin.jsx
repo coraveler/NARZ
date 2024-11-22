@@ -11,7 +11,7 @@ const ChatLogin = ({ loginId, userNickname, nc, handleChatLoginSuccess }) => {
       console.log("채팅 로그인 성공");
       handleChatLoginSuccess(true);
       const channels = await getChannels();
-    console.log(channels);
+    // console.log(channels);
     if (channels) {
       // 채널별로 회원 확인 및 구독
       channels.forEach((channel) => {
@@ -49,7 +49,7 @@ const ChatLogin = ({ loginId, userNickname, nc, handleChatLoginSuccess }) => {
       const response = await nc.subscribe(channelId, {"language":"kr"});
   
       if (response) {
-        console.log("subscribeChannel successfully:", response);
+        // console.log("subscribeChannel successfully:", response);
         // 성공적으로 메시지가 전송되었을 때 후속 작업
       }
       

@@ -8,9 +8,12 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import com.kdt_final.back.notification.dao.NotificationMapper;
 import com.kdt_final.back.notification.domain.AchievementNotificationRequestDTO;
+import com.kdt_final.back.notification.domain.HallOfFameNotificationRequestDTO;
 import com.kdt_final.back.notification.domain.NotificationMsgRequestDTO;
 import com.kdt_final.back.notification.domain.NotificationMsgResponseDTO;
 import com.kdt_final.back.notification.domain.NotificationResponseDTO;
+import com.kdt_final.back.notification.domain.RankingNotificationRequestDTO;
+import com.kdt_final.back.notification.domain.RankingNotificationResponseDTO;
 import com.kdt_final.back.notification.domain.mapRegionNotificationRequestDTO;
 
 @Service
@@ -66,6 +69,26 @@ public class NotificationService {
 
     public void saveAchievementNotification(AchievementNotificationRequestDTO params){
         notificationMapper.saveAchievementNotification(params);
+    }
+
+    public RankingNotificationResponseDTO fetchRankingInfo(RankingNotificationRequestDTO param){
+        return notificationMapper.fetchRankingInfo(param);
+    }
+
+    public List<RankingNotificationResponseDTO> fetchPostRanking(RankingNotificationRequestDTO param){
+        return notificationMapper.fetchPostRanking(param);
+    }
+
+    public void updateRankingNotified(String param){
+        notificationMapper.updateRankingNotified(param);
+    }
+
+    public boolean fetchHallOfFameInfo(HallOfFameNotificationRequestDTO param){
+        return notificationMapper.fetchHallOfFameInfo(param);
+    }
+
+    public void saveHallOfFameNotification(HallOfFameNotificationRequestDTO param){
+        notificationMapper.saveHallOfFameNotification(param);
     }
     
 }

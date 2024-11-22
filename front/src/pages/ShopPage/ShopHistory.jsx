@@ -82,7 +82,15 @@ const ShopHistory = () => {
               <tbody>
                 {currentItems.map((item, index) => (
                   <tr key={index}>
-                    <td>{item.createdAt}</td>
+                    <td>{new Date(item.createdAt).toLocaleString('ko-KR', {
+                      year: 'numeric',
+                      month: '2-digit',
+                      day: '2-digit',
+                      hour: '2-digit',
+                      minute: '2-digit',
+                      hour12: false, // 24시간 형식
+                    })}</td>
+
                     <td>{item.description}</td>
                     <td>{item.mileagePoints}</td>
                   </tr>
