@@ -1,22 +1,21 @@
 package com.kdt_final.back.ranking.service;
 
+import java.time.DayOfWeek;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
+
+import com.kdt_final.back.ranking.dao.RankingMapper;
 import com.kdt_final.back.ranking.domain.RankingRequestDTO;
 import com.kdt_final.back.ranking.domain.RankingResponseDTO;
 import com.kdt_final.back.ranking.domain.totalranker.TotalRankerResponseDTO;
 import com.kdt_final.back.ranking.domain.userinfo.UserInfoResponseDTO;
 import com.kdt_final.back.shop.dao.MileageMapper;
 import com.kdt_final.back.shop.domain.MileageHistory;
-import com.kdt_final.back.ranking.dao.RankingMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
-
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class RankingService {
