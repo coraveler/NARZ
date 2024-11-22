@@ -11,7 +11,6 @@ function FestivalInfoModal({
 
     return(
         <div>
-
             <style>
                 {`
                 @font-face {
