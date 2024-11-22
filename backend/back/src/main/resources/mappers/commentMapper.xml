@@ -26,7 +26,7 @@
     
     <select id="countCommentsByUserId" parameterType="int" resultType="int">
         SELECT COUNT(*)
-        FROM commentId
+        FROM comment
         WHERE userId = #{userId}
     </select>
     </mapper>
