@@ -43,6 +43,10 @@
     text-align: center;
     margin-top: 15px;
     font-size: 20px;
+    white-space: nowrap;  
+    overflow: hidden;           /* 넘치는 텍스트 숨기기 */
+    text-overflow: ellipsis;    /* 넘치는 텍스트는 '...'으로 표시 */
+    max-width: 18ch;
 }
 
 .cardLocation {
