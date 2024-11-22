@@ -5,7 +5,7 @@ import LeaderboardTable from "../Includes/Ranking/LeaderboardTable";
 import RankingNavigation from "../Includes/Ranking/RankingNavigation";
 import "../css/ranking/RankingPage.css";
 
-const RankingPage = ({ initialRank = "인기 게시글 랭킹" }) => {
+const RankingPage = ({ initialRank = "인기 여행노트 랭킹" }) => {
   const [activeRank, setActiveRank] = useState(initialRank);
   const [leaderboardData, setLeaderboardData] = useState([]);
   const [loading, setLoading] = useState(true);
