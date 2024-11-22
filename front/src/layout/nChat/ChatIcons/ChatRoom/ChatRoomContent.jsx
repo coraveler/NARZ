@@ -11,6 +11,16 @@ const ChatRoomContent = ({ loginId, recipientId, nc, channel }) => {
   const [friendState, setFriendState] = useState(null);
 
 // onMessageReceived 이벤트 리스너에서 메시지를 받으면 UI에 반영
+// nc.bind("onMessageReceived", function(channel, receivedMessage) {
+//   console.log("Received a new message: ", receivedMessage);
+//   // 기존 메시지 목록에 새로운 메시지를 추가
+//   setUpdateMessage((prevMessages) => [
+//     ...prevMessages,
+//     { node: receivedMessage }, // 새로운 메시지를 추가
+//   ]);
+//   scrollToBottom(); // 새로운 메시지가 오면 자동으로 스크롤을 맨 아래로 내립니다.
+// });
+
 nc.bind("onMessageReceived", function(channel, receivedMessage) {
   console.log("Received a new message: ", receivedMessage);
   // 기존 메시지 목록에 새로운 메시지를 추가
@@ -215,6 +225,7 @@ nc.bind("onMessageReceived", function(channel, receivedMessage) {
   }
 
   const saveLastChat = async (message) => {
+    console.log(message);
     const data = {
       channelId: message?.channel_id,
       senderId: message?.sender.id,
