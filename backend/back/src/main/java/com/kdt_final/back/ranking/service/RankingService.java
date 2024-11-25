@@ -86,7 +86,7 @@ public class RankingService {
     /**
      * 주간 랭킹 데이터 추가 (5분마다 실행)
      */
-    @Scheduled(cron = "0 * * * * *")
+    @Scheduled(cron = "0 5 * * * *")
     public void addWeeklyRankingData() {
         // System.out.println("주간 랭킹 데이터 추가 >>>>");
 
