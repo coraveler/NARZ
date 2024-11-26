@@ -162,15 +162,18 @@ const UserActions = ({ refreshMileage }) => {
 
   // 지도 사용 가능 메시지 알림
   useEffect(()=>{
-    if(localStorage.getItem("mapRegionNotification")){
-      setTimeout(() => {
-        if (localStorage.getItem(`mapRegionNotification`)) {
-          setNewNotificationStatus(true);
-          localStorage.removeItem(`mapRegionNotification`);
-        }
-      }, 100);
-    }
-  },[localStorage.getItem("mapRegionNotification")])
+    setTimeout(()=>{
+      if(localStorage.getItem("mapRegionNotification")){
+        setTimeout(() => {
+          if (localStorage.getItem(`mapRegionNotification`)) {
+            setNewNotificationStatus(true);
+            localStorage.removeItem(`mapRegionNotification`);
+          }
+        }, 100);
+      }
+    },500)
+    
+  },[])
 
 
   return (

@@ -36,7 +36,7 @@ const Calendar = () => {
                     start: sch.startDate,
                     end: new Date(new Date(sch.endDate).getTime() + 86400000).toISOString().split('T')[0],
                     id: sch.id,
-                    color: sch.color}));
+                    color: sch.color}));                
                 setScheduleAry(schAry)
             }catch(e){
                 console.log(e)
@@ -122,7 +122,7 @@ const Calendar = () => {
                     locale="ko"
                     height={'45vw'}     // 달력 높이
                     dayMaxEvents={true} // 이벤트 오버 높이 조정
-                    events={[...scheduleAry, ...holidayAry]}    // 이벤트 가져오기
+                    events={[...holidayAry,...scheduleAry]}    // 이벤트 가져오기
                     
                     // 헤더 툴바
                     headerToolbar={{
