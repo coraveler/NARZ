@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "../../api/axios";
 import { useEffect, useState } from "react";
 import { MdOutlineSecurityUpdateWarning } from "react-icons/md";
 import ReactModal from "react-modal";
@@ -80,7 +80,7 @@ function ScheduleUpdateModal({
         }
 
         try{
-            const response = await axios.patch('http://localhost:7777/api/schedule', data)
+            const response = await api.patch('/api/schedule', data)
             response.status==200 ? alert('수정이 완료되었습니다') : alert('수정에 실패하였습니다. 다시 시도해 주세요')
             getSchedule()
             getHoliday()

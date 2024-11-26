@@ -50,7 +50,7 @@ const ShopPurchase = ({ handleRefreshMileage }) => {
       const loginInfo = JSON.parse(loginInfoStr);
       const userId = loginInfo.data.userId;
       const response = await fetch(
-        `http://localhost:7777/api/mileage/total/${userId}`,
+        `http://211.188.63.26:7777/api/mileage/total/${userId}`,
         {
           credentials: "include",
         }
@@ -111,7 +111,7 @@ const ShopPurchase = ({ handleRefreshMileage }) => {
 
     try {
       const response = await fetch(
-        "http://localhost:7777/api/mileage/history",
+        "http://211.188.63.26:7777/api/mileage/history",
         {
           method: "POST",
           headers: {

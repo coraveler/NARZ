@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ShopNav from "./ShopNav";
 import styles from "../../css/Shop/Shop.module.css";  
+import api from "../../api/axios";
 
 function ShopPage({handleRefreshMileage}) {
   const [couponCode, setCouponCode] = useState("");
@@ -18,15 +19,15 @@ function ShopPage({handleRefreshMileage}) {
     const userId = parsedLoginInfo.data.userId;
 
     try {
-      const response = await fetch("http://localhost:7777/api/coupon/register", {
+      const response = await fetch("http://211.188.63.26:7777/api/coupon/register", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          couponCode: couponCode,
-          userId: userId, // 로그인된 사용자 ID 사용
-        }),
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              couponCode: couponCode,
+              userId: userId, // 로그인된 사용자 ID 사용
+            }),
       });
 
       const result = await response.text();

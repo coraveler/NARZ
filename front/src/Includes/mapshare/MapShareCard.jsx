@@ -113,7 +113,7 @@ function MapShareCard({img, getMapShareImg, fetchSelfMapShareImg, currentViewMet
                 <div onClick={()=>setMapCardInfoModalStatus(true)}>
                     {/* <div className="title-font">{img.userNickname}'s' MAP</div> */}
                     <div >
-                        <img src={`http://localhost:7777/api/uploads/images/mapshare/${img.mapImgUrl}`} 
+                        <img src={`http://211.188.63.26:7777/api/uploads/images/mapshare/${img.mapImgUrl}`} 
                             alt="맵 이미지" 
                             style={{width:'100px', height:'220px', marginTop:'20px'}}/>
                     </div>

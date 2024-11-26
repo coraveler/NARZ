@@ -1,11 +1,11 @@
-import axios from 'axios';
+import api from "../api/axios";
 
 
 export const setAchievement = (userId, achievementId) => {
     // 전달된 userId와 achievementId 값이 올바른지 확인하는 로그 추가
     console.log(`Setting achievement for userId: ${userId}, achievementId: ${achievementId}`);
 
-    return axios.post(`http://localhost:7777/api/achievement/set/${userId}/${achievementId}`)
+    return api.post(`/api/achievement/set/${userId}/${achievementId}`)
         .then(response => {
             console.log("Achievement set response:", response.data);
             return response.data;
@@ -26,7 +26,7 @@ export const setAchievement = (userId, achievementId) => {
 };
 export const getUnlockedAchievements = async (userId) => {
     try {
-        const response = await axios.get(`http://localhost:7777/api/achievement/unlocked/${userId}`);
+        const response = await api.get(`/api/achievement/unlocked/${userId}`);
         return response.data;
     } catch (error) {
         console.error("Error fetching unlocked achievements:", error);

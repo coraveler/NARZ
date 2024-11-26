@@ -183,7 +183,7 @@
         JOIN (
             SELECT author
             FROM getrankuser
-            WHERE rankingType = 'popularPost'  <!-- 랭킹 유형 -->
+            WHERE rankingType = 'userActivity'  <!-- 랭킹 유형 -->
             GROUP BY author
             ORDER BY COUNT(*) DESC  <!-- 가장 많이 랭킹된 author -->
             LIMIT 1

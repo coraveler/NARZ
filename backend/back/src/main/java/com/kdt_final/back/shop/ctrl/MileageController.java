@@ -18,7 +18,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 
 
 
-@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
+@CrossOrigin(origins = "http://211.188.63.26:3000", allowCredentials = "true")
 @RestController
 @RequestMapping("/api/mileage")
 public class MileageController {

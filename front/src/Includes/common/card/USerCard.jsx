@@ -65,7 +65,7 @@ function USerCard({data, cardIndex}){
             {/* <h2 className="hof-card-title">{cardIndex+1}위</h2> */}
             {rank}
             {/* 카드 이미지 (실제 이미지 URL을 사용하거나, placeholder를 사용) */}
-            <img src={`http://localhost:7777/profileImages/${userInfo?.profileImage}`}
+            <img src={userInfo?.profileImage=="default.png" ? "/img/default.png" :`http://211.188.63.26:7777/profileImages/${userInfo?.profileImage}`}
                  alt="카드 이미지" 
                 //  className="hof-card-img" 
                  style={{

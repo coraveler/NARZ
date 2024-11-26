@@ -1,11 +1,11 @@
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from "@fullcalendar/interaction";
 import FullCalendar from '@fullcalendar/react';
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import AddScheduleModal from '../Includes/calendar/AddScheduleModal';
 import ScheduleInfoModal from '../Includes/calendar/ScheduleInfoModal';
 import '../css/calendar/Calendar.css';
+import api from "../api/axios";
 
 const Calendar = () => {
 
@@ -27,7 +27,7 @@ const Calendar = () => {
             const userId = parseItem.data.userId
 
             try{
-                const response = await axios.get(`http://localhost:7777/api/schedule?userId=${userId}`)
+                const response = await api.get(`/api/schedule?userId=${userId}`)
                 const ary = response.data;
                 
                 const schAry = ary.map(sch => ({
@@ -47,7 +47,7 @@ const Calendar = () => {
     // db로부터 공휴일 가져오기
     const getHoliday = async () => {
         try{
-            const response = await axios.get('http://localhost:7777/api/holiday')
+            const response = await api.get('/api/holiday')
             const ary = response.data;
 
             const hdAry = ary.map(hd => ({
@@ -96,7 +96,7 @@ const Calendar = () => {
     // 일정 상세 내용 가져오기
     const getScheduleInfo = async () => {
         try{
-            const response = await axios.get(`http://localhost:7777/api/schedule/${scheduleId}`)
+            const response = await api.get(`/api/schedule/${scheduleId}`)
             setScheduleInfo(response.data)
         }catch(e){
             console.log(e)
@@ -122,7 +122,7 @@ const Calendar = () => {
                     locale="ko"
                     height={'45vw'}     // 달력 높이
                     dayMaxEvents={true} // 이벤트 오버 높이 조정
-                    events={[...scheduleAry, ...holidayAry]}    // 이벤트 가져오기
+                    events={[...holidayAry, ...scheduleAry]}    // 이벤트 가져오기
                     
                     // 헤더 툴바
                     headerToolbar={{

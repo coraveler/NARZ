@@ -1,4 +1,4 @@
-import axios from 'axios';
+import api from '../../api/axios';
 import { useState } from 'react';
 import { RiCalendarScheduleLine } from 'react-icons/ri';
 import ReactModal from 'react-modal';
@@ -66,7 +66,7 @@ function AddScheduleModal({
         
             try {
                 
-                const response = await axios.post('http://localhost:7777/api/schedule', data);
+                const response = await api.post('/api/schedule', data);
                 // 초기 상태 설정
                 setScheduleTitle('');
                 setScheduleStartDate(currentDate);

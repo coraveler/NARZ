@@ -107,7 +107,7 @@ public class PostService {
         postMapper.savePostImage(imgParams);
     }
     
-    String baseUrl = "http://localhost:7777/post/";
+    String baseUrl = "http://211.188.63.26:7777/post/";
 
     public List<PostResponseDTO> getAllPost(String local) {
         System.out.println("debug >>>> service list()" + postMapper); 

@@ -14,12 +14,19 @@ const ChatRoomContent = ({ loginId, recipientId, nc, channel }) => {
 nc.bind("onMessageReceived", function(receiveChannel, receivedMessage) {
   console.log("Received a new message: ", receivedMessage);
   console.log("Received a new message receiveChannel: ", receiveChannel);
-  console.log("Received a new message channel: ", channel.id);
+  console.log("Received a new message channel: ", channel);
   // 기존 메시지 목록에 새로운 메시지를 추가
   
-  if(channel.id == receiveChannel){
-    // console.log("ASDASDASDASD");
+  if(channel?.id == receiveChannel){ 
+    console.log("채널 null이 아닐 때");
     // getMessages(channel.id, null);
+    setUpdateMessage((prevMessages) => [
+      ...prevMessages,
+      { node: receivedMessage }, // 새로운 메시지를 추가
+    ]);
+    scrollToBottom(); // 새로운 메시지가 오면 자동으로 스크롤을 맨 아래로 내립니다.
+  }else if(channel === null){
+    console.log("채널 null일 때");
     setUpdateMessage((prevMessages) => [
       ...prevMessages,
       { node: receivedMessage }, // 새로운 메시지를 추가
@@ -87,7 +94,7 @@ nc.bind("onMessageReceived", function(receiveChannel, receivedMessage) {
         console.log("Message sent successfully:", response);
         // 성공적으로 메시지가 전송되었을 때 후속 작업
       }
-      sendMessage(channelId);
+      // sendMessage(channelId);
     } catch (error) {
       console.error("Error sending message:", error);
     }
@@ -191,8 +198,8 @@ nc.bind("onMessageReceived", function(receiveChannel, receivedMessage) {
     const option = { offset: 0, limit: 100 };
     try {
       const friends = await nc.getFriendships(filter, sort, option);
-      console.log(friends.edges[0].node.status);
-      setFriendState(friends.edges[0].node.status);
+      console.log(friends);
+      setFriendState(friends.edges[0]?.node.status);
     } catch (error) {
       console.error(error);
     }
@@ -200,7 +207,7 @@ nc.bind("onMessageReceived", function(receiveChannel, receivedMessage) {
 
   useEffect(() => {
     getFriendships();
-  }, [loginId, recipientId])
+  }, [loginId, recipientId, channel])
 
   const acceptFriend = async () => {
     console.log(recipientId);
@@ -208,6 +215,7 @@ nc.bind("onMessageReceived", function(receiveChannel, receivedMessage) {
       const response = await nc.acceptFriend(recipientId);
       console.log(response);
       setFriendState("accepted");
+      await subscribeChannel(channel.id);
     } catch (error) {
       console.error(error);
     }
@@ -259,15 +267,22 @@ nc.bind("onMessageReceived", function(receiveChannel, receivedMessage) {
       if (!channelId) {
         channelId = await createChannal();
         setChannalId(channelId);  // 새로 생성한 채널 ID 상태 업데이트
+        if (channelId) {
+          await subscribeChannel(channelId);
+          await requestFriend();
+          console.log("친구 신청할 때 작동해야 함 ");
+          await sendMessage(channelId); 
+        }
       }
-
-      if (channelId) {
-        await subscribeChannel(channelId);
-        await requestFriend();
-      }
-    } else {
+    } else{
+      console.log("그냥 채팅방에서 보낼 때 작동해야 함");
       await sendMessage(channel.id); // await 추가
+
+      // await subscribeChannel(channelId);
     }
+    // else {
+     
+    // }
   };
 
   // handleKeyDown에서 클릭 이벤트와 중복되지 않도록 수정

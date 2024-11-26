@@ -200,7 +200,7 @@ function FormSection({ post, postImgUrl, handleRefreshMileage }) {
     const description = `글작성`;
     try {
       const response = await fetch(
-        "http://localhost:7777/api/mileage/history",
+        "http://211.188.63.26:7777/api/mileage/history",
         {
           method: "POST",
           headers: {

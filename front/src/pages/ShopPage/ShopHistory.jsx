@@ -3,6 +3,7 @@ import { useAuth } from "../../context/AuthContext";
 import styles from "../../css/Shop/ShopHistory.module.css";
 import ShopNav from "./ShopNav";
 import { IoReceiptOutline } from "react-icons/io5";
+import api from "../../api/axios";
 
 const ShopHistory = () => {
   const { user } = useAuth(); // AuthContext에서 user 가져오기
@@ -20,7 +21,7 @@ const ShopHistory = () => {
     const fetchMileageHistory = async () => {
       try {
         const response = await fetch(
-          `http://localhost:7777/api/mileage/history/${user}`,
+          `http://211.188.63.26:7777/api/mileage/history/${user}`,
           {
             cache: "no-cache",
           }

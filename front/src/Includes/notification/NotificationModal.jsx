@@ -1,4 +1,3 @@
-import axios from "axios";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 
 import { BiSolidMessageDetail } from "react-icons/bi";
@@ -71,7 +70,7 @@ const NotificationModal = forwardRef(({
     // 알림 메시지 가져오기
     const getNotificationMsg = async (userId) => {
             try{
-                const response = await axios.get(`http://localhost:7777/api/notificationMessage?userId=${userId}`)
+                const response = await api.get(`/api/notificationMessage?userId=${userId}`)
                 setPreviousDayAry(response.data.filter(msg => new Date(msg.sendDate) < new Date().setHours(0, 0, 0, 0)).sort((a,b)=>new Date(b.sendDate) - new Date(a.sendDate))) // 오늘 00:00 이전
                 setTodayAry(response.data.filter(msg => new Date(msg.sendDate) >= new Date().setHours(0, 0, 0, 0) && new Date(msg.sendDate) < new Date().setHours(23, 59, 59, 999)).sort((a,b)=>new Date(b.sendDate) - new Date(a.sendDate)));
             }catch(e){
@@ -81,7 +80,7 @@ const NotificationModal = forwardRef(({
     
     // 일정 가져오기
     const fetchSchedule = (userId, userNickname) => {
-        const source = new EventSource(`http://localhost:7777/api/sse?userId=${userId}`);
+        const source = new EventSource(`http://211.188.63.26:7777/api/sse?userId=${userId}`);
         source.addEventListener("message", (event) => {
             let getSchedules = JSON.parse(event.data);
             const schedules = getSchedules.filter(sch => new Date(`${sch.startDate}T${sch.startTime}`) > afterOneHours && new Date(sch.startDate) < afterWeek)
@@ -161,7 +160,7 @@ const NotificationModal = forwardRef(({
                 userId : userId
             }
             try{
-                await axios.post("http://localhost:7777/api/notificationMessage", data)
+                await api.post("/api/notificationMessage", data)
             }catch(e){
                 console.log(e);
             }
@@ -174,7 +173,7 @@ const NotificationModal = forwardRef(({
             const item = localStorage.getItem("loginInfo")
             const parseItem = JSON.parse(item);
             const userId = parseItem.data.userId
-            await axios.delete(`http://localhost:7777/api/notificationMessage?msgId=${msgId}`)
+            await api.delete(`/api/notificationMessage?msgId=${msgId}`)
             getNotificationMsg(userId);
         }catch(e){
             console.log(e)
@@ -256,7 +255,7 @@ const NotificationModal = forwardRef(({
         }
 
         try{
-            await axios.post("http://localhost:7777/api/notificationMessage", data)
+            await api.post("/api/notificationMessage", data)
             saveMapRegionNotification(userId, originalRegion)
         }catch(e){
             console.log(e);

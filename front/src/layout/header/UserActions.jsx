@@ -6,6 +6,7 @@ import { MdNotificationsNone } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom"; // useNavigate 임포트
 import styled from "styled-components";
 import NotificationModal from "../../Includes/notification/NotificationModal";
+import api from "../../api/axios";
 
 // UserActions 컴포넌트
 const UserActions = ({ refreshMileage }) => {
@@ -20,28 +21,30 @@ const UserActions = ({ refreshMileage }) => {
   const ProfileIconComponent = isMac() ? StyledCgProfileMac : StyledCgProfile; //Mac인 경우와 아닌 경우의 프로필 아이콘 컴포넌트 설정
   const [refreshToggle, setRefreshToggle] = useState(false);
 
+
   const fetchMileage = async () => {
     try {
-      const loginInfoStr = localStorage.getItem("loginInfo");
-      if (!loginInfoStr) {
-        setTotalMileage(0);
-        return;
-      }
-      const loginInfo = JSON.parse(loginInfoStr);
-      const userId = loginInfo.data.userId;
-      const response = await fetch(
-        `http://localhost:7777/api/mileage/total/${userId}`,
-        {
-          credentials: "include",
+        const loginInfoStr = localStorage.getItem("loginInfo");
+        if (!loginInfoStr) {
+            setTotalMileage(0);
+            return;
         }
-      );
-      const data = await response.json();
-      console.log("Mileage fetched:", data);
-      setTotalMileage(data);
+        const loginInfo = JSON.parse(loginInfoStr);
+        const userId = loginInfo.data.userId;
+
+        const response = await fetch(
+          `http://211.188.63.26:7777/api/mileage/total/${userId}`,
+          {
+            credentials: "include",
+          }
+        );
+        const data = await response.json();
+        console.log("Mileage fetched:", data);
+        setTotalMileage(data);
     } catch (error) {
-      console.error("Error fetching mileage:", error);
+        console.error("Error fetching mileage:", error);
     }
-  };
+};
 
   useEffect(() => {
     fetchMileage();

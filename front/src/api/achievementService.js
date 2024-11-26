@@ -1,10 +1,10 @@
-import axios from 'axios';
+// import axios from 'axios';
 import api from './axios';
 
 // 전국일주자
 export const checkMapCompletion = async (userId) => {
     try {
-        const response = await axios.get(`http://localhost:7777/api/achievement/map-complete/${userId}`);
+        const response = await api.get(`/api/achievement/map-complete/${userId}`);
         console.debug("checkMapCompletion response:", response.data); 
         if(response.data == true){
             const achievement = "전국일주자";
@@ -28,7 +28,7 @@ export const checkMapCompletion = async (userId) => {
 // 여행의장인
 export const checkPostCount = async (userId, requiredCount) => {
     try {
-        const response = await axios.get(`http://localhost:7777/api/achievement/post-count/${userId}?requiredCount=${requiredCount}`);
+        const response = await api.get(`/api/achievement/post-count/${userId}?requiredCount=${requiredCount}`);
         console.debug("checkPostCount response:", response.data);
         if(response.data == true){
             const achievement = "여행의장인";
@@ -52,7 +52,7 @@ export const checkPostCount = async (userId, requiredCount) => {
 // 댓글마스터
 export const checkCommentCount = async (userId, requiredCount) => {
     try {
-        const response = await axios.get(`http://localhost:7777/api/achievement/comment-count/${userId}?requiredCount=${requiredCount}`);
+        const response = await api.get(`/api/achievement/comment-count/${userId}?requiredCount=${requiredCount}`);
         console.debug("checkCommentCount response:", response.data);
         if(response.data == true){
             const achievement = "댓글마스터";
@@ -76,7 +76,7 @@ export const checkCommentCount = async (userId, requiredCount) => {
 // 전국정복자
 export const checkAllRegionsCoverage = async (userId) => {
     try {
-        const response = await axios.get(`http://localhost:7777/api/achievement/all-regions/${userId}`);
+        const response = await api.get(`/api/achievement/all-regions/${userId}`);
         console.debug("checkAllRegionsCoverage response:", response.data);
         if(response.data == true){
             const achievement = "전국정복자";
@@ -100,7 +100,7 @@ export const checkAllRegionsCoverage = async (userId) => {
 // 최고 활동러
 export const checkhallOfFame = async (userId) => {
     try {
-        const response = await axios.get(`http://localhost:7777/api/achievement/check-hallOfFame/${userId}`);
+        const response = await api.get(`/api/achievement/check-hallOfFame/${userId}`);
         console.debug("checkhallOfFame response:", response.data); 
         if(response.data == true){
             const achievement = "최고활동러";
@@ -122,7 +122,7 @@ export const checkhallOfFame = async (userId) => {
 };
 
 export const assignAchievement = (userId, achievementName) => {
-    return axios.post(`http://localhost:7777/api/achievement/set/${userId}`, { achievementName })
+    return api.post(`/api/achievement/set/${userId}`, { achievementName })
         .then(response => {
             console.debug("assignAchievement response:", response.data);
             return response.data;
@@ -138,7 +138,7 @@ export const assignAchievement = (userId, achievementName) => {
 
 export const fetchUnlockedAchievements = async (userId) => {
     try {
-        const response = await axios.get(`http://localhost:7777/api/achievement/unlocked/${userId}`);
+        const response = await api.get(`/api/achievement/unlocked/${userId}`);
         console.debug("fetchUnlockedAchievements response:", response.data);
         return response.data;
     } catch (error) {
@@ -152,7 +152,7 @@ export const fetchUnlockedAchievements = async (userId) => {
 
 export const fetchAllAchievements = async () => {
     try {
-        const response = await axios.get(`http://localhost:7777/api/achievement/all`);
+        const response = await api.get(`/api/achievement/all`);
         console.debug("fetchAllAchievements response:", response.data);
         return response.data;
     } catch (error) {
@@ -204,7 +204,7 @@ export const saveAchievementNotificationMsg = async (userId, achievement) => {
     }
 
     try {
-        await axios.post("http://localhost:7777/api/notificationMessage", data)
+        await api.post("/api/notificationMessage", data)
         saveAchievementNotification(userId, achievement);
         alert(`'${achievement}'칭호가 해금되었습니다. 도전과제에서 확인하세요.`)
     } catch (error) {

@@ -87,7 +87,7 @@ public class MapService {
                     if (Files.isRegularFile(filePath)) {
                         // 파일의 이름을 가져와서 URL 형식으로 변환
                         String fileName = filePath.getFileName().toString();
-                        String imageUrl = "http://localhost:7777/map/img/" + userId + "/" + fileName; // URL 생성
+                        String imageUrl = "http://211.188.63.26:7777/map/img/" + userId + "/" + fileName; // URL 생성
                         imageUrls.add(imageUrl); // URL을 리스트에 추가
                     }
                 });

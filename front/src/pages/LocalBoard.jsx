@@ -26,7 +26,7 @@ function LocalBoard({ onParamsChange, selectedBadge }) {
     let loginInfo = getLoginInfo();
     const userId = loginInfo?.userId || null;
     const fullUrl = window.location.href;
-    const trimmedUrl = fullUrl.replace("http://localhost:3000", "");
+    const trimmedUrl = fullUrl.replace("http://211.188.63.26:3000", "");
     const travelogId = location.state?.travelogId || null;
 
     const getPost = async () => {

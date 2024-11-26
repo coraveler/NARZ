@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "../api/axios";
 import React, { useEffect, useState } from "react";
 import { FaCrown } from "react-icons/fa";
 import LeaderboardTable from "../Includes/Ranking/LeaderboardTable";
@@ -18,7 +18,7 @@ const RankingPage = ({ initialRank = "인기 여행노트 랭킹" }) => {
     setLoading(true);
     try {
       const encodedRankType = encodeURIComponent(rankType);
-      const response = await axios.get(`http://localhost:7777/api/rankings?rankType=${encodedRankType}`);
+      const response = await api.get(`/api/rankings?rankType=${encodedRankType}`);
       setLeaderboardData(response.data);
       console.log(response.data);
     } catch (error) {

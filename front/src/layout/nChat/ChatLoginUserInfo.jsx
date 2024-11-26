@@ -32,7 +32,7 @@ const ChatLoginUserInfo = ({ userInfo, timeDisplay, msg, state, unread }) => {
             {msg ? (
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: state === 'login' ? 'flex-end' : 'flex-start' }}>
                     {state !== 'login' && (
-                        <img src={`http://localhost:7777/profileImages/${profileImage}`} alt="Profile" style={{
+                        <img src={profileImage=="default.png" ?  "/img/default.png" :`http://211.188.63.26:7777/profileImages/${profileImage}`} alt="Profile" style={{
                             width: state ? '30px' : '45px',
                             height: state ? '30px' : '45px',
                             marginRight: state ? '10px' : '20px',
@@ -104,7 +104,7 @@ const ChatLoginUserInfo = ({ userInfo, timeDisplay, msg, state, unread }) => {
                 </div>
             ) : (
                 <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <img src={`http://localhost:7777/profileImages/${profileImage}`} alt="Profile" style={{
+                    <img src={profileImage=="default.png" ?  "/img/default.png" :`http://211.188.63.26:7777/profileImages/${profileImage}`} alt="Profile" style={{
                         width: '45px',
                         height: '45px',
                         marginRight: '20px',

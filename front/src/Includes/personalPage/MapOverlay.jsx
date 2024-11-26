@@ -56,8 +56,10 @@ const ImageOverlay = ({ userId, handleRefreshMileage }) => {
     };
 
     const fetchImages = async () => {
+        console.log(userId);
         try {
             const response = await api.get(`map/load/${userId}`);
+            console.log(response.data);
             setImages(response.data);
             checkMapCompletion(userId); // 칭호 조건 완료되었는지 확인
         } catch (error) {
@@ -97,7 +99,7 @@ const ImageOverlay = ({ userId, handleRefreshMileage }) => {
             const loginInfo = JSON.parse(loginInfoStr);
             const userId = loginInfo.data.userId;
             const response = await fetch(
-                `http://localhost:7777/api/mileage/total/${userId}`,
+                `http://211.188.63.26:7777/api/mileage/total/${userId}`,
                 {
                     credentials: "include",
                 }
@@ -114,7 +116,7 @@ const ImageOverlay = ({ userId, handleRefreshMileage }) => {
     const checkImageExistence = async (imageName) => {
         try {
             // HEAD 요청을 보내서 이미지가 있는지 확인
-            const response = await api.head(`http://localhost:7777/map/img/${userId}/${imageName}.png`)
+            const response = await api.head(`/map/img/${userId}/${imageName}.png`)
             if (response.status === 200) {
                 return true;
             } else {
@@ -160,7 +162,7 @@ const ImageOverlay = ({ userId, handleRefreshMileage }) => {
 
             try {
                 const response = await fetch(
-                    "http://localhost:7777/api/mileage/history",
+                    "http://211.188.63.26:7777/api/mileage/history",
                     {
                         method: "POST",
                         headers: {

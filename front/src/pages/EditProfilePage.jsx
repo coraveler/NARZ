@@ -8,7 +8,6 @@ import api from '../api/axios';
 import styles from '../css/EditProfilePage.module.css';
 import ColorChangeModal from "./Personal/ColorChangeModal";
 
-
 const EditProfilePage = ({ selectedBadge, nc }) => {
     let loginInfo = getLoginInfo();
     const userId = loginInfo?.userId || null;
@@ -156,7 +155,7 @@ const EditProfilePage = ({ selectedBadge, nc }) => {
             setBirthday(loginInfo.birthday);
 
             fetchNicknameColor();
-            setProfileImage(`http://localhost:7777/profileImages/${loginInfo.profileImage}`);
+            setProfileImage(`http://211.188.63.26:7777/profileImages/${loginInfo.profileImage}` );
         }
     }, [])
 
@@ -242,7 +241,7 @@ const EditProfilePage = ({ selectedBadge, nc }) => {
             <ProfileCard selectedBadge={selectedBadge} userId={userId} profileInfoRef={profileInfoRef} />
             <main className={styles.mainContainer}>
                 <div className={styles.ImageContainer}>
-                    <img src={profileImage} alt="Profile" />
+                    <img src={profileImage==`http://211.188.63.26:7777/profileImages/default.png` ? "/img/default.png" : profileImage} alt="Profile" />
                     <div className={styles.ButtonGroup}>
                         {
                             productCount?.changeProfileImage > 0 &&
@@ -262,7 +261,7 @@ const EditProfilePage = ({ selectedBadge, nc }) => {
 
                         <button
                             className={styles.deleteButton}
-                            onClick={() => setProfileImage(`http://localhost:7777/profileImages/default.png`)}
+                            onClick={() => setProfileImage("/img/default.png")}
                         >
                             삭제
                         </button>
@@ -426,6 +425,12 @@ const EditProfilePage = ({ selectedBadge, nc }) => {
                             let loginInfo = getLoginInfo();
                             const userId = loginInfo.userId;
                             const loginId = loginInfo.loginId;
+                            let defaultImg;
+                            if(profileImage=="/img/default.png"){
+                                defaultImg = "http://211.188.63.26:7777/profileImages/default.png"
+                            }else{
+                                defaultImg=profileImage
+                            }
                             let 전송할객체 = {
 
 
@@ -436,7 +441,7 @@ const EditProfilePage = ({ selectedBadge, nc }) => {
                                 email: email,
                                 phoneNum: phoneNum,
                                 birthday: birthday,
-                                profileImage: profileImage,
+                                profileImage: defaultImg,
 
                             }
                             console.log('전송할객체', 전송할객체)
@@ -466,6 +471,7 @@ const EditProfilePage = ({ selectedBadge, nc }) => {
                                     localStorage.setItem("loginInfo", JSON.stringify(loginInfo));
                                     alert("회원정보가 수정되었습니다.")
                                     navigate(0);
+                                    // window.location.href = '/personal/EditProfilePage';
 
                                 }
                             }

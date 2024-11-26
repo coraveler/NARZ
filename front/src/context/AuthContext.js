@@ -9,7 +9,7 @@ export const AuthProvider = ({ children }) => {
 
   const fetchUserMileage = async (userId) => {
     try {
-      const response = await fetch(`http://localhost:7777/api/mileage/total/${userId}`);
+      const response = await fetch(`http://211.188.63.26:7777/api/mileage/total/${userId}`);
       const mileage = await response.json();
       setUserMileage(mileage ?? 0); // 데이터가 없으면 0으로 설정
     } catch (error) {

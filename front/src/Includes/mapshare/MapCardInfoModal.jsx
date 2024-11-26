@@ -63,7 +63,7 @@ function MapCardInfoModal({
                     </div>
 
                     <div style={{position: 'relative'}}>
-                        <img src={`http://localhost:7777/api/uploads/images/mapshare/${img.mapImgUrl}`} alt="맵 이미지" style={{width:'250px', height:'500px', marginTop:'5px'}}/>    
+                        <img src={`http://211.188.63.26:7777/api/uploads/images/mapshare/${img.mapImgUrl}`} alt="맵 이미지" style={{width:'250px', height:'500px', marginTop:'5px'}}/>    
                     </div><br/><br/>
 
                 

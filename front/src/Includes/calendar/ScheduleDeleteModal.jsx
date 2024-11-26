@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "../../api/axios";
 import { TiWarningOutline } from "react-icons/ti";
 import ReactModal from "react-modal";
 
@@ -13,7 +13,7 @@ function ScheduleDeleteModal({
 
     const scheduleDeleteHandler = async () => {
         try{
-            const response = await axios.delete(`http://localhost:7777/api/schedule?id=${scheduleId}`)
+            const response = await api.delete(`/api/schedule?id=${scheduleId}`)
                 getSchedule()
                 getHoliday();
                 scheduleDeleteClose();

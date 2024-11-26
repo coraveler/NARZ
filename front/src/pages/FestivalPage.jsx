@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import axios from 'axios';
+import api from "../api/axios";
 import { useEffect, useState } from 'react';
 import { ImBullhorn } from "react-icons/im";
 import { LiaSmileWink } from "react-icons/lia";
@@ -31,7 +31,7 @@ function FestivalPage() {
 
     // db로부터 축제 일정 가져오기
     const getFestival = async () => {
-        const response = await axios.get('http://localhost:7777/api/festival')
+        const response = await api.get('/api/festival')
         const sortedFestivals = response.data.sort((a, b) => new Date(a.endDate) - new Date(b.endDate));
         setFestivalAry(sortedFestivals);
     }
