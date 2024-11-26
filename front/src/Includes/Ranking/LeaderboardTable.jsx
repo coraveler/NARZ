@@ -27,7 +27,7 @@ const LeaderboardTable = ({ leaderboardData, activeRank }) => {
 
   // leaderboardData가 갱신될 때마다 출력
   useEffect(() => {
-    if (activeRank === "인기 게시글 랭킹") {
+    if (activeRank === "인기 여행노트 랭킹") {
       console.log("Leaderboard Data: ", leaderboardData);
     }
   }, [leaderboardData]); 
@@ -60,12 +60,12 @@ const LeaderboardTable = ({ leaderboardData, activeRank }) => {
                   key={index} 
                   rank={index + 1}  
                   author={data.author} 
-                  board={activeRank === "인기 게시글 랭킹" ? data.board : undefined} 
-                  likes={activeRank === "인기 게시글 랭킹" ? data.likes : undefined} 
+                  board={activeRank === "인기 여행노트 랭킹" ? data.board : undefined} 
+                  likes={activeRank === "인기 여행노트 랭킹" ? data.likes : undefined} 
                   postCount={activeRank === "유저 활동 랭킹" ? data.postCount : undefined}
                   commentCount={activeRank === "유저 활동 랭킹" ? data.commentCount : undefined}
                 >
-                  {activeRank === "인기 게시글 랭킹" && (
+                  {activeRank === "인기 여행노트 랭킹" && (
                     <Link to={`/postpage/${data.postId}`} className="post-title-link">
                       {/* {data.title} */}
                     </Link>

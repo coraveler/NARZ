@@ -5,7 +5,7 @@ import "../../css/ranking/LeaderboardHeader.css";
 const LeaderboardHeader = ({ activeRank }) => {
   return (
     <div className="header-row">
-      {activeRank === "인기 게시글 랭킹" && (
+      {activeRank === "인기 여행노트 랭킹" && (
         <>
           <div className="header-cell"><FaMedal /> 순위</div>
           <div className="header-cell">작성자</div>

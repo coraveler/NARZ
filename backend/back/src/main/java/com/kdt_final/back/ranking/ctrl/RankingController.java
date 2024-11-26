@@ -28,7 +28,7 @@ public class RankingController {
     public List<RankingResponseDTO> getRankings(@RequestParam(name = "rankType") String rankType) {
         System.out.println("Received rankType: " + rankType);  // 로그 추가
 
-        if (rankType.equals("인기 게시글 랭킹")) {
+        if (rankType.equals("인기 여행노트 랭킹")) {
             return rankingService.getPopularPostRankings();
         } else if (rankType.equals("유저 활동 랭킹")) {
             return rankingService.getUserActivityRankings();
