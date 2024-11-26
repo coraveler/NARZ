@@ -105,6 +105,21 @@ const PostPage = () => {
         ));
       };
 
+      const renderTitleWithLineBreaks = (title, maxLength) => {
+        // 지정된 길이를 넘으면 강제로 줄바꿈을 넣어줍니다.
+        if (title?.length > maxLength) {
+          const firstPart = title.slice(0, maxLength);
+          const secondPart = title.slice(maxLength);
+          return (
+            <span>
+              {firstPart}<br />
+              {secondPart}
+            </span>
+          );
+        }
+        return title;
+      };
+
     return (
         <div className={styles.full}>
             <br/>
@@ -122,7 +137,9 @@ const PostPage = () => {
                 </div>
                 <section className={styles.profileContainer}>
                     <br/>
-                    <h1 className={styles.subTitle}>{post.title}  </h1> 
+                    <h1 className={styles.subTitle}>
+                    {renderTitleWithLineBreaks(post.title, 19)}  
+                        </h1> 
                     <h1 className={styles.profileTitle}> - {post.local} - </h1>
                     <br />
                     <div className={styles.profileInfo}>

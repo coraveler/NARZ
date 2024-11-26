@@ -31,7 +31,7 @@ public class RankingService {
      */
     @Scheduled(cron = "0 0 0 * * MON")
     public void resetWeeklyRanking() {
-        System.out.println("랭킹 집계 및 마일리지 지급 실행!!!!!");
+        // System.out.println("랭킹 집계 및 마일리지 지급 실행!!!!!");
         String currentWeek = getCurrentWeek();
 
         List<RankingResponseDTO> postRankUser = getPopularPostRankings();
@@ -68,7 +68,7 @@ public class RankingService {
             params.setRankType("userActivity");
             params.setWeekOf(currentWeek);
             params.setRanking(i + 1);
-            System.out.println(params);
+            // System.out.println(params);
             rankingMapper.saveRankUser(params);
             userInfo = rankingMapper.getUserInfo(params.getAuthor());
             mileage.setUserId(userInfo.getUserId());
@@ -88,10 +88,10 @@ public class RankingService {
      */
     @Scheduled(cron = "0 * * * * *")
     public void addWeeklyRankingData() {
-        System.out.println("주간 랭킹 데이터 추가 >>>>");
+        // System.out.println("주간 랭킹 데이터 추가 >>>>");
 
         String currentWeek = getCurrentWeek();
-        System.out.println("현재 주차: " + currentWeek);
+        // System.out.println("현재 주차: " + currentWeek);
 
         rankingMapper.clearWeeklyRanking();
 
@@ -131,27 +131,28 @@ public class RankingService {
     // 인기 게시글 랭킹 가져오기
     public List<RankingResponseDTO> getPopularPostRankings() {
         String currentWeek = getCurrentWeek();
-        System.out.println("Fetching Popular Posts for week: " + currentWeek);
-        System.out.println(rankingMapper.getPopularPostRankings(currentWeek));
+        // System.out.println("Fetching Popular Posts for week: " + currentWeek);
+        // System.out.println(rankingMapper.getPopularPostRankings(currentWeek));
         return rankingMapper.getPopularPostRankings(currentWeek);
     }
 
     // 유저 활동 랭킹 가져오기
     public List<RankingResponseDTO> getUserActivityRankings() {
         String currentWeek = getCurrentWeek();
-        System.out.println("Fetching User Activity Rankings for week: " + currentWeek);
+        // System.out.println("Fetching User Activity Rankings for week: " + currentWeek);
         return rankingMapper.getUserActivityRankings(currentWeek);
     }
 
     // 명예의 전당 가져오기
     public List<RankingResponseDTO> getHallOfFame() {
         String currentWeek = getCurrentWeek();
-        System.out.println("Fetching Hall of Fame for week: " + currentWeek);
+        // System.out.println("Fetching Hall of Fame for week: " + currentWeek);
         return rankingMapper.getHallOfFame(currentWeek);
     }
 
     // 랭킹 추가
     public void addRanking(RankingRequestDTO rankingRequestDTO) {
+        System.out.println(rankingRequestDTO);
         rankingMapper.addRanking(rankingRequestDTO);
     }
 
@@ -197,7 +198,6 @@ public class RankingService {
 
     public void addUserRanking(String currentWeek) {
         List<RankingRequestDTO> params = rankingMapper.addUserRanking(currentWeek);
-        System.out.println(params);
         for (RankingRequestDTO rankingRequestDTO : params) {
             rankingRequestDTO.setRankType("userActivity");
             rankingRequestDTO.setWeekOf(currentWeek);

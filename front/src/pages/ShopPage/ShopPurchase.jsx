@@ -200,7 +200,7 @@ const ShopPurchase = ({ handleRefreshMileage }) => {
               <br></br>
               {
                 index !== 3 &&
-                <span>보유: x{option.having}</span>
+                <span>보유: x{option.having ? option.having: 0}</span>
               }
               </div>
               

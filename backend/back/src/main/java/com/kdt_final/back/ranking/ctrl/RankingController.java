@@ -28,7 +28,7 @@ public class RankingController {
     public List<RankingResponseDTO> getRankings(@RequestParam(name = "rankType") String rankType) {
         System.out.println("Received rankType: " + rankType);  // 로그 추가
 
-        if (rankType.equals("인기 게시글 랭킹")) {
+        if (rankType.equals("인기 여행노트 랭킹")) {
             return rankingService.getPopularPostRankings();
         } else if (rankType.equals("유저 활동 랭킹")) {
             return rankingService.getUserActivityRankings();
@@ -39,10 +39,11 @@ public class RankingController {
         }
     }
 
-    @PostMapping
-    public void addRanking(@RequestBody RankingRequestDTO rankingRequestDTO) {
-        rankingService.addRanking(rankingRequestDTO);
-    }
+    // @PostMapping
+    // public void addRanking(@RequestBody RankingRequestDTO rankingRequestDTO) {
+    //     System.out.println("ASDASDASD");
+    //     rankingService.addRanking(rankingRequestDTO);
+    // }
 
     @DeleteMapping("/{rank}")
     public void deleteRanking(@PathVariable int rank) {

@@ -34,7 +34,7 @@ const LeaderboardRow = ({ rank, author, board, likes, postCount, commentCount,po
       </div>
       <div className="author-cell" style={{cursor:'pointer'}} onClick={()=>navigate(`/personal/${userId}`)}>{author}</div>
       {board !== undefined && <div className="board-cell" style={{cursor:'pointer'}} onClick={()=>navigate(`/postpage/${postId}`)}>
-                    {board}
+      {board?.length > 10 ? `${board.slice(0, 15)}...` : board}
                   </div>}
       {likes !== undefined && <div className="likes-cell">{likes}</div>}
       {postCount !== undefined && <div className="post-count-cell">{postCount}</div>}

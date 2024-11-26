@@ -88,7 +88,7 @@ function HomePage({ nc }) {
 
   const sections = [
     { title: '# 주간 활동 랭킹', data: userActivity, action: () => navigate("/ranking/user-activity") },
-    { title: ' # 주간 인기 게시글', data: popularPost, action: () => navigate("/ranking/popular") },
+    { title: ' # 주간 인기 여행노트', data: popularPost, action: () => navigate("/ranking/popular") },
     { title: '# 팔로잉 게시판', data: followPost, action: () => navigate("/board/follow/all") },
     { title: '# 북마크 게시판', data: bookMarkPost, action: () => navigate("/board/bookmark/all") }
   ];

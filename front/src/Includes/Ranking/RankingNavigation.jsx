@@ -5,7 +5,7 @@ import "../../css/ranking/RankingNavigation.css";
 
 
 const navItems = [
-  { text: "인기 게시글 랭킹", path: "/ranking/popular" },
+  { text: "인기 여행노트 랭킹", path: "/ranking/popular" },
   { text: "유저 활동 랭킹", path: "/ranking/user-activity" },
   { text: "명예의 전당", path: "/ranking/hall-of-fame" }
 ];
