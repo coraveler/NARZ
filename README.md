@@ -1,23 +1,12 @@
-<a href="https://club-project-one.vercel.app/" target="_blank">
-  
-</a>
-
-<br/>
-<br/>
-
-
-<br/>
-<br/>
 
 # 1. Project Overview (프로젝트 개요)
 - 프로젝트 이름: NARZ(나만 알고 싶은 지역)
 - 프로젝트 설명: 지도 공유를 중심으로 하는 여행 커뮤니티 사이트
 
 <br/>
-<br/>
 
 # 2. Team Members (팀원 및 팀 소개)
-|강건한 | 김시우 | 김윤서 | 서경아 || 윤세미 | 조세은 |
+|강건한 | 김시우 | 김윤서 | 서경아 | 윤세미 | 조세은 |
 
 
 <br/>
@@ -62,42 +51,17 @@
 <br/>
 
 # 4. Technology Stack (기술 스택)
-## 4.1 Language
-|  |  |
-|-----------------|-----------------|
-| HTML5    |<img src="https://github.com/user-attachments/assets/2e122e74-a28b-4ce7-aff6-382959216d31" alt="HTML5" width="100">| 
-| CSS3    |   <img src="https://github.com/user-attachments/assets/c531b03d-55a3-40bf-9195-9ff8c4688f13" alt="CSS3" width="100">|
-| Javascript |  <img src="https://github.com/user-attachments/assets/4a7d7074-8c71-48b4-8652-7431477669d1" alt="Javascript" width="100"> | 
-| Java |  <img src="https://github.com/user-attachments/assets/4a7d7074-8c71-48b4-8652-7431477669d1" alt="Javascript" width="100"> | 
 
-
-<br/>
-
-## 4.2 Frotend
-|  |  |  |
-|-----------------|-----------------|-----------------|
-| React    |  <img src="https://github.com/user-attachments/assets/e3b49dbb-981b-4804-acf9-012c854a2fd2" alt="React" width="100"> | 18.3.1    |
-
-
-<br/>
-
-## 4.3 Backend
-|  |  |  |
-|-----------------|-----------------|-----------------|
-| Springboot  |  <img src="https://github.com/user-attachments/assets/1694e458-9bb0-4a0b-8fe6-8efc6e675fa1" alt="Firebase" width="100">    | 10.12.5    |
-
-<br/>
-
-## 5. Cooperation
-|  |  |
-|-----------------|-----------------|
-| Github   |  <img src="https://github.com/user-attachments/assets/483abc38-ed4d-487c-b43a-3963b33430e6" alt="git" width="100">    |
-| Discord   |  <img src="https://github.com/user-attachments/assets/32c615cb-7bc0-45cd-91ea-0d1450bfc8a9" alt="git kraken" width="100">    |
-| Notion    |  <img src="https://github.com/user-attachments/assets/34141eb9-deca-416a-a83f-ff9543cc2f9a" alt="Notion" width="100">    |
-
-<br/>
-
-
-
+<div style="display: inline-block;">
+  <img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white">
+  <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=html5&logoColor=white">
+  <img src="https://img.shields.io/badge/Javascript-F7DF1E?style=for-the-badge&logo=html5&logoColor=white">
+  <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=openjdk&logoColor=white">
+  <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white"> 
+  <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> 
+  <img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white"> 
+  <img src="https://img.shields.io/badge/bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white">
+  <img src="https://img.shields.io/badge/NCP-03C75A?style=for-the-badge&logo=naver&logoColor=white">
+  <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white">
 
 
